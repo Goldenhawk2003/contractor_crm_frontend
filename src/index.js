@@ -1,10 +1,11 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import ClientsList from "./components/clientsList";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './App';
+import { AuthProvider } from './context/AuthContext';
 
 ReactDOM.render(
-  <React.StrictMode>
-    <ClientsList />
-  </React.StrictMode>,
-  document.getElementById("root")
+  <AuthProvider>
+    <App />
+  </AuthProvider>,
+  document.getElementById('root')
 );
