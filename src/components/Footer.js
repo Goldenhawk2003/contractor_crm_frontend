@@ -20,6 +20,7 @@ const Footer = () => {
           <i className="fab fa-linkedin-in"></i>
         </Link>
       </div>
+      <img src={`${process.env.PUBLIC_URL}/images/IMG_2583.PNG`} alt="Logo" height="50px"/>
     </footer>
   );
 };

@@ -1,0 +1,46 @@
+.contractors-list, .contractor-profile, .contractor-form {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+  }
+  
+  .contractors-list h2, .contractor-profile h2, .contractor-form h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .contractors-list ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .contractors-list li {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .contractors-list li a {
+    text-decoration: none;
+    color: #007bff;
+  }
+  
+  .contractor-form input {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .contractor-form button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }

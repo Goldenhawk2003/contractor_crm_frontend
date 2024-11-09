@@ -1,18 +1,38 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Home.css';
 
 const Home = () => {
+  const [searchText, setSearchText] = useState('');
+
+  const handleKeyPress = (event) => {
+    if (event.key === 'Enter') {
+      event.preventDefault(); // Prevents form submission if wrapped in a form element
+      setSearchText(''); // Clears the input
+    }
+  };
+
   return (
     <div className="home-container">
-        <h1 className="head">Welcome To Elite Crafts Contractors</h1>
-      <div className="button-group">
-        <button className="nav-button">Become a Contractor</button>
-        <button className="nav-button">Jobs</button>
-        <button className="nav-button">Login/Signup</button>
-      </div>
+      <h1 className="head">Welcome To Elite Crafts Contractors</h1>
+      <p className="subhead">Your trusted platform for skilled contractors in every field.</p>
+      
       <div className="search-bar-container">
-        <input type="text" className="search-bar" placeholder="Plumbing, renovations, snow removal" />
+        <input
+          type="text"
+          className="search-bar"
+          placeholder="Search services: Plumbing, renovations, snow removal"
+          value={searchText}
+          onChange={(e) => setSearchText(e.target.value)}
+          onKeyPress={handleKeyPress}
+        />
         <i className="fas fa-search search-icon"></i>
+      </div>
+
+      <div className="services-buttons">
+        <button className="service-button">Plumbing</button>
+        <button className="service-button">Renovations</button>
+        <button className="service-button">Electrical</button>
+        <button className="service-button">Snow Removal</button>
       </div>
     </div>
   );

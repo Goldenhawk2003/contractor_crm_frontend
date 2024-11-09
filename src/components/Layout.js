@@ -12,9 +12,10 @@ const Layout = () => {
       <header>
         <nav className="button-group">
           <Link to="/" className="nav-button" >Home</Link>
-          <Link to="/become-a-contractor" className="nav-button" >Become a Contractor</Link>
-          <Link to="/jobs" className="nav-button" >Jobs</Link>
+          <Link to="/Dashboard" className="nav-button" >Dashboard</Link>
+          <Link to="/jobs" className="nav-button" >Chat</Link>
           <Link to="/contact" className="nav-button">Contact us</Link>
+          <img src={`${process.env.PUBLIC_URL}/images/IMG_2582.PNG`} alt="Logo" height="50px"/>
           {!isAuthenticated ? (
             <Link to="/login" style={{ float: 'right' }} className="log-button">Login/Signup</Link>
           ) : (
