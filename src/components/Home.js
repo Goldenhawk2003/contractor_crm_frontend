@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
+import { Link, Outlet } from 'react-router-dom';
 import './Home.css';
+
 
 const Home = () => {
   const [searchText, setSearchText] = useState('');
@@ -33,6 +35,7 @@ const Home = () => {
         <button className="service-button">Renovations</button>
         <button className="service-button">Electrical</button>
         <button className="service-button">Snow Removal</button>
+        <Link to="/ServiceRequest" className="service-button">Service Request</Link> 
       </div>
     </div>
   );

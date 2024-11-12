@@ -13,6 +13,7 @@ import ContractorsList from './components/Contractors/ContractrorsList.js';
 import Dashboard from './components/Dashboard/Dashboard'; // Added Dashboard import
 import Home from './components/Home';
 import Layout from './components/Layout';
+import ServiceRequest from './components/ServiceRequest/ServiceRequest.js';
 
 
 
@@ -26,6 +27,7 @@ function App() {
           <Route path="/signup" element={<Signup />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/ServiceRequest" element={<ServiceRequest />} />
           {/* Client-related routes */}
           <Route path="clients" element={<ClientsList />} />
           <Route path="clients/:id" element={<ClientProfile />} />

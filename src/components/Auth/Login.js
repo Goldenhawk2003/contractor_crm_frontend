@@ -6,19 +6,46 @@ import './Auth.css';
 const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const { login } = useAuth(); // Replace with actual login API call when integrating
+  const [error, setError] = useState(null); // State to track login errors
+  const { setToken } = useAuth(); // Assume useAuth provides a way to set token
   const navigate = useNavigate();
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    // Placeholder for API call to authenticate user
-    login(); // Simulate login by calling context login function
-    navigate('/dashboard'); // Redirect to dashboard upon successful login
+    setError(null); // Clear any previous error
+
+    try {
+      // Send a POST request to the login API
+      const response = await fetch('/api/token/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username, password }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Login failed. Please check your credentials.');
+      }
+
+      const data = await response.json();
+      const token = data.access; // Adjust if using refresh token as well
+
+      // Store the token using the Auth context
+      setToken(token);
+      localStorage.setItem('accessToken', token); // Optional: store in localStorage
+
+      // Navigate to the dashboard upon successful login
+      navigate('/dashboard');
+    } catch (error) {
+      setError(error.message);
+    }
   };
 
   return (
     <div className="auth-container">
       <h2>Login</h2>
+      {error && <p className="error">{error}</p>}
       <form onSubmit={handleLogin}>
         <input
           type="text"
