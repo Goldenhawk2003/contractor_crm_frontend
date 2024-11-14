@@ -1,6 +1,7 @@
 import '@fortawesome/fontawesome-free/css/all.min.css';
-import React from 'react';
+import React, {useEffect} from 'react';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
+import { AuthProvider } from './context/AuthContext';
 import Login from './components/Auth/Login';
 import Signup from './components/Auth/Signup'; // Added Signup import
 import ClientProfile from './components/Clients/ ClientProfile';
@@ -14,33 +15,56 @@ import Dashboard from './components/Dashboard/Dashboard'; // Added Dashboard imp
 import Home from './components/Home';
 import Layout from './components/Layout';
 import ServiceRequest from './components/ServiceRequest/ServiceRequest.js';
+import UserProfile from './components/UserProfile';
 
 
+function useCsrfToken() {
+  useEffect(() => {
+    const fetchCsrfToken = async () => {
+      try {
+        const response = await axios.get('http://localhost:8000/api/csrf_token/', {
+          withCredentials: true,
+        });
+        localStorage.setItem('csrfToken', response.data.csrfToken);
+        console.log('CSRF Token fetched and stored:', response.data.csrfToken);
+      } catch (error) {
+        console.error('Error fetching CSRF token:', error);
+      }
+    };
+
+    fetchCsrfToken();
+  }, []);
+}
 
 function App() {
+  useCsrfToken();
+
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/ServiceRequest" element={<ServiceRequest />} />
-          {/* Client-related routes */}
-          <Route path="clients" element={<ClientsList />} />
-          <Route path="clients/:id" element={<ClientProfile />} />
-          <Route path="clients/edit/:id" element={<ClientForm />} />
-          <Route path="clients/add" element={<ClientForm />} />
-          {/* Contractor-related routes */}
-          <Route path="contractors" element={<ContractorsList />} />
-          <Route path="contractors/:id" element={<ContractorProfile />} />
-          <Route path="contractors/edit/:id" element={<ContractorForm />} />
-          <Route path="contractors/add" element={<ContractorForm />} />
-        </Route>
-      </Routes>
-    </Router>
+    <AuthProvider>
+      <Router>
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route index element={<Home />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/user-profile" element={<UserProfile />} />
+            <Route path="/ServiceRequest" element={<ServiceRequest />} />
+            {/* Client-related routes */}
+            <Route path="clients" element={<ClientsList />} />
+            <Route path="clients/:id" element={<ClientProfile />} />
+            <Route path="clients/edit/:id" element={<ClientForm />} />
+            <Route path="clients/add" element={<ClientForm />} />
+            {/* Contractor-related routes */}
+            <Route path="contractors" element={<ContractorsList />} />
+            <Route path="contractors/:id" element={<ContractorProfile />} />
+            <Route path="contractors/edit/:id" element={<ContractorForm />} />
+            <Route path="contractors/add" element={<ContractorForm />} />
+          </Route>
+        </Routes>
+      </Router>
+    </AuthProvider>
   );
 }
 

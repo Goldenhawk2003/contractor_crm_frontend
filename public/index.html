@@ -9,4 +9,8 @@
 <body>
   <div id="root"></div>
 </body>
+<script>
+  const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+  document.cookie = `csrftoken=${csrfToken}; path=/`;
+</script>
 </html>
