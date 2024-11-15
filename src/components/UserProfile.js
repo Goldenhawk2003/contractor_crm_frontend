@@ -1,47 +1,34 @@
-import React, { useEffect, useState } from 'react';
-import { useAuth } from '../context/AuthContext';
-import axios from 'axios'; // Assuming you've set up axios instance or use direct API call
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 const UserProfile = () => {
-  const { isAuthenticated } = useAuth();  // Check if the user is logged in
-  const [userData, setUserData] = useState(null);
-  const [loading, setLoading] = useState(true);
+    const [userInfo, setUserInfo] = useState(null);
 
-  useEffect(() => {
-    if (isAuthenticated) {
-      const fetchUserProfile = async () => {
-        try {
-          const response = await api.get('/api/user-profile/'); // Fetch the logged-in user's profile
-          setUserData(response.data);
-        } catch (error) {
-          console.error('Error fetching user profile:', error);
-        } finally {
-          setLoading(false);
-        }
-      };
-      fetchUserProfile();
-    } else {
-      setLoading(false);
+    useEffect(() => {
+        // Fetch the logged-in user's info from the backend
+        axios.get('http://localhost:8000/api/user-info/', {
+            withCredentials: true,  // Ensure the session cookie is sent with the request
+        })
+        .then((response) => {
+            setUserInfo(response.data);  // Store the user info in state
+        })
+        .catch((error) => {
+            console.error('Failed to fetch user info:', error.response ? error.response.data : error.message);
+        });
+    }, []);
+
+    if (!userInfo) {
+        return <p>Loading user info...</p>;  // Show loading message while fetching data
     }
-  }, [isAuthenticated]);
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-
-  if (!isAuthenticated) {
-    return <div>Please log in to view your profile.</div>;
-  }
-
-  return (
-    <div>
-      <h1>User Profile</h1>
-      <p><strong>Username:</strong> {userData.username}</p>
-      <p><strong>Email:</strong> {userData.email}</p>
-      <p><strong>First Name:</strong> {userData.first_name}</p>
-      <p><strong>Last Name:</strong> {userData.last_name}</p>
-    </div>
-  );
+    return (
+        <div>
+            <h1>User Profile</h1>
+            <p>Username: {userInfo.username}</p>
+            <p>Email: {userInfo.email}</p>
+            <p>Name: {userInfo.first_name} {userInfo.last_name}</p>
+        </div>
+    );
 };
 
 export default UserProfile;

@@ -1,31 +1,26 @@
-// src/components/Auth/Login.js
 import React, { useState } from 'react';
 import axios from 'axios';
 
 const Login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const csrfToken = localStorage.getItem('csrfToken');  // Get CSRF token from localStorage
 
     const handleLogin = async (event) => {
         event.preventDefault();
 
         try {
+            // Send the POST request to the login endpoint
             const response = await axios.post(
-                'http://localhost:8000/api/login/',  // Your Django login endpoint
+                'http://localhost:8000/api/login/',  // Your Django API endpoint
                 { username, password },
-                {
-                    headers: {
-                        'X-CSRFToken': csrfToken,  // Attach CSRF token to headers
-                        'Content-Type': 'application/json'
-                    },
-                    withCredentials: true,  // Allow cookies to be sent
-                }
+                { withCredentials: true }  // Ensure credentials are sent with the request
             );
 
+            // If login is successful, handle the response
             console.log('Login successful:', response.data);
-            // Handle successful login here (e.g., redirect or save user data)
+            // Redirect the user or show a success message
         } catch (error) {
+            // Handle errors (invalid credentials, etc.)
             console.error('Login failed:', error.response ? error.response.data : error.message);
         }
     };
