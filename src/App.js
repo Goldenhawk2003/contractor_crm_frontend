@@ -16,6 +16,8 @@ import Home from './components/Home';
 import Layout from './components/Layout';
 import ServiceRequest from './components/ServiceRequest/ServiceRequest.js';
 import UserProfile from './components/UserProfile';
+import FindCont from './components/FindCont/FindCont.js';
+import Quiz from './components/FindCont/Quiz.js';
 
 
 function useCsrfToken() {
@@ -51,6 +53,8 @@ function App() {
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/user-profile" element={<UserProfile />} />
             <Route path="/ServiceRequest" element={<ServiceRequest />} />
+            <Route path="/find-contractor" element={<FindCont />} />
+            <Route path="/Quiz" element={<Quiz />} />
             {/* Client-related routes */}
             <Route path="clients" element={<ClientsList />} />
             <Route path="clients/:id" element={<ClientProfile />} />
@@ -58,7 +62,7 @@ function App() {
             <Route path="clients/add" element={<ClientForm />} />
             {/* Contractor-related routes */}
             <Route path="contractors" element={<ContractorsList />} />
-            <Route path="contractors/:id" element={<ContractorProfile />} />
+            <Route path="/contractor/:id" element={<ContractorProfile />} />
             <Route path="contractors/edit/:id" element={<ContractorForm />} />
             <Route path="contractors/add" element={<ContractorForm />} />
           </Route>

@@ -36,6 +36,7 @@ const Home = () => {
         <button className="service-button">Electrical</button>
         <button className="service-button">Snow Removal</button>
         <Link to="/ServiceRequest" className="service-button">Service Request</Link> 
+        <Link to="/find-contractor" className='service-button'>Find a Contractor</Link>
       </div>
     </div>
   );
