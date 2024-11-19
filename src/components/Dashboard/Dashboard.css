@@ -1,77 +1,46 @@
-.dashboard-container {
-    padding: 20px;
-    max-width: 800px;
-    margin: 0 auto;
-  }
-  
-  h1 {
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  
-  /* Metrics overview styling */
-  .metrics {
-    display: flex;
-    justify-content: space-around;
-    margin-bottom: 30px;
-  }
-  
-  .metric-box {
-    background-color: #f0f0f0;
-    padding: 20px;
-    border-radius: 10px;
-    width: 150px;
-    text-align: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  .metric-box h2 {
-    margin: 0;
-    font-size: 18px;
-    color: #333;
-  }
-  
-  .metric-box p {
-    font-size: 24px;
-    font-weight: bold;
-    color: #007bff;
-  }
-  
-  /* Recent activities styling */
-  .recent-activities {
-    margin-top: 20px;
-  }
-  
-  .recent-activities h2 {
-    font-size: 20px;
-    margin-bottom: 10px;
-  }
-  
-  .recent-activities ul {
-    list-style-type: none;
-    padding: 0;
-  }
-  
-  .recent-activities li {
-    background-color: #f9f9f9;
-    margin-bottom: 8px;
-    padding: 10px;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
-  .nav-button {
-    padding: 15px 30px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 50px; /* Rounded edges for egg shape */
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    padding-right: 10px;;
-  }
-  
-.nav-button:hover {
-    background-color: #0056b3;
-  }
+.dashboard {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+  color: #333;
+}
+
+h1 {
+  text-align: center;
+  color: #007bff;
+}
+
+h2 {
+  margin-top: 20px;
+  color: #555;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  margin: 10px 0;
+}
+
+.error {
+  color: red;
+  font-weight: bold;
+}
+
+.dashboard-link {
+  display: block;
+  margin-top: 20px;
+  text-align: center;
+  color: #007bff;
+  text-decoration: none;
+}
+
+.dashboard-link:hover {
+  text-decoration: underline;
+}

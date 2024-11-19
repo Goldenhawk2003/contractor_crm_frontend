@@ -2,38 +2,52 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Dashboard.css';
 
-const api = require('../../api').default;
-
 const Dashboard = () => {
-  const [data, setData] = useState(null);
-  const [error, setError] = useState(null); // for error handling
+  const [data, setData] = useState(null); // State to store dashboard data
+  const [error, setError] = useState(null); // State for error handling
+  const [isLoading, setIsLoading] = useState(true); // State to track loading
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchDashboard = async () => {
       try {
-        const token = localStorage.getItem('access_token'); // Ensure token is retrieved
-        const response = await api.get('/dashboard/', {
+        const response = await fetch('http://localhost:8000/dashboard/', {
+          method: 'GET',
+          credentials: 'include', // Include session cookies in the request
           headers: {
-            Authorization: `Bearer ${token}`, // Include the token in the request header
+            'Content-Type': 'application/json',
           },
         });
-        setData(response.data); // Set the data to state
+
+        if (!response.ok) {
+          throw new Error(`Failed to fetch dashboard: ${response.status}`);
+        }
+
+        const responseData = await response.json();
+        console.log('Dashboard data:', responseData);
+        setData(responseData); // Set the fetched data in state
       } catch (error) {
-        console.error('Error fetching data:', error);
-        setError('Failed to load dashboard data'); // Set error message in case of failure
+        console.error('Error fetching dashboard:', error);
+        setError('Failed to load dashboard data. Please try again later.');
+      } finally {
+        setIsLoading(false); // Stop loading
       }
     };
 
-    fetchData();
+    fetchDashboard();
   }, []);
 
   return (
     <div className="dashboard">
       <h1>Admin Dashboard</h1>
 
-      {error && <p className="error">{error}</p>} {/* Display error message if any */}
+      {/* Display error if any */}
+      {error && <p className="error">{error}</p>}
 
-      {data ? (
+      {/* Display loading state */}
+      {isLoading && <p>Loading...</p>}
+
+      {/* Render dashboard data when available */}
+      {!isLoading && data && (
         <div>
           <h2>Summary</h2>
           <ul>
@@ -43,13 +57,12 @@ const Dashboard = () => {
             <li>Paid Invoices: {data.paid_invoices}</li>
           </ul>
 
-          {/* Assuming you also want to show form responses */}
           <h2>Form Responses</h2>
           {data.form_responses && data.form_responses.length > 0 ? (
             <ul>
               {data.form_responses.map((response, index) => (
                 <li key={index}>
-                  <strong>Response {index + 1}:</strong> {response.response}
+                  <strong>Response {index + 1}:</strong> {response.answer} (Quiz: {response.quiz})
                 </li>
               ))}
             </ul>
@@ -57,12 +70,15 @@ const Dashboard = () => {
             <p>No form responses available.</p>
           )}
         </div>
-      ) : (
-        <p>Loading...</p>
       )}
 
-      {/* Example link to another page */}
-      <Link to="/another-page">Go to another page</Link>
+      {/* Render a fallback if no data is available */}
+      {!isLoading && !data && <p>No dashboard data available.</p>}
+
+      {/* Navigation link */}
+      <Link to="/another-page" className="dashboard-link">
+        Go to another page
+      </Link>
     </div>
   );
 };

@@ -31,10 +31,7 @@ const Home = () => {
       </div>
 
       <div className="services-buttons">
-        <button className="service-button">Plumbing</button>
-        <button className="service-button">Renovations</button>
-        <button className="service-button">Electrical</button>
-        <button className="service-button">Snow Removal</button>
+        
         <Link to="/ServiceRequest" className="service-button">Service Request</Link> 
         <Link to="/find-contractor" className='service-button'>Find a Contractor</Link>
       </div>
