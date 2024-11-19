@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './Auth.css';
 
 function Signup() {
   const [formData, setFormData] = useState({
@@ -7,6 +8,7 @@ function Signup() {
     password: '',
     confirmPassword: '',
     role: 'client', // default role
+    job_type: '', // Changed field name from jobType to job_type to match backend
   });
 
   const [error, setError] = useState(''); // For displaying error messages
@@ -32,6 +34,9 @@ function Signup() {
     if (password !== confirmPassword) {
       return "Passwords do not match";
     }
+    if (formData.role === 'professional' && !formData.job_type) {
+      return "Job type is required for professionals";
+    }
     return null;
   };
 
@@ -43,20 +48,32 @@ function Signup() {
       return;
     }
 
+    // Exclude confirmPassword from the payload
+    const { confirmPassword, ...payload } = formData;
+
     try {
       const response = await fetch('http://localhost:8000/api/register/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(payload),
       });
 
       const data = await response.json();
-      if (data.message) {
+      if (response.ok) {
         alert(data.message); // Display success message
+        setError(''); // Clear error state
+        setFormData({
+          username: '',
+          email: '',
+          password: '',
+          confirmPassword: '',
+          role: 'client',
+          job_type: '',
+        }); // Reset form fields
       } else {
-        setError("An error occurred during registration");
+        setError(data.error || "An error occurred during registration");
       }
     } catch (error) {
       setError("Failed to connect to the server");
@@ -64,7 +81,7 @@ function Signup() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="contain">
       {error && <p style={{ color: 'red' }}>{error}</p>}
       
       <input
@@ -123,6 +140,17 @@ function Signup() {
         />
         Professional
       </label>
+      
+      {formData.role === 'professional' && (
+        <input
+          type="text"
+          name="job_type" // Changed from jobType to job_type
+          value={formData.job_type}
+          onChange={handleChange}
+          placeholder="Job Type (e.g., Plumber, Renovator)"
+          required
+        />
+      )}
       
       <button type="submit">Sign Up</button>
     </form>
