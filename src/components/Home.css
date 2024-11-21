@@ -3,21 +3,21 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 20px;
-  height: 100vh;
-  background-color: #f5f5f5;
+  
+  background-color: #5f7674;
+  width: 100%;
 }
 
 .head {
   font-size: 2.5rem;
   margin-bottom: 10px;
-  color: #333;
+  color: #FFFF;
   text-align: center;
 }
 
 .subhead {
   font-size: 1.25rem;
-  color: #666;
+  color: #ffff;
   margin-bottom: 30px;
   text-align: center;
 }
@@ -27,15 +27,36 @@
   width: 80%;
   max-width: 500px;
   margin-bottom: 20px;
+  display: flex; /* Ensures proper alignment of input and button */
+  border-radius: 25px;
+  overflow: hidden; /* Ensures smooth edges and prevents elements from overflowing */
 }
 
 .search-bar {
-  width: 100%;
+  flex: 1; /* Ensures the input takes up all remaining space */
   padding: 12px 20px;
-  padding-right: 50px;
-  border-radius: 25px;
-  border: 1px solid #ddd;
+  border: none;
   font-size: 16px;
+  outline: none; /* Removes default focus outline */
+}
+
+.search-button {
+  background-color: #cfbb7e; /* Gold color */
+  border: none;
+  width: 50px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.search-button:hover {
+  background-color: #bca465; /* Darker gold on hover */
+}
+
+.search-button i {
+  color: white; /* Optional: Use an icon or text */
+  font-size: 18px;
 }
 
 .search-icon {
@@ -43,7 +64,7 @@
   right: 15px;
   top: 50%;
   transform: translateY(-50%);
-  color: #aaa;
+  color: #cfbb7e;
   font-size: 18px;
   pointer-events: none;
 }
@@ -58,7 +79,7 @@
 .service-button {
   padding: 10px 20px;
   background-color: transparent;
-  color: #000;
+  color: #ffff;
   border: none;
   border-radius: 20px;
   cursor: pointer;
@@ -69,5 +90,114 @@
 }
 
 .service-button:hover {
-  background-color: #c53535;
+  background-color: #cfbb7e;
+}
+.Contractor-choices {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.Contractor-choices button {
+  position: relative; /* Allow positioning of child elements */
+  width: 100px; /* Adjust button size */
+  height: 100px; /* Adjust button size */
+  background: none; /* Remove default button background */
+  border: none; /* Remove border */
+  padding: 0; /* Remove padding */
+  cursor: pointer; /* Change cursor to pointer */
+  border-radius: 10px; /* Optional: add rounded corners */
+  overflow: hidden; /* Ensure image stays within the button */
+}
+
+.Contractor-choices button img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%; /* Make image fill the button */
+  height: 100%; /* Make image fill the button */
+  object-fit: cover; /* Maintain aspect ratio while covering */
+  z-index: 1; /* Ensure image is behind the text */
+}
+
+.Contractor-choices button span {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* Center text */
+  color: white; /* White text for contrast */
+  font-size: 16px; /* Adjust text size */
+  font-weight: bold; /* Make text bold */
+  z-index: 2; /* Ensure text is above the image */
+  text-align: center; /* Center-align the text */
+  text-shadow: 0 2px 5px rgba(0, 0, 0, 0.7); /* Add a subtle shadow for readability */
+}
+
+.trust{
+  background-color: #ffff;
+  width:100%;
+  height: 500px;
+}
+.trust-header{
+position: absolute;
+left: 35px;
+bottom: 170px;
+color: #000;
+font-size: 30px;
+}
+.trust-p{
+  position: absolute;
+  left: 40px;
+  bottom: 120px;
+  color: #000
+  
+}
+
+.trust-button {
+  position: absolute;
+  left: 50px;
+  bottom: 70px;
+  background-color: transparent; /* Gold background */
+  color: #000; /* White text */
+  border: black;
+  border: solid;
+  border-width: 2px;
+  padding: 10px 20px;
+  border-radius: 20px; /* Rounded corners */
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: bold;
+  z-index: 10; /* Ensure it's on top */
+  transition: background-color 0.3s ease;
+}
+
+.trust-button:hover {
+  background-color: #bca465; /* Slightly darker gold on hover */
+  border: none;
+}
+
+.our-process{
+  background-color: #bca465;
+  width:100%;
+  height: 500px;
+
+
+}
+
+.our-header{
+  padding-left: 40px;
+  color: #000;
+  padding-top: 20px;
+  font-size: 30px;
+}
+.match{
+  width: 100%;
+  height: 100%;
+  background-color: #5f7674;
+}
+
+.match-header{
+  color: #fff;
+  font-size: 50px;
+  padding-left: 250px;
+
 }

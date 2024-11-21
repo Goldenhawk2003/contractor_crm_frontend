@@ -3,7 +3,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #000; /* Black background */
+  background-color: #5f7674; /* Black background */
   padding: 10px 20px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   position: sticky; /* Keeps navbar at the top */
@@ -19,7 +19,7 @@
 
 .nav-button {
   text-decoration: none;
-  color: white;
+  color: #ffff;
   font-size: 1rem;
   font-weight: bold;
   padding: 10px 15px;
@@ -29,7 +29,7 @@
 }
 
 .nav-button:hover {
-  background-color: #c53535; /* Darker blue on hover */
+  background-color:  #cfbb7e; /* Darker blue on hover */
   transform: scale(1.05); /* Slight zoom effect */
 }
 
@@ -48,19 +48,19 @@
 /* Login/Signup or Logout Button */
 .log-button {
   text-decoration: none;
-  color: white;
+  color: #fff;
   font-size: 1rem;
   font-weight: bold;
   padding: 10px 15px;
   border-radius: 25px;
-  background-color: #007BFF; /* Blue button */
+  background-color: transparent; /* Blue button */
   transition: background-color 0.3s ease, transform 0.2s ease;
   border: none;
   cursor: pointer;
 }
 
 .log-button:hover {
-  background-color: #c53535; /* Darker blue on hover */
+  background-color: #cfbb7e; /* Darker blue on hover */
   transform: scale(1.05); /* Slight zoom effect */
 }
 
@@ -87,3 +87,4 @@
       text-align: center;
   }
 }
+
