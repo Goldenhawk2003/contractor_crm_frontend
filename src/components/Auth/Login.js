@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate for redirection
+import { Link, useNavigate } from 'react-router-dom'; // Import useNavigate for redirection
 import './Login.css';
 
 const Login = () => {
@@ -48,30 +48,44 @@ const Login = () => {
     };
 
     return (
-        <form onSubmit={handleLogin} className="contain">
-            {error && <p style={{ color: 'red' }}>{error}</p>} {/* Display error message */}
-            <input
-                className="log"
-                type="text"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                placeholder="Username"
-                required
-            />
+        <div className="log-container">
+            <form onSubmit={handleLogin} className="contain">
+                {error && <p style={{ color: 'red' }}>{error}</p>} {/* Display error message */}
+                <h2 className='log-header'> Welcome Back!</h2>
+                <p className='log-p'>Get work done with a trustworthy comnunity</p>
+                <input
+                    className="log"
+                    type="text"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                    placeholder="Username"
+                    required
+                />
 
-            <input
-                className="log"
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="Password"
-                required
-            />
+                <input
+                    className="log"
+                    type="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    placeholder="Password"
+                    required
+                />
+                <p className='log-p'><a className='log-p'href='/'>Forgot Password?</a></p>
 
-            <button type="submit" className="sub">Login</button>
+                <button type="submit" className="sub">Login</button>
+                
 
-            <p>Don't have an account? <a href="/signup">Sign up</a></p>
-        </form>
+            </form>
+            <div className="divider"></div>
+            <div className='sign-up'>
+                    <h2 className='log-header'> New to Elite Craft?</h2>
+                    <p className='log-p'>Sign up today and join our community</p>
+
+                    <Link to="/Signup" className='sub'>Sign Up</Link>
+
+                    <img src='/images/EC_Primary_White.png' className='pic'/> 
+                </div>
+        </div>
     );
 };
 

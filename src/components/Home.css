@@ -1,3 +1,9 @@
+@font-face {
+  font-family: 'Open Sauce One';
+  src: url('/src/Open Sauce Font/OpenSauceOne-Black.ttf') format('truetype');
+  font-weight: 900; /* Adjust based on the font's weight */
+  font-style: normal;
+}
 .home-container {
   display: flex;
   flex-direction: column;
@@ -9,17 +15,19 @@
 }
 
 .head {
-  font-size: 2.5rem;
+  font-size: 3.2rem;
   margin-bottom: 10px;
   color: #FFFF;
   text-align: center;
+  font-family: 'Open Sauce One', Arial, sans-serif;
 }
 
 .subhead {
-  font-size: 1.25rem;
+  font-size: 1.2rem;
   color: #ffff;
   margin-bottom: 30px;
   text-align: center;
+  font-family: 'Open Sauce One', Arial, sans-serif;
 }
 
 .search-bar-container {
@@ -87,6 +95,7 @@
   transition: background-color 0.3s ease;
   text-decoration: none;
   font-weight: bold;
+  font-family: 'Open Sauce One', Arial, sans-serif;
 }
 
 .service-button:hover {
@@ -142,13 +151,16 @@ position: absolute;
 left: 35px;
 bottom: 170px;
 color: #000;
-font-size: 30px;
+font-size: 2rem;
+font-family: 'Open Sauce One', Arial, sans-serif;
 }
 .trust-p{
   position: absolute;
   left: 40px;
   bottom: 120px;
-  color: #000
+  color: #000;
+  font-family: 'Open Sauce One', Arial, sans-serif;
+  font-size: 1rem;
   
 }
 
@@ -164,10 +176,12 @@ font-size: 30px;
   padding: 10px 20px;
   border-radius: 20px; /* Rounded corners */
   cursor: pointer;
-  font-size: 1rem;
+  font-size: 0.8rem;
   font-weight: bold;
   z-index: 10; /* Ensure it's on top */
   transition: background-color 0.3s ease;
+  font-family: 'Open Sauce One', Arial, sans-serif;
+
 }
 
 .trust-button:hover {
@@ -187,7 +201,8 @@ font-size: 30px;
   padding-left: 40px;
   color: #000;
   padding-top: 20px;
-  font-size: 30px;
+  font-size: 1.5rem;
+  font-family: 'Open Sauce One', Arial, sans-serif;
 }
 .match{
   width: 100%;
@@ -197,7 +212,9 @@ font-size: 30px;
 
 .match-header{
   color: #fff;
-  font-size: 50px;
+  font-size: 2rem;
   padding-left: 250px;
+  font-family: 'Open Sauce One', Arial, sans-serif;
+ 
 
 }

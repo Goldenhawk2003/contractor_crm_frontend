@@ -1,13 +1,14 @@
-
 import React, { useState } from 'react';
 import './Contact.css';
 
 const Contact = () => {
     const [formData, setFormData] = useState({
-        name: '',
+        first_name: '',
+        last_name: '',
         email: '',
         message: '',
     });
+
     const [successMessage, setSuccessMessage] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
 
@@ -34,7 +35,7 @@ const Contact = () => {
             }
 
             setSuccessMessage('Thank you for contacting us! We will get back to you soon.');
-            setFormData({ name: '', email: '', message: '' }); // Reset form fields
+            setFormData({ first_name: '', last_name: '', email: '', message: '' });
         } catch (error) {
             console.error(error);
             setErrorMessage('Something went wrong. Please try again later.');
@@ -42,49 +43,58 @@ const Contact = () => {
     };
 
     return (
-        <div className="contact">
-            <h1>Contact Us</h1>
-            <p>Have questions or need help? Fill out the form below, and we'll get back to you as soon as possible.</p>
+        <div>
+            <h1 className="contact-header">Contact Us</h1>
+            <p className='contact-p'>Need assistance? Our team is here to help. Please fill out the form below, and we will be in contact with you as soon as we can.</p>
+            <div className="contact">
+                {successMessage && <p className="success-message">{successMessage}</p>}
+                {errorMessage && <p className="error-message">{errorMessage}</p>}
 
-            {successMessage && <p className="success-message">{successMessage}</p>}
-            {errorMessage && <p className="error-message">{errorMessage}</p>}
-
-            <form onSubmit={handleSubmit} className="contact-form">
-                <label htmlFor="name">Name</label>
-                <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    placeholder="Your name"
-                    required
-                />
-
-                <label htmlFor="email">Email</label>
-                <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    placeholder="Your email"
-                    required
-                />
-
-                <label htmlFor="message">Message</label>
-                <textarea
-                    id="message"
-                    name="message"
-                    rows="5"
-                    value={formData.message}
-                    onChange={handleChange}
-                    placeholder="Your message"
-                    required
-                ></textarea>
-
-                <button type="submit">Send Message</button>
-            </form>
+                <form onSubmit={handleSubmit} className="contact-form">
+                    <div style={{ display: 'flex', gap: '15px' }}>
+                        <input
+                            type="text"
+                            name="first_name"
+                            value={formData.first_name}
+                            onChange={handleChange}
+                            placeholder="First Name"
+                            required
+                        />
+                        <input
+                            type="text"
+                            name="last_name"
+                            value={formData.last_name}
+                            onChange={handleChange}
+                            placeholder="Last Name"
+                            required
+                        />
+                    </div>
+                    <input
+                        type="email"
+                        name="email"
+                        value={formData.email}
+                        onChange={handleChange}
+                        placeholder="Email"
+                        required
+                    />
+                    <select name="role" className="dropdown" onChange={handleChange} required>
+                        <option value="">I am a...</option>
+                        <option value="Elite Contractor">Elite Contractor</option>
+                        <option value="Homeowner">Homeowner</option>
+                        
+                    </select>
+                    
+                    <textarea
+                        name="message"
+                        rows="5"
+                        value={formData.message}
+                        onChange={handleChange}
+                        placeholder="Description"
+                        required
+                    ></textarea>
+                    <button type="submit">Submit</button>
+                </form>
+            </div>
         </div>
     );
 };
