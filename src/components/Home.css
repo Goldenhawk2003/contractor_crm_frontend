@@ -44,8 +44,9 @@
   flex: 1; /* Ensures the input takes up all remaining space */
   padding: 12px 20px;
   border: none;
-  font-size: 16px;
+  font-size: 0.8rem;
   outline: none; /* Removes default focus outline */
+  font-family: 'Open Sauce One', Arial, sans-serif;
 }
 
 .search-button {
@@ -215,6 +216,29 @@ font-family: 'Open Sauce One', Arial, sans-serif;
   font-size: 2rem;
   padding-left: 250px;
   font-family: 'Open Sauce One', Arial, sans-serif;
- 
+}
 
+.search-results {
+  margin-top: 10px;
+  background-color: #f9f9f9;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  font-family: 'Open Sauce One', Arial, sans-serif;
+  font-size: 0.8rem;
+}
+
+.search-results ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.search-results li {
+  padding: 5px 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.search-results li:last-child {
+  border-bottom: none;
 }

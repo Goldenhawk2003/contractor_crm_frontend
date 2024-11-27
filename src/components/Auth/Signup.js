@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './Auth.css';
+import './Signup.css';
 
 function Signup() {
   const [formData, setFormData] = useState({
@@ -14,6 +14,7 @@ function Signup() {
   const [error, setError] = useState(''); // For displaying error messages
 
   const handleChange = (e) => {
+    console.log('Selected rile: ${event.target.value}`');
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
@@ -81,7 +82,7 @@ function Signup() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="contain">
+    <form onSubmit={handleSubmit} className="cont">
       {error && <p style={{ color: 'red' }}>{error}</p>}
       
       <input
@@ -91,6 +92,7 @@ function Signup() {
         onChange={handleChange}
         placeholder="Username"
         required
+        className='inp'
       />
       
       <input
@@ -100,6 +102,7 @@ function Signup() {
         onChange={handleChange}
         placeholder="Email"
         required
+        className='inp'
       />
       
       <input
@@ -109,6 +112,7 @@ function Signup() {
         onChange={handleChange}
         placeholder="Password"
         required
+        className='inp'
       />
       
       <input
@@ -118,6 +122,7 @@ function Signup() {
         onChange={handleChange}
         placeholder="Confirm Password"
         required
+        className='inp'
       />
       
       <label>
@@ -127,6 +132,7 @@ function Signup() {
           value="client"
           checked={formData.role === 'client'}
           onChange={handleChange}
+          className='radio'
         />
         Client
       </label>
@@ -137,6 +143,7 @@ function Signup() {
           value="professional"
           checked={formData.role === 'professional'}
           onChange={handleChange}
+          className='radio'
         />
         Professional
       </label>

@@ -81,7 +81,7 @@ const Login = () => {
                     <h2 className='log-header'> New to Elite Craft?</h2>
                     <p className='log-p'>Sign up today and join our community</p>
 
-                    <Link to="/Signup" className='sub'>Sign Up</Link>
+                    <Link to="/signup" className='sub'>Sign Up</Link>
 
                     <img src='/images/EC_Primary_White.png' className='pic'/> 
                 </div>

@@ -1,0 +1,59 @@
+.cont{
+    display: flex;
+    flex-direction: column; /* Stack children vertically */
+    justify-content: center; /* Center content horizontally */
+    align-items: center; /* Center content vertically */
+    /* Fixed width for both sections */
+    background-color: hsl(174, 14%, 42%); /* Background color of the sections */
+    padding: 20px; /* Inner spacing */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.sbmit{
+
+    width: 30%; /* Full width button */
+    padding: 10px;
+    background-color: #dcbf79;
+    color: #000;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    text-decoration: none;
+    text-align: center;
+    margin-top: 10%;
+    align-self: center;
+}
+
+.radio {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: 20px;
+    height: 20px;
+ 
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+  }
+  
+  /* Default state */
+  .radio:not(:checked) {
+    background-color: white;
+  }
+  
+  /* Checked state */
+  .radio:checked {
+    background-color: #dcbf79;
+ 
+  }
+
+.inp{
+    width: 90%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    font-size: 14px;
+    outline: none;
+}
