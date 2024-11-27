@@ -152,7 +152,7 @@ function Signup() {
         />
       )}
       
-      <button type="submit">Sign Up</button>
+      <button className='sbmit' type="submit">Sign Up</button>
     </form>
   );
 }
