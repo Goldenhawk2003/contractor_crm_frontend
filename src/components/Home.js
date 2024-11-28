@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { Link, Outlet } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import './Home.css';
 import Fuse from 'fuse.js';
-
 
 const Home = () => {
   const [searchText, setSearchText] = useState('');
   const [filteredServices, setFilteredServices] = useState([]);
+  const navigate = useNavigate();
 
   const services = [
     { id: 1, name: 'Plumbing' },
@@ -33,15 +34,23 @@ const Home = () => {
       setFilteredServices([]);
     }
   };
+  const handleKeyDown = (event) => {
+    if (event.key === 'Enter') {
+      navigate('/browse-contractors', { state: { query: searchText } });
+    }
+  };
   return (
     <div className="home-container">
       <h1 className="head">Welcome To Elite Crafts Contractors</h1>
       <p className="subhead">Your trusted platform for skilled contractors in every field.</p>
       
-      <div class="search-bar-container">
+      <div className="search-bar-container">
   <input type="text" class="search-bar" placeholder="Search services: Plumbing, renovations, snow removal" value={searchText}
           onChange={handleSearch} />
-  <button class="search-button">
+  <button
+          className="search-button"
+          onClick={() => navigate('/Browse-Contractors', { state: { query: searchText } })}
+        >
   <i className="fas fa-search search-icon"></i>
   </button>
 </div>
