@@ -56,6 +56,7 @@ function App() {
             <Route path="/ServiceRequest" element={<ServiceRequest />} />
             <Route path="/find-contractor" element={<FindCont />} />
             <Route path="/Quiz" element={<Quiz />} />
+            
             {/* Client-related routes */}
             <Route path="clients" element={<ClientsList />} />
             <Route path="clients/:id" element={<ClientProfile />} />
