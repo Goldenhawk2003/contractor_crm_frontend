@@ -41,30 +41,31 @@ const Browse = () =>{
     };
     return(
         <div className='page'>
-            <div className='filters'>
-                <p className='para'>I'm Looking for</p>
-                <form onSubmit={handleSubmit} className="form">
-                <select
-                    className="dropdown"
-                    value={workType}
-                    onChange={(e) => setWorkType(e.target.value)}
-                >
-                    <option value="" disabled>Select a service</option>
-                    <option value="Plumbing">Plumbing</option>
-                    <option value="Electrical">Electrical</option>
-                    <option value="Carpentry">Carpentry</option>
-                    <option value="Painting">Painting</option>
-                    <option value="Other">Other</option>
-                </select>
-                <p className='para'>near</p>
-                <select className='dropdown'>
-                    <option>Durham</option>
-                </select>
-                <button type="submit" disabled={!workType} className="submit-btn">
-                    GO!
-                </button>
-            </form>
-            </div>
+           <div className="filters">
+    <form onSubmit={handleSubmit} className="form">
+        <span className="para">I’m looking for</span>
+        <select
+            className="dropdown"
+            value={workType}
+            onChange={(e) => setWorkType(e.target.value)}
+        >
+            <option value="" disabled>Select a service</option>
+            <option value="Plumbing">Plumbing</option>
+            <option value="Electrical">Electrical</option>
+            <option value="Carpentry">Carpentry</option>
+            <option value="Painting">Painting</option>
+            <option value="Other">Other</option>
+        </select>
+        <span className="para">near</span>
+        <select className="dropdown">
+            <option>Ajax</option>
+            <option>Durham</option>
+        </select>
+        <button type="submit" disabled={!workType} className="submit-btn">
+            GO!
+        </button>
+    </form>
+</div>
             <div className='Contractors'>
                 <h2>Best Matches For You</h2>
                 <p className='cont-p'>Loromepfkdmwkfvnmdspkvmncdspkvcmdpskmvckpdsmcvkpdsmcvksdmckmdsckpmdskcmdskcmkdsmckldsmckldsmckl</p>
@@ -80,6 +81,7 @@ const Browse = () =>{
                     <p><strong>Experience:</strong> {contractor.experience_years} years</p>
                     <p><strong>Rating:</strong> {contractor.rating}</p>
                     <p><strong>Description:</strong> {contractor.profile_description || 'No description provided'}</p>
+                    <p><strong>Location:</strong> {contractor.location}</p>
                 </div>
             ))}
         </div>

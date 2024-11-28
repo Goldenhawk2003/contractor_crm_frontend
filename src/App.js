@@ -64,7 +64,7 @@ function App() {
             {/* Contractor-related routes */}
             <Route path="contractors" element={<ContractorsList />} />
             <Route path="/contractor/:id" element={<ContractorProfile />} />
-            <Route path="contractors/edit/:id" element={<ContractorForm />} />
+            <Route path="/contractors/edit/:id" element={<ContractorForm />} />
             <Route path="contractors/add" element={<ContractorForm />} />
             <Route path="Browse-Contractors" element={<Browse />} />
 

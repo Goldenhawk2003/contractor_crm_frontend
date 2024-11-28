@@ -76,7 +76,7 @@ const Dashboard = () => {
       {!isLoading && !data && <p>No dashboard data available.</p>}
 
       {/* Navigation link */}
-      <Link to="/another-page" className="dashboard-link">
+      <Link to="/" className="dashboard-link">
         Go to another page
       </Link>
     </div>

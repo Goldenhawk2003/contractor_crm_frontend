@@ -1,11 +1,12 @@
-import React from 'react';
-import { Link, Outlet } from 'react-router-dom';
+import {React, useState} from 'react';
+import { Link, Outlet} from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import Footer from './Footer';
 import "./Layout.css";
 
 const Layout = () => {
   const { isAuthenticated, logout } = useAuth();
+  const [contractor, setContractor] = useState(null);
 
   return (
     <div>
@@ -17,6 +18,7 @@ const Layout = () => {
             <Link to="/jobs" className="nav-button">Chat</Link>
             <Link to="/contact" className="nav-button">Contact us</Link>
             <Link to="/user-profile" className="nav-button">User Profile</Link>
+            
           </div>
           <div className="right-nav">
             <Link to="/">
