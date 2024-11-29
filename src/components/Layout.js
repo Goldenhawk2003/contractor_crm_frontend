@@ -15,9 +15,10 @@ const Layout = () => {
           <div className="left-nav">
             <Link to="/" className="nav-button">Home</Link>
             <Link to="/Dashboard" className="nav-button">Dashboard</Link>
-            <Link to="/jobs" className="nav-button">Chat</Link>
+            <Link to="/inbox" className="nav-button">Chat</Link>
             <Link to="/contact" className="nav-button">Contact us</Link>
             <Link to="/user-profile" className="nav-button">User Profile</Link>
+            <Link to="/start-conversation" className='nav-button'>Create Chat</Link>
             
           </div>
           <div className="right-nav">

@@ -1,31 +1,32 @@
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import './Contractors.css';
+import React, { useState } from "react";
+import axios from "axios";
 
-const ContractorsList = () => {
-  const [contractors, setContractors] = useState([]);
+const ContractorList = ({ contractors }) => {
+  const [chatRoomId, setChatRoomId] = useState(null);
 
-  useEffect(() => {
-    // Placeholder for API call to fetch contractors
-    // Example: fetchContractors();
-  }, []);
+  const initiateChat = async (contractorId) => {
+    try {
+      const response = await axios.post("/api/chat/create/", { contractor_id: contractorId });
+      setChatRoomId(response.data.chat_room_id);
+      alert("Chat room created!");
+    } catch (error) {
+      console.error(error.response?.data || "An error occurred.");
+    }
+  };
 
   return (
-    <div className="contractors-list">
-      <h2>Contractors</h2>
-      {contractors.length > 0 ? (
-        <ul>
-          {contractors.map((contractor) => (
-            <li key={contractor.id}>
-              <Link to={`/contractors/${contractor.id}`}>{contractor.name}</Link>
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p>No contractors found</p>
-      )}
+    <div>
+      <h2>Available Contractors</h2>
+      <ul>
+        {contractors.map((contractor) => (
+          <li key={contractor.id}>
+            {contractor.name}
+            <button onClick={() => initiateChat(contractor.id)}>Chat</button>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };
 
-export default ContractorsList;
+export default ContractorList;

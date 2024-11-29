@@ -19,7 +19,9 @@ import UserProfile from './components/UserProfile';
 import FindCont from './components/FindCont/FindCont.js';
 import Quiz from './components/FindCont/Quiz.js';
 import Browse from './components/FindCont/BrowseContractors.js';
-
+import Inbox from './components/chat/Inbox.js';
+import Conversation from './components/chat/Conversation.js';
+import CreateConversation from './components/chat/CreateConversation.js';
 
 function useCsrfToken() {
   useEffect(() => {
@@ -56,6 +58,10 @@ function App() {
             <Route path="/ServiceRequest" element={<ServiceRequest />} />
             <Route path="/find-contractor" element={<FindCont />} />
             <Route path="/Quiz" element={<Quiz />} />
+            <Route path="/inbox" element={<Inbox />} />
+            <Route path="/conversation/:conversationId" element={<Conversation />} />
+            <Route path="/start-conversation" element={<CreateConversation contractors={[]} />} />
+            
             
             {/* Client-related routes */}
             <Route path="clients" element={<ClientsList />} />
