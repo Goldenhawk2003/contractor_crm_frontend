@@ -1,42 +1,76 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
-import { Navigate, useNavigate } from "react-router-dom";
-import CreateConversation from "./CreateConversation";
+import { useNavigate } from "react-router-dom";
+import "./Inbox.css"; // Import the CSS file
 
 const Inbox = () => {
   const [conversations, setConversations] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchConversations = async () => {
+      setLoading(true);
+      setError("");
       try {
-        const response = await axios.get("/api/conversations/");
-        setConversations(response.data);
+        const response = await fetch("http://localhost:8000/api/conversations/", {
+          method: "GET",
+          credentials: "include",
+        });
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch conversations");
+        }
+
+        const data = await response.json();
+        console.log("Conversations fetched:", data); // Debugging log
+        setConversations(data);
       } catch (error) {
-        console.error("Failed to fetch conversations:", error);
+        console.error("Error fetching conversations:", error);
+        setError("Could not load conversations. Please try again later.");
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchConversations();
   }, []);
 
-  const openConversation = (conversationId) => {
+  const handleConversationClick = (conversationId) => {
     navigate(`/conversation/${conversationId}`);
   };
 
-  const createConversation = () => {
-    navigate("/start-conversation");
-  };
-
   return (
-    <div>
-      <h1>Your Inbox</h1>
-      <button type="button" onClick={createConversation}>Create Conversation</button>
-      <ul>
-        {conversations.map((conv) => (
-          <li key={conv.id} onClick={() => openConversation(conv.id)}>
-            <strong>Conversation with {conv.contractor || conv.client}</strong>
-            <p>Last message: {conv.messages[conv.messages.length - 1]?.content}</p>
+    <div className="inbox-container">
+      <div className="header">
+        <h1 className="inbox-header">Your Inbox</h1>
+        <button
+          className="create-message-btn"
+          onClick={() => navigate("/create-message")}
+        >
+          Create New Message
+        </button>
+      </div>
+
+      {error && <p className="error">{error}</p>}
+      {loading && <p className="loading">Loading...</p>}
+      {!loading && conversations.length === 0 && (
+        <p className="empty">No conversations found.</p>
+      )}
+
+      <ul className="conversation-list">
+        {conversations.map((conversation) => (
+          <li
+            key={conversation.id}
+            className="conversation-item"
+            onClick={() => handleConversationClick(conversation.id)}
+          >
+            <strong className="participants">
+              Participants: {conversation.participants.join(", ")}
+            </strong>
+            <p className="latest-message">
+              Last message: {conversation.latest_message || "No messages yet."}
+            </p>
           </li>
         ))}
       </ul>

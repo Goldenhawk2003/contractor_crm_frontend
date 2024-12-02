@@ -1,0 +1,90 @@
+/* Inbox Container */
+.inbox-container {
+    font-family: "Open Sauce One", Arial, sans-serif;
+    background-color: #f8f8f8; /* White background */
+    color: #1b3656; /* Blue text */
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 800px;
+    margin: 40px auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Header Section */
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .inbox-header{
+    color: #5c7b78;
+    font-size: 2rem;
+  }
+ 
+  
+  .create-message-btn {
+    background-color: #dcbf79; /* Gold */
+    color: #1b3656; /* Blue */
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .create-message-btn:hover {
+    background-color: #c5a766; /* Darker Gold */
+  }
+  
+  /* Error and Loading Messages */
+  .error {
+    color: red;
+    font-size: 14px;
+  }
+  
+  .loading {
+    font-size: 14px;
+    color: #5c7b78; /* Green */
+  }
+  
+  .empty {
+    font-size: 16px;
+    color: #5c7b78; /* Green */
+    text-align: center;
+  }
+  
+  /* Conversation List */
+  .conversation-list {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .conversation-item {
+    background-color: #ffffff; /* White */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  
+  .conversation-item:hover {
+    background-color: #f1f1f1;
+    transform: translateY(-2px);
+  }
+  
+  .participants {
+    color: #1b3656; /* Blue */
+    font-weight: bold;
+    font-size: 16px;
+  }
+  
+  .latest-message {
+    color: #5c7b78; /* Green */
+    font-size: 14px;
+    margin-top: 5px;
+  }

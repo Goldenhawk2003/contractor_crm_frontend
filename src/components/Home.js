@@ -45,7 +45,7 @@ const Home = () => {
       <p className="subhead">Your trusted platform for skilled contractors in every field.</p>
       
       <div className="search-bar-container">
-  <input type="text" class="search-bar" placeholder="Search services: Plumbing, renovations, snow removal" value={searchText}
+  <input type="text" className="search-bar" placeholder="Search services: Plumbing, renovations, snow removal" value={searchText}
           onChange={handleSearch} />
   <button
           className="search-button"

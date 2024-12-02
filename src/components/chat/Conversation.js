@@ -10,7 +10,7 @@ const Conversation = () => {
   useEffect(() => {
     const fetchMessages = async () => {
       try {
-        const response = await axios.get(`/api/messages/?conversation=${conversationId}`);
+        const response = await axios.get(`/api/conversations/${conversationId}/messages/`);
         setMessages(response.data);
       } catch (error) {
         console.error("Failed to fetch messages:", error);
@@ -21,35 +21,32 @@ const Conversation = () => {
   }, [conversationId]);
 
   const sendMessage = async () => {
-    if (newMessage.trim()) {
-      try {
-        const response = await axios.post("/api/messages/", {
-          conversation: conversationId,
-          content: newMessage,
-        });
-        setMessages((prev) => [...prev, response.data]);
-        setNewMessage("");
-      } catch (error) {
-        console.error("Failed to send message:", error);
-      }
+    try {
+      const response = await axios.post("/api/messages/", {
+        conversation_id: conversationId,
+        content: newMessage,
+      });
+      setMessages((prev) => [...prev, response.data]);
+      setNewMessage("");
+    } catch (error) {
+      console.error("Failed to send message:", error);
     }
   };
 
   return (
     <div>
       <h1>Conversation</h1>
-      <div>
+      <ul>
         {messages.map((msg) => (
-          <div key={msg.id}>
+          <li key={msg.id}>
             <strong>{msg.sender_name}:</strong> {msg.content}
-          </div>
+          </li>
         ))}
-      </div>
-      <input
-        type="text"
+      </ul>
+      <textarea
         value={newMessage}
         onChange={(e) => setNewMessage(e.target.value)}
-        placeholder="Type your message"
+        placeholder="Type your message..."
       />
       <button onClick={sendMessage}>Send</button>
     </div>

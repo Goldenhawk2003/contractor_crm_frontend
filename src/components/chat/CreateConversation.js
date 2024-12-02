@@ -1,106 +1,119 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
 
 const CreateConversation = () => {
   const [contractors, setContractors] = useState([]);
-  const [selectedContractor, setSelectedContractor] = useState("");
-  const [loadingContractors, setLoadingContractors] = useState(true);
-  const [loadingConversation, setLoadingConversation] = useState(false);
-  const [contractorError, setContractorError] = useState("");
-  const [conversationError, setConversationError] = useState("");
-  const navigate = useNavigate();
-
-  // Fetch CSRF token from cookies
-  const getCSRFToken = () => {
-    const cookie = document.cookie.split("; ").find((row) => row.startsWith("csrftoken="));
-    return cookie ? cookie.split("=")[1] : "";
-  };
+  const [recipientId, setRecipientId] = useState("");
+  const [message, setMessage] = useState("");
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState(""); // New: Success message
+  const [loading, setLoading] = useState(false); // New: Loading state
 
   useEffect(() => {
     const fetchContractors = async () => {
-      setLoadingContractors(true);
       try {
-        const response = await axios.get("http://localhost:8000/api/contractors/", {
-          withCredentials: true, // Ensures cookies are sent
-        });
-        setContractors(response.data);
-      } catch (err) {
-        console.error("Failed to fetch contractors:", err);
-        setContractorError("Failed to load contractors. Please try again later.");
-      } finally {
-        setLoadingContractors(false);
+        const response = await fetch("http://localhost:8000/api/contractors/");
+        const data = await response.json();
+        console.log("Contractors fetched:", data); // Log API response
+        setContractors(data);
+      } catch (error) {
+        console.error("Failed to fetch contractors:", error);
+        setError("Failed to load contractors. Please try again later.");
       }
     };
 
     fetchContractors();
   }, []);
 
-  const handleCreateConversation = async () => {
-    if (!selectedContractor) {
-      setConversationError("Please select a contractor.");
+  const createConversation = async () => {
+    setError(""); // Clear previous errors
+    setSuccess(""); // Clear previous success messages
+    setLoading(true); // Set loading state
+
+    if (!recipientId) {
+      setError("Please select a contractor.");
+      setLoading(false);
       return;
     }
 
-    setConversationError(""); // Clear previous errors
-    setLoadingConversation(true);
+    if (!message.trim()) {
+      setError("Message content cannot be empty.");
+      setLoading(false);
+      return;
+    }
+
+    const csrfToken = document.cookie
+      .split("; ")
+      .find((row) => row.startsWith("csrftoken="))
+      ?.split("=")[1]; // Retrieve CSRF token
+
+    if (!csrfToken) {
+      setError("CSRF token is missing. Please refresh the page and try again.");
+      setLoading(false);
+      return;
+    }
 
     try {
-      const csrfToken = getCSRFToken();
-      const response = await axios.post(
-        "http://localhost:8000/api/conversations/",
-        { contractor_id: selectedContractor },
-        {
-          headers: {
-            "X-CSRFToken": csrfToken,
-            "Content-Type": "application/json",
-          },
-          withCredentials: true, // Include session cookies
-        }
-      );
-      navigate(`/conversation/${response.data.id}`);
-    } catch (err) {
-      console.error("Failed to create conversation:", err);
-      setConversationError("Could not create a conversation. Please try again.");
+      const response = await fetch("http://localhost:8000/api/messages/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-CSRFToken": csrfToken,
+        },
+        credentials: "include",
+        body: JSON.stringify({
+          recipient_id: recipientId,
+          content: message,
+        }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json(); // Try to parse error response
+        throw new Error(errorData.error || "Failed to create conversation.");
+      }
+
+      const data = await response.json();
+      console.log("Conversation created successfully:", data);
+
+      setSuccess("Conversation created successfully!");
+      setMessage(""); // Clear message input
+      setRecipientId(""); // Reset dropdown
+    } catch (error) {
+      console.error("Failed to create conversation:", error);
+      setError(error.message || "Could not create a conversation. Please try again.");
     } finally {
-      setLoadingConversation(false);
+      setLoading(false); // Reset loading state
     }
   };
 
   return (
     <div>
       <h1>Create a New Conversation</h1>
+      {error && <p style={{ color: "red" }}>{error}</p>}
+      {success && <p style={{ color: "green" }}>{success}</p>}
 
-      {contractorError && <p style={{ color: "red" }}>{contractorError}</p>}
-      {conversationError && <p style={{ color: "red" }}>{conversationError}</p>}
+      <label htmlFor="contractor-select">Select a Contractor:</label>
+      <select
+        id="contractor-select"
+        value={recipientId}
+        onChange={(e) => setRecipientId(e.target.value)}
+      >
+        <option value="">Select a contractor</option>
+        {contractors.map((contractor) => (
+          <option key={contractor.id} value={contractor.id}>
+            {contractor.username} {/* Use 'username' from API response */}
+          </option>
+        ))}
+      </select>
 
-      {loadingContractors ? (
-        <p>Loading contractors...</p>
-      ) : (
-        <>
-          <label htmlFor="contractor-select">Select a Contractor:</label>
-          <select
-            id="contractor-select"
-            value={selectedContractor}
-            onChange={(e) => setSelectedContractor(e.target.value)}
-          >
-            <option value="">-- Choose a Contractor --</option>
-            {contractors.map((contractor) => (
-              <option key={contractor.id} value={contractor.id}>
-                {contractor.name}
-              </option>
-            ))}
-          </select>
+      <textarea
+        value={message}
+        onChange={(e) => setMessage(e.target.value)}
+        placeholder="Write a message..."
+      />
 
-          <button
-            type="button"
-            onClick={handleCreateConversation}
-            disabled={loadingConversation}
-          >
-            {loadingConversation ? "Starting..." : "Start Conversation"}
-          </button>
-        </>
-      )}
+      <button onClick={createConversation} disabled={loading}>
+        {loading ? "Sending..." : "Send"}
+      </button>
     </div>
   );
 };
