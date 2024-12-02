@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
+import CreateConversation from "./CreateConversation";
 
 const Inbox = () => {
   const [conversations, setConversations] = useState([]);
@@ -23,9 +24,14 @@ const Inbox = () => {
     navigate(`/conversation/${conversationId}`);
   };
 
+  const createConversation = () => {
+    navigate("/start-conversation");
+  };
+
   return (
     <div>
       <h1>Your Inbox</h1>
+      <button type="button" onClick={createConversation}>Create Conversation</button>
       <ul>
         {conversations.map((conv) => (
           <li key={conv.id} onClick={() => openConversation(conv.id)}>

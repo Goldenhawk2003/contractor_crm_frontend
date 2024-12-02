@@ -18,7 +18,6 @@ const Layout = () => {
             <Link to="/inbox" className="nav-button">Chat</Link>
             <Link to="/contact" className="nav-button">Contact us</Link>
             <Link to="/user-profile" className="nav-button">User Profile</Link>
-            <Link to="/start-conversation" className='nav-button'>Create Chat</Link>
             
           </div>
           <div className="right-nav">
