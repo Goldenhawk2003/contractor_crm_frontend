@@ -1,32 +1,76 @@
-.contract-page {
+.container {
     padding: 20px;
-    font-family: Arial, sans-serif;
+    font-family: 'Arial', sans-serif;
   }
   
-  .contract-page h1 {
+  h1 {
+    font-size: 3.2rem;
+    color: #1b3656;
     text-align: center;
-    margin-bottom: 20px;
   }
   
-  .send-contract, .contract-status, .contract-list {
-    margin-bottom: 20px;
+  h2 {
+    font-size: 2rem;
+    color: #5c7b78;
+    margin-bottom: 15px;
   }
   
-  input, textarea, button {
-    display: block;
-    margin: 10px 0;
-    padding: 10px;
-    width: 100%;
-    max-width: 500px;
+  p {
+    font-size: 1.2rem;
+    color: #333;
+  }
+  
+  ol {
+    margin-left: 20px;
+    font-size: 1.2rem;
   }
   
   button {
-    background-color: #5c7b78;
-    color: white;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #aaa;
+    color: #fff;
     border: none;
+    cursor: not-allowed;
+    font-size: 1rem;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+  
+  button:enabled {
+    background-color: #5c7b78;
     cursor: pointer;
   }
   
-  button:hover {
-    background-color: #4a6364;
+  button:enabled:hover {
+    background-color: #4a6a61;
+  }
+  
+  label {
+    font-size: 1.2rem;
+    margin-top: 20px;
+  }
+  
+  input[type="checkbox"] {
+    margin-right: 10px;
+  }
+  
+  .message {
+    margin-top: 20px;
+    font-size: 1rem;
+  }
+  
+  .success {
+    color: green;
+  }
+  
+  .error {
+    color: red;
+  }
+  
+  .contract-box {
+    border: 1px solid #ccc;
+    padding: 20px;
+    background-color: #f9f9f9;
+    margin-bottom: 20px;
   }

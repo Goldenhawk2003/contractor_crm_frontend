@@ -1,122 +1,111 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./DocSign.css";
 
+const getCSRFToken = () => {
+  const name = "csrftoken";
+  const cookies = document.cookie.split(";");
+  for (let cookie of cookies) {
+    cookie = cookie.trim();
+    if (cookie.startsWith(`${name}=`)) {
+      return cookie.substring(name.length + 1);
+    }
+  }
+  console.error("CSRF token not found");
+  return null;
+};
+
 const ContractPage = () => {
-  // State management
-  const [clientEmail, setClientEmail] = useState("");
-  const [clientName, setClientName] = useState("");
-  const [contractContent, setContractContent] = useState("");
-  const [status, setStatus] = useState("");
-  const [contracts, setContracts] = useState([]);
+  const [agreed, setAgreed] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [message, setMessage] = useState("");
 
-  // Fetch contracts for the client on page load
-  useEffect(() => {
-    fetchContracts();
-  }, []);
-
-  // Send a contract for signature
-  const sendContract = async () => {
+  const handleConsent = async () => {
+    setIsSubmitting(true);
     try {
-      const response = await fetch("http://localhost:8000/api/send-contract/", {
+      const csrfToken = getCSRFToken();
+      if (!csrfToken) {
+        throw new Error("CSRF token not found");
+      }
+
+      const response = await fetch("http://localhost:8000/api/sign-contract/", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: clientEmail, name: clientName, contractContent }),
+        headers: {
+          "Content-Type": "application/json",
+          "X-CSRFToken": csrfToken, // Include CSRF token in the header
+        },
+        credentials: "include", // Ensures cookies are sent with the request
+        body: JSON.stringify({
+          consent: true,
+          userId: 1, // Replace with the actual user ID from context/auth
+          contractId: 101, // Replace with the actual contract ID
+        }),
       });
 
+      const data = await response.json();
       if (response.ok) {
-        const data = await response.json();
-        alert(`Contract sent! Envelope ID: ${data.envelopeId}`);
-        fetchContracts(); // Refresh contracts list
+        setMessage(data.message || "Contract signed successfully.");
       } else {
-        alert("Failed to send contract.");
+        setMessage(data.error || "Failed to sign the contract.");
       }
     } catch (error) {
-      console.error("Error sending contract:", error);
-    }
-  };
-
-  // Fetch the contract status
-  const getContractStatus = async (envelopeId) => {
-    try {
-      const response = await fetch(`/api/contracts/status/${envelopeId}`);
-      if (response.ok) {
-        const data = await response.json();
-        setStatus(data.status);
-      } else {
-        alert("Failed to fetch contract status.");
-      }
-    } catch (error) {
-      console.error("Error fetching contract status:", error);
-    }
-  };
-
-  // Fetch all contracts
-  const fetchContracts = async () => {
-    try {
-      const response = await fetch("/api/contracts/");
-      if (response.ok) {
-        const data = await response.json();
-        setContracts(data.contracts);
-      } else {
-        alert("Failed to fetch contracts.");
-      }
-    } catch (error) {
-      console.error("Error fetching contracts:", error);
+      setMessage("An error occurred. Please try again.");
+      console.error("Error:", error);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
   return (
-    <div className="contract-page">
-      <h1>Contract Management</h1>
+    <div style={{ padding: "20px", fontFamily: "Arial, sans-serif" }}>
+      <h1>Review and Sign Contract</h1>
 
-      {/* Send Contract Section */}
-      <div className="send-contract">
-        <h2>Send Contract</h2>
-        <input
-          type="text"
-          placeholder="Client Email"
-          value={clientEmail}
-          onChange={(e) => setClientEmail(e.target.value)}
-        />
-        <input
-          type="text"
-          placeholder="Client Name"
-          value={clientName}
-          onChange={(e) => setClientName(e.target.value)}
-        />
-        <textarea
-          placeholder="Contract Content"
-          value={contractContent}
-          onChange={(e) => setContractContent(e.target.value)}
-        />
-        <button onClick={sendContract}>Send Contract</button>
+      <div style={{ border: "1px solid #ccc", padding: "20px", background: "#f9f9f9" }}>
+        <h2>Contract Terms</h2>
+        <p>
+          By agreeing to this contract, you consent to the following terms:
+          <ol>
+            <li>You will provide services as per the agreed schedule.</li>
+            <li>Payments must be made within 30 days of invoice submission.</li>
+            <li>Failure to comply may result in termination of the agreement.</li>
+          </ol>
+        </p>
+        <p>If you agree to these terms, please check the box below and click "Sign Contract."</p>
       </div>
 
-      {/* View Contract Status Section */}
-      <div className="contract-status">
-        <h2>Check Contract Status</h2>
+      <label>
         <input
-          type="text"
-          placeholder="Envelope ID"
-          onBlur={(e) => getContractStatus(e.target.value)}
+          type="checkbox"
+          checked={agreed}
+          onChange={() => setAgreed(!agreed)}
         />
-        {status && <p>Status: {status}</p>}
-      </div>
+        I have read and agree to the terms of this contract.
+      </label>
+      <br />
+      <button
+        onClick={handleConsent}
+        disabled={!agreed || isSubmitting}
+        style={{
+          marginTop: "20px",
+          padding: "10px 20px",
+          backgroundColor: agreed ? "#5c7b78" : "#aaa",
+          color: "#fff",
+          border: "none",
+          cursor: agreed ? "pointer" : "not-allowed",
+        }}
+      >
+        {isSubmitting ? "Submitting..." : "Sign Contract"}
+      </button>
 
-      {/* List Contracts Section */}
-      <div className="contract-list">
-        <h2>All Contracts</h2>
-        <ul>
-          {contracts.map((contract) => (
-            <li key={contract.envelopeId}>
-              <p>Client: {contract.clientName}</p>
-              <p>Email: {contract.clientEmail}</p>
-              <p>Status: {contract.status}</p>
-              <p>Envelope ID: {contract.envelopeId}</p>
-            </li>
-          ))}
-        </ul>
-      </div>
+      {message && (
+        <p
+          style={{
+            marginTop: "20px",
+            color: message.includes("success") ? "green" : "red",
+          }}
+        >
+          {message}
+        </p>
+      )}
     </div>
   );
 };

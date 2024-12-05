@@ -1,45 +1,61 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import axios from 'axios';
-import './UserProfile.css';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { Link } from "react-router-dom";
+import "./UserProfile.css";
 
-// Function to retrieve CSRF token from cookies
 const getCSRFToken = () => {
-    const name = 'csrftoken';
-    const cookies = document.cookie.split(';');
+    const name = "csrftoken";
+    const cookies = document.cookie.split(";");
     for (let cookie of cookies) {
         cookie = cookie.trim();
         if (cookie.startsWith(`${name}=`)) {
             return cookie.substring(name.length + 1);
         }
     }
-    console.error('CSRF token not found');
+    console.error("CSRF token not found");
     return null;
 };
 
-axios.defaults.headers.common['X-CSRFToken'] = getCSRFToken();
+axios.defaults.headers.common["X-CSRFToken"] = getCSRFToken();
 
 const UserProfile = () => {
     const [userInfo, setUserInfo] = useState(null);
+    const [consents, setConsents] = useState([]);
     const [error, setError] = useState(null);
-    console.log('User Info:', userInfo);
 
+    // Fetch user profile information
     useEffect(() => {
         axios
-            .get('http://localhost:8000/api/user-info/', {
+            .get("http://localhost:8000/api/user-info/", {
                 withCredentials: true, // Ensures cookies are sent with the request
             })
             .then((response) => {
-                console.log('User Info:', response.data); 
-                setUserInfo(response.data); // Store the user info in state
-                setError(null); // Clear errors if successful
+                setUserInfo(response.data);
             })
             .catch((error) => {
                 console.error(
-                    'Failed to fetch user info:',
+                    "Failed to fetch user info:",
                     error.response ? error.response.data : error.message
                 );
-                setError('Failed to load user information. Please try again later.');
+                setError("Failed to load user information. Please try again later.");
+            });
+    }, []);
+
+    // Fetch user consents
+    useEffect(() => {
+        axios
+            .get("http://localhost:8000/api/user-consents/", {
+                withCredentials: true, // Ensures cookies are sent with the request
+            })
+            .then((response) => {
+                setConsents(response.data.consents);
+            })
+            .catch((error) => {
+                console.error(
+                    "Failed to fetch consents:",
+                    error.response ? error.response.data : error.message
+                );
+                setError("Failed to load user consents. Please try again later.");
             });
     }, []);
 
@@ -51,35 +67,45 @@ const UserProfile = () => {
         return <p className="loading-message">Loading user info...</p>;
     }
 
-    // Determine the link destination based on the user type
-    const profilePage =
-        userInfo.type === 'professional'
-            ? `/contractors/edit/${userInfo.id}`
-            : `/clients/edit/${userInfo.id}`;
-
     return (
         <div className="user-profile">
             <div className="profile-card">
                 <h1>User Profile</h1>
                 <div className="profile-info">
                     <p>
-                        <strong>Username:</strong> {userInfo.username || 'N/A'}
+                        <strong>Username:</strong> {userInfo.username || "N/A"}
                     </p>
                     <p>
-                        <strong>Email:</strong> {userInfo.email || 'N/A'}
+                        <strong>Email:</strong> {userInfo.email || "N/A"}
                     </p>
                     <p>
-                        <strong>Name:</strong>{' '}
-                        {userInfo.first_name || 'N/A'} {userInfo.last_name || ''}
+                        <strong>Name:</strong>{" "}
+                        {userInfo.first_name || "N/A"} {userInfo.last_name || ""}
                     </p>
                     <p>
-                        <strong>Type:</strong> {userInfo.type|| 'N/A'}
+                        <strong>Type:</strong> {userInfo.type || "N/A"}
                     </p>
                 </div>
-                {/* Conditional Button */}
-                <Link to={profilePage} className="edit-link">
+                <Link to={`/profile/edit/${userInfo.id}`} className="edit-link">
                     Edit Profile
                 </Link>
+            </div>
+
+            <div className="consents-section">
+                <h2>Consented Contracts</h2>
+                {consents.length > 0 ? (
+                    <ul>
+                        {consents.map((consent, index) => (
+                            <li key={index}>
+                                <strong>Contract ID:</strong> {consent.contract_id} <br />
+                                <strong>Signed At:</strong>{" "}
+                                {new Date(consent.signed_at).toLocaleString()}
+                            </li>
+                        ))}
+                    </ul>
+                ) : (
+                    <p>No contracts consented to yet.</p>
+                )}
             </div>
         </div>
     );

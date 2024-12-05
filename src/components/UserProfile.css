@@ -1,57 +1,131 @@
+/* General Styling */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f7f9fc;
-    color: #333;
+    background-color: #f4f4f4;
 }
 
+/* Main Container */
 .user-profile {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
+    max-width: 800px;
+    margin: 20px auto;
     padding: 20px;
-    background-color: #f0f4f8;
+    background: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 /* Profile Card */
 .profile-card {
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    max-width: 400px;
-    width: 100%;
     text-align: center;
+    margin-bottom: 20px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 10px;
 }
 
 .profile-card h1 {
-    font-size: 1.8rem;
-    margin-bottom: 20px;
-    color: #007bff;
+    font-size: 24px;
+    margin-bottom: 10px;
+    color: #333;
 }
 
 .profile-info p {
-    font-size: 1rem;
     margin: 10px 0;
+    color: #555;
+    font-size: 16px;
 }
 
 .profile-info strong {
+    color: #333;
+}
+
+/* Edit Link */
+.edit-link {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: #5c7b78;
+    color: #ffffff;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.edit-link:hover {
+    background-color: #44625e;
+}
+
+/* Consents Section */
+.consents-section {
+    margin-top: 20px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+}
+
+.consents-section h2 {
+    margin-bottom: 15px;
+    color: #333;
+    font-size: 20px;
+}
+
+.consents-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.consents-section li {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
     color: #555;
 }
 
-/* Mobile Responsiveness */
+.consents-section li:last-child {
+    border-bottom: none;
+}
+
+.consents-section li strong {
+    color: #333;
+}
+
+/* Error Message */
+.error-message {
+    color: red;
+    font-size: 16px;
+    text-align: center;
+}
+
+/* Loading Message */
+.loading-message {
+    color: #555;
+    font-size: 16px;
+    text-align: center;
+}
+
+/* Responsive Design */
 @media (max-width: 600px) {
-    .profile-card {
+    .user-profile {
         padding: 15px;
     }
 
-    .profile-card h1 {
-        font-size: 1.5rem;
+    .profile-card,
+    .consents-section {
+        padding: 10px;
     }
 
-    .profile-info p {
-        font-size: 0.9rem;
+    .profile-info p,
+    .consents-section li {
+        font-size: 14px;
+    }
+
+    .edit-link {
+        font-size: 12px;
+        padding: 8px 15px;
     }
 }
