@@ -19,6 +19,7 @@ const Layout = () => {
             <Link to="/contact" className="nav-button">Contact us</Link>
             <Link to="/user-profile" className="nav-button">User Profile</Link>
             <Link to="/contracts" className='nav-button'>DocSign</Link>
+            <Link to="/payment" className='nav-button'>Pay</Link>
             
           </div>
           <div className="right-nav">

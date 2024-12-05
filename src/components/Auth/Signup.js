@@ -4,9 +4,12 @@ import './Signup.css';
 function Signup() {
   const [formData, setFormData] = useState({
     username: '', // Add username field
+    firstname: '',
+    lastname: '',
     email: '',
     password: '',
     confirmPassword: '',
+    location: '',
     role: 'client', // default role
     job_type: '', // Changed field name from jobType to job_type to match backend
   });
@@ -67,9 +70,12 @@ function Signup() {
         setError(''); // Clear error state
         setFormData({
           username: '',
+          firstname: '',
+          lastname: '',
           email: '',
           password: '',
           confirmPassword: '',
+          location: '',
           role: 'client',
           job_type: '',
         }); // Reset form fields
@@ -93,6 +99,25 @@ function Signup() {
         placeholder="Username"
         required
         className='inp'
+      />
+      <input
+      type="text"
+      name="firstname"
+      value={formData.firstname}
+      onChange={handleChange}
+      placeholder='First Name'
+      required
+      className='inp'
+      />
+
+      <input
+      type="text"
+      name="lastname"
+      value={formData.lastname}
+      onChange={handleChange}
+      placeholder='Last Name'
+      required
+      className='inp'
       />
       
       <input
@@ -123,6 +148,15 @@ function Signup() {
         placeholder="Confirm Password"
         required
         className='inp'
+      />
+      <input
+      type="text"
+      name="location"
+      value={formData.location}
+      onChange={handleChange}
+      placeholder='City Name'
+      required
+      className='inp'
       />
       
       <label>

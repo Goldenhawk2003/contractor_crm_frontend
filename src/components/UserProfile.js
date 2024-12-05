@@ -86,7 +86,12 @@ const UserProfile = () => {
                         <strong>Type:</strong> {userInfo.type || "N/A"}
                     </p>
                 </div>
-                <Link to={`/profile/edit/${userInfo.id}`} className="edit-link">
+                <Link
+  to={userInfo.role === "client" 
+       ? `/clients/edit/${userInfo.id}` 
+       : `/contractors/edit/${userInfo.id}`}
+  className="edit-link"
+>
                     Edit Profile
                 </Link>
             </div>

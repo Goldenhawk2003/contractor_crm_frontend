@@ -46,7 +46,7 @@ const Inbox = () => {
         <h1 className="inbox-header">Your Inbox</h1>
         <button
           className="create-message-btn"
-          onClick={() => navigate("/create-message")}
+          onClick={() => navigate("/start-conversation")}
         >
           Create New Message
         </button>

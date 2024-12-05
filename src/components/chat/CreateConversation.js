@@ -1,28 +1,42 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 const CreateConversation = () => {
-  const [contractors, setContractors] = useState([]);
-  const [recipientId, setRecipientId] = useState("");
+  const [searchTerm, setSearchTerm] = useState(""); // Input for searching users
+  const [searchResults, setSearchResults] = useState([]); // Search results
+  const [recipientId, setRecipientId] = useState(""); // Selected recipient
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
-  const [success, setSuccess] = useState(""); // New: Success message
-  const [loading, setLoading] = useState(false); // New: Loading state
+  const [success, setSuccess] = useState(""); // Success message
+  const [loading, setLoading] = useState(false); // Loading state
+  const [searching, setSearching] = useState(false); // Searching state
 
-  useEffect(() => {
-    const fetchContractors = async () => {
-      try {
-        const response = await fetch("http://localhost:8000/api/contractors/");
-        const data = await response.json();
-        console.log("Contractors fetched:", data); // Log API response
-        setContractors(data);
-      } catch (error) {
-        console.error("Failed to fetch contractors:", error);
-        setError("Failed to load contractors. Please try again later.");
+  const handleSearch = async () => {
+    if (!searchTerm.trim()) {
+      setError("Please enter a name to search.");
+      return;
+    }
+
+    setSearching(true);
+    setError(""); // Clear previous errors
+
+    try {
+      const response = await fetch(`http://localhost:8000/api/users/search/?q=${searchTerm}`, {
+        credentials: "include",
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to search for users. Please try again.");
       }
-    };
 
-    fetchContractors();
-  }, []);
+      const data = await response.json();
+      setSearchResults(data);
+    } catch (error) {
+      console.error("Search failed:", error);
+      setError(error.message || "Could not perform the search. Please try again.");
+    } finally {
+      setSearching(false);
+    }
+  };
 
   const createConversation = async () => {
     setError(""); // Clear previous errors
@@ -30,7 +44,7 @@ const CreateConversation = () => {
     setLoading(true); // Set loading state
 
     if (!recipientId) {
-      setError("Please select a contractor.");
+      setError("Please select a recipient.");
       setLoading(false);
       return;
     }
@@ -76,7 +90,7 @@ const CreateConversation = () => {
 
       setSuccess("Conversation created successfully!");
       setMessage(""); // Clear message input
-      setRecipientId(""); // Reset dropdown
+      setRecipientId(""); // Reset selected recipient
     } catch (error) {
       console.error("Failed to create conversation:", error);
       setError(error.message || "Could not create a conversation. Please try again.");
@@ -91,19 +105,39 @@ const CreateConversation = () => {
       {error && <p style={{ color: "red" }}>{error}</p>}
       {success && <p style={{ color: "green" }}>{success}</p>}
 
-      <label htmlFor="contractor-select">Select a Contractor:</label>
-      <select
-        id="contractor-select"
-        value={recipientId}
-        onChange={(e) => setRecipientId(e.target.value)}
-      >
-        <option value="">Select a contractor</option>
-        {contractors.map((contractor) => (
-          <option key={contractor.id} value={contractor.id}>
-            {contractor.username} {/* Use 'username' from API response */}
-          </option>
+      <label htmlFor="user-search">Search for a Recipient:</label>
+      <div>
+        <input
+          id="user-search"
+          type="text"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          placeholder="Enter a name..."
+        />
+        <button onClick={handleSearch} disabled={searching}>
+          {searching ? "Searching..." : "Search"}
+        </button>
+      </div>
+
+      <div>
+        <h3>Search Results:</h3>
+        {searchResults.length === 0 && searchTerm && <p>No users found.</p>}
+        {searchResults.map((user) => (
+          <div
+            key={user.id}
+            style={{
+              border: "1px solid #ccc",
+              padding: "10px",
+              margin: "5px 0",
+              cursor: "pointer",
+              backgroundColor: recipientId === user.id ? "#f0f8ff" : "white",
+            }}
+            onClick={() => setRecipientId(user.id)} // Set selected recipient
+          >
+            {user.username}
+          </div>
         ))}
-      </select>
+      </div>
 
       <textarea
         value={message}
@@ -111,7 +145,7 @@ const CreateConversation = () => {
         placeholder="Write a message..."
       />
 
-      <button onClick={createConversation} disabled={loading}>
+      <button onClick={createConversation} disabled={loading || !recipientId}>
         {loading ? "Sending..." : "Send"}
       </button>
     </div>
