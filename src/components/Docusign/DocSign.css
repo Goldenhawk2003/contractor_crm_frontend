@@ -1,76 +1,76 @@
 .container {
-    padding: 20px;
-    font-family: 'Arial', sans-serif;
-  }
-  
-  h1 {
-    font-size: 3.2rem;
-    color: #1b3656;
-    text-align: center;
-  }
-  
-  h2 {
-    font-size: 2rem;
-    color: #5c7b78;
-    margin-bottom: 15px;
-  }
-  
-  p {
-    font-size: 1.2rem;
-    color: #333;
-  }
-  
-  ol {
-    margin-left: 20px;
-    font-size: 1.2rem;
-  }
-  
-  button {
-    margin-top: 20px;
-    padding: 10px 20px;
-    background-color: #aaa;
-    color: #fff;
-    border: none;
-    cursor: not-allowed;
-    font-size: 1rem;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
-  }
-  
-  button:enabled {
-    background-color: #5c7b78;
-    cursor: pointer;
-  }
-  
-  button:enabled:hover {
-    background-color: #4a6a61;
-  }
-  
-  label {
-    font-size: 1.2rem;
-    margin-top: 20px;
-  }
-  
-  input[type="checkbox"] {
-    margin-right: 10px;
-  }
-  
-  .message {
-    margin-top: 20px;
-    font-size: 1rem;
-  }
-  
-  .success {
-    color: green;
-  }
-  
-  .error {
-    color: red;
-  }
-  
-  .contract-box {
-    border: 1px solid #ccc;
-    padding: 20px;
-    background-color: #f9f9f9;
-    margin-bottom: 20px;
-  }
+  padding: 20px;
+  font-family: 'Arial', sans-serif;
+}
+
+.sign-header{
+  font-size: 3.2rem;
+  color: #1b3656;
+  text-align: center;
+}
+
+.sign-header2{
+  font-size: 2rem;
+  color: #5c7b78;
+  margin-bottom: 15px;
+}
+
+.sign-p {
+  font-size: 1.2rem;
+  color: #333;
+}
+
+.sign-ol {
+  margin-left: 20px;
+  font-size: 1.2rem;
+}
+
+.sign-button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #aaa;
+  color: #fff;
+  border: none;
+  cursor: not-allowed;
+  font-size: 1rem;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.sign-button:enabled {
+  background-color: #5c7b78;
+  cursor: pointer;
+}
+
+.sign-button:enabled:hover {
+  background-color: #4a6a61;
+}
+
+.sign-label {
+  font-size: 1.2rem;
+  margin-top: 20px;
+}
+
+.sign-input[type="checkbox"] {
+  margin-right: 10px;
+}
+
+.message {
+  margin-top: 20px;
+  font-size: 1rem;
+}
+
+.success {
+  color: green;
+}
+
+.error {
+  color: red;
+}
+
+.contract-box {
+  border: 1px solid #ccc;
+  padding: 20px;
+  background-color: #f9f9f9;
+  margin-bottom: 20px;
+}

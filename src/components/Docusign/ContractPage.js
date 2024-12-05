@@ -57,13 +57,13 @@ const ContractPage = () => {
 
   return (
     <div style={{ padding: "20px", fontFamily: "Arial, sans-serif" }}>
-      <h1>Review and Sign Contract</h1>
+      <h1 className="sign-header">Review and Sign Contract</h1>
 
       <div style={{ border: "1px solid #ccc", padding: "20px", background: "#f9f9f9" }}>
-        <h2>Contract Terms</h2>
-        <p>
+        <h2 className="sign-header2">Contract Terms</h2>
+        <p className="sign-p">
           By agreeing to this contract, you consent to the following terms:
-          <ol>
+          <ol className="sign-ol">
             <li>You will provide services as per the agreed schedule.</li>
             <li>Payments must be made within 30 days of invoice submission.</li>
             <li>Failure to comply may result in termination of the agreement.</li>
@@ -72,11 +72,12 @@ const ContractPage = () => {
         <p>If you agree to these terms, please check the box below and click "Sign Contract."</p>
       </div>
 
-      <label>
+      <label className="sign-label">
         <input
           type="checkbox"
           checked={agreed}
           onChange={() => setAgreed(!agreed)}
+          className="sign-input"
         />
         I have read and agree to the terms of this contract.
       </label>
@@ -84,14 +85,7 @@ const ContractPage = () => {
       <button
         onClick={handleConsent}
         disabled={!agreed || isSubmitting}
-        style={{
-          marginTop: "20px",
-          padding: "10px 20px",
-          backgroundColor: agreed ? "#5c7b78" : "#aaa",
-          color: "#fff",
-          border: "none",
-          cursor: agreed ? "pointer" : "not-allowed",
-        }}
+        className="sign-button"
       >
         {isSubmitting ? "Submitting..." : "Sign Contract"}
       </button>
