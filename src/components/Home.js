@@ -46,7 +46,7 @@ const Home = () => {
       
       <div className="search-bar-container">
   <input type="text" className="search-bar" placeholder="Search services: Plumbing, renovations, snow removal" value={searchText}
-          onChange={handleSearch} />
+          onChange={handleSearch} onKeyDown={handleKeyDown} />
   <button
           className="search-button"
           onClick={() => navigate('/Browse-Contractors', { state: { query: searchText } })}
