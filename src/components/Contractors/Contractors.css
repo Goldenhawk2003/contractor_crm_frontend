@@ -1,92 +1,97 @@
-
 .contractor-form {
+  font-family: 'Open Sauce One', Arial, sans-serif;
   max-width: 600px;
   margin: 50px auto;
-  padding: 20px;
-  background-color: #f9f9f9;
-  border: 1px solid #ddd;
+  padding: 30px;
+  background-color: #f8f8f8; /* White background */
+  border: 1px solid #5c7b78; /* Green border */
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .contractor-form h2 {
+  font-size: 2rem; /* Heading 2 */
   text-align: center;
-  margin-bottom: 20px;
-  color: #333;
+  margin-bottom: 25px;
+  color: #1b3656; /* Blue text */
 }
 
 .contractor-form form {
   display: flex;
   flex-direction: column;
+  gap: 15px; /* Add gap for cleaner spacing */
 }
 
 .contractor-form label {
-  margin-bottom: 5px;
+  font-size: 1rem; /* Paragraph 2 */
   font-weight: bold;
-  color: #555;
+  color: #1b3656; /* Blue text for contrast and brand consistency */
+  margin-bottom: 5px;
 }
 
 .contractor-form input {
-  margin-bottom: 15px;
+  font-size: 1rem; /* Paragraph 2 */
   padding: 10px;
-  font-size: 16px;
   border: 1px solid #ccc;
   border-radius: 4px;
+  color: #1b3656;
+  background-color: #ffffff;
 }
 
 .contractor-form input:focus {
-  border-color: #007bff;
+  border-color: #5c7b78; /* Green focus border */
   outline: none;
-  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  box-shadow: 0 0 5px rgba(92, 123, 120, 0.5); /* Slight green hue */
 }
 
 .contractor-form button {
-  padding: 10px 20px;
-  font-size: 18px;
+  font-size: 1rem; /* Paragraph 2 (slightly larger could also be nice, but sticking to spec) */
   font-weight: bold;
-  color: #fff;
-  background-color: #007bff;
+  color: #1b3656;
+  background-color: #dcbf79; /* Gold */
+  padding: 12px 20px;
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: background-color 0.3s, transform 0.3s;
 }
 
 .contractor-form button:hover {
-  background-color: #0056b3;
+  background-color: #bfa564; /* Slightly darker gold on hover */
+  transform: translateY(-2px);
 }
 
 .contractor-form .error-message {
-  color: #d9534f;
+  color: #d9534f; /* Red for errors; not specified but commonly understood */
+  font-size: 1rem; /* Paragraph 2 */
   font-weight: bold;
   margin-bottom: 15px;
   text-align: center;
 }
 
 .contractor-form .success-message {
-  color: #5cb85c;
+  color: #5c7b78; /* Green for success */
+  font-size: 1rem; /* Paragraph 2 */
   font-weight: bold;
   margin-bottom: 15px;
   text-align: center;
 }
 
 .contractor-form p {
-  font-size: 16px;
+  font-size: 1rem; /* Paragraph 2 by default */
   text-align: center;
+  color: #1b3656;
+  margin-top: 20px;
 }
 
 @media (max-width: 768px) {
   .contractor-form {
-    padding: 15px;
+    padding: 20px;
   }
 
-  .contractor-form input {
-    font-size: 14px;
-    padding: 8px;
-  }
-
+  .contractor-form input,
   .contractor-form button {
-    font-size: 16px;
-    padding: 8px 15px;
+    font-size: 0.9rem; /* Paragraph 4 for smaller screens */
+    padding: 8px;
   }
 }

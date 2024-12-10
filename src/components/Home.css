@@ -1,15 +1,24 @@
 @font-face {
   font-family: 'Open Sauce One';
   src: url('/src/Open Sauce Font/OpenSauceOne-Black.ttf') format('truetype');
-  font-weight: 900; /* Adjust based on the font's weight */
+  font-weight: 900;
   font-style: normal;
 }
+
+
+
+body {
+  font-family: 'Open Sauce One', Arial, sans-serif;
+  color: #ffffff;
+
+}
+
 .home-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  
+  padding: 20px;
   background-color: #5f7674;
   width: 100%;
 }
@@ -17,17 +26,16 @@
 .head {
   font-size: 3.2rem;
   margin-bottom: 10px;
-  color: #FFFF;
+  color: #ffffff;
   text-align: center;
   font-family: 'Open Sauce One', Arial, sans-serif;
 }
 
 .subhead {
   font-size: 1.2rem;
-  color: #ffff;
+  color: #ffffff;
   margin-bottom: 30px;
   text-align: center;
-  font-family: 'Open Sauce One', Arial, sans-serif;
 }
 
 .search-bar-container {
@@ -35,22 +43,27 @@
   width: 80%;
   max-width: 500px;
   margin-bottom: 20px;
-  display: flex; /* Ensures proper alignment of input and button */
+  display: flex;
   border-radius: 25px;
-  overflow: hidden; /* Ensures smooth edges and prevents elements from overflowing */
+  overflow: hidden;
 }
 
 .search-bar {
-  flex: 1; /* Ensures the input takes up all remaining space */
+  flex: 1;
   padding: 12px 20px;
   border: none;
-  font-size: 0.8rem;
-  outline: none; /* Removes default focus outline */
+  font-size: 1rem;
+  outline: none;
   font-family: 'Open Sauce One', Arial, sans-serif;
+  border-radius: 0 0 0 0;
+}
+
+.search-bar:focus {
+  outline: 2px solid #cfbb7e;
 }
 
 .search-button {
-  background-color: #cfbb7e; /* Gold color */
+  background-color: #cfbb7e;
   border: none;
   width: 50px;
   cursor: pointer;
@@ -60,162 +73,12 @@
 }
 
 .search-button:hover {
-  background-color: #bca465; /* Darker gold on hover */
+  background-color: #bca465;
 }
 
 .search-button i {
-  color: white; /* Optional: Use an icon or text */
+  color: white;
   font-size: 18px;
-}
-
-.search-icon {
-  position: absolute;
-  right: 15px;
-  top: 50%;
-  transform: translateY(-50%);
-  color: #cfbb7e;
-  font-size: 18px;
-  pointer-events: none;
-}
-
-/* Service buttons */
-.services-buttons {
-  display: flex;
-  gap: 10px;
-  margin-top: 20px;
-}
-
-.service-button {
-  padding: 10px 20px;
-  background-color: transparent;
-  color: #ffff;
-  border: none;
-  border-radius: 20px;
-  cursor: pointer;
-  font-size: 1rem;
-  transition: background-color 0.3s ease;
-  text-decoration: none;
-  font-weight: bold;
-  font-family: 'Open Sauce One', Arial, sans-serif;
-}
-
-.service-button:hover {
-  background-color: #cfbb7e;
-}
-.Contractor-choices {
-  text-align: center;
-  margin: 20px 0;
-}
-
-.Contractor-choices button {
-  position: relative; /* Allow positioning of child elements */
-  width: 100px; /* Adjust button size */
-  height: 100px; /* Adjust button size */
-  background: none; /* Remove default button background */
-  border: none; /* Remove border */
-  padding: 0; /* Remove padding */
-  cursor: pointer; /* Change cursor to pointer */
-  border-radius: 10px; /* Optional: add rounded corners */
-  overflow: hidden; /* Ensure image stays within the button */
-}
-
-.Contractor-choices button img {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%; /* Make image fill the button */
-  height: 100%; /* Make image fill the button */
-  object-fit: cover; /* Maintain aspect ratio while covering */
-  z-index: 1; /* Ensure image is behind the text */
-}
-
-.Contractor-choices button span {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%); /* Center text */
-  color: white; /* White text for contrast */
-  font-size: 16px; /* Adjust text size */
-  font-weight: bold; /* Make text bold */
-  z-index: 2; /* Ensure text is above the image */
-  text-align: center; /* Center-align the text */
-  text-shadow: 0 2px 5px rgba(0, 0, 0, 0.7); /* Add a subtle shadow for readability */
-}
-
-.trust{
-  background-color: #ffff;
-  width:100%;
-  height: 500px;
-}
-.trust-header{
-position: absolute;
-left: 35px;
-bottom: 170px;
-color: #000;
-font-size: 2rem;
-font-family: 'Open Sauce One', Arial, sans-serif;
-}
-.trust-p{
-  position: absolute;
-  left: 40px;
-  bottom: 120px;
-  color: #000;
-  font-family: 'Open Sauce One', Arial, sans-serif;
-  font-size: 1rem;
-  
-}
-
-.trust-button {
-  position: absolute;
-  left: 50px;
-  bottom: 70px;
-  background-color: transparent; /* Gold background */
-  color: #000; /* White text */
-  border: black;
-  border: solid;
-  border-width: 2px;
-  padding: 10px 20px;
-  border-radius: 20px; /* Rounded corners */
-  cursor: pointer;
-  font-size: 0.8rem;
-  font-weight: bold;
-  z-index: 10; /* Ensure it's on top */
-  transition: background-color 0.3s ease;
-  font-family: 'Open Sauce One', Arial, sans-serif;
-
-}
-
-.trust-button:hover {
-  background-color: #bca465; /* Slightly darker gold on hover */
-  border: none;
-}
-
-.our-process{
-  background-color: #bca465;
-  width:100%;
-  height: 500px;
-
-
-}
-
-.our-header{
-  padding-left: 40px;
-  color: #000;
-  padding-top: 20px;
-  font-size: 1.5rem;
-  font-family: 'Open Sauce One', Arial, sans-serif;
-}
-.match{
-  width: 100%;
-  height: 100%;
-  background-color: #5f7674;
-}
-
-.match-header{
-  color: #fff;
-  font-size: 2rem;
-  padding-left: 250px;
-  font-family: 'Open Sauce One', Arial, sans-serif;
 }
 
 .search-results {
@@ -224,8 +87,8 @@ font-family: 'Open Sauce One', Arial, sans-serif;
   padding: 10px;
   border-radius: 5px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-  font-family: 'Open Sauce One', Arial, sans-serif;
   font-size: 0.8rem;
+  color: #333;
 }
 
 .search-results ul {
@@ -241,4 +104,117 @@ font-family: 'Open Sauce One', Arial, sans-serif;
 
 .search-results li:last-child {
   border-bottom: none;
+}
+
+.services-buttons {
+  display: flex;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.service-button {
+  padding: 10px 20px;
+  background-color: transparent;
+  color: #ffffff;
+  border: 2px solid #cfbb7e;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.service-button:hover {
+  background-color: #cfbb7e;
+  color: #000000;
+}
+
+.Contractor-choices {
+  display: grid;
+  grid-template-columns: repeat(3, 150px);
+  gap: 15px;
+  margin: 20px auto;
+  justify-content: center;
+}
+
+.Contractor-choices a {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1; /* Keeps them square */
+  background-color: #ffffff;
+  border-radius: 10px;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+}
+
+.Contractor-choices a:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.Contractor-choices img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.trust {
+  background-color: #ffffff;
+  width: 100%;
+  padding: 50px 20px;
+  text-align: left;
+  color: #000000;
+}
+
+.trust-header {
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+.trust-p {
+  font-size: 1rem;
+  margin-bottom: 30px;
+}
+
+.trust-button {
+  background-color: transparent;
+  color: #000000;
+  border: 2px solid #000000;
+  padding: 10px 20px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  font-weight: bold;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.trust-button:hover {
+  background-color: #bca465;
+  border-color: #bca465;
+}
+
+.our-process {
+  background-color: #bca465;
+  width: 100%;
+  padding: 50px 20px;
+  color: #000000;
+}
+
+.our-header {
+  font-size: 1.5rem;
+}
+
+.match {
+  width: 100%;
+  background-color: #5f7674;
+  padding: 50px 20px;
+  color: #ffffff;
+}
+
+.match-header {
+  font-size: 2rem;
+  text-align: center;
 }

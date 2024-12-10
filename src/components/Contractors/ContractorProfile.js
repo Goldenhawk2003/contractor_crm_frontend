@@ -32,9 +32,7 @@ const ContractorProfile = () => {
   return (
     <div className="contractor-profile">
       <h2 className="contractor-name">{contractor.username || contractor.name}</h2>
-      <p><strong>Email:</strong> {contractor.email || 'N/A'}</p>
-      <p><strong>Phone:</strong> {contractor.phone || 'N/A'}</p>
-      <p><strong>Address:</strong> {contractor.address || 'N/A'}</p>
+      <p><strong>Location:</strong> {contractor.location || 'N/A'}</p>
       <p><strong>Job Type:</strong> {contractor.job_type}</p>
       <p><strong>Experience:</strong> {contractor.experience_years} years</p>
       <p><strong>Rating:</strong> {contractor.rating || 'No ratings yet'}</p>

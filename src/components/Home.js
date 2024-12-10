@@ -70,13 +70,25 @@ const Home = () => {
         <Link to="/find-contractor" className='service-button'>Find a Contractor</Link>
       </div>
       <div className="Contractor-choices">
-        <button type='submit'>Washroooms<img src="/images/download.png" alt="Bathroom Renovation Ideas" /></button>
-        <button type='submit'>Washroooms<img src="/images/download.png" alt="Bathroom Renovation Ideas" /></button>
-        <button type='submit'>Washroooms<img src="/images/download.png" alt="Bathroom Renovation Ideas" /></button>
-        <button type='submit'>Washroooms<img src="/images/download.png" alt="Bathroom Renovation Ideas" /></button>
-        <button type='submit'>Washroooms<img src="/images/download.png" alt="Bathroom Renovation Ideas" /></button>
-        <button type='submit'>Washroooms<img src="/images/download.png" alt="Bathroom Renovation Ideas" /></button>
-      </div>
+  <Link to="/find-contractor?type=Plumbing" className="contractor-choice-button">
+    <img src="/images/download.png" alt="Plumbing Services" />
+  </Link>
+  <Link to="/find-contractor?type=Renovations" className="contractor-choice-button">
+    <img src="/images/renovation.webp" alt="Renovation Services" />
+  </Link>
+  <Link to="/find-contractor?type=Electrical" className="contractor-choice-button">
+    <img src="images/electrical.webp" alt="Electrical Services" />
+  </Link>
+  <Link to="/find-contractor?type=Carpentry" className="contractor-choice-button">
+    <img src="/images/carpentry.jpg" alt="Carpentry Services" />
+  </Link>
+  <Link to="/find-contractor?type=Painting" className="contractor-choice-button">
+    <img src="/images/painting.jpg" alt="Painting Services" />
+  </Link>
+  <Link to="/find-contractor?type=Snow-removal" className="contractor-choice-button">
+    <img src="/images/snow_removal.jpeg" alt="Snow Removal Services" />
+  </Link>
+</div>
       <div className='trust'>
         <h2 className='trust-header'>Trustworthy People, With reliable solutions
         </h2>
