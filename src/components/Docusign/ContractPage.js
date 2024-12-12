@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import "./DocSign.css";
 
+// Function to retrieve CSRF token from cookies
 const getCSRFToken = () => {
   const name = "csrftoken";
   const cookies = document.cookie.split(";");
@@ -14,92 +16,106 @@ const getCSRFToken = () => {
   return null;
 };
 
+// Configure Axios with CSRF token and credentials
+axios.defaults.withCredentials = true;
+axios.defaults.headers.common["X-CSRFToken"] = getCSRFToken();
+
 const ContractPage = () => {
-  const [agreed, setAgreed] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [message, setMessage] = useState("");
+  const [contracts, setContracts] = useState([]);
+  const [selectedContract, setSelectedContract] = useState(null);
+  const [consentGiven, setConsentGiven] = useState(false);
+  const [successMessage, setSuccessMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
-  const handleConsent = async () => {
-    setIsSubmitting(true);
-    try {
-      const csrfToken = getCSRFToken();
-      if (!csrfToken) {
-        throw new Error("CSRF token not found");
+  useEffect(() => {
+    const fetchContracts = async () => {
+      try {
+        const response = await axios.get('http://localhost:8000/api/contracts/');
+        setContracts(response.data);
+      } catch (error) {
+        console.error('Error fetching contracts:', error);
+        setErrorMessage("Failed to load contracts. Please try again later.");
       }
+    };
 
-      const response = await fetch("http://localhost:8000/api/sign-contract/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "X-CSRFToken": csrfToken, // Include CSRF token in the header
+    fetchContracts();
+  }, []);
+
+  const handleContractSelect = (id) => {
+    const contract = contracts.find((c) => c.id === id);
+    setSelectedContract(contract);
+    setSuccessMessage(""); // Clear any previous success message
+    setErrorMessage(""); // Clear any previous error message
+  };
+
+  const handleSignContract = async () => {
+    if (!selectedContract || !consentGiven) {
+      alert("Please select a contract and give consent.");
+      return;
+    }
+
+    try {
+      const response = await axios.post(
+        "http://localhost:8000/api/sign-contract/",
+        {
+          contractId: selectedContract.id,
+          consent: true, // Always true since consent is required to sign
         },
-        credentials: "include", // Ensures cookies are sent with the request
-        body: JSON.stringify({
-          consent: true,
-          userId: 1, // Replace with the actual user ID from context/auth
-          contractId: 101, // Replace with the actual contract ID
-        }),
-      });
+        { withCredentials: true }
+      );
 
-      const data = await response.json();
-      if (response.ok) {
-        setMessage(data.message || "Contract signed successfully.");
-      } else {
-        setMessage(data.error || "Failed to sign the contract.");
+      if (response.data.message) {
+        setSuccessMessage(response.data.message);
       }
     } catch (error) {
-      setMessage("An error occurred. Please try again.");
-      console.error("Error:", error);
-    } finally {
-      setIsSubmitting(false);
+      console.error("Error signing contract:", error);
+      if (error.response && error.response.data && error.response.data.error) {
+        setErrorMessage(error.response.data.error);
+      } else {
+        setErrorMessage("Failed to sign the contract. Please try again later.");
+      }
     }
   };
 
   return (
-    <div style={{ padding: "20px", fontFamily: "Arial, sans-serif" }}>
-      <h1 className="sign-header">Review and Sign Contract</h1>
+    <div className="contract-signing">
+      <h1>Review and Sign Contract</h1>
 
-      <div style={{ border: "1px solid #ccc", padding: "20px", background: "#f9f9f9" }}>
-        <h2 className="sign-header2">Contract Terms</h2>
-        <p className="sign-p">
-          By agreeing to this contract, you consent to the following terms:
-          <ol className="sign-ol">
-            <li>You will provide services as per the agreed schedule.</li>
-            <li>Payments must be made within 30 days of invoice submission.</li>
-            <li>Failure to comply may result in termination of the agreement.</li>
-          </ol>
-        </p>
-        <p>If you agree to these terms, please check the box below and click "Sign Contract."</p>
-      </div>
+      {/* Contract Selector */}
+      <select onChange={(e) => handleContractSelect(Number(e.target.value))}>
+        <option value="">Select a contract</option>
+        {contracts.map((contract) => (
+          <option key={contract.id} value={contract.id}>
+            {contract.title}
+          </option>
+        ))}
+      </select>
 
-      <label className="sign-label">
+      {/* Display Selected Contract */}
+      {selectedContract && (
+        <div className="contract-terms">
+          <h2>{selectedContract.title}</h2>
+          <p>{selectedContract.terms}</p>
+        </div>
+      )}
+
+      {/* Consent and Sign */}
+      <div className="consent">
         <input
           type="checkbox"
-          checked={agreed}
-          onChange={() => setAgreed(!agreed)}
-          className="sign-input"
+          id="consent"
+          checked={consentGiven}
+          onChange={(e) => setConsentGiven(e.target.checked)}
         />
-        I have read and agree to the terms of this contract.
-      </label>
-      <br />
-      <button
-        onClick={handleConsent}
-        disabled={!agreed || isSubmitting}
-        className="sign-button"
-      >
-        {isSubmitting ? "Submitting..." : "Sign Contract"}
-      </button>
+        <label htmlFor="consent">I agree to the terms of this contract</label>
+      </div>
+      <button onClick={handleSignContract}>Sign Contract</button>
 
-      {message && (
-        <p
-          style={{
-            marginTop: "20px",
-            color: message.includes("success") ? "green" : "red",
-          }}
-        >
-          {message}
-        </p>
-      )}
+      {/* Success Message */}
+      {successMessage && <p className="success-message">{successMessage}</p>}
+
+      {/* Error Message */}
+      {errorMessage && <p className="error-message">{errorMessage}</p>}
     </div>
   );
 };
