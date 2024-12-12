@@ -41,7 +41,7 @@ const UserProfile = () => {
             });
     }, []);
 
-    // 
+    // Fetch user consents
     useEffect(() => {
         axios
             .get("http://localhost:8000/api/user-consents/", {
@@ -66,7 +66,11 @@ const UserProfile = () => {
     if (!userInfo) {
         return <p className="loading-message">Loading user info...</p>;
     }
+    const logoUrl = userInfo.logo.startsWith('http')
+    ? userInfo.logo
+    : `http://localhost:8000${userInfo.logo}`;
 
+<img src={logoUrl} alt="Contractor Logo" style={{ width: '100px', height: '100px' }} />
     return (
         <div className="user-profile">
             <div className="profile-card">
@@ -86,17 +90,29 @@ const UserProfile = () => {
                         <strong>Type:</strong> {userInfo.type || "N/A"}
                     </p>
                 </div>
+
+                {userInfo.logo && (
+                    <div className="profile-logo">
+                        <h3>Company Logo</h3>
+                        <img
+                            src={userInfo.logo} // Assuming the backend provides the full logo URL
+                            alt={`${userInfo.username}'s logo`}
+                            className="logo-image"
+                        />
+                    </div>
+                )}
+
                 <Link
-  to={userInfo.role === "client" 
-       ? `/clients/edit/${userInfo.id}` 
-       : `/contractors/edit/${userInfo.id}`}
-  className="edit-link"
->
+                    to={
+                        userInfo.role === "client"
+                            ? `/clients/edit/${userInfo.id}`
+                            : `/contractors/edit/${userInfo.id}`
+                    }
+                    className="edit-link"
+                >
                     Edit Profile
                 </Link>
-             {/*<Link to={userInfo.role == "client" ? '/clients' : '/contractors'}  className="manage-link"> My jobs</Link>*/} 
             </div>
-
 
             <div className="consents-section">
                 <h2>Consented Contracts</h2>

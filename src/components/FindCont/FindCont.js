@@ -51,6 +51,17 @@ const FindCont = () => {
         e.preventDefault();
         fetchContractors(workType);
     };
+    const renderStars = (rating) => {
+        const stars = [];
+        for (let i = 0; i < 5; i++) {
+            stars.push(
+                <span key={i} className={i < rating ? "star filled" : "star"}>
+                    ★
+                </span>
+            );
+        }
+        return stars;
+    };
 
     return (
         <div className="find-cont">
@@ -91,7 +102,7 @@ const FindCont = () => {
                                 </Link>
                                 <p><strong>Job Type:</strong> {contractor.job_type || 'N/A'}</p>
                                 <p><strong>Experience:</strong> {contractor.experience_years || 'N/A'} years</p>
-                                <p><strong>Rating:</strong> {contractor.rating || 'No rating available'}</p>
+                                <p><strong>Rating:</strong> {renderStars(contractor.rating)}</p>
                                 <p><strong>Description:</strong> {contractor.profile_description || 'No description provided'}</p>
                             </li>
                         ))}

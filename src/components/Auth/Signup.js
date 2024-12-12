@@ -12,17 +12,22 @@ function Signup() {
     location: '',
     role: 'client',
     job_type: '',
-    hourly_rate: '', // New field for hourly rate
+    hourly_rate: '',
+    logo: null, // New field for logo
   });
 
   const [error, setError] = useState('');
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    if (e.target.name === 'logo') {
+      setFormData({ ...formData, logo: e.target.files[0] }); // Handle file upload
+    } else {
+      setFormData({ ...formData, [e.target.name]: e.target.value });
+    }
   };
 
   const validateForm = () => {
-    const { username, email, password, confirmPassword, hourly_rate, role } = formData;
+    const { username, email, password, confirmPassword, hourly_rate, role, logo } = formData;
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if (!username) {
@@ -44,6 +49,9 @@ function Signup() {
       if (!hourly_rate || isNaN(hourly_rate) || hourly_rate <= 0) {
         return "Hourly rate must be a positive number";
       }
+      if (!logo) {
+        return "Logo is required for professionals";
+      }
     }
     return null;
   };
@@ -56,15 +64,17 @@ function Signup() {
       return;
     }
 
-    const { confirmPassword, ...payload } = formData;
+    const formDataPayload = new FormData();
+    for (const key in formData) {
+      if (formData[key] !== null) {
+        formDataPayload.append(key, formData[key]);
+      }
+    }
 
     try {
       const response = await fetch('http://localhost:8000/api/register/', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(payload),
+        body: formDataPayload,
       });
 
       const data = await response.json();
@@ -81,7 +91,8 @@ function Signup() {
           location: '',
           role: 'client',
           job_type: '',
-          hourly_rate: '', // Reset hourly rate
+          hourly_rate: '',
+          logo: null,
         });
       } else {
         setError(data.error || "An error occurred during registration");
@@ -199,6 +210,14 @@ function Signup() {
             value={formData.hourly_rate}
             onChange={handleChange}
             placeholder="Hourly Rate (e.g., 50)"
+            required
+            className='inp'
+          />
+          <input
+            type="file"
+            name="logo"
+            onChange={handleChange}
+            accept="image/*"
             required
             className='inp'
           />

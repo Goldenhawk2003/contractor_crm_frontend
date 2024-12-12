@@ -70,13 +70,25 @@ const ContractorProfile = () => {
   if (errorMessage) return <p className="error-message">{errorMessage}</p>;
   if (!contractor) return <p>Loading contractor details...</p>;
 
+  const renderStars = (rating) => {
+    const stars = [];
+    for (let i = 0; i < 5; i++) {
+        stars.push(
+            <span key={i} className={i < rating ? "star filled" : "star"}>
+                ★
+            </span>
+        );
+    }
+    return stars;
+};
+
   return (
     <div className="contractor-profile">
       <h2>{contractor.username || contractor.name}</h2>
       <p><strong>Location:</strong> {contractor.location || "N/A"}</p>
       <p><strong>Job Type:</strong> {contractor.job_type}</p>
       <p><strong>Experience:</strong> {contractor.experience_years} years</p>
-      <p><strong>Rating:</strong> {contractor.rating || "No ratings yet"}</p>
+      <p><strong>Rating:</strong> {renderStars(contractor.rating)}</p>
       <p><strong>Description:</strong> {contractor.profile_description || "No description provided"}</p>
 
       <div className="rating-section">
