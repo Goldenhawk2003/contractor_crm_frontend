@@ -74,11 +74,19 @@ const UserProfile = () => {
     return (
         <div className="user-profile">
             <div className="profile-card">
-                <h1>User Profile</h1>
+                {userInfo.logo && (
+                    <div className="profile-logo">
+                        <img
+                            src={`http://localhost:8000${userInfo.logo}`}
+                            alt="User Logo"
+                            style={{ width: '100px', height: '100px', objectFit: 'contain' }}
+                        />
+                    </div>
+                )}
                 <div className="profile-info">
-                    <p>
-                        <strong>Username:</strong> {userInfo.username || "N/A"}
-                    </p>
+                    <h1>
+                        <strong></strong> {userInfo.username || "N/A"}
+                    </h1>
                     <p>
                         <strong>Email:</strong> {userInfo.email || "N/A"}
                     </p>
@@ -90,18 +98,7 @@ const UserProfile = () => {
                         <strong>Type:</strong> {userInfo.type || "N/A"}
                     </p>
                 </div>
-
-                {userInfo.logo && (
-                    <div className="profile-logo">
-                        <h3>Company Logo</h3>
-                        <img
-                            src={userInfo.logo} // Assuming the backend provides the full logo URL
-                            alt={`${userInfo.username}'s logo`}
-                            className="logo-image"
-                        />
-                    </div>
-                )}
-
+    
                 <Link
                     to={
                         userInfo.role === "client"
@@ -113,7 +110,7 @@ const UserProfile = () => {
                     Edit Profile
                 </Link>
             </div>
-
+    
             <div className="consents-section">
                 <h2>Consented Contracts</h2>
                 {consents.length > 0 ? (

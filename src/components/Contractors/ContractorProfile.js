@@ -67,23 +67,36 @@ const ContractorProfile = () => {
     }
   };
 
-  if (errorMessage) return <p className="error-message">{errorMessage}</p>;
-  if (!contractor) return <p>Loading contractor details...</p>;
-
   const renderStars = (rating) => {
     const stars = [];
     for (let i = 0; i < 5; i++) {
-        stars.push(
-            <span key={i} className={i < rating ? "star filled" : "star"}>
-                ★
-            </span>
-        );
+      stars.push(
+        <span key={i} className={i < rating ? "star filled" : "star"}>
+          ★
+        </span>
+      );
     }
     return stars;
-};
+  };
+
+  if (errorMessage) return <p className="error-message">{errorMessage}</p>;
+  if (!contractor) return <p>Loading contractor details...</p>;
+
+  const logoUrl = contractor.logo?.startsWith("http")
+    ? contractor.logo
+    : `http://localhost:8000${contractor.logo}`;
 
   return (
     <div className="contractor-profile">
+      {contractor.logo && (
+        <div className="profile-logo">
+          <img
+            src={logoUrl}
+            alt="Contractor Logo"
+            style={{ width: '150px', height: '150px', objectFit: 'contain', borderRadius: '50%' }}
+          />
+        </div>
+      )}
       <h2>{contractor.username || contractor.name}</h2>
       <p><strong>Location:</strong> {contractor.location || "N/A"}</p>
       <p><strong>Job Type:</strong> {contractor.job_type}</p>
@@ -99,7 +112,7 @@ const ContractorProfile = () => {
         >
           <option value="" disabled>Select a rating</option>
           {[1, 2, 3, 4, 5].map((star) => (
-            <option key={star} value={star}>{star} Star{star >= 1 ? "s" : ""}</option>
+            <option key={star} value={star}>{star} Star{star > 1 ? "s" : ""}</option>
           ))}
         </select>
         <button onClick={handleRateContractor} className="submit-rating-btn">

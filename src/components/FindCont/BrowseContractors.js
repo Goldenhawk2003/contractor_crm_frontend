@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import "./Browse.css";
@@ -54,6 +54,9 @@ const Browse = () => {
         }
         return stars;
     };
+    useEffect(() => {
+        console.log("Contractors data:", contractors);
+    }, [contractors]);
 
     return (
         <div className="page">
@@ -100,6 +103,14 @@ const Browse = () => {
                         {contractors.map((contractor) => (
                             <div key={contractor.id} className="contractor-card">
                                 <Link to={`/contractor/${contractor.id}`} className="contractor-link">
+                                    {contractor.logo && (
+                                     <img
+                                     src={contractor.logo ? contractor.logo : '/placeholder.png'}
+                                     alt={`${contractor.username || contractor.name} Logo`}
+                                     className="contractor-logo"
+                                     style={{ width: '100px', height: '100px', objectFit: 'contain' }}
+                                 />
+                                    )}
                                     <p>
                                         <strong>Username:</strong> {contractor.username || contractor.name}
                                     </p>

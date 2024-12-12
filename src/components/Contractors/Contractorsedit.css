@@ -1,0 +1,93 @@
+.contractor-form {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #f8f8f8; /* Your preferred white color */
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    font-family: 'Open Sauce One', Arial, sans-serif;
+}
+
+.contractor-form h2 {
+    text-align: center;
+    color: #1b3656; /* Your preferred blue color */
+    margin-bottom: 20px;
+    font-size: 2rem; /* Heading 2 size */
+}
+
+.contractor-form label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #5c7b78; /* Your preferred green color */
+    font-size: 1.2rem; /* Paragraph 1 size */
+}
+
+.contractor-form input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #dcbf79; /* Your preferred gold color */
+    border-radius: 5px;
+    font-size: 1rem; /* Paragraph 2 size */
+    background-color: #f8f8f8;
+}
+
+.contractor-form input:focus {
+    border-color: #1b3656; /* Your preferred blue color */
+    outline: none;
+    box-shadow: 0 0 5px rgba(27, 54, 86, 0.5);
+}
+
+.contractor-form button {
+    width: 100%;
+    padding: 10px 15px;
+    font-size: 1.2rem; /* Paragraph 1 size */
+    background-color: #5c7b78; /* Your preferred green color */
+    color: #f8f8f8; /* Your preferred white color */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.contractor-form button:hover {
+    background-color: #1b3656; /* Your preferred blue color */
+}
+
+.contractor-form button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.error-message {
+    color: #d9534f; /* Classic red for errors */
+    font-size: 1rem; /* Paragraph 2 size */
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.success-message {
+    color: #5cb85c; /* Classic green for success */
+    font-size: 1rem; /* Paragraph 2 size */
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+@media (max-width: 768px) {
+    .contractor-form {
+        padding: 15px;
+    }
+
+    .contractor-form h2 {
+        font-size: 1.8rem; /* Slightly smaller Heading 2 for mobile */
+    }
+
+    .contractor-form input {
+        font-size: 0.9rem;
+    }
+
+    .contractor-form button {
+        font-size: 1rem;
+    }
+}

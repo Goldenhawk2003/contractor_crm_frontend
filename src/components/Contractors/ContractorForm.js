@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import './Contractors.css';
+import './Contractorsedit.css';
 
 const ContractorForm = () => {
   const { id } = useParams(); // This is the user ID
