@@ -6,7 +6,7 @@
     margin-top: 20px;
   }
   
-  .footer p {
+  .connect{
     margin: 0;
     font-size: 18px;
   }
@@ -26,4 +26,9 @@
   
   .social-icon:hover {
     color: #007bff; /* Change color on hover */
+  }
+
+  .sunni{
+    font-size: 10px;
+
   }

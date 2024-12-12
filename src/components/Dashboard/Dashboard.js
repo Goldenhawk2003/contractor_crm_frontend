@@ -34,6 +34,7 @@ const Dashboard = () => {
 
   return (
     <div className="dashboard">
+
       {/* Header */}
       <header className="dashboard-header">
         <h1>Super Admin Dashboard</h1>
@@ -59,6 +60,7 @@ const Dashboard = () => {
                 { title: "Total Clients", value: data.total_clients },
                 { title: "Outstanding Invoices", value: data.outstanding_invoices },
                 { title: "Paid Invoices", value: data.paid_invoices },
+                {title: "Service Request", value: data.service_request},
               ].map((metric, index) => (
                 <div key={index} className="card">
                   <h3>{metric.title}</h3>

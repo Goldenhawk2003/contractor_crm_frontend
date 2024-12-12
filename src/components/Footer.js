@@ -5,7 +5,7 @@ import './Footer.css';
 const Footer = () => {
   return (
     <footer className="footer">
-      <p>Connect with us:</p>
+      <p className='connect'>Connect with us:</p>
       <div className="social-links">
         <Link to={{ pathname: "https://www.facebook.com" }} target="_blank" className="social-icon">
           <i className="fab fa-facebook-f"></i>
@@ -21,6 +21,7 @@ const Footer = () => {
         </Link>
       </div>
       <img src={`${process.env.PUBLIC_URL}/images/IMG_2583.PNG`} alt="Logo" height="50px"/>
+      <p className='sunni'>A Sunni Studios Product</p>
     </footer>
   );
 };

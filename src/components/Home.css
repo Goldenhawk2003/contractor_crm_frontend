@@ -9,7 +9,7 @@
 
 body {
   font-family: 'Open Sauce One', Arial, sans-serif;
-  color: #ffffff;
+  color: #f8f8f8;
 
 }
 
@@ -19,21 +19,22 @@ body {
   align-items: center;
   justify-content: center;
   padding: 20px;
-  background-color: #5f7674;
+  background-color: #5c7b78; /* Black background */
+
   width: 100%;
 }
 
 .head {
   font-size: 3.2rem;
   margin-bottom: 10px;
-  color: #ffffff;
+  color: #f8f8f8;
   text-align: center;
   font-family: 'Open Sauce One', Arial, sans-serif;
 }
 
 .subhead {
   font-size: 1.2rem;
-  color: #ffffff;
+  color: #f8f8f8;
   margin-bottom: 30px;
   text-align: center;
 }
@@ -59,11 +60,11 @@ body {
 }
 
 .search-bar:focus {
-  outline: 2px solid #cfbb7e;
+  outline: 2px solid #dcbf79;
 }
 
 .search-button {
-  background-color: #cfbb7e;
+  background-color: #dcbf79;
   border: none;
   width: 50px;
   cursor: pointer;
@@ -73,11 +74,11 @@ body {
 }
 
 .search-button:hover {
-  background-color: #bca465;
+  background-color: #dcbf79;
 }
 
 .search-button i {
-  color: white;
+  color: #f8f8f8f8;
   font-size: 18px;
 }
 
@@ -99,7 +100,7 @@ body {
 
 .search-results li {
   padding: 5px 0;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid #f8f8f8;
 }
 
 .search-results li:last-child {
@@ -116,7 +117,7 @@ body {
   padding: 10px 20px;
   background-color: transparent;
   color: #ffffff;
-  border: 2px solid #cfbb7e;
+  border: 2px solid #dcbf79;
   border-radius: 20px;
   cursor: pointer;
   font-size: 1rem;
@@ -126,8 +127,8 @@ body {
 }
 
 .service-button:hover {
-  background-color: #cfbb7e;
-  color: #000000;
+  background-color: #dcbf79;
+  color: #f8f8f8;
 }
 
 .Contractor-choices {
@@ -142,7 +143,7 @@ body {
   display: block;
   width: 100%;
   aspect-ratio: 1; /* Keeps them square */
-  background-color: #ffffff;
+  background-color: #f8f8f8;
   border-radius: 10px;
   overflow: hidden;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -162,7 +163,7 @@ body {
 }
 
 .trust {
-  background-color: #ffffff;
+  background-color: #f8f8f8f8;
   width: 100%;
   padding: 50px 20px;
   text-align: left;
@@ -192,29 +193,32 @@ body {
 }
 
 .trust-button:hover {
-  background-color: #bca465;
-  border-color: #bca465;
+  background-color: #dcbf79;
+  border-color: #dcbf79;
+  color: #f8f8f8;
 }
 
 .our-process {
-  background-color: #bca465;
+  background-color: #dcbf79;
   width: 100%;
   padding: 50px 20px;
-  color: #000000;
+  color: #f8f8f8;
 }
 
 .our-header {
   font-size: 1.5rem;
+  color: #f8f8f8;
 }
 
 .match {
   width: 100%;
-  background-color: #5f7674;
+  background-color: #5c7b78;
   padding: 50px 20px;
-  color: #ffffff;
+  color: #f8f8f8f8;
 }
 
 .match-header {
   font-size: 2rem;
   text-align: center;
+  color: #f8f8f8
 }

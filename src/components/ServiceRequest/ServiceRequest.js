@@ -2,6 +2,21 @@ import React, { useState } from 'react';
 import './ServiceRequest.css';
 import axios from 'axios';
 
+const getCSRFToken = () => {
+    const name = "csrftoken";
+    const cookies = document.cookie.split(";");
+    for (let cookie of cookies) {
+        cookie = cookie.trim();
+        if (cookie.startsWith(`${name}=`)) {
+            return cookie.substring(name.length + 1);
+        }
+    }
+    console.error("CSRF token not found");
+    return null;
+};
+
+axios.defaults.headers.common["X-CSRFToken"] = getCSRFToken();
+
 const ServiceRequest = () => {
     const [searchText, setSearchText] = useState('');
     
@@ -14,23 +29,13 @@ const ServiceRequest = () => {
 
     const handleSubmit = async () => {
         try {
-            // Retrieve the token from local storage
-            const token = localStorage.getItem('accessToken');
             
-            // Check if the token exists
-            if (!token) {
-                console.error('No token found, please log in.');
-                return;
-            }
 
             const response = await axios.post(
                 'http://localhost:8000/api/request-service/',
                 { searchText },
                 {
-                    headers: {
-                        'Authorization': `Bearer ${token}`,  // Use the dynamic token here
-                        'Content-Type': 'application/json',
-                    },
+                    withCredentials: true,
                 }
             );
             console.log('Response:', response.data);
