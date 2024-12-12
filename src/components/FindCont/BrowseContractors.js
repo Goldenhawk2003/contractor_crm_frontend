@@ -4,21 +4,20 @@ import { Link } from 'react-router-dom';
 import "./Browse.css";
 
 const Browse = () => {
-    const [workType, setWorkType] = useState(''); // Track selected work type
-    const [location, setLocation] = useState(''); // Track selected location
-    const [contractors, setContractors] = useState([]); // Store fetched contractors
-    const [error, setError] = useState(''); // Track errors
-    const navigate = useNavigate(); // Hook for navigation
+    const [workType, setWorkType] = useState('');
+    const [location, setLocation] = useState('');
+    const [contractors, setContractors] = useState([]);
+    const [error, setError] = useState('');
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         console.log(`Selected work type: ${workType}, Selected location: ${location}`);
 
         if (workType === 'Other') {
-            navigate('/Quiz'); // Redirect to a different page for "Other"
+            navigate('/Quiz');
         } else {
             try {
-                const token = localStorage.getItem('authToken'); // Retrieve token from storage
                 const response = await fetch(
                     `http://localhost:8000/api/contractors/?job_type=${workType}&location=${location}`,
                     {
@@ -41,6 +40,19 @@ const Browse = () => {
                 setError('Could not fetch contractors. Please try again later.');
             }
         }
+    };
+
+    // Function to render star ratings
+    const renderStars = (rating) => {
+        const stars = [];
+        for (let i = 0; i < 5; i++) {
+            stars.push(
+                <span key={i} className={i < rating ? "star filled" : "star"}>
+                    ★
+                </span>
+            );
+        }
+        return stars;
     };
 
     return (
@@ -99,7 +111,7 @@ const Browse = () => {
                                     <strong>Experience:</strong> {contractor.experience_years} years
                                 </p>
                                 <p>
-                                    <strong>Rating:</strong> {contractor.rating}
+                                    <strong>Rating:</strong> <span className="stars">{renderStars(contractor.rating)}</span>
                                 </p>
                                 <p>
                                     <strong>Description:</strong>{' '}
@@ -107,6 +119,9 @@ const Browse = () => {
                                 </p>
                                 <p>
                                     <strong>Location:</strong> {contractor.location}
+                                </p>
+                                <p>
+                                    <strong>Hourly Rate: $</strong>{contractor.hourly_rate}
                                 </p>
                             </div>
                         ))}

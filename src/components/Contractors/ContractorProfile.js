@@ -1,44 +1,102 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
 import './Contractors.css';
+
+// Retrieve CSRF token from cookies
+const getCSRFToken = () => {
+  const name = "csrftoken";
+  const cookies = document.cookie.split(";");
+  for (let cookie of cookies) {
+    cookie = cookie.trim();
+    if (cookie.startsWith(`${name}=`)) {
+      return cookie.substring(name.length + 1);
+    }
+  }
+  console.error("CSRF token not found");
+  return null;
+};
+
+// Configure Axios
+axios.defaults.withCredentials = true;
+axios.defaults.headers.common["X-CSRFToken"] = getCSRFToken();
 
 const ContractorProfile = () => {
   const { id } = useParams();
   const [contractor, setContractor] = useState(null);
-  const [error, setError] = useState(''); // Error handling state
+  const [rating, setRating] = useState(0); // Track user rating input
+  const [successMessage, setSuccessMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
     const fetchContractor = async () => {
       try {
-        const response = await fetch(`http://localhost:8000/api/contractors/${id}/`);
-        if (!response.ok) {
-          throw new Error('Failed to fetch contractor details');
-        }
-        const data = await response.json();
-        setContractor(data);
-        setError('');
-      } catch (err) {
-        console.error(err);
-        setError('Could not fetch contractor details. Please try again later.');
+        const response = await axios.get(`http://localhost:8000/api/contractors/${id}/`);
+        setContractor(response.data);
+      } catch (error) {
+        console.error('Error fetching contractor details:', error);
+        setErrorMessage("Failed to load contractor details. Please try again later.");
       }
     };
 
     fetchContractor();
   }, [id]);
 
-  if (error) return <p className="error-message">{error}</p>;
+  const handleRateContractor = async () => {
+    if (rating <= 0 || rating > 5) {
+      alert("Please provide a rating between 1 and 5.");
+      return;
+    }
+
+    try {
+      const response = await axios.post(
+        `http://localhost:8000/api/contractors/${id}/rate/`,
+        { rating },
+        { withCredentials: true }
+      );
+      setSuccessMessage(response.data.message || "Rating submitted successfully.");
+      setErrorMessage("");
+      // Optionally, fetch the updated contractor details
+      setContractor((prev) => ({
+        ...prev,
+        rating: response.data.updatedRating,
+      }));
+    } catch (error) {
+      console.error('Error rating contractor:', error);
+      setErrorMessage("Failed to submit rating. Please try again.");
+    }
+  };
+
+  if (errorMessage) return <p className="error-message">{errorMessage}</p>;
   if (!contractor) return <p>Loading contractor details...</p>;
 
   return (
     <div className="contractor-profile">
-      <h2 className="contractor-name">{contractor.username || contractor.name}</h2>
-      <p><strong>Location:</strong> {contractor.location || 'N/A'}</p>
+      <h2>{contractor.username || contractor.name}</h2>
+      <p><strong>Location:</strong> {contractor.location || "N/A"}</p>
       <p><strong>Job Type:</strong> {contractor.job_type}</p>
       <p><strong>Experience:</strong> {contractor.experience_years} years</p>
-      <p><strong>Rating:</strong> {contractor.rating || 'No ratings yet'}</p>
-      <p><strong>Description:</strong> {contractor.profile_description || 'No description provided'}</p>
-      {/* Add any additional fields */}
-      {/* <Link to={`/contractors/edit/${contractor.id}`} className="edit-link">Edit Contractor</Link> */}
+      <p><strong>Rating:</strong> {contractor.rating || "No ratings yet"}</p>
+      <p><strong>Description:</strong> {contractor.profile_description || "No description provided"}</p>
+
+      <div className="rating-section">
+        <h3>Rate this Contractor</h3>
+        <select
+          value={rating}
+          onChange={(e) => setRating(parseInt(e.target.value))}
+        >
+          <option value="" disabled>Select a rating</option>
+          {[1, 2, 3, 4, 5].map((star) => (
+            <option key={star} value={star}>{star} Star{star >= 1 ? "s" : ""}</option>
+          ))}
+        </select>
+        <button onClick={handleRateContractor} className="submit-rating-btn">
+          Submit Rating
+        </button>
+      </div>
+
+      {successMessage && <p className="success-message">{successMessage}</p>}
+      {errorMessage && <p className="error-message">{errorMessage}</p>}
     </div>
   );
 };

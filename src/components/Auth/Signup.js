@@ -3,27 +3,26 @@ import './Signup.css';
 
 function Signup() {
   const [formData, setFormData] = useState({
-    username: '', // Add username field
+    username: '',
     firstname: '',
     lastname: '',
     email: '',
     password: '',
     confirmPassword: '',
     location: '',
-    role: 'client', // default role
-    job_type: '', // Changed field name from jobType to job_type to match backend
+    role: 'client',
+    job_type: '',
+    hourly_rate: '', // New field for hourly rate
   });
 
-  const [error, setError] = useState(''); // For displaying error messages
+  const [error, setError] = useState('');
 
   const handleChange = (e) => {
-    console.log('Selected rile: ${event.target.value}`');
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // Add form validation
   const validateForm = () => {
-    const { username, email, password, confirmPassword } = formData;
+    const { username, email, password, confirmPassword, hourly_rate, role } = formData;
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if (!username) {
@@ -38,8 +37,13 @@ function Signup() {
     if (password !== confirmPassword) {
       return "Passwords do not match";
     }
-    if (formData.role === 'professional' && !formData.job_type) {
-      return "Job type is required for professionals";
+    if (role === 'professional') {
+      if (!formData.job_type) {
+        return "Job type is required for professionals";
+      }
+      if (!hourly_rate || isNaN(hourly_rate) || hourly_rate <= 0) {
+        return "Hourly rate must be a positive number";
+      }
     }
     return null;
   };
@@ -52,7 +56,6 @@ function Signup() {
       return;
     }
 
-    // Exclude confirmPassword from the payload
     const { confirmPassword, ...payload } = formData;
 
     try {
@@ -66,8 +69,8 @@ function Signup() {
 
       const data = await response.json();
       if (response.ok) {
-        alert(data.message); // Display success message
-        setError(''); // Clear error state
+        alert(data.message);
+        setError('');
         setFormData({
           username: '',
           firstname: '',
@@ -78,7 +81,8 @@ function Signup() {
           location: '',
           role: 'client',
           job_type: '',
-        }); // Reset form fields
+          hourly_rate: '', // Reset hourly rate
+        });
       } else {
         setError(data.error || "An error occurred during registration");
       }
@@ -101,25 +105,23 @@ function Signup() {
         className='inp'
       />
       <input
-      type="text"
-      name="firstname"
-      value={formData.firstname}
-      onChange={handleChange}
-      placeholder='First Name'
-      required
-      className='inp'
+        type="text"
+        name="firstname"
+        value={formData.firstname}
+        onChange={handleChange}
+        placeholder="First Name"
+        required
+        className='inp'
       />
-
       <input
-      type="text"
-      name="lastname"
-      value={formData.lastname}
-      onChange={handleChange}
-      placeholder='Last Name'
-      required
-      className='inp'
+        type="text"
+        name="lastname"
+        value={formData.lastname}
+        onChange={handleChange}
+        placeholder="Last Name"
+        required
+        className='inp'
       />
-      
       <input
         type="email"
         name="email"
@@ -129,7 +131,6 @@ function Signup() {
         required
         className='inp'
       />
-      
       <input
         type="password"
         name="password"
@@ -139,7 +140,6 @@ function Signup() {
         required
         className='inp'
       />
-      
       <input
         type="password"
         name="confirmPassword"
@@ -150,13 +150,13 @@ function Signup() {
         className='inp'
       />
       <input
-      type="text"
-      name="location"
-      value={formData.location}
-      onChange={handleChange}
-      placeholder='City Name'
-      required
-      className='inp'
+        type="text"
+        name="location"
+        value={formData.location}
+        onChange={handleChange}
+        placeholder="City Name"
+        required
+        className='inp'
       />
       
       <label>
@@ -183,14 +183,26 @@ function Signup() {
       </label>
       
       {formData.role === 'professional' && (
-        <input
-          type="text"
-          name="job_type" // Changed from jobType to job_type
-          value={formData.job_type}
-          onChange={handleChange}
-          placeholder="Job Type (e.g., Plumber, Renovator)"
-          required
-        />
+        <>
+          <input
+            type="text"
+            name="job_type"
+            value={formData.job_type}
+            onChange={handleChange}
+            placeholder="Job Type (e.g., Plumber, Renovator)"
+            required
+            className='inp'
+          />
+          <input
+            type="number"
+            name="hourly_rate"
+            value={formData.hourly_rate}
+            onChange={handleChange}
+            placeholder="Hourly Rate (e.g., 50)"
+            required
+            className='inp'
+          />
+        </>
       )}
       
       <button className='sbmit' type="submit">Sign Up</button>
