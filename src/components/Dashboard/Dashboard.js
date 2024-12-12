@@ -105,8 +105,8 @@ const Dashboard = () => {
           <section className="manage-users">
             <h2>Manage Users</h2>
             <div className="manage-links">
-              <Link to="/users/contractors" className="manage-link">View Contractors</Link>
-              <Link to="/users/clients" className="manage-link">View Clients</Link>
+              <Link to="/contractors" className="manage-link">View Contractors</Link>
+              <Link to="/clients" className="manage-link">View Clients</Link>
             </div>
           </section>
         </div>

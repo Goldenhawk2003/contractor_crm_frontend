@@ -41,7 +41,7 @@ const UserProfile = () => {
             });
     }, []);
 
-    // Fetch user consents
+    // 
     useEffect(() => {
         axios
             .get("http://localhost:8000/api/user-consents/", {
@@ -94,7 +94,9 @@ const UserProfile = () => {
 >
                     Edit Profile
                 </Link>
+             {/*<Link to={userInfo.role == "client" ? '/clients' : '/contractors'}  className="manage-link"> My jobs</Link>*/} 
             </div>
+
 
             <div className="consents-section">
                 <h2>Consented Contracts</h2>
