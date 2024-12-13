@@ -1,34 +1,88 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import './Dashboard.css';
 
+const getCSRFToken = () => {
+  const name = "csrftoken";
+  const cookies = document.cookie.split(";");
+  for (let cookie of cookies) {
+      cookie = cookie.trim();
+      if (cookie.startsWith(`${name}=`)) {
+          return cookie.substring(name.length + 1);
+      }
+  }
+  console.error("CSRF token not found");
+  return null;
+};
 const Dashboard = () => {
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    const fetchDashboard = async () => {
-      try {
-        const response = await fetch('http://localhost:8000/dashboard/', {
-          method: 'GET',
-          credentials: 'include',
-          headers: { 'Content-Type': 'application/json' },
+  const fetchDashboard = async () => {
+    try {
+      const response = await fetch('http://localhost:8000/dashboard/', {
+        method: 'GET',
+        credentials: 'include',
+        headers: { 'Content-Type': 'application/json' },
+      });
+
+      if (!response.ok) {
+        throw new Error(`Failed to fetch dashboard: ${response.status}`);
+      }
+
+      const responseData = await response.json();
+      setData(responseData);
+    } catch (error) {
+      setError('Failed to load dashboard data. Please try again later.');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleApprove = async (id) => {
+    try {
+        const response = await fetch(`http://localhost:8000/api/approve-contractor/${id}/`, {
+            method: 'POST',
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': getCSRFToken(),
+            },
         });
 
         if (!response.ok) {
-          throw new Error(`Failed to fetch dashboard: ${response.status}`);
+            throw new Error('Failed to approve contractor.');
         }
 
-        const responseData = await response.json();
-        setData(responseData);
-      } catch (error) {
-        setError('Failed to load dashboard data. Please try again later.');
-      } finally {
-        setIsLoading(false);
-      }
-    };
+        alert('Contractor approved successfully!');
+        fetchDashboard(); // Refresh data
+    } catch (error) {
+        alert('Error approving contractor. Please try again.');
+    }
+};
+const handleReject = async (id) => {
+  try {
+      const response = await fetch(`http://localhost:8000/api/reject-contractor/${id}/`, {
+          method: 'POST',
+          credentials: 'include',
+          headers: {
+              'Content-Type': 'application/json',
+              'X-CSRFToken': getCSRFToken(),
+          },
+      });
 
+      if (!response.ok) {
+          throw new Error('Failed to reject contractor.');
+      }
+
+      alert('Contractor rejected successfully!');
+      fetchDashboard(); // Refresh the data
+  } catch (error) {
+      alert('Error rejecting contractor. Please try again.');
+  }
+};
+
+  useEffect(() => {
     fetchDashboard();
   }, []);
 
@@ -68,6 +122,47 @@ const Dashboard = () => {
             </div>
           </section>
 
+          {/* Pending Registrations */}
+          <section className="pending-applications">
+            <h2>Pending Contractor Applications</h2>
+            {data.pending_applications && data.pending_applications.length > 0 ? (
+              <ul className="pending-list">
+                {data.pending_applications.map((app) => (
+                  <li key={app.id} className="application-item">
+                    <p><strong>Username:</strong> {app.username}</p>
+                    <p><strong>Job Type:</strong> {app.job_type}</p>
+                    <p><strong>Location:</strong> {app.location}</p>
+                    <img
+  src={
+    app.logo && app.logo.startsWith('http')
+      ? app.logo
+      : `http://localhost:8000${app.logo}`
+  }
+  alt={`${app.username}'s logo`}
+  className="application-logo"
+/>
+                    <div className="application-buttons">
+                      <button
+                        className="approve-btn"
+                        onClick={() => handleApprove(app.id)}
+                      >
+                        Approve
+                      </button>
+                      <button
+                        className="reject-btn"
+                        onClick={() => handleReject(app.id)}
+                      >
+                        Reject
+                      </button>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p>No pending applications.</p>
+            )}
+          </section>
+
           {/* Service Requests */}
           <section className="service-requests">
             <h2>Recent Service Requests</h2>
@@ -84,19 +179,6 @@ const Dashboard = () => {
             ) : (
               <p>No recent service requests available.</p>
             )}
-          </section>
-
-          {/* Visualizations */}
-          <section className="charts">
-            <h2>Visualizations</h2>
-            <div className="chart-container">
-              <div className="chart">
-                <p>Pie Chart Placeholder: Invoice Status</p>
-              </div>
-              <div className="chart">
-                <p>Line Chart Placeholder: User Growth</p>
-              </div>
-            </div>
           </section>
         </div>
       )}
