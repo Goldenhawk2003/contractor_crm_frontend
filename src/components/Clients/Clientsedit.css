@@ -1,0 +1,88 @@
+/* Clientsedit.css */
+
+/* General styling for the form container */
+.client-form {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 30px;
+    background-color: #f8f8f8; /* Your preferred white background */
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    font-family: 'Open Sauce One', Arial, sans-serif;
+  }
+  
+  /* Form heading */
+  .client-form h2 {
+    font-size: 2rem;
+    color: #1b3656; /* Your preferred blue color */
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  /* Input fields */
+  .client-form input[type="text"],
+  .client-form input[type="email"],
+  .client-form input[type="tel"] {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #dcbf79; /* Your preferred gold color */
+    border-radius: 5px;
+    font-size: 1.2rem;
+    color: #1b3656;
+    box-sizing: border-box;
+  }
+  
+  /* Placeholder text styling */
+  .client-form input::placeholder {
+    color: #5c7b78; /* Your preferred green color */
+    opacity: 0.7;
+  }
+  
+  /* Submit button */
+  .client-form button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 20px;
+    background-color: #dcbf79; /* Your preferred gold color */
+    color: #1b3656; /* Blue for text */
+    border: none;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  
+  /* Submit button hover and active effects */
+  .client-form button:hover {
+    background-color: #bfa668; /* Darker gold for hover */
+    transform: translateY(-2px);
+  }
+  
+  .client-form button:active {
+    background-color: #a58c5b; /* Even darker gold for active */
+    transform: translateY(0);
+  }
+  
+  /* Responsive design */
+  @media (max-width: 768px) {
+    .client-form {
+      padding: 20px;
+      margin: 20px;
+    }
+  
+    .client-form h2 {
+      font-size: 1.8rem;
+    }
+  
+    .client-form input[type="text"],
+    .client-form input[type="email"],
+    .client-form input[type="tel"] {
+      font-size: 1rem;
+    }
+  
+    .client-form button {
+      font-size: 1rem;
+    }
+  }

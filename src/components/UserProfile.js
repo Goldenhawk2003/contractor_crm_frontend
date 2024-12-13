@@ -41,24 +41,6 @@ const UserProfile = () => {
             });
     }, []);
 
-    // Fetch user consents
-    useEffect(() => {
-        axios
-            .get("http://localhost:8000/api/user-consents/", {
-                withCredentials: true, // Ensures cookies are sent with the request
-            })
-            .then((response) => {
-                setConsents(response.data.consents);
-            })
-            .catch((error) => {
-                console.error(
-                    "Failed to fetch consents:",
-                    error.response ? error.response.data : error.message
-                );
-                setError("Failed to load user consents. Please try again later.");
-            });
-    }, []);
-
     if (error) {
         return <p className="error-message">{error}</p>;
     }
@@ -66,51 +48,58 @@ const UserProfile = () => {
     if (!userInfo) {
         return <p className="loading-message">Loading user info...</p>;
     }
-    const logoUrl = userInfo.logo.startsWith('http')
-    ? userInfo.logo
-    : `http://localhost:8000${userInfo.logo}`;
 
-<img src={logoUrl} alt="Contractor Logo" style={{ width: '100px', height: '100px' }} />
+    const logoUrl =
+        userInfo.logo && userInfo.logo.startsWith("http")
+            ? userInfo.logo
+            : userInfo.logo
+            ? `http://localhost:8000${userInfo.logo}`
+            : null;
+
     return (
         <div className="user-profile">
             <div className="profile-card">
-                {userInfo.logo && (
+                <h1>User Profile</h1>
+
+                {/* Display Logo */}
+                {logoUrl && (
                     <div className="profile-logo">
+                       
                         <img
-                            src={`http://localhost:8000${userInfo.logo}`}
+                            src={logoUrl}
                             alt="User Logo"
-                            style={{ width: '100px', height: '100px', objectFit: 'contain' }}
+                            style={{ width: "100px", height: "100px", objectFit: "contain" }}
                         />
                     </div>
                 )}
+
                 <div className="profile-info">
-                    <h1>
-                        <strong></strong> {userInfo.username || "N/A"}
-                    </h1>
+                    <p>
+                        <strong>Username:</strong> {userInfo.username || "N/A"}
+                    </p>
                     <p>
                         <strong>Email:</strong> {userInfo.email || "N/A"}
                     </p>
                     <p>
-                        <strong>Name:</strong>{" "}
-                        {userInfo.first_name || "N/A"} {userInfo.last_name || ""}
+                        <strong>Name:</strong> {userInfo.first_name || "N/A"} {userInfo.last_name || ""}
                     </p>
                     <p>
                         <strong>Type:</strong> {userInfo.type || "N/A"}
                     </p>
                 </div>
-    
+
                 <Link
-                    to={
-                        userInfo.role === "client"
-                            ? `/clients/edit/${userInfo.id}`
-                            : `/contractors/edit/${userInfo.id}`
-                    }
-                    className="edit-link"
-                >
-                    Edit Profile
-                </Link>
+    to={
+        userInfo.type === "client"
+            ? `/clients/edit/${userInfo.id}`
+            : `/contractors/edit/${userInfo.id}`
+    }
+    className="edit-link"
+>
+    Edit Profile
+</Link>
             </div>
-    
+
             <div className="consents-section">
                 <h2>Consented Contracts</h2>
                 {consents.length > 0 ? (
@@ -118,8 +107,7 @@ const UserProfile = () => {
                         {consents.map((consent, index) => (
                             <li key={index}>
                                 <strong>Contract ID:</strong> {consent.contract_id} <br />
-                                <strong>Signed At:</strong>{" "}
-                                {new Date(consent.signed_at).toLocaleString()}
+                                <strong>Signed At:</strong> {new Date(consent.signed_at).toLocaleString()}
                             </li>
                         ))}
                     </ul>

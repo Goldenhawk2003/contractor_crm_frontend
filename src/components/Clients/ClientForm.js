@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import './Clients.css';
+import './Clientsedit.css';
 
 const ClientForm = () => {
   const { id } = useParams();
