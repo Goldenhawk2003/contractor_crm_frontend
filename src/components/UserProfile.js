@@ -40,6 +40,21 @@ const UserProfile = () => {
                 setError("Failed to load user information. Please try again later.");
             });
     }, []);
+    useEffect(() => {
+        axios
+            .get("http://localhost:8000/api/user-consents/", {
+                withCredentials: true,
+            })
+            .then((response) => {
+                setConsents(response.data.consents);
+            })
+            .catch((error) => {
+                console.error(
+                    "Failed to fetch consents:",
+                    error.response ? error.response.data : error.message
+                );
+            });
+    }, []);
 
     if (error) {
         return <p className="error-message">{error}</p>;

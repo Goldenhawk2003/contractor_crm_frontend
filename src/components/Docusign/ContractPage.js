@@ -95,7 +95,7 @@ const ContractPage = () => {
       {selectedContract && (
         <div className="contract-terms">
           <h2>{selectedContract.title}</h2>
-          <p>{selectedContract.terms}</p>
+          <p>{selectedContract.content}</p>
         </div>
       )}
 
