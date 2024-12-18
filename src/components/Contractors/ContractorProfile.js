@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import './Contractors.css';
 
@@ -23,6 +23,7 @@ axios.defaults.headers.common["X-CSRFToken"] = getCSRFToken();
 
 const ContractorProfile = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [contractor, setContractor] = useState(null);
   const [rating, setRating] = useState(0); // Track user rating input
   const [successMessage, setSuccessMessage] = useState("");
@@ -86,6 +87,11 @@ const ContractorProfile = () => {
     ? contractor.logo
     : `http://localhost:8000${contractor.logo}`;
 
+
+  const handleChatNow = () => {
+    navigate(`/start-conversation?username=${contractor.username}`);// Redirect to the chat page with the contractor's ID
+    };
+
   return (
     <div className="contractor-profile">
       {contractor.logo && (
@@ -103,6 +109,9 @@ const ContractorProfile = () => {
       <p><strong>Experience:</strong> {contractor.experience_years} years</p>
       <p><strong>Rating:</strong> {renderStars(contractor.rating)}</p>
       <p><strong>Description:</strong> {contractor.profile_description || "No description provided"}</p>
+      <div className='chat'>
+        <button onClick={handleChatNow}>Chat with {contractor.username} now</button>
+      </div>
 
       <div className="rating-section">
         <h3>Rate this Contractor</h3>
