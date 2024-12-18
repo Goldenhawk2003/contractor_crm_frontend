@@ -110,7 +110,7 @@ const ContractorProfile = () => {
       <p><strong>Rating:</strong> {renderStars(contractor.rating)}</p>
       <p><strong>Description:</strong> {contractor.profile_description || "No description provided"}</p>
       <div className='chat'>
-        <button onClick={handleChatNow}>Chat with {contractor.username} now</button>
+        <button onClick={handleChatNow} className="submit-rating-btn">Chat with {contractor.username} now</button>
       </div>
 
       <div className="rating-section">

@@ -1,142 +1,158 @@
-/* General Styling */
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f4f4f4;
+:root {
+    --green: #5c7b78;
+    --gold: #dcbf79;
+    --blue: #1b3656;
+    --white: #f8f8f8;
+    --font-family: 'Open Sauce One', Arial, sans-serif;
 }
 
-/* Main Container */
+body {
+    font-family: var(--font-family);
+    background-color: var(--white);
+
+}
+
 .user-profile {
     max-width: 800px;
-    margin: 20px auto;
+    margin: 0 auto;
     padding: 20px;
-    background: #ffffff;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: var(--white);
+    border: 1px solid var(--gold);
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Profile Card */
 .profile-card {
     text-align: center;
     margin-bottom: 20px;
     padding: 20px;
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
-    border-radius: 10px;
+    background-color: var(--blue);
+    color: var(--white);
+    border-radius: 8px;
 }
 
 .profile-card h1 {
-    font-size: 24px;
+    font-size: 2.4rem;
     margin-bottom: 10px;
-    color: #333;
+    color: var(--white);
 }
 
-.profile-info p {
-    margin: 10px 0;
-    color: #555;
-    font-size: 16px;
+.profile-card img {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    border: 2px solid var(--gold);
+    border-radius: 50%;
+    margin-bottom: 10px;
 }
 
-.profile-info strong {
-    color: #333;
+.profile-card p {
+    font-size: 1.2rem;
+    margin: 5px 0;
+    color: var(--white);
 }
 
-/* Edit Link */
-.edit-link {
-    display: inline-block;
-    margin-top: 10px;
-    padding: 10px 20px;
-    background-color: #5c7b78;
-    color: #ffffff;
-    text-decoration: none;
-    border-radius: 5px;
-    font-size: 14px;
-    transition: background-color 0.3s ease;
-}
-
-.edit-link:hover {
-    background-color: #44625e;
-}
-
-/* Consents Section */
-.consents-section {
+.contract-section,
+.received-contracts {
     margin-top: 20px;
     padding: 15px;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    background-color: #f9f9f9;
+    background-color: var(--green);
+    color: var(--white);
+    border-radius: 8px;
 }
 
-.consents-section h2 {
+.contract-section h2,
+.received-contracts h2 {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+    color: var(--gold)
+}
+
+.contract-section p{
+    color: var(--gold);
+}
+
+.user-label {
+    display: block;
+    margin-top: 15px;
+    font-size: 1rem;
+    color: var(--white);
+}
+
+.user-input[type="text"],
+.user-select {
+    width: 90%;
+    padding: 10px;
+    margin-top: 5px;
     margin-bottom: 15px;
-    color: #333;
-    font-size: 20px;
+    border: 1px solid var(--gold);
+    border-radius: 5px;
+    font-size: 1rem;
 }
 
-.consents-section ul {
+.user-button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    color: var(--white);
+    background-color: var(--gold);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.user-button:hover {
+    background-color: var(--blue);
+}
+
+.search-results {
+    margin-top: 15px;
+}
+
+.search-result-item {
+    padding: 10px;
+    border: 1px solid var(--gold);
+    margin-bottom: 5px;
+    border-radius: 5px;
+    background-color: var(--white);
+    color: var(--blue);
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.search-result-item.selected {
+    background-color: var(--gold);
+    color: var(--white);
+}
+
+.search-result-item:hover {
+    background-color: var(--green);
+    color: var(--white);
+}
+
+.user-ul {
     list-style: none;
     padding: 0;
 }
 
-.consents-section li {
-    padding: 10px;
-    border-bottom: 1px solid #ddd;
-    color: #555;
+.user-li {
+    margin-bottom: 15px;
+    padding: 15px;
+    background-color: var(--white);
+    border: 1px solid var(--gold);
+    border-radius: 8px;
 }
 
-.consents-section li:last-child {
-    border-bottom: none;
+.user-li p {
+    margin: 5px 0;
 }
 
-.consents-section li strong {
-    color: #333;
-}
-
-/* Error Message */
 .error-message {
     color: red;
-    font-size: 16px;
-    text-align: center;
+    font-weight: bold;
 }
 
-/* Loading Message */
-.loading-message {
-    color: #555;
-    font-size: 16px;
-    text-align: center;
-}
-.profile-logo {
-    margin-top: 20px;
-    text-align: center;
-}
-
-.logo-image {
-    width: 150px;
-    height: auto;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-}
-
-/* Responsive Design */
-@media (max-width: 600px) {
-    .user-profile {
-        padding: 15px;
-    }
-
-    .profile-card,
-    .consents-section {
-        padding: 10px;
-    }
-
-    .profile-info p,
-    .consents-section li {
-        font-size: 14px;
-    }
-
-    .edit-link {
-        font-size: 12px;
-        padding: 8px 15px;
-    }
+.success-message {
+    color: var(--gold);
+    font-weight: bold;
 }
