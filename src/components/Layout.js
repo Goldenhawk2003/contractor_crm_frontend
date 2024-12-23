@@ -1,29 +1,36 @@
-import {React, useState} from 'react';
-import { Link, Outlet} from 'react-router-dom';
+import {React, useEffect }from 'react';
+import { Link, Outlet, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import Footer from './Footer';
-import "./Layout.css";
+import axios from 'axios'; // Ensure axios is imported
+import './Layout.css';
 
 const Layout = () => {
-  const { isAuthenticated, logout } = useAuth();
-  const [contractor, setContractor] = useState(null);
+  const { isAuthenticated, logout } = useAuth(); // Ensure setIsAuthenticated is available from context
+  const navigate = useNavigate(); // For redirecting after logout
+
+  useEffect(() => {
+    console.log('isAuthenticated:', isAuthenticated);
+}, [isAuthenticated]);
+
+  
 
   return (
-    <div>
-      <header>
+    <div className="layout-container">
+      <header className="layout-header">
         <nav className="button-group">
           <div className="left-nav">
             <Link to="/" className="nav-button">Home</Link>
-            <Link to="/Dashboard" className="nav-button">Dashboard</Link>
+            <Link to="/dashboard" className="nav-button">Dashboard</Link>
             <Link to="/inbox" className="nav-button">Chat</Link>
-            <Link to="/contact" className="nav-button">Contact us</Link>
+            <Link to="/contact" className="nav-button">Contact Us</Link>
             <Link to="/user-profile" className="nav-button">User Profile</Link>
-            <Link to="/contracts" className='nav-button'>DocSign</Link>
-            <Link to="/payment" className='nav-button'>Pay</Link>
-            
+            <Link to="/contracts" className="nav-button">DocSign</Link>
+            <Link to="/payment" className="nav-button">Pay</Link>
           </div>
+
           <div className="right-nav">
-            <Link to="/">
+            <Link to="/" className="logo-link">
               <img
                 src={`${process.env.PUBLIC_URL}/images/IMG_2582.PNG`}
                 alt="Logo"
@@ -32,15 +39,15 @@ const Layout = () => {
               />
             </Link>
             {!isAuthenticated ? (
-              <Link to="/login" className="log-button">Login/Signup</Link>
-            ) : (
-              <button onClick={logout} className="log-button">Logout</button>
-            )}
+                        <Link to="/login" className="nav-button">Login</Link>
+                    ) : (
+                        <button onClick={logout} className="nav-button">Logout</button>
+                    )}
           </div>
         </nav>
       </header>
-      <main>
-        <Outlet /> {/* Render child routes */}
+      <main className="layout-main">
+        <Outlet />
       </main>
       <Footer />
     </div>

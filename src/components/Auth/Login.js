@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { Link, useNavigate } from 'react-router-dom'; // Import useNavigate for redirection
+import { Link, useNavigate } from 'react-router-dom';
 import './Login.css';
 
 const Login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [error, setError] = useState(''); // Optional: To show error messages
-
-    const navigate = useNavigate(); // Initialize useNavigate
+    const [error, setError] = useState('');
+    const navigate = useNavigate();
 
     const getCSRFToken = () => {
         const cookie = document.cookie.split('; ').find(row => row.startsWith('csrftoken='));
@@ -22,8 +21,8 @@ const Login = () => {
             const csrfToken = getCSRFToken();
             console.log('CSRF Token:', csrfToken);
 
-            const response = await axios.post(
-                'http://localhost:8000/api/login/', // Your Django API endpoint
+            await axios.post(
+                'http://localhost:8000/api/login/',
                 { username, password },
                 {
                     headers: {
@@ -34,25 +33,19 @@ const Login = () => {
                 }
             );
 
-            console.log('Login successful:', response.data);
-            
-            // Redirect to user profile page or home
-            navigate('/user-profile'); // Change to '/home' or another route if needed
-        } catch (error) {
-            console.error(
-                'Login failed:',
-                error.response ? error.response.data : error.message
-            );
-            setError(error.response?.data?.error || 'Login failed. Please try again.');
+            navigate('/user-profile'); // Redirect after successful login
+            window.location.reload(); 
+        } catch (err) {
+            console.error('Login failed:', err.response ? err.response.data : err.message);
+            setError('Login failed. Please try again.');
         }
     };
 
     return (
         <div className="log-container">
             <form onSubmit={handleLogin} className="contain">
-                {error && <p style={{ color: 'red' }}>{error}</p>} {/* Display error message */}
-                <h2 className='log-header'> Welcome Back!</h2>
-                <p className='log-p'>Get work done with a trustworthy comnunity</p>
+                {error && <p style={{ color: 'red' }}>{error}</p>}
+                <h2 className="log-header">Welcome Back!</h2>
                 <input
                     className="log"
                     type="text"
@@ -61,7 +54,6 @@ const Login = () => {
                     placeholder="Username"
                     required
                 />
-
                 <input
                     className="log"
                     type="password"
@@ -70,21 +62,13 @@ const Login = () => {
                     placeholder="Password"
                     required
                 />
-                <p className='log-p'><a className='log-p'href='/'>Forgot Password?</a></p>
-
                 <button type="submit" className="sub">Login</button>
-                
-
             </form>
             <div className="divider"></div>
-            <div className='sign-up'>
-                    <h2 className='log-header'> New to Elite Craft?</h2>
-                    <p className='log-p'>Sign up today and join our community</p>
-
-                    <Link to="/signup" className='sub'>Sign Up</Link>
-
-                    <img src='/images/EC_Primary_White.png' className='pic'/> 
-                </div>
+            <div className="sign-up">
+                <h2 className="log-header">New to Elite Craft?</h2>
+                <Link to="/signup" className="sub">Sign Up</Link>
+            </div>
         </div>
     );
 };

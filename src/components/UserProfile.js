@@ -43,6 +43,8 @@ const UserProfile = () => {
             .catch(() => setError("Failed to load user information. Please try again later."));
     }, []);
 
+    
+
     // Fetch contracts for contractors
     useEffect(() => {
         if (userInfo?.type === "professional") {

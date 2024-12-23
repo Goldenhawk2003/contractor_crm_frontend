@@ -1,25 +1,34 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Link } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import "./Browse.css";
 
 const Browse = () => {
     const [workType, setWorkType] = useState('');
     const [location, setLocation] = useState('');
+    const [hourlyRateRange, setHourlyRateRange] = useState(''); // Dropdown for hourly rate range
     const [contractors, setContractors] = useState([]);
     const [error, setError] = useState('');
+    const [isLoading, setIsLoading] = useState(false); // Loading state
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(`Selected work type: ${workType}, Selected location: ${location}`);
-
+        console.log(`Filters: WorkType=${workType}, Location=${location}, HourlyRateRange=${hourlyRateRange}`);
+    
         if (workType === 'Other') {
             navigate('/Quiz');
         } else {
+            setIsLoading(true); // Start loading state
             try {
+                const queryParams = new URLSearchParams({
+                    job_type: workType,
+                    location: location,
+                });
+
+                const maxRate = hourlyRateRange ? parseInt(hourlyRateRange.split('-')[1], 10) : null;
+
                 const response = await fetch(
-                    `http://localhost:8000/api/contractors/?job_type=${workType}&location=${location}`,
+                    `http://localhost:8000/api/contractors/?${queryParams.toString()}`,
                     {
                         method: 'GET',
                         headers: {
@@ -27,22 +36,32 @@ const Browse = () => {
                         },
                     }
                 );
+
                 console.log('Response status:', response.status);
                 if (!response.ok) {
                     throw new Error(`Failed to fetch contractors: ${response.status}`);
                 }
-                const data = await response.json();
+
+                let data = await response.json();
                 console.log('Fetched contractors:', data);
+
+                // Apply hourly rate filter if a range is selected
+                if (maxRate !== null) {
+                    data = data.filter((contractor) => contractor.hourly_rate <= maxRate);
+                    console.log('Filtered contractors by hourly rate:', data);
+                }
+
                 setContractors(data);
                 setError('');
             } catch (err) {
                 console.error('Error fetching contractors:', err);
                 setError('Could not fetch contractors. Please try again later.');
+            } finally {
+                setIsLoading(false); // Stop loading state
             }
         }
     };
 
-    // Function to render star ratings
     const renderStars = (rating) => {
         const stars = [];
         for (let i = 0; i < 5; i++) {
@@ -54,8 +73,9 @@ const Browse = () => {
         }
         return stars;
     };
+
     useEffect(() => {
-        console.log("Contractors data:", contractors);
+        console.log("Current contractors data:", contractors);
     }, [contractors]);
 
     return (
@@ -87,6 +107,19 @@ const Browse = () => {
                         <option value="Toronto">Toronto</option>
                         <option value="Markham">Markham</option>
                     </select>
+                    <span className="para">with hourly rate</span>
+                    <select
+                        className="dropdown"
+                        value={hourlyRateRange}
+                        onChange={(e) => setHourlyRateRange(e.target.value)}
+                    >
+                        <option value="">Select a range (Optional)</option>
+                        <option value="0-100">0-100</option>
+                        <option value="100-200">100-200</option>
+                        <option value="200-300">200-300</option>
+                        <option value="300-500">300-500</option>
+                        <option value="500+">500+</option>
+                    </select>
                     <button type="submit" disabled={!workType || !location} className="submit-btn">
                         GO!
                     </button>
@@ -94,22 +127,19 @@ const Browse = () => {
             </div>
             <div className="Contractors">
                 <h2>Best Matches For You</h2>
-                <p className="cont-p">Lorem ipsum text for additional context and details about contractors.</p>
-                <p>
-                    PSST! Average Pricing based on our algorithm is ${} for a {}
-                </p>
-                {contractors.length > 0 ? (
+                {isLoading ? (
+                    <p>Loading contractors...</p>
+                ) : contractors.length > 0 ? (
                     <div className="contractor-list">
                         {contractors.map((contractor) => (
                             <div key={contractor.id} className="contractor-card">
                                 <Link to={`/contractor/${contractor.id}`} className="contractor-link">
                                     {contractor.logo && (
-                                     <img
-                                     src={contractor.logo ? contractor.logo : '/placeholder.png'}
-                                     alt={`${contractor.username || contractor.name} Logo`}
-                                     className="contractor-logo"
-                                     style={{ width: '100px', height: '100px', objectFit: 'contain' }}
-                                 />
+                                        <img
+                                            src={contractor.logo || '/placeholder.png'}
+                                            alt={`${contractor.username || contractor.name} Logo`}
+                                            className="contractor-logo"
+                                        />
                                     )}
                                     <p>
                                         <strong>Username:</strong> {contractor.username || contractor.name}
@@ -125,8 +155,7 @@ const Browse = () => {
                                     <strong>Rating:</strong> <span className="stars">{renderStars(contractor.rating)}</span>
                                 </p>
                                 <p>
-                                    <strong>Description:</strong>{' '}
-                                    {contractor.profile_description || 'No description provided'}
+                                    <strong>Description:</strong> {contractor.profile_description || 'No description provided'}
                                 </p>
                                 <p>
                                     <strong>Location:</strong> {contractor.location}
