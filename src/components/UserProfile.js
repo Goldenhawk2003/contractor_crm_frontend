@@ -268,6 +268,12 @@ const UserProfile = () => {
                                 {!contract.is_signed && (
                                     <button onClick={() => signContract(contract.id)}>Sign</button>
                                 )}
+                                {contract.is_signed && (
+                                    <>
+                                        <p>Contract signed!</p>
+                                        <Link to="/payment">Pay Now</Link>
+                                    </>
+                                    )}
                             </li>
                         ))}
                     </ul>
