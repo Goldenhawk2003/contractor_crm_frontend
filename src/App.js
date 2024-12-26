@@ -24,6 +24,7 @@ import Conversation from './components/chat/Conversation.js';
 import CreateConversation from './components/chat/CreateConversation.js';
 import ContractPage from './components/Docusign/ContractPage.js';
 import PaymentPage from './components/Payment/PaymentPage.js';
+import CreateContract from './components/Contracts/CreateContract';
 
 function useCsrfToken() {
   useEffect(() => {

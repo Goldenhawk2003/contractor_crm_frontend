@@ -4,29 +4,35 @@
     --blue: #1b3656;
     --white: #f8f8f8;
     --font-family: 'Open Sauce One', Arial, sans-serif;
+    --transition-duration: 0.3s; /* Consistent transition duration */
+    --box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Consistent shadow styling */
 }
 
 body {
     font-family: var(--font-family);
     background-color: var(--white);
-
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    color: var(--blue);
+    line-height: 1.6;
 }
 
 .user-profile {
     max-width: 800px;
-    margin: 0 auto;
+    margin: 20px auto;
     padding: 20px;
     background-color: var(--white);
     border: 1px solid var(--gold);
     border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--box-shadow);
 }
 
 .profile-card {
     text-align: center;
     margin-bottom: 20px;
     padding: 20px;
-    background-color: var(--blue);
+    background-color: var(--green);
     color: var(--white);
     border-radius: 8px;
 }
@@ -40,7 +46,7 @@ body {
 .profile-card img {
     width: 100px;
     height: 100px;
-    object-fit: contain;
+    object-fit: cover;
     border: 2px solid var(--gold);
     border-radius: 50%;
     margin-bottom: 10px;
@@ -59,21 +65,27 @@ body {
     background-color: var(--green);
     color: var(--white);
     border-radius: 8px;
+    box-shadow: var(--box-shadow);
 }
 
 .contract-section h2,
 .received-contracts h2 {
     font-size: 1.8rem;
     margin-bottom: 10px;
-    color: var(--gold)
+    color: var(--gold);
+    text-transform: uppercase; /* Optional for a modern feel */
 }
 
-.contract-section, .received-contracts p{
-    color: var(--white)
+.contract-section p,
+.received-contracts p {
+    color: var(--white);
 }
 
+.selected-user {
+    color: var(--white);
+}
 
-.signed{
+.signed {
     color: var(--gold) !important;
 }
 
@@ -81,46 +93,57 @@ body {
     display: block;
     margin-top: 15px;
     font-size: 1rem;
+    font-weight: bold;
     color: var(--white);
 }
 
 .user-input[type="text"],
-.user-select {
-    width: 90%;
+.user-select,
+textarea.user-input {
+    width: 100%;
+    max-width: 90%; /* Ensures inputs don't exceed their container */
     padding: 10px;
     margin-top: 5px;
     margin-bottom: 15px;
     border: 1px solid var(--gold);
     border-radius: 5px;
     font-size: 1rem;
+    color: var(--blue);
+    background-color: var(--white);
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.05);
+    transition: border-color var(--transition-duration);
+}
+
+.user-input:focus {
+    border-color: var(--green);
+    outline: none;
 }
 
 .button-container {
     display: flex;
-    justify-content: center; /* Centers buttons horizontally */
-    align-items: center; /* Centers buttons vertically */
-    margin-top: 10px; /* Adds space between the button and other content */
-}
-.button-container {
-    margin-top: 10px; /* Adds spacing above the button */
-    text-align: center; /* Centers the button horizontally if needed */
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
 }
 
 .user-button {
     padding: 10px 20px;
     font-size: 1rem;
+    font-weight: bold;
     color: var(--white);
     background-color: var(--gold);
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: background-color var(--transition-duration), transform var(--transition-duration);
     text-decoration: none;
-    
+    text-align: center;
 }
 
 .user-button:hover {
-    background-color: transparent;
+    background-color: var(--white);
+    color: var(--gold);
+    transform: translateY(-3px);
 }
 
 .search-results {
@@ -135,7 +158,7 @@ body {
     background-color: var(--white);
     color: var(--blue);
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: background-color var(--transition-duration), color var(--transition-duration);
 }
 
 .search-result-item.selected {
@@ -159,18 +182,32 @@ body {
     background-color: var(--white);
     border: 1px solid var(--gold);
     border-radius: 8px;
+    box-shadow: var(--box-shadow);
 }
 
 .user-li p {
     margin: 5px 0;
 }
 
+textarea.user-input {
+    resize: vertical; /* Limits resizing to vertical only */
+    min-height: 80px;
+}
+
 .error-message {
-    color: red;
+    color: #e63946;
     font-weight: bold;
+    background-color: rgba(230, 57, 70, 0.1);
+    padding: 10px;
+    border-radius: 5px;
+    margin: 10px 0;
 }
 
 .success-message {
     color: var(--gold);
     font-weight: bold;
+    background-color: rgba(220, 191, 121, 0.1);
+    padding: 10px;
+    border-radius: 5px;
+    margin: 10px 0;
 }

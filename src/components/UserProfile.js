@@ -21,41 +21,31 @@ axios.defaults.headers.common["X-CSRFToken"] = getCSRFToken();
 const UserProfile = () => {
     const [userInfo, setUserInfo] = useState(null);
     const [consents, setConsents] = useState([]);
-    const [contracts, setContracts] = useState([]); // List of contracts for contractors
-    const [sentContracts, setSentContracts] = useState([]); // Contracts sent by contractors
-    const [receivedContracts, setReceivedContracts] = useState([]); // Contracts received by clients
-    const [searchTerm, setSearchTerm] = useState(""); // Input for searching users
-    const [searchResults, setSearchResults] = useState([]); // User search results
-    const [selectedUser, setSelectedUser] = useState(null); // Selected user for sending
-    const [selectedContract, setSelectedContract] = useState(""); // Selected contract ID for sending
-    const [sendSuccess, setSendSuccess] = useState(""); // Success message for sending contracts
-    const [sendError, setSendError] = useState(""); // Error message for sending contracts
-    const [signSuccess, setSignSuccess] = useState(""); // Success message for signing contracts
-    const [signError, setSignError] = useState(""); // Error message for signing contracts
+    const [sentContracts, setSentContracts] = useState([]);
+    const [receivedContracts, setReceivedContracts] = useState([]);
+    const [searchTerm, setSearchTerm] = useState("");
+    const [searchResults, setSearchResults] = useState([]);
+    const [selectedUser, setSelectedUser] = useState(null);
+    const [sendSuccess, setSendSuccess] = useState("");
+    const [sendError, setSendError] = useState("");
+    const [signSuccess, setSignSuccess] = useState("");
+    const [signError, setSignError] = useState("");
     const [error, setError] = useState(null);
-    const [searching, setSearching] = useState(false); // Searching state
+    const [searching, setSearching] = useState(false);
+
+    // New states for creating a contract
+    const [newContractTitle, setNewContractTitle] = useState("");
+    const [newContractContent, setNewContractContent] = useState("");
 
     // Fetch user profile
     useEffect(() => {
         axios
             .get("http://localhost:8000/api/user-info/", { withCredentials: true })
             .then((response) => setUserInfo(response.data))
-            .catch(() => setError("Failed to load user information. Please try again later."));
+            .catch(() => setError("Please sign in"));
     }, []);
 
-    
-
-    // Fetch contracts for contractors
-    useEffect(() => {
-        if (userInfo?.type === "professional") {
-            axios
-                .get("http://localhost:8000/api/contracts/", { withCredentials: true })
-                .then((response) => setContracts(response.data))
-                .catch(() => setSendError("Failed to fetch contracts."));
-        }
-    }, [userInfo]);
-
-    // Fetch sent contracts for contractors
+    // Fetch sent contracts for professionals
     useEffect(() => {
         if (userInfo?.type === "professional") {
             axios
@@ -74,22 +64,6 @@ const UserProfile = () => {
                 .catch(() => setSignError("Failed to fetch received contracts."));
         }
     }, [userInfo]);
-
-    useEffect(() => {
-        if (userInfo?.type === "professional") {
-            axios
-                .get("http://localhost:8000/api/sent-contracts/", { withCredentials: true })
-                .then((response) => {
-                    console.log("Sent Contracts Response:", response.data.contracts);
-                    setSentContracts(response.data.contracts);
-                })
-                .catch((error) => {
-                    console.error("Failed to fetch sent contracts:", error);
-                    setSendError("Failed to fetch sent contracts.");
-                });
-        }
-    }, [userInfo]);
-    console.log("Initial Sent Contracts State:", sentContracts);
 
     const handleSearch = async () => {
         if (!searchTerm.trim()) {
@@ -117,9 +91,8 @@ const UserProfile = () => {
     };
 
     const sendContract = async () => {
-        const contract = contracts.find((c) => c.id === parseInt(selectedContract));
-        if (!contract) {
-            setSendError("Invalid contract selected.");
+        if (!newContractTitle || !newContractContent || !selectedUser) {
+            setSendError("Please fill in all fields and select a user.");
             return;
         }
 
@@ -129,7 +102,8 @@ const UserProfile = () => {
         try {
             const payload = {
                 user_id: selectedUser.id,
-                contractContent: contract.content,
+                title: newContractTitle, // Include title
+                contractContent: newContractContent, // Include content
             };
 
             await axios.post("http://localhost:8000/api/send-contract/", payload, {
@@ -138,7 +112,8 @@ const UserProfile = () => {
 
             setSendSuccess("Contract sent successfully!");
             setSelectedUser(null);
-            setSelectedContract("");
+            setNewContractTitle("");
+            setNewContractContent("");
         } catch {
             setSendError("Failed to send contract. Please try again.");
         }
@@ -184,14 +159,23 @@ const UserProfile = () => {
                 <p><strong>Username:</strong> {userInfo.username}</p>
                 <p><strong>Email:</strong> {userInfo.email}</p>
                 <p><strong>Type:</strong> {userInfo.type}</p>
+                <Link 
+        to={userInfo?.type === "professional" 
+            ? `/contractors/edit/${userInfo?.id}` 
+            : `/clients/edit/${userInfo?.id}`} 
+        className="user-button"
+    >
+        Edit Profile
+    </Link>
             </div>
 
             {userInfo.type === "professional" && (
                 <div className="contract-section">
-                    <h2>Send a Contract</h2>
+                    <h2>Create and Send a Contract</h2>
                     {sendError && <p className="error-message">{sendError}</p>}
                     {sendSuccess && <p className="success-message">{sendSuccess}</p>}
 
+                    {/* Search User */}
                     <label htmlFor="user-search" className="user-label">Search for a User:</label>
                     <input
                         id="user-search"
@@ -220,27 +204,32 @@ const UserProfile = () => {
                     </div>
 
                     {selectedUser && (
-                        <p>
+                        <p className="selected-user">
                             Selected User: <strong>{selectedUser.username}</strong>
                         </p>
                     )}
 
-                    <label htmlFor="contract-select">Select a Contract:</label>
-                    <select
-                        id="contract-select"
-                        value={selectedContract}
-                        onChange={(e) => setSelectedContract(e.target.value)}
-                        className="user-select"
-                    >
-                        <option value="">-- Select Contract --</option>
-                        {contracts.map((contract) => (
-                            <option key={contract.id} value={contract.id}>
-                                {contract.title}
-                            </option>
-                        ))}
-                    </select>
+                    {/* Create Contract */}
+                    <label>Contract Title</label>
+                    <input
+                        type="text"
+                        value={newContractTitle}
+                        onChange={(e) => setNewContractTitle(e.target.value)}
+                        placeholder="Enter contract title"
+                        className="user-input"
+                    />
+                    <label>Contract Content</label>
+                    <textarea
+                        value={newContractContent}
+                        onChange={(e) => setNewContractContent(e.target.value)}
+                        placeholder="Enter contract content"
+                        className="user-input"
+                        rows="5"
+                    ></textarea>
 
-                    <button onClick={sendContract} className="user-button">Send Contract</button>
+                    <button onClick={sendContract} className="user-button">
+                        Send Contract
+                    </button>
 
                     <h2>Sent Contracts</h2>
                     <ul className="user-ul">
@@ -261,37 +250,38 @@ const UserProfile = () => {
                     {signError && <p className="error-message">{signError}</p>}
                     {signSuccess && <p className="success-message">{signSuccess}</p>}
                     <ul>
-    {receivedContracts.map((contract) => (
-        <li key={contract.id}>
-            <p><strong>Title:</strong> {contract.title}</p>
-            <p><strong>Status:</strong> {contract.is_signed ? "Signed" : "Pending"}</p>
-            {contract.is_signed && (
-                <>
-                    <p className="signed">Contract signed!</p>
-                    <p>
-                        <Link to="/payment" className="user-button">
-                            Pay Now
-                        </Link>
-                    </p>
-                </>
-            )}
-            {!contract.is_signed && (
-                <p>
-                    <button
-                        onClick={() => signContract(contract.id)}
-                        className="user-button"
-                    >
-                        Sign
-                    </button>
-                </p>
-            )}
-        </li>
-    ))}
-</ul>
+                        {receivedContracts.map((contract) => (
+                            <li key={contract.id}>
+                                <p><strong>Title:</strong> {contract.title}</p>
+                                <p><strong>Content:</strong> {contract.content}</p> {/* Added content here */}
+                                <p><strong>Status:</strong> {contract.is_signed ? "Signed" : "Pending"}</p>
+                                <div className="button-container">
+                                {!contract.is_signed && (
+                                    <button
+                                        onClick={() => signContract(contract.id)}
+                                        className="user-button"
+                                    >
+                                        Sign
+                                    </button>
+                                )}
+                                {contract.is_signed && (
+                                    <>
+                                        <p className="signed">Contract signed!</p>
+                                     
+                                            <p>
+                                        <Link to="/payment" className="user-button">
+                                            Pay Now
+                                        </Link>
+                                        </p>
+                                     
+                                    </>
+                                )}
+                                </div>
+                            </li>
+                        ))}
+                    </ul>
                 </div>
             )}
-
-
         </div>
     );
 };
