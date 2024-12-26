@@ -261,22 +261,33 @@ const UserProfile = () => {
                     {signError && <p className="error-message">{signError}</p>}
                     {signSuccess && <p className="success-message">{signSuccess}</p>}
                     <ul>
-                        {receivedContracts.map((contract) => (
-                            <li key={contract.id}>
-                                <p><strong>Title:</strong> {contract.title}</p>
-                                <p><strong>Status:</strong> {contract.is_signed ? "Signed" : "Pending"}</p>
-                                {!contract.is_signed && (
-                                    <button onClick={() => signContract(contract.id)}>Sign</button>
-                                )}
-                                {contract.is_signed && (
-                                    <>
-                                        <p>Contract signed!</p>
-                                        <Link to="/payment">Pay Now</Link>
-                                    </>
-                                    )}
-                            </li>
-                        ))}
-                    </ul>
+    {receivedContracts.map((contract) => (
+        <li key={contract.id}>
+            <p><strong>Title:</strong> {contract.title}</p>
+            <p><strong>Status:</strong> {contract.is_signed ? "Signed" : "Pending"}</p>
+            {contract.is_signed && (
+                <>
+                    <p className="signed">Contract signed!</p>
+                    <p>
+                        <Link to="/payment" className="user-button">
+                            Pay Now
+                        </Link>
+                    </p>
+                </>
+            )}
+            {!contract.is_signed && (
+                <p>
+                    <button
+                        onClick={() => signContract(contract.id)}
+                        className="user-button"
+                    >
+                        Sign
+                    </button>
+                </p>
+            )}
+        </li>
+    ))}
+</ul>
                 </div>
             )}
 

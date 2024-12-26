@@ -68,8 +68,13 @@ body {
     color: var(--gold)
 }
 
-.contract-section p{
-    color: var(--gold);
+.contract-section, .received-contracts p{
+    color: var(--white)
+}
+
+
+.signed{
+    color: var(--gold) !important;
 }
 
 .user-label {
@@ -90,6 +95,17 @@ body {
     font-size: 1rem;
 }
 
+.button-container {
+    display: flex;
+    justify-content: center; /* Centers buttons horizontally */
+    align-items: center; /* Centers buttons vertically */
+    margin-top: 10px; /* Adds space between the button and other content */
+}
+.button-container {
+    margin-top: 10px; /* Adds spacing above the button */
+    text-align: center; /* Centers the button horizontally if needed */
+}
+
 .user-button {
     padding: 10px 20px;
     font-size: 1rem;
@@ -99,10 +115,12 @@ body {
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s;
+    text-decoration: none;
+    
 }
 
 .user-button:hover {
-    background-color: var(--blue);
+    background-color: transparent;
 }
 
 .search-results {
