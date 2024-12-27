@@ -1,0 +1,72 @@
+import React, { useState } from "react";
+import axios from "axios";
+
+const CreateContract = () => {
+    const [title, setTitle] = useState("");
+    const [content, setContent] = useState("");
+    const [recipientId, setRecipientId] = useState("");
+    const [message, setMessage] = useState("");
+    const [error, setError] = useState("");
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        try {
+            const payload = {
+                user_id: recipientId,
+                title: title,
+                content: content,
+            };
+
+            const response = await axios.post("http://localhost:8000/api/send-contract/", payload, {
+                withCredentials: true,
+            });
+
+            setMessage(response.data.message || "Contract sent successfully!");
+            setTitle("");
+            setContent("");
+            setRecipientId("");
+        } catch (err) {
+            setError("Failed to send contract. Please try again.");
+        }
+    };
+
+    return (
+        <form onSubmit={handleSubmit}>
+            <div>
+                <label>Title</label>
+                <input
+                    type="text"
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
+                    placeholder="Enter contract title"
+                    required
+                />
+            </div>
+            <div>
+                <label>Content</label>
+                <textarea
+                    value={content}
+                    onChange={(e) => setContent(e.target.value)}
+                    placeholder="Enter contract content"
+                    required
+                ></textarea>
+            </div>
+            <div>
+                <label>Recipient ID</label>
+                <input
+                    type="number"
+                    value={recipientId}
+                    onChange={(e) => setRecipientId(e.target.value)}
+                    placeholder="Enter recipient ID"
+                    required
+                />
+            </div>
+            <button type="submit">Send Contract</button>
+            {message && <p className="success-message">{message}</p>}
+            {error && <p className="error-message">{error}</p>}
+        </form>
+    );
+};
+
+export default CreateContract;
