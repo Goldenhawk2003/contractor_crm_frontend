@@ -39,6 +39,9 @@ const Home = () => {
       navigate('/browse-contractors', { state: { query: searchText } });
     }
   };
+  const quizButton = () => {
+    navigate('/Quiz');
+  }
   return (
     <div className="home-container">
       <h1 className="head">Welcome To Elite Crafts Contractors</h1>
@@ -89,19 +92,184 @@ const Home = () => {
     <img src="/images/snow_removal.jpeg" alt="Snow Removal Services" />
   </Link>
 </div>
-      <div className='trust'>
-        <h2 className='trust-header'>Trustworthy People, With reliable solutions
-        </h2>
-        <p className='trust-p'>Our quiz is designed to get the stress of looking for a contractor off your plate</p>
-
-        <button type='submit' className='trust-button'>Take Quiz now</button>
-      </div>
+      <div className="trust">
+  <div className="trust-content">
+    <h2 className="trust-header">Trustworthy People, With Reliable Solutions</h2>
+    <p className="trust-p">
+      Our quiz is designed to get the stress of looking for a contractor off your plate.
+    </p>
+    <button type="submit" className="trust-button" onClick={quizButton}>
+      Take Quiz Now
+    </button>
+  </div>
+  <img src="/images/happy_contractors.jpg" alt="Happy Contractors" className="contractor_img" />
+</div>
       <div className='our-process'> 
         <h2 className='our-header'>Our Process</h2>
 
       </div>
       <div className='match'>
         <h2 className='match-header'>Match With Our Professionals Today.</h2>
+   
+
+<div className="contractor-list">
+    <div key="1" className="contractor-card">
+        <Link to="/contractor/sample-id" className="contractor-link">
+            <img
+                src="/images/generic_pic.jpg"
+                alt="Contractor Logo"
+                className="contractor-logo"
+            />
+            <p>
+                <strong>Username:</strong> John Doe
+            </p>
+        </Link>
+        <p>
+            <strong>Job Type:</strong> Carpenter
+        </p>
+        <p>
+            <strong>Experience:</strong> 5 years
+        </p>
+        <p>
+            <strong>Rating:</strong> 
+            <span className="stars">⭐⭐⭐⭐☆</span>
+        </p>
+        <p>
+            <strong>Description:</strong> Skilled contractor with expertise in carpentry and home renovations.
+        </p>
+        <p>
+            <strong>Location:</strong> Durham Region
+        </p>
+        <p>
+            <strong>Hourly Rate: $</strong>50
+        </p>
+    </div>
+    <div key="2" className="contractor-card">
+        <Link to="/contractor/sample-id" className="contractor-link">
+            <img
+                src="/images/generic_pic.jpg"
+                alt="Contractor Logo"
+                className="contractor-logo"
+            />
+            <p>
+                <strong>Username:</strong> Jane Smith
+            </p>
+        </Link>
+        <p>
+            <strong>Job Type:</strong> Plumber
+        </p>
+        <p>
+            <strong>Experience:</strong> 8 years
+        </p>
+        <p>
+            <strong>Rating:</strong> 
+            <span className="stars">⭐⭐⭐⭐⭐</span>
+        </p>
+        <p>
+            <strong>Description:</strong> Experienced plumber with excellent customer service skills.
+        </p>
+        <p>
+            <strong>Location:</strong> Ajax, ON
+        </p>
+        <p>
+            <strong>Hourly Rate: $</strong>60
+        </p>
+    </div>
+    <div key="2" className="contractor-card">
+        <Link to="/contractor/sample-id" className="contractor-link">
+            <img
+                src="/images/generic_pic.jpg"
+                alt="Contractor Logo"
+                className="contractor-logo"
+            />
+            <p>
+                <strong>Username:</strong> Jane Smith
+            </p>
+        </Link>
+        <p>
+            <strong>Job Type:</strong> Plumber
+        </p>
+        <p>
+            <strong>Experience:</strong> 8 years
+        </p>
+        <p>
+            <strong>Rating:</strong> 
+            <span className="stars">⭐⭐⭐⭐⭐</span>
+        </p>
+        <p>
+            <strong>Description:</strong> Experienced plumber with excellent customer service skills.
+        </p>
+        <p>
+            <strong>Location:</strong> Ajax, ON
+        </p>
+        <p>
+            <strong>Hourly Rate: $</strong>60
+        </p>
+    </div>
+    <div key="2" className="contractor-card">
+        <Link to="/contractor/sample-id" className="contractor-link">
+            <img
+                src="/images/generic_pic.jpg"
+                alt="Contractor Logo"
+                className="contractor-logo"
+            />
+            <p>
+                <strong>Username:</strong> Jane Smith
+            </p>
+        </Link>
+        <p>
+            <strong>Job Type:</strong> Plumber
+        </p>
+        <p>
+            <strong>Experience:</strong> 8 years
+        </p>
+        <p>
+            <strong>Rating:</strong> 
+            <span className="stars">⭐⭐⭐⭐⭐</span>
+        </p>
+        <p>
+            <strong>Description:</strong> Experienced plumber with excellent customer service skills.
+        </p>
+        <p>
+            <strong>Location:</strong> Ajax, ON
+        </p>
+        <p>
+            <strong>Hourly Rate: $</strong>60
+        </p>
+    </div>
+    <div key="2" className="contractor-card">
+        <Link to="/contractor/sample-id" className="contractor-link">
+            <img
+                src="/images/generic_pic.jpg"
+                alt="Contractor Logo"
+                className="contractor-logo"
+            />
+            <p>
+                <strong>Username:</strong> Jane Smith
+            </p>
+        </Link>
+        <p>
+            <strong>Job Type:</strong> Plumber
+        </p>
+        <p>
+            <strong>Experience:</strong> 8 years
+        </p>
+        <p>
+            <strong>Rating:</strong> 
+            <span className="stars">⭐⭐⭐⭐⭐</span>
+        </p>
+        <p>
+            <strong>Description:</strong> Experienced plumber with excellent customer service skills.
+        </p>
+        <p>
+            <strong>Location:</strong> Ajax, ON
+        </p>
+        <p>
+            <strong>Hourly Rate: $</strong>60
+        </p>
+    </div>
+    {/* Add more contractor cards here */}
+</div>
       </div>
     </div>
   );

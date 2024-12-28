@@ -1,4 +1,4 @@
-import {React, useEffect }from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, Outlet, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import Footer from './Footer';
@@ -8,12 +8,29 @@ import './Layout.css';
 const Layout = () => {
   const { isAuthenticated, logout } = useAuth(); // Ensure setIsAuthenticated is available from context
   const navigate = useNavigate(); // For redirecting after logout
+  const [isSuperUser, setIsSuperUser] = useState(false); // State to track superuser status
 
   useEffect(() => {
-    console.log('isAuthenticated:', isAuthenticated);
-}, [isAuthenticated]);
+    const fetchUserInfo = async () => {
+      try {
+        const response = await axios.get('http://localhost:8000/api/user-info-superuser/', {
+          withCredentials: true, // Ensures cookies are sent
+        });
 
-  
+        // Check if the user is a superuser
+        if (response.data.is_superuser) {
+          setIsSuperUser(true);
+        }
+      } catch (error) {
+        console.error('Failed to fetch user info:', error);
+      }
+    };
+
+    // Fetch user info if authenticated
+    if (isAuthenticated) {
+      fetchUserInfo();
+    }
+  }, [isAuthenticated]);
 
   return (
     <div className="layout-container">
@@ -21,12 +38,12 @@ const Layout = () => {
         <nav className="button-group">
           <div className="left-nav">
             <Link to="/" className="nav-button">Home</Link>
-            <Link to="/dashboard" className="nav-button">Dashboard</Link>
+            {isSuperUser && (
+              <Link to="/dashboard" className="nav-button">Dashboard</Link>
+            )}
             <Link to="/inbox" className="nav-button">Chat</Link>
             <Link to="/contact" className="nav-button">Contact Us</Link>
             <Link to="/user-profile" className="nav-button">User Profile</Link>
-            <Link to="/contracts" className="nav-button">DocSign</Link>
-            <Link to="/payment" className="nav-button">Pay</Link>
           </div>
 
           <div className="right-nav">
@@ -39,10 +56,10 @@ const Layout = () => {
               />
             </Link>
             {!isAuthenticated ? (
-                        <Link to="/login" className="nav-button">Login</Link>
-                    ) : (
-                        <button onClick={logout} className="nav-button">Logout</button>
-                    )}
+              <Link to="/login" className="nav-button">Login</Link>
+            ) : (
+              <button onClick={logout} className="nav-button">Logout</button>
+            )}
           </div>
         </nav>
       </header>

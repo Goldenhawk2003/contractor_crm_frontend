@@ -13,11 +13,21 @@ const getCSRFToken = () => {
   console.error("CSRF token not found");
   return null;
 };
+
 const Dashboard = () => {
   const [data, setData] = useState(null);
+  const [formResponses, setFormResponses] = useState([]);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [formError, setFormError] = useState(null);
+  const [questions, setQuestions] = useState([]);
+  const [newQuestion, setNewQuestion] = useState('');
+  const [newDescription, setNewDescription] = useState('');
+  const [newQuestionType, setNewQuestionType] = useState('text');
+  const [newChoices, setNewChoices] = useState('');
+  const [quizError, setQuizError] = useState(null);
 
+  // Fetch dashboard data
   const fetchDashboard = async () => {
     try {
       const response = await fetch('http://localhost:8000/dashboard/', {
@@ -39,6 +49,124 @@ const Dashboard = () => {
     }
   };
 
+  // Fetch quiz responses data
+  const fetchFormResponses = async () => {
+    try {
+        const response = await fetch('http://localhost:8000/dashboard/form-responses/', {
+            method: 'GET',
+            credentials: 'include',
+            headers: { 'Content-Type': 'application/json' },
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to fetch form responses.');
+        }
+
+        const data = await response.json();
+        setFormResponses(data.responses);
+    } catch (error) {
+        setFormError('Error loading form responses.');
+    }
+};
+
+
+  useEffect(() => {
+    fetchDashboard();
+    fetchFormResponses();
+  }, []);
+
+  const fetchQuestions = async () => {
+    try {
+        const response = await fetch('http://localhost:8000/quiz/questions/', {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' },
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to fetch questions.');
+        }
+
+        const data = await response.json();
+        setQuestions(data.questions);
+    } catch (error) {
+        setQuizError('Error loading quiz questions.');
+    }
+};
+
+const addQuestion = async () => {
+    if (!newQuestion.trim()) {
+        alert("Question text cannot be empty.");
+        return;
+    }
+
+    if (newQuestionType === "multiple_choice" && !newChoices.trim()) {
+        alert("Choices cannot be empty for multiple-choice questions.");
+        return;
+    }
+
+    try {
+        const response = await fetch('http://localhost:8000/quiz/add-question/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': getCSRFToken(),
+            },
+            body: JSON.stringify({
+                question: newQuestion,
+                description: newDescription,
+                question_type: newQuestionType,
+                choices: newQuestionType === "multiple_choice" ? newChoices.split(',') : null,
+            }),
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to add question.');
+        }
+
+        const data = await response.json();
+        setQuestions([...questions, {
+            id: data.id,
+            question: newQuestion,
+            description: newDescription,
+            question_type: newQuestionType,
+            choices: newQuestionType === "multiple_choice" ? newChoices.split(',') : null,
+        }]);
+        setNewQuestion('');
+        setNewDescription('');
+        setNewQuestionType('text');
+        setNewChoices('');
+    } catch (error) {
+        alert('Error adding question. Please try again.');
+    }
+};
+const deleteQuestion = async (questionId) => {
+  if (!window.confirm('Are you sure you want to delete this question?')) return;
+
+  try {
+    const response = await fetch(`http://localhost:8000/quiz/delete-question/${questionId}/`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRFToken': getCSRFToken(),
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to delete question.');
+    }
+
+    // Remove the question from the state
+    setQuestions(questions.filter((question) => question.id !== questionId));
+    alert('Question deleted successfully.');
+  } catch (error) {
+    alert('Error deleting question. Please try again.');
+  }
+};
+
+useEffect(() => {
+  fetchQuestions();
+}, []);
+
   const handleApprove = async (id) => {
     try {
         const response = await fetch(`http://localhost:8000/api/approve-contractor/${id}/`, {
@@ -59,32 +187,29 @@ const Dashboard = () => {
     } catch (error) {
         alert('Error approving contractor. Please try again.');
     }
-};
-const handleReject = async (id) => {
-  try {
-      const response = await fetch(`http://localhost:8000/api/reject-contractor/${id}/`, {
-          method: 'POST',
-          credentials: 'include',
-          headers: {
-              'Content-Type': 'application/json',
-              'X-CSRFToken': getCSRFToken(),
-          },
-      });
+  };
 
-      if (!response.ok) {
-          throw new Error('Failed to reject contractor.');
-      }
+  const handleReject = async (id) => {
+    try {
+        const response = await fetch(`http://localhost:8000/api/reject-contractor/${id}/`, {
+            method: 'POST',
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': getCSRFToken(),
+            },
+        });
 
-      alert('Contractor rejected successfully!');
-      fetchDashboard(); // Refresh the data
-  } catch (error) {
-      alert('Error rejecting contractor. Please try again.');
-  }
-};
+        if (!response.ok) {
+            throw new Error('Failed to reject contractor.');
+        }
 
-  useEffect(() => {
-    fetchDashboard();
-  }, []);
+        alert('Contractor rejected successfully!');
+        fetchDashboard(); // Refresh the data
+    } catch (error) {
+        alert('Error rejecting contractor. Please try again.');
+    }
+  };
 
   return (
     <div className="dashboard">
@@ -92,7 +217,6 @@ const handleReject = async (id) => {
       <header className="dashboard-header">
         <h1>Super Admin Dashboard</h1>
         <p>Welcome back, <strong>Admin</strong>!</p>
-        <button className="logout-btn">Logout</button>
       </header>
 
       {/* Loading State */}
@@ -133,14 +257,14 @@ const handleReject = async (id) => {
                     <p><strong>Job Type:</strong> {app.job_type}</p>
                     <p><strong>Location:</strong> {app.location}</p>
                     <img
-  src={
-    app.logo && app.logo.startsWith('http')
-      ? app.logo
-      : `http://localhost:8000${app.logo}`
-  }
-  alt={`${app.username}'s logo`}
-  className="application-logo"
-/>
+                      src={
+                        app.logo && app.logo.startsWith('http')
+                          ? app.logo
+                          : `http://localhost:8000${app.logo}`
+                      }
+                      alt={`${app.username}'s logo`}
+                      className="application-logo"
+                    />
                     <div className="application-buttons">
                       <button
                         className="approve-btn"
@@ -162,9 +286,8 @@ const handleReject = async (id) => {
               <p>No pending applications.</p>
             )}
           </section>
-
-          {/* Service Requests */}
-          <section className="service-requests">
+           {/* Service Requests */}
+           <section className="service-requests">
             <h2>Recent Service Requests</h2>
             {data.recent_service_requests && data.recent_service_requests.length > 0 ? (
               <ul className="service-requests-list">
@@ -180,6 +303,80 @@ const handleReject = async (id) => {
               <p>No recent service requests available.</p>
             )}
           </section>
+
+          {/* Quiz Responses Dashboard */}
+          <section className="form-responses">
+    <h2>Quiz Answers</h2>
+    {formError && <p className="error-message">{formError}</p>}
+    {formResponses.length > 0 ? (
+        <ul className="form-responses-list">
+            {formResponses.map((group, index) => (
+                <li key={index} className="form-response-group">
+                    <h3>Client: {group.client}</h3>
+                    <ul>
+                        {group.responses.map((response, respIndex) => (
+                            <li key={respIndex} className="form-response-item">
+                                <p><strong>Question:</strong> {response.quiz_question}</p>
+                                {response.answer && <p><strong>Answer:</strong> {response.answer}</p>}
+                                {response.selected_choice && <p><strong>Selected Choice:</strong> {response.selected_choice}</p>}
+                                {response.contractor_suggestion && (
+                                    <p><strong>Contractor Suggestion:</strong> {response.contractor_suggestion}</p>
+                                )}
+                                <p><strong>Submitted At:</strong> {response.created_at}</p>
+                            </li>
+                        ))}
+                    </ul>
+                </li>
+            ))}
+        </ul>
+    ) : (
+        <p>No form responses available.</p>
+    )}
+</section>
+<section className="quiz-management">
+    <h2>Manage Quiz Questions</h2>
+    {quizError && <p className="error-message">{quizError}</p>}
+    <div className="add-question">
+        <input
+            type="text"
+            value={newQuestion}
+            onChange={(e) => setNewQuestion(e.target.value)}
+            placeholder="Enter a new question..."
+        />
+        <select
+            value={newQuestionType}
+            onChange={(e) => setNewQuestionType(e.target.value)}
+        >
+            <option value="text">Text Answer</option>
+            <option value="multiple_choice">Multiple Choice</option>
+        </select>
+        {newQuestionType === "multiple_choice" && (
+            <input
+                type="text"
+                value={newChoices}
+                onChange={(e) => setNewChoices(e.target.value)}
+                placeholder="Enter choices, separated by commas..."
+            />
+        )}
+        <button onClick={addQuestion} className="user-button">Add Question</button>
+    </div>
+    <ul className="question-list">
+        {questions.map((question) => (
+            <li key={question.id} className="question-item">
+                <p><strong>Question:</strong> {question.question}</p>
+                {question.description && <p><strong>Description:</strong> {question.description}</p>}
+                <p><strong>Type:</strong> {question.question_type}</p>
+                {question.question_type === "multiple_choice" && (
+                    <p><strong>Choices:</strong> {question.choices.join(', ')}</p>
+                )}
+                <button onClick={() => deleteQuestion(question.id)} className="delete-btn">
+                    Delete
+                </button>
+            </li>
+        ))}
+    </ul>
+</section>
+
         </div>
       )}
 

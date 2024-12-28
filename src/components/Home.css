@@ -162,41 +162,7 @@ body {
   display: block;
 }
 
-.trust {
-  background-color: #f8f8f8f8;
-  width: 100%;
-  padding: 50px 20px;
-  text-align: left;
-  color: #000000;
-}
 
-.trust-header {
-  font-size: 2rem;
-  margin-bottom: 20px;
-}
-
-.trust-p {
-  font-size: 1rem;
-  margin-bottom: 30px;
-}
-
-.trust-button {
-  background-color: transparent;
-  color: #000000;
-  border: 2px solid #000000;
-  padding: 10px 20px;
-  border-radius: 20px;
-  cursor: pointer;
-  font-size: 0.8rem;
-  font-weight: bold;
-  transition: background-color 0.3s ease, border-color 0.3s ease;
-}
-
-.trust-button:hover {
-  background-color: #dcbf79;
-  border-color: #dcbf79;
-  color: #f8f8f8;
-}
 
 .our-process {
   background-color: #dcbf79;
@@ -221,4 +187,57 @@ body {
   font-size: 2rem;
   text-align: center;
   color: #f8f8f8
+}
+
+.trust {
+  display: flex; /* Arrange items in a row */
+  align-items: center; /* Align all items to the same vertical height */
+  justify-content: space-between; /* Space between text and image */
+  padding: 20px;
+  background-color: #f8f8f8; /* Optional: background color */
+  gap: 20px; /* Space between text and image */
+  width: 100%;
+}
+
+.trust-content {
+  display: flex;
+  flex-direction: column; /* Stack header, paragraph, and button */
+  gap: 10px; /* Space between each element */
+  max-width: 60%; /* Limit the width of the text content */
+}
+
+.trust-header {
+  font-size: 2rem;
+  color: black;
+}
+
+.trust-p {
+  font-size: 1rem;
+  color: black;
+  
+}
+
+.trust-button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  color: black;
+  background-color: transparent;
+  border: 1px black solid;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  width: 20%;
+  align-self: center;
+}
+
+.trust-button:hover {
+  background-color: #dcbf79;
+}
+
+.contractor_img {
+  width: 40%; /* Adjust image width */
+  height: auto; /* Maintain aspect ratio */
+  object-fit: cover; /* Ensure image fits within its container */
+  border-radius: 8px; /* Optional: rounded corners */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional: subtle shadow */
 }

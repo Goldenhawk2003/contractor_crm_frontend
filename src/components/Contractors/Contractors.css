@@ -146,3 +146,30 @@
     padding: 8px 12px;
   }
 }
+
+.rating-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.stars {
+  display: flex;
+  gap: 5px;
+  cursor: pointer;
+}
+
+.star {
+  font-size: 2rem;
+  color: #d3d3d3; /* Default star color */
+  transition: color 0.3s ease;
+}
+
+.star.selected {
+  color: #dcbf79; /* Highlighted star color */
+}
+
+.star:hover {
+  color: #f5c518; /* Hover color */
+}

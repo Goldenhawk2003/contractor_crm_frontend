@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './Quiz.css';
+
 const Quiz = () => {
     const [questions, setQuestions] = useState([]); // Store all quiz questions
     const [responses, setResponses] = useState({}); // Track user responses
@@ -65,9 +66,11 @@ const Quiz = () => {
             <h1>Help us help you</h1>
             {questions.map((question) => (
                 <div key={question.id} className="quiz-question">
-                    <h2>{question.text}</h2>
+                    <h2>{question.question}</h2>
                     <p>{question.description}</p>
-                    {question.type === 'text' ? (
+                    
+                    {/* Render options for text and multiple-choice questions */}
+                    {question.question_type === 'text' && (
                         <textarea
                             placeholder="Type your answer here..."
                             rows="4"
@@ -75,18 +78,20 @@ const Quiz = () => {
                             value={responses[question.id] || ''}
                             onChange={(e) => handleChange(question.id, e.target.value)}
                         />
-                    ) : (
+                    )}
+
+                    {question.question_type === 'multiple_choice' && question.choices && (
                         question.choices.map((choice, index) => (
                             <div key={index}>
                                 <input
                                     type="radio"
-                                    id={`choice-${index}`}
+                                    id={`choice-${index}-${question.id}`}
                                     name={`question-${question.id}`}
                                     value={choice}
                                     checked={responses[question.id] === choice}
                                     onChange={(e) => handleChange(question.id, e.target.value)}
                                 />
-                                <label htmlFor={`choice-${index}`}>{choice}</label>
+                                <label htmlFor={`choice-${index}-${question.id}`}>{choice}</label>
                             </div>
                         ))
                     )}

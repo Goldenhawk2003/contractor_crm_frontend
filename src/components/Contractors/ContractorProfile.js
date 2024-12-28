@@ -26,6 +26,7 @@ const ContractorProfile = () => {
   const navigate = useNavigate();
   const [contractor, setContractor] = useState(null);
   const [rating, setRating] = useState(0); // Track user rating input
+  const [hoveredRating, setHoveredRating] = useState(0); // Track hovered stars
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -68,11 +69,17 @@ const ContractorProfile = () => {
     }
   };
 
-  const renderStars = (rating) => {
+  const renderStars = (ratingValue) => {
     const stars = [];
-    for (let i = 0; i < 5; i++) {
+    for (let i = 1; i <= 5; i++) {
       stars.push(
-        <span key={i} className={i < rating ? "star filled" : "star"}>
+        <span
+          key={i}
+          className={`star ${i <= (hoveredRating || ratingValue) ? "filled" : ""}`}
+          onClick={() => setRating(i)}
+          onMouseEnter={() => setHoveredRating(i)}
+          onMouseLeave={() => setHoveredRating(0)}
+        >
           ★
         </span>
       );
@@ -87,10 +94,9 @@ const ContractorProfile = () => {
     ? contractor.logo
     : `http://localhost:8000${contractor.logo}`;
 
-
   const handleChatNow = () => {
-    navigate(`/start-conversation?username=${contractor.username}`);// Redirect to the chat page with the contractor's ID
-    };
+    navigate(`/start-conversation?username=${contractor.username}`);
+  };
 
   return (
     <div className="contractor-profile">
@@ -115,15 +121,7 @@ const ContractorProfile = () => {
 
       <div className="rating-section">
         <h3>Rate this Contractor</h3>
-        <select
-          value={rating}
-          onChange={(e) => setRating(parseInt(e.target.value))}
-        >
-          <option value="" disabled>Select a rating</option>
-          {[1, 2, 3, 4, 5].map((star) => (
-            <option key={star} value={star}>{star} Star{star > 1 ? "s" : ""}</option>
-          ))}
-        </select>
+        <div className="stars">{renderStars(rating)}</div>
         <button onClick={handleRateContractor} className="submit-rating-btn">
           Submit Rating
         </button>
