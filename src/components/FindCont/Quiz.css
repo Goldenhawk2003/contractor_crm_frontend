@@ -1,134 +1,125 @@
-/* General styles */
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f7f9fc;
-    color: #333;
-}
-
+/* General Quiz Container */
 .quiz-container {
+    font-family: 'Open Sauce One', Arial, sans-serif;
+    color: #5c7b78; /* Matching your theme */
+    background-color: #f8f8f8; /* Light background */
+    padding: 20px;
     max-width: 800px;
     margin: 20px auto;
-    padding: 20px;
-    background-color: #fff;
     border-radius: 10px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
-
-/* Header styles */
-h1 {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Quiz Header */
+  .quiz-container h1 {
     text-align: center;
-    font-size: 2rem;
-    color: #007BFF;
+    font-size: 2.5rem;
+    color: #5c7b78;
     margin-bottom: 20px;
-}
-
-/* Question styles */
-.quiz-question {
-    margin-bottom: 20px;
-    padding: 10px;
-    border-bottom: 1px solid #e0e0e0;
-}
-
-.quiz-question:last-child {
-    border-bottom: none;
-}
-
-h2 {
-    font-size: 1.2rem;
+  }
+  
+  /* Quiz Question Section */
+  .quiz-question {
+    margin-bottom: 30px;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .quiz-question h2 {
+    font-size: 1.5rem;
+    color: #5c7b78;
     margin-bottom: 10px;
-    color: #333;
-}
-
-p {
-    font-size: 0.9rem;
-    margin-bottom: 10px;
-    color: #666;
-}
-
-/* Textarea styles */
-textarea {
+  }
+  
+  .quiz-question p {
+    font-size: 1rem;
+    color: #777;
+    margin-bottom: 15px;
+  }
+  
+  /* Textarea for Text-Based Questions */
+  .quiz-question textarea {
     width: 100%;
+    height: 100px;
+    border: 1px solid #dcbf79;
+    border-radius: 8px;
     padding: 10px;
     font-size: 1rem;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    resize: none;
-    margin-top: 10px;
-}
-
-/* Radio button styles */
-input[type="radio"] {
+    color: #333;
+    font-family: 'Open Sauce One', Arial, sans-serif;
+    resize: vertical;
+    outline: none;
+    transition: border-color 0.3s;
+  }
+  
+  .quiz-question textarea:focus {
+    border-color: #5c7b78;
+  }
+  
+  /* Multiple Choice Questions */
+  .quiz-question input[type="radio"] {
     margin-right: 10px;
-}
-
-label {
+    accent-color: #5c7b78; /* Modern browsers support this */
+  }
+  
+  .quiz-question label {
     font-size: 1rem;
-    margin-right: 20px;
-    cursor: pointer;
-}
-
-/* Submit button styles */
-.submit-button {
-    display: block; /* Ensure the button is displayed */
-    margin: 20px auto; /* Center the button */
-    padding: 10px 20px;
+    color: #333;
+  }
+  
+  /* Submit Button */
+  .submit-button {
+    display: block;
+    width: 100%;
+    padding: 15px;
     font-size: 1.2rem;
-    font-weight: bold;
-    color: #fff;
-    background-color: #007BFF;
+    color: #ffffff;
+    background-color: #5c7b78;
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
     cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
     text-align: center;
-}
-
-.submit-button:hover {
-    background-color: #0056b3;
-    transform: scale(1.02);
-}
-
-.submit-button:active {
-    background-color: #004080;
-    transform: scale(0.98);
-}
-
-/* Error message styles */
-.error {
-    text-align: center;
-    color: red;
+    transition: background-color 0.3s, transform 0.2s;
+  }
+  
+  .submit-button:hover {
+    background-color: #4a6863;
+    transform: translateY(-2px);
+  }
+  
+  .submit-button:active {
+    transform: translateY(0);
+  }
+  
+  /* Error Message */
+  .error {
+    color: #d9534f;
     font-weight: bold;
-    margin-top: 20px;
-}
-
-/* Loading styles */
-p {
     text-align: center;
-    font-size: 1rem;
-    color: #999;
-}
-
-/* Mobile responsiveness */
-@media (max-width: 600px) {
+    margin: 10px 0;
+  }
+  
+  /* Loading State */
+  .quiz-container p {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #777;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
     .quiz-container {
-        padding: 15px;
+      padding: 15px;
     }
-
-    h1 {
-        font-size: 1.5rem;
+  
+    .quiz-question {
+      padding: 15px;
     }
-
-    h2 {
-        font-size: 1rem;
-    }
-
-    textarea {
-        font-size: 0.9rem;
-    }
-
+  
     .submit-button {
-        font-size: 1rem;
+      font-size: 1rem;
+      padding: 10px;
     }
-}
+  }
