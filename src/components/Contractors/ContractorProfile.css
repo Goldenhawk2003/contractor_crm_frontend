@@ -1,0 +1,153 @@
+/* General Contractor Profile Container */
+.contractor-profile {
+  font-family: 'Open Sauce One', Arial, sans-serif;
+  background-color: #f8f8f8;
+  color: #5c7b78;
+  padding: 20px;
+  max-width: 800px;
+  margin: 20px auto;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+/* Contractor Logo */
+.profile-logo {
+  margin-bottom: 20px;
+}
+
+.profile-logo img {
+  width: 150px;
+  height: 150px;
+  object-fit: contain;
+  border-radius: 50%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Contractor Details */
+.contractor-profile h2 {
+  font-size: 2rem;
+  color: #5c7b78;
+  margin-bottom: 10px;
+}
+
+.contractor-profile p {
+  font-size: 1rem;
+  color: #777;
+  margin: 5px 0;
+}
+
+.contractor-profile strong {
+  color: #5c7b78;
+}
+
+/* Chat Button */
+.chat .submit-rating-btn {
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  color: #ffffff;
+  background-color: #5c7b78;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.chat .submit-rating-btn:hover {
+  background-color: #4a6863;
+  transform: translateY(-2px);
+}
+
+/* Rating Section */
+.rating-section {
+  margin-top: 30px;
+  text-align: center;
+}
+
+.rating-section h3 {
+  font-size: 1.5rem;
+  color: #5c7b78;
+  margin-bottom: 10px;
+}
+
+.rating-section .stars {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.rating-section .star {
+  font-size: 2rem;
+  color: #ccc;
+  cursor: pointer;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.rating-section .star.filled {
+  color: #dcbf79;
+}
+
+.rating-section .star:hover {
+  color: #dcbf79;
+  transform: scale(1.2);
+}
+
+.rating-section .submit-rating-btn {
+  padding: 10px 20px;
+  font-size: 1rem;
+  color: #ffffff;
+  background-color: #5c7b78;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.rating-section .submit-rating-btn:hover {
+  background-color: #4a6863;
+  transform: translateY(-2px);
+}
+
+/* Success and Error Messages */
+.success-message,
+.error-message {
+  margin-top: 20px;
+  font-size: 1rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+.success-message {
+  color: #28a745;
+}
+
+.error-message {
+  color: #d9534f;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .contractor-profile {
+    padding: 15px;
+  }
+
+  .profile-logo img {
+    width: 120px;
+    height: 120px;
+  }
+
+  .contractor-profile h2 {
+    font-size: 1.8rem;
+  }
+
+  .rating-section .stars .star {
+    font-size: 1.8rem;
+  }
+
+  .rating-section .submit-rating-btn {
+    font-size: 0.9rem;
+    padding: 8px 15px;
+  }
+}

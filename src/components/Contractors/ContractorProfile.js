@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
-import './Contractors.css';
+import './ContractorProfile.css';
 
 // Retrieve CSRF token from cookies
 const getCSRFToken = () => {
