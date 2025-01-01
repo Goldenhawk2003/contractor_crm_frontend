@@ -66,7 +66,7 @@ const Inbox = () => {
             onClick={() => handleConversationClick(conversation.id)}
           >
             <strong className="participants">
-              Participants: {conversation.participants.join(", ")}
+              Message From: {conversation.participants[0]}
             </strong>
             <p className="latest-message">
               Last message: {conversation.latest_message || "No messages yet."}
