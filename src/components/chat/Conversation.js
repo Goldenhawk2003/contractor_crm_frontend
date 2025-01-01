@@ -1,31 +1,26 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import "./Conversation.css";
 
 const Conversation = () => {
   const { conversationId } = useParams();
   const [messages, setMessages] = useState([]);
-  const [message, setMessage] = useState(""); // New message content
+  const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const [sending, setSending] = useState(false); // State for sending reply
+  const [sending, setSending] = useState(false);
 
   useEffect(() => {
     const fetchMessages = async () => {
       try {
-        console.log(`Fetching messages for conversation ID: ${conversationId}`);
         const response = await axios.get(
           `http://localhost:8000/api/conversations/${conversationId}/messages/`,
-          {
-            withCredentials: true,
-          }
+          { withCredentials: true }
         );
-
-        console.log("API Response:", response.data);
         setMessages(response.data);
       } catch (err) {
-        console.error("Error fetching messages:", err.response || err.message);
-        setError("Failed to load the conversation. Please try again later.");
+        setError("Please Log in to view this page.");
       } finally {
         setLoading(false);
       }
@@ -34,6 +29,13 @@ const Conversation = () => {
     fetchMessages();
   }, [conversationId]);
 
+  const handleKeyPress = (event) => {
+    if (event.key === 'Enter') {
+        event.preventDefault();
+        handleReply(); // Submit form on Enter key press
+    }
+};
+
   const handleReply = async () => {
     if (!message.trim()) {
       setError("Message content cannot be empty.");
@@ -41,13 +43,13 @@ const Conversation = () => {
     }
 
     setSending(true);
-    setError(""); // Clear previous errors
+    setError("");
 
     try {
       const csrfToken = document.cookie
         .split("; ")
         .find((row) => row.startsWith("csrftoken="))
-        ?.split("=")[1]; // Retrieve CSRF token
+        ?.split("=")[1];
 
       if (!csrfToken) {
         throw new Error("CSRF token is missing. Please refresh the page.");
@@ -65,21 +67,17 @@ const Conversation = () => {
         }
       );
 
-      console.log("Reply sent successfully:", response.data);
-
-      // Refresh messages after sending the reply
       setMessages((prevMessages) => [
         ...prevMessages,
         {
           id: response.data.id,
           content: message,
-          sender_name: "You", // Replace with actual sender name if available
+          sender_name: "You",
           timestamp: new Date().toISOString(),
         },
       ]);
-      setMessage(""); // Clear input field
+      setMessage("");
     } catch (err) {
-      console.error("Failed to send reply:", err.response || err.message);
       setError("Failed to send reply. Please try again.");
     } finally {
       setSending(false);
@@ -95,49 +93,47 @@ const Conversation = () => {
   }
 
   return (
-    <div>
-      <h1>Conversation</h1>
-      <ul style={{ listStyleType: "none", padding: 0 }}>
+    <div className="container">
+      <h1 className="title">Conversation</h1>
+      <div className="messagesContainer">
+        
         {messages.map((msg) => (
-          <li
-            key={msg.id}
-            style={{
-              marginBottom: "15px",
-              borderBottom: "1px solid #ddd",
-              paddingBottom: "10px",
-            }}
-          >
-            <p>
-              <strong>{msg.sender_name}</strong>: {msg.content}
-            </p>
-            <p style={{ fontSize: "0.8rem", color: "#888" }}>
-              {new Date(msg.timestamp).toLocaleString()}
-            </p>
-          </li>
+          <div
+          key={msg.id}
+          className={`messageBubble `}
+        >
+          <p className="messageSender">{msg.sender_name}</p>
+          <p className="messageContent">{msg.content}</p>
+          <p className="messageTimestamp">
+  {new Date(msg.timestamp).toLocaleDateString("en-US", {
+    weekday: "short",
+    month: "long",
+    day: "numeric",
+  })}{" "}
+  at{" "}
+  {new Date(msg.timestamp).toLocaleTimeString("en-US", {
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: true,
+  })}
+</p>
+        </div>
         ))}
-      </ul>
-
-      {/* Reply Section */}
-      <div style={{ marginTop: "20px" }}>
+      </div>
+      <div className="replySection">
         <textarea
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           placeholder="Write your reply..."
           rows="4"
-          style={{ width: "100%", padding: "10px", borderRadius: "5px" }}
+          className="textarea"
+          onKeyPress={handleKeyPress}
         />
         <button
           onClick={handleReply}
           disabled={sending}
-          style={{
-            marginTop: "10px",
-            padding: "10px 20px",
-            backgroundColor: sending ? "#ccc" : "#007bff",
-            color: "#fff",
-            border: "none",
-            borderRadius: "5px",
-            cursor: sending ? "not-allowed" : "pointer",
-          }}
+          className="button"
+          style={{ backgroundColor: sending ? "#ccc" : "#5c7b78" }}
         >
           {sending ? "Sending..." : "Reply"}
         </button>

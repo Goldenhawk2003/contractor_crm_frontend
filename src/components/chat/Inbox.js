@@ -17,24 +17,35 @@ const Inbox = () => {
           method: "GET",
           credentials: "include",
         });
-
+  
         if (!response.ok) {
           throw new Error("Failed to fetch conversations");
         }
-
+  
         const data = await response.json();
-        console.log("Conversations fetched:", data); // Debugging log
-        setConversations(data);
+        console.log("Raw data fetched:", data); // Debugging log
+  
+        // Sort conversations by latest_message_time
+        const sortedConversations = data.sort((a, b) => {
+          const dateA = new Date(a.latest_message_timestamp);
+          const dateB = new Date(b.latest_message_timestamp);
+          return dateB - dateA; // Newest timestamps first
+        });
+        
+        console.log("Sorted conversations:", sortedConversations);
+        setConversations(sortedConversations);
       } catch (error) {
         console.error("Error fetching conversations:", error);
-        setError("Could not load conversations. Please try again later.");
+        setError("Please log in to view this page.");
       } finally {
         setLoading(false);
       }
+      
     };
-
+  
     fetchConversations();
   }, []);
+
 
   const handleConversationClick = (conversationId) => {
     navigate(`/conversation/${conversationId}`);
@@ -66,7 +77,7 @@ const Inbox = () => {
             onClick={() => handleConversationClick(conversation.id)}
           >
             <strong className="participants">
-              Message From: {conversation.participants[0]}
+              {conversation.participants[0]}
             </strong>
             <p className="latest-message">
               Last message: {conversation.latest_message || "No messages yet."}
