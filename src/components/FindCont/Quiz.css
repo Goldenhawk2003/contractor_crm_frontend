@@ -1,4 +1,18 @@
-/* General Quiz Container */
+.parent-container {
+  display: flex;
+  flex-direction: column; /* Ensures items stack vertically */
+  justify-content: center; /* Centers items vertically */
+  align-items: center; /* Centers items horizontally */ /* Full viewport height for demo purposes */
+  text-align: center; /* Centers text inside elements */
+  color: #5c7b78;
+}
+
+.header {
+  font-size: 2.5rem; /* Adjust font size as needed */
+  margin-bottom: 1rem; /* Adds spacing below the header */
+}
+
+
 .quiz-container {
     font-family: 'Open Sauce One', Arial, sans-serif;
     color: #5c7b78; /* Matching your theme */
@@ -42,7 +56,7 @@
   /* Textarea for Text-Based Questions */
   .quiz-question textarea {
     width: 100%;
-    height: 100px;
+    height: 20px;
     border: 1px solid #dcbf79;
     border-radius: 8px;
     padding: 10px;

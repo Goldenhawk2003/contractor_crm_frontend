@@ -63,7 +63,10 @@ const Quiz = () => {
 
     return (
         <div>
-            <h1>Help us help you</h1>
+            <div className="parent-container">
+                 <h1 className="header">Help Us Help You</h1>
+                 <p>Our Custom Quiz Designed to help you find the best match for your needs</p>
+            </div>
             {questions.map((question) => (
                 <div key={question.id} className="quiz-question">
                     <h2>{question.question}</h2>
