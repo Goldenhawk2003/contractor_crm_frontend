@@ -35,9 +35,19 @@ const Home = () => {
     }
   };
   const handleKeyDown = (event) => {
-    if (event.key === 'Enter') {
-      navigate('/browse-contractors', { state: { query: searchText } });
+    if (event.key === 'Enter' && searchText.trim()) {
+      navigate('/find-contractor', { state: { query: searchText.trim() } });
     }
+  };
+
+  const handleSearchButtonClick = () => {
+    if (searchText.trim()) {
+      navigate('/find-contractor', { state: { query: searchText.trim() } });
+    }
+  };
+
+  const handleServiceClick = (serviceName) => {
+    navigate('/find-contractor', { state: { query: serviceName } });
   };
   const quizButton = () => {
     navigate('/Quiz');
@@ -48,20 +58,36 @@ const Home = () => {
       <p className="subhead">Your trusted platform for skilled contractors in every field.</p>
       
       <div className="search-bar-container">
-  <input type="text" className="search-bar" placeholder="Search services: Plumbing, renovations, snow removal" value={searchText}
-          onChange={handleSearch} onKeyDown={handleKeyDown} />
-  <button
+        <input
+          type="text"
+          className="search-bar"
+          placeholder="Search services: Plumbing, renovations, snow removal"
+          value={searchText}
+          onChange={handleSearch}
+          onKeyDown={handleKeyDown}
+        />
+        <button
           className="search-button"
-          onClick={() => navigate('/Browse-Contractors', { state: { query: searchText } })}
+          onClick={handleSearchButtonClick}
+          aria-label="Search"
+          disabled={!searchText.trim()}
         >
-  <i className="fas fa-search search-icon"></i>
-  </button>
-</div>
-{filteredServices.length > 0 && (
+          <i className="fas fa-search search-icon"></i>
+        </button>
+      </div>
+
+      {filteredServices.length > 0 && (
         <div className="search-results">
           <ul>
             {filteredServices.map((service) => (
-              <li key={service.id}>{service.name}</li>
+              <li key={service.id}>
+                <button
+                  onClick={() => handleServiceClick(service.name)}
+                  className="service-link"
+                >
+                  {service.name}
+                </button>
+              </li>
             ))}
           </ul>
         </div>
@@ -69,8 +95,8 @@ const Home = () => {
       
       <div className="services-buttons">
         
-        <Link to="/ServiceRequest" className="service-button">Service Request</Link> 
-        <Link to="/find-contractor" className='service-button'>Find a Contractor</Link>
+        
+        <Link to="/Browse-contractors" className='service-button'>Find A Contractor Now</Link>
       </div>
       <div className="Contractor-choices">
   <Link to="/find-contractor?type=Plumbing" className="contractor-choice-button">

@@ -5,11 +5,12 @@
   font-style: normal;
 }
 
-
-
 body {
   font-family: 'Open Sauce One', Arial, sans-serif;
   color: #f8f8f8;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 
 }
 
@@ -19,8 +20,7 @@ body {
   align-items: center;
   justify-content: center;
   padding: 20px;
-  background-color: #5c7b78; /* Black background */
-
+  background-color: #5c7b78;
   width: 100%;
 }
 
@@ -89,7 +89,14 @@ body {
   border-radius: 5px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
   font-size: 0.8rem;
-  color: #333;
+  color: #5c7b78;
+  width: 30%;
+}
+.service-link{
+  font-size: 0.8rem;
+  color: #5c7b78;
+  width: 30%;
+  text-decoration: none;
 }
 
 .search-results ul {

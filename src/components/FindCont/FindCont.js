@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams, useLocation } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import './FIndCont.css';
 
@@ -9,14 +9,21 @@ const FindCont = () => {
     const [error, setError] = useState('');
     const navigate = useNavigate();
     const [searchParams] = useSearchParams();
+    const location = useLocation();
 
     useEffect(() => {
+        // Get workType from query parameter or state
         const typeFromQuery = searchParams.get('type');
+        const typeFromState = location.state?.query;
+
         if (typeFromQuery) {
             setWorkType(typeFromQuery);
             fetchContractors(typeFromQuery);
+        } else if (typeFromState) {
+            setWorkType(typeFromState);
+            fetchContractors(typeFromState);
         }
-    }, [searchParams]);
+    }, [searchParams, location.state]);
 
     const fetchContractors = async (type) => {
         if (type === 'Other') {
@@ -51,11 +58,12 @@ const FindCont = () => {
         e.preventDefault();
         fetchContractors(workType);
     };
+
     const renderStars = (rating) => {
         const stars = [];
         for (let i = 0; i < 5; i++) {
             stars.push(
-                <span key={i} className={i < rating ? "star filled" : "star"}>
+                <span key={i} className={i < rating ? 'star filled' : 'star'}>
                     ★
                 </span>
             );
@@ -91,9 +99,9 @@ const FindCont = () => {
 
             {contractors.length > 0 ? (
                 <div className="contractor-list">
-                   <div style={{width: '100%', display: 'block', marginBottom: '20px'}}>
-  <h2>Available Contractors</h2>
-</div>
+                    <div style={{ width: '100%', display: 'block', marginBottom: '20px' }}>
+                        <h2>Available Contractors</h2>
+                    </div>
                     <ul>
                         {contractors.map((contractor) => (
                             <li key={contractor.id} className="contractor-card">
