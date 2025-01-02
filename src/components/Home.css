@@ -5,12 +5,11 @@
   font-style: normal;
 }
 
+
+
 body {
   font-family: 'Open Sauce One', Arial, sans-serif;
   color: #f8f8f8;
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
 
 }
 
@@ -20,7 +19,8 @@ body {
   align-items: center;
   justify-content: center;
   padding: 20px;
-  background-color: #5c7b78;
+  background-color: #5c7b78; /* Black background */
+
   width: 100%;
 }
 
@@ -93,13 +93,13 @@ body {
   width: 30%;
 }
 .service-link{
+  margin-top: 10px;
+  background-color: transparent;
+  border: none;
+  padding: 10px;
   font-size: 0.8rem;
   color: #5c7b78;
   text-decoration: none;
-  border: none;
-  background-color: transparent;
-  padding-top: 3%;
-
 }
 
 .search-results ul {
@@ -134,6 +134,24 @@ body {
   transition: background-color 0.3s ease, color 0.3s ease;
   text-decoration: none;
   font-weight: bold;
+}
+
+.request-button{
+  padding: 10px 20px;
+  background-color: #5c7b78;
+  color: #ffffff;
+  border: 2px solid #5c7b78;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.request-button:hover {
+  background-color: #dcbf79;
+  color: #f8f8f8;
 }
 
 .service-button:hover {
@@ -179,6 +197,9 @@ body {
   width: 100%;
   padding: 50px 20px;
   color: #f8f8f8;
+}
+.process-p{
+  max-width: 40%;
 }
 
 .our-header {
@@ -238,6 +259,8 @@ body {
   transition: background-color 0.3s;
   width: 20%;
   align-self: center;
+  text-decoration: none;
+  font-weight: normal;
 }
 
 .trust-button:hover {
@@ -251,3 +274,4 @@ body {
   border-radius: 8px; /* Optional: rounded corners */
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional: subtle shadow */
 }
+

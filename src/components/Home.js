@@ -52,6 +52,9 @@ const Home = () => {
   const quizButton = () => {
     navigate('/Quiz');
   }
+  const requestButton = () => {
+    navigate('/ServiceRequest');
+  }
   return (
     <div className="home-container">
       <h1 className="head">Welcome To Elite Crafts Contractors</h1>
@@ -127,12 +130,14 @@ const Home = () => {
     <button type="submit" className="trust-button" onClick={quizButton}>
       Take Quiz Now
     </button>
+   <button type='submit' className='trust-button' onClick={requestButton}>Request a Service</button>
   </div>
   <img src="/images/happy_contractors.jpg" alt="Happy Contractors" className="contractor_img" />
 </div>
       <div className='our-process'> 
         <h2 className='our-header'>Our Process</h2>
-
+        <p className='process-p'>ECC is founded on the core principle of honest work by honest people. Our team is committed to sourcing dependable and high quality contractors for homeowners and businesses in the Durham Region. At ECC we do more than just connect people with services, we build lasting partnerships grounded in trust, mutual respect, and shared values.</p>
+        
       </div>
       <div className='match'>
         <h2 className='match-header'>Match With Our Professionals Today.</h2>

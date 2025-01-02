@@ -30,7 +30,7 @@ const FindCont = () => {
             navigate('/Quiz');
             return;
         }
-
+    
         try {
             const token = localStorage.getItem('authToken');
             const response = await fetch(`http://localhost:8000/api/contractors/?job_type=${type}`, {
@@ -40,13 +40,17 @@ const FindCont = () => {
                     'Authorization': token ? `Bearer ${token}` : undefined,
                 },
             });
-
+    
             if (!response.ok) {
                 throw new Error(`Failed to fetch contractors: ${response.status}`);
             }
-
+    
             const data = await response.json();
-            setContractors(data);
+    
+            // Sort contractors by rating in descending order
+            const sortedContractors = data.sort((a, b) => (b.rating || 0) - (a.rating || 0));
+    
+            setContractors(sortedContractors);
             setError('');
         } catch (err) {
             console.error('Error fetching contractors:', err);
@@ -99,9 +103,7 @@ const FindCont = () => {
 
             {contractors.length > 0 ? (
                 <div className="contractor-list">
-                <div className="contractor-heading">
-                    <h2>Available Contractors</h2>
-                </div>
+                
                 <ul className="contractor-results">
                     {contractors.map((contractor) => (
                         <li key={contractor.id} className="contractor-card">

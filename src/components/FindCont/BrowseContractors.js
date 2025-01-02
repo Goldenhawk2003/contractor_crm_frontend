@@ -126,7 +126,7 @@ const Browse = () => {
                 </form>
             </div>
             <div className="Contractors">
-                <h2>Best Matches For You</h2>
+                <h2 className='browse-header'>Best Matches For You</h2>
                 {isLoading ? (
                     <p>Loading contractors...</p>
                 ) : contractors.length > 0 ? (
