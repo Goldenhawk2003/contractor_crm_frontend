@@ -1,15 +1,25 @@
 /* General Styles for Navigation Bar */
+.layout-container {
+  padding: 0; /* Removes all padding */
+  background: none; /* Removes any background */
+  margin: 0; /* Removes all margins */
+  width: 100%;
+  height: 100%;
+}
+
 .button-group {
   display: flex;
   justify-content: space-between;
   align-items: center;
   background-color: #5c7b78; /* Black background */
   padding: 10px 20px;
+  margin:none;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   position: sticky; /* Keeps navbar at the top */
   top: 0;
   z-index: 1000;
 }
+
 
 /* Left Navigation (Links) */
 .left-nav {

@@ -1,13 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState , useEffect} from 'react';
 import { Link, Outlet } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import './Home.css';
 import Fuse from 'fuse.js';
 
+
 const Home = () => {
   const [searchText, setSearchText] = useState('');
   const [filteredServices, setFilteredServices] = useState([]);
   const navigate = useNavigate();
+  
 
   const services = [
     { id: 1, name: 'Plumbing' },
@@ -55,72 +57,92 @@ const Home = () => {
   const requestButton = () => {
     navigate('/ServiceRequest');
   }
+  useEffect(() => {
+    // Add a class to the body for this specific page
+    document.body.classList.add("specific-page");
+
+    // Clean up by removing the class when the component is unmounted
+    return () => {
+      document.body.classList.remove("specific-page");
+    };
+  }, []);
+
+   useEffect(() => {
+          document.body.classList.add("transparent-navbar-page");
+      
+          return () => {
+            document.body.classList.remove("transparent-navbar-page");
+          };
+        }, []);
+        
   return (
     <div className="home-container">
-      <h1 className="head">Welcome To Elite Crafts Contractors</h1>
-      <p className="subhead">Your trusted platform for skilled contractors in every field.</p>
-      
-      <div className="search-bar-container">
-        <input
-          type="text"
-          className="search-bar"
-          placeholder="Search services: Plumbing, renovations, snow removal"
-          value={searchText}
-          onChange={handleSearch}
-          onKeyDown={handleKeyDown}
-        />
-        <button
-          className="search-button"
-          onClick={handleSearchButtonClick}
-          aria-label="Search"
-          disabled={!searchText.trim()}
-        >
-          <i className="fas fa-search search-icon"></i>
-        </button>
-      </div>
+      <div className="hero-section">
+    <h1 className="head">Welcome To Elite Crafts Contractors</h1>
+    <p className="subhead">Your trusted platform for skilled contractors in every field.</p>
 
-      {filteredServices.length > 0 && (
-        <div className="search-results">
-          <ul>
-            {filteredServices.map((service) => (
-              <li key={service.id}>
-                <button
-                  onClick={() => handleServiceClick(service.name)}
-                  className="service-link"
-                >
-                  {service.name}
-                </button>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
-      
-      <div className="services-buttons">
-        
-        
-        <Link to="/Browse-contractors" className='service-button'>Find A Contractor Now</Link>
+    <div className="search-bar-container">
+      <input
+        type="text"
+        className="search-bar"
+        placeholder="Search services: Plumbing, renovations, snow removal"
+        value={searchText}
+        onChange={handleSearch}
+        onKeyDown={handleKeyDown}
+      />
+      <button
+        className="search-button"
+        onClick={handleSearchButtonClick}
+        aria-label="Search"
+        disabled={!searchText.trim()}
+      >
+        <i className="fas fa-search search-icon"></i>
+      </button>
+    </div>
+
+    {filteredServices.length > 0 && (
+      <div className="search-results">
+        <ul>
+          {filteredServices.map((service) => (
+            <li key={service.id}>
+              <button
+                onClick={() => handleServiceClick(service.name)}
+                className="service-link"
+              >
+                {service.name}
+              </button>
+            </li>
+          ))}
+        </ul>
       </div>
-      <div className="Contractor-choices">
-  <Link to="/find-contractor?type=Plumbing" className="contractor-choice-button">
-    <img src="/images/download.png" alt="Plumbing Services" />
-  </Link>
-  <Link to="/find-contractor?type=Renovations" className="contractor-choice-button">
-    <img src="/images/renovation.webp" alt="Renovation Services" />
-  </Link>
-  <Link to="/find-contractor?type=Electrical" className="contractor-choice-button">
-    <img src="images/electrical.webp" alt="Electrical Services" />
-  </Link>
-  <Link to="/find-contractor?type=Carpentry" className="contractor-choice-button">
-    <img src="/images/carpentry.jpg" alt="Carpentry Services" />
-  </Link>
-  <Link to="/find-contractor?type=Painting" className="contractor-choice-button">
-    <img src="/images/painting.jpg" alt="Painting Services" />
-  </Link>
-  <Link to="/find-contractor?type=Snow-removal" className="contractor-choice-button">
-    <img src="/images/snow_removal.jpeg" alt="Snow Removal Services" />
-  </Link>
-</div>
+    )}
+
+    <div className="services-buttons">
+      <Link to="/Browse-contractors" className="service-button">
+        Find A Contractor Now
+      </Link>
+    </div>
+    <div className="Contractor-choices">
+      <Link to="/find-contractor?type=Plumbing" className="contractor-choice-button">
+        <img src="/images/download.png" alt="Plumbing Services" />
+      </Link>
+      <Link to="/find-contractor?type=Renovations" className="contractor-choice-button">
+        <img src="/images/renovation.webp" alt="Renovation Services" />
+      </Link>
+      <Link to="/find-contractor?type=Electrical" className="contractor-choice-button">
+        <img src="/images/electrical.webp" alt="Electrical Services" />
+      </Link>
+      <Link to="/find-contractor?type=Carpentry" className="contractor-choice-button">
+        <img src="/images/carpentry.jpg" alt="Carpentry Services" />
+      </Link>
+      <Link to="/find-contractor?type=Painting" className="contractor-choice-button">
+        <img src="/images/painting.jpg" alt="Painting Services" />
+      </Link>
+      <Link to="/find-contractor?type=Snow-removal" className="contractor-choice-button">
+        <img src="/images/snow_removal.jpeg" alt="Snow Removal Services" />
+      </Link>
+    </div>
+  </div>
       <div className="trust">
   <div className="trust-content">
     <h2 className="trust-header">Trustworthy People, With Reliable Solutions</h2>

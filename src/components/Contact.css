@@ -6,7 +6,22 @@
     font-style: normal;
 }
 
+body.page{
+    font-family: 'Open Sauce One', Arial, sans-serif;
+    background-image: url(../../public/images/contact.png); /* Light gray background */
+    background-size: cover; /* Ensure the image covers the entire section */
+    background-position:center; /* Center the image */
+    background-repeat: no-repeat;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
 
+}
+body.transparent-navbar-page .button-group {
+    background-color: transparent; /* Makes the navbar transparent */
+    box-shadow: none; /* Removes shadow if desired */
+  }
 
 /* Contact section container */
 .contact {
@@ -21,7 +36,7 @@
 /* Header styling */
 h1.contact-header {
     text-align: left;
-    color: #333;
+    color: #dcbf79;
     font-size: 2rem;
     margin-bottom: 10px;
     font-family: 'Open Sauce One', Arial, sans-serif;
@@ -31,7 +46,7 @@ p.contact-p {
     text-align: left;
     margin-bottom: 30px;
     font-size: 1rem;
-    color: #555;
+    color: #dcbf79;
     max-width: 25%;
     font-family: 'Open Sauce One', Arial, sans-serif;
 }

@@ -5,24 +5,65 @@
   font-style: normal;
 }
 
-
-
-body {
-  font-family: 'Open Sauce One', Arial, sans-serif;
-  color: #f8f8f8;
-
-}
-
-.home-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-  background-color: #5c7b78; /* Black background */
-
+html, body {
+  margin: 0;
+  padding: 0;
   width: 100%;
+  height: 100%;
+  font-family: 'Open Sauce One', Arial, sans-serif;
+  background: none;
 }
+
+body.specific-page {
+  
+  background-image: url(../../public/images/home_page.png); /* Replace with your image path */
+  background-size: cover; /* Ensure the image covers the entire section */
+  background-position:center; /* Center the image */
+  background-repeat: no-repeat;
+
+
+}
+
+body.transparent-navbar-page .button-group {
+  background-color: transparent; /* Makes the navbar transparent */
+  box-shadow: none; /* Removes shadow if desired */
+}
+
+
+.hero-section {
+ 
+  width: 100vw; /* Stretch the image to the full width of the screen */
+  height: 100vh; /* Set the height to cover the full viewport */
+  position: relative;
+  margin: 0; /* Remove any default margins */
+  padding: 0;
+   /* Ensure text color contrasts with the image */
+
+}
+
+.hero-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+/* Optional: Dark overlay for better text visibility */
+  z-index: 0;
+}
+
+.hero-section h1,
+.hero-section p,
+.hero-section .search-bar-container,
+.hero-section .services-buttons,
+.hero-section .Contractor-choices, .search-results {
+  position: relative;
+  z-index: 1; /* Ensure content is above the overlay */
+}
+
+
+
+
 
 .head {
   font-size: 3.2rem;
@@ -30,6 +71,7 @@ body {
   color: #f8f8f8;
   text-align: center;
   font-family: 'Open Sauce One', Arial, sans-serif;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .subhead {
@@ -37,82 +79,93 @@ body {
   color: #f8f8f8;
   margin-bottom: 30px;
   text-align: center;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .search-bar-container {
-  position: relative;
-  width: 80%;
-  max-width: 500px;
-  margin-bottom: 20px;
   display: flex;
-  border-radius: 25px;
-  overflow: hidden;
+  justify-content: center; /* Center the search bar and button horizontally */
+  align-items: center; /* Align items vertically in the center */
+  gap: 10px; /* Add space between the search bar and button */
+  margin: 20px auto; /* Add some margin for spacing */
+  width: 100%; /* Ensure it spans full width */
+  max-width: 800px; /* Limit the maximum width of the search bar container */
 }
 
 .search-bar {
-  flex: 1;
-  padding: 12px 20px;
-  border: none;
+  flex: 1; /* Allow the search bar to take available space */
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
   font-size: 1rem;
-  outline: none;
-  font-family: 'Open Sauce One', Arial, sans-serif;
-  border-radius: 0 0 0 0;
-}
-
-.search-bar:focus {
-  outline: 2px solid #dcbf79;
+  max-width: 600px; /* Limit the width of the search bar */
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .search-button {
   background-color: #dcbf79;
   border: none;
-  width: 50px;
+  border-radius: 5px;
+  padding: 12px 20px;
+  font-size: 1rem;
   cursor: pointer;
+  color: #fff;
+  transition: transform 0.3s, box-shadow 0.3s;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .search-button:hover {
-  background-color: #dcbf79;
+  transform: scale(1.05);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
-.search-button i {
-  color: #f8f8f8f8;
-  font-size: 18px;
+.search-icon {
+  font-size: 1.2rem;
 }
 
 .search-results {
-  margin-top: 10px;
-  background-color: #f9f9f9;
-  padding: 10px;
-  border-radius: 5px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-  font-size: 0.8rem;
-  color: #5c7b78;
-  width: 30%;
-}
-.service-link{
-  margin-top: 10px;
-  background-color: transparent;
-  border: none;
-  padding: 10px;
-  font-size: 0.8rem;
-  color: #5c7b78;
-  text-decoration: none;
+  display: flex;
+  flex-direction: column; /* Stack items vertically */
+  align-items: center; /* Center items horizontally */
+  justify-content: center; /* Center items vertically (if needed) */
+  margin-top: 20px; /* Add spacing from the search bar */
+  width: 100%; /* Allow it to span the container width */
 }
 
 .search-results ul {
-  list-style: none;
+  list-style: none; /* Remove bullets */
   padding: 0;
   margin: 0;
+  /* Center align the text */
+
+  width: 40%;
 }
 
 .search-results li {
-  padding: 5px 0;
-  border-bottom: 1px solid #f8f8f8;
+  margin: 10px 0; /* Add spacing between list items */
 }
 
+.service-link {
+   /* Style the button */
+  color: #dcbf79;
+  border: none;
+  background-color: transparent;
+  padding: 10px 15px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s;
+  text-transform: capitalize; /* Make the service names look consistent */
+ /* Center the text inside the button */
+  display: inline-block;
+  width: auto; /* Make buttons size dynamically based on content */
+}
+
+.service-link:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
 .search-results li:last-child {
   border-bottom: none;
 }
@@ -121,12 +174,13 @@ body {
   display: flex;
   gap: 15px;
   margin-top: 20px;
+  justify-content: center;
 }
 
 .service-button {
   padding: 10px 20px;
   background-color: transparent;
-  color: #ffffff;
+  color: #f8f8f8;
   border: 2px solid #dcbf79;
   border-radius: 20px;
   cursor: pointer;
@@ -134,6 +188,8 @@ body {
   transition: background-color 0.3s ease, color 0.3s ease;
   text-decoration: none;
   font-weight: bold;
+  text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.2);
+  
 }
 
 .request-button{

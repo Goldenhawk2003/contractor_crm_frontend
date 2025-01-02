@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Contact.css';
 
 const Contact = () => {
@@ -41,6 +41,23 @@ const Contact = () => {
             setErrorMessage('Something went wrong. Please try again later.');
         }
     };
+    useEffect(() => {
+        // Add a class to the body for this specific page
+        document.body.classList.add("page");
+    
+        // Clean up by removing the class when the component is unmounted
+        return () => {
+          document.body.classList.remove("page");
+        };
+      }, []);
+      useEffect(() => {
+        document.body.classList.add("transparent-navbar-page");
+    
+        return () => {
+          document.body.classList.remove("transparent-navbar-page");
+        };
+      }, []);
+    
 
     return (
         <div>
