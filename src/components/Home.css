@@ -95,8 +95,11 @@ body {
 .service-link{
   font-size: 0.8rem;
   color: #5c7b78;
-  width: 30%;
   text-decoration: none;
+  border: none;
+  background-color: transparent;
+  padding-top: 3%;
+
 }
 
 .search-results ul {

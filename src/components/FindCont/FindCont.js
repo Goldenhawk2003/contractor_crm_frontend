@@ -99,23 +99,30 @@ const FindCont = () => {
 
             {contractors.length > 0 ? (
                 <div className="contractor-list">
-                    <div style={{ width: '100%', display: 'block', marginBottom: '20px' }}>
-                        <h2>Available Contractors</h2>
-                    </div>
-                    <ul>
-                        {contractors.map((contractor) => (
-                            <li key={contractor.id} className="contractor-card">
-                                <Link to={`/contractor/${contractor.id}`} className="contractor-link">
-                                    <p><strong>Username:</strong> {contractor.username || 'Unknown'}</p>
-                                </Link>
-                                <p><strong>Job Type:</strong> {contractor.job_type || 'N/A'}</p>
-                                <p><strong>Experience:</strong> {contractor.experience_years || 'N/A'} years</p>
-                                <p><strong>Rating:</strong> {renderStars(contractor.rating)}</p>
-                                <p><strong>Description:</strong> {contractor.profile_description || 'No description provided'}</p>
-                            </li>
-                        ))}
-                    </ul>
+                <div className="contractor-heading">
+                    <h2>Available Contractors</h2>
                 </div>
+                <ul className="contractor-results">
+                    {contractors.map((contractor) => (
+                        <li key={contractor.id} className="contractor-card">
+                            <Link to={`/contractor/${contractor.id}`} className="contractor-link">
+                                {contractor.logo && (
+                                    <img
+                                        src={contractor.logo || '/placeholder.png'}
+                                        alt={`${contractor.username || contractor.name} Logo`}
+                                        className="contractor-logo"
+                                    />
+                                )}
+                                <p><strong>Username:</strong> {contractor.username || 'Unknown'}</p>
+                            </Link>
+                            <p><strong>Job Type:</strong> {contractor.job_type || 'N/A'}</p>
+                            <p><strong>Experience:</strong> {contractor.experience_years || 'N/A'} years</p>
+                            <p><strong>Rating:</strong> {renderStars(contractor.rating)}</p>
+                            <p><strong>Description:</strong> {contractor.profile_description || 'No description provided'}</p>
+                        </li>
+                    ))}
+                </ul>
+            </div>
             ) : (
                 !error && workType && (
                     <p className="no-contractors-message">

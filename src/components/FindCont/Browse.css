@@ -5,6 +5,13 @@
     background-color: #f8f9fa;
 }
 
+.first-text, .browse-header{
+    text-align: center;
+}
+
+.Contractors{
+    text-align: center;
+}
 .filters {
     display: flex;
     align-items: center;

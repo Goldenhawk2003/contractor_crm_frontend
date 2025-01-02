@@ -167,7 +167,8 @@ const Browse = () => {
                         ))}
                     </div>
                 ) : (
-                    <p>No contractors found for the selected criteria.</p>
+                    <p className='first-text'>Customize your search to begin browsing contractors.
+                    </p>
                 )}
                 {error && <p style={{ color: 'red' }}>{error}</p>}
             </div>

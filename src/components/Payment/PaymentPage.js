@@ -84,16 +84,7 @@ const PaymentForm = () => {
         <button
           type="submit"
           disabled={!stripe || isProcessing}
-          style={{
-            marginTop: "20px",
-            padding: "10px 20px",
-            fontSize: "16px",
-            background: isProcessing ? "#ccc" : "#0070f3",
-            color: "#fff",
-            border: "none",
-            borderRadius: "5px",
-            cursor: "pointer",
-          }}
+          
         >
           {isProcessing ? "Processing..." : "Pay"}
         </button>
@@ -103,16 +94,7 @@ const PaymentForm = () => {
 
       <button
         onClick={handleCreateInvoice}
-        style={{
-          marginTop: "20px",
-          padding: "10px 20px",
-          fontSize: "16px",
-          background: "#0070f3",
-          color: "#fff",
-          border: "none",
-          borderRadius: "5px",
-          cursor: "pointer",
-        }}
+        
       >
         Generate Invoice
       </button>
