@@ -29,6 +29,24 @@ const Conversation = () => {
     fetchMessages();
   }, [conversationId]);
 
+  useEffect(() => {
+      // Add a class to the body for this specific page
+      document.body.classList.add("specific-page");
+  
+      // Clean up by removing the class when the component is unmounted
+      return () => {
+        document.body.classList.remove("specific-page");
+      };
+    }, []);
+  
+     useEffect(() => {
+            document.body.classList.add("transparent-navbar-page");
+        
+            return () => {
+              document.body.classList.remove("transparent-navbar-page");
+            };
+          }, []);
+
   const handleKeyPress = (event) => {
     if (event.key === 'Enter') {
         event.preventDefault();
@@ -40,7 +58,13 @@ const Conversation = () => {
     if (!message.trim()) {
       setError("Message content cannot be empty.");
       return;
+    
+    
     }
+    if (message.includes('@') || message.includes('gmail') || message.includes('yahoo') || message.includes('hotmail'))
+      {
+        setError("Message content cannot contain email references.");
+        return;}
 
     setSending(true);
     setError("");

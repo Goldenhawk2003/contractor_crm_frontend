@@ -40,15 +40,17 @@ h1.contact-header {
     font-size: 2rem;
     margin-bottom: 10px;
     font-family: 'Open Sauce One', Arial, sans-serif;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 p.contact-p {
     text-align: left;
     margin-bottom: 30px;
     font-size: 1rem;
-    color: #dcbf79;
+    color: #f8f8f8;
     max-width: 25%;
     font-family: 'Open Sauce One', Arial, sans-serif;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 /* Contact form styling */
@@ -130,8 +132,7 @@ p.contact-p {
   position: relative;
   width: 100%;
   align-self: center;
-
-  background-color:  #f8f8f8;
+  background-color:  #f8f8f8 !important;
   border-radius: 0;
   cursor: pointer;
 

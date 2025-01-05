@@ -24,6 +24,8 @@ const Quiz = () => {
         fetchQuestions();
     }, []);
 
+    
+
     const handleChange = (questionId, value) => {
         setResponses((prevResponses) => ({
             ...prevResponses,
@@ -60,6 +62,8 @@ const Quiz = () => {
 
     if (error) return <p className="error">{error}</p>;
     if (!questions.length) return <p>Loading questions...</p>;
+
+    
 
     return (
         <div>

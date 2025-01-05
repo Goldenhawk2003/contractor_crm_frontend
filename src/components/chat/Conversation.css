@@ -1,3 +1,29 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  font-family: 'Open Sauce One', Arial, sans-serif;
+  background: none;
+}
+
+body.specific-page {
+  
+  background-image: url(../../../public/images/chat_page.png); /* Replace with your image path */
+  background-size: cover; /* Ensure the image covers the entire section */
+  background-position:center; /* Center the image */
+  background-repeat: no-repeat;
+
+
+}
+
+body.transparent-navbar-page .button-group {
+  background-color: transparent; /* Makes the navbar transparent */
+  box-shadow: none; /* Removes shadow if desired */
+}
+
+
+
 .container {
     max-width: 50%;
     margin: 20px auto;
@@ -104,3 +130,4 @@
   .button:disabled {
     background-color: #ccc;
   }
+  
