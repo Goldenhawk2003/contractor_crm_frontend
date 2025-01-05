@@ -31,11 +31,11 @@ const Conversation = () => {
 
   useEffect(() => {
       // Add a class to the body for this specific page
-      document.body.classList.add("specific-page");
+      document.body.classList.add("specific");
   
       // Clean up by removing the class when the component is unmounted
       return () => {
-        document.body.classList.remove("specific-page");
+        document.body.classList.remove("specific");
       };
     }, []);
   

@@ -7,7 +7,7 @@ html, body {
   background: none;
 }
 
-body.specific-page {
+body.specific {
   
   background-image: url(../../../public/images/chat_page.png); /* Replace with your image path */
   background-size: cover; /* Ensure the image covers the entire section */
