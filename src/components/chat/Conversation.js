@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import "./Conversation.css";
+import { useAuth } from "/Users/ammarogeil/Documents/GitHub/contractor_crm_frontend/src/context/AuthContext.js";
 
 const Conversation = () => {
   const { conversationId } = useParams();
@@ -10,7 +11,12 @@ const Conversation = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [sending, setSending] = useState(false);
+  const { user } = useAuth(); // Extract the logged-in user's details
+  const username = user?.username;
+  console.log(username);
 
+
+  
   useEffect(() => {
     const fetchMessages = async () => {
       try {
@@ -96,7 +102,7 @@ const Conversation = () => {
         {
           id: response.data.id,
           content: message,
-          sender_name: "You",
+          sender_name: username,
           timestamp: new Date().toISOString(),
         },
       ]);
@@ -113,7 +119,7 @@ const Conversation = () => {
   }
 
   if (error) {
-    return <p style={{ color: "red" }}>{error}</p>;
+    return <p style={{ color: "red", textAlign:"center", textShadow: "2px 2px 4px rgba(0, 0, 0, 0.2)" }}>{error}</p>;
   }
 
   return (
@@ -122,26 +128,27 @@ const Conversation = () => {
       <div className="messagesContainer">
         
         {messages.map((msg) => (
-          <div
-          key={msg.id}
-          className={`messageBubble `}
-        >
-          <p className="messageSender">{msg.sender_name}</p>
-          <p className="messageContent">{msg.content}</p>
-          <p className="messageTimestamp">
-  {new Date(msg.timestamp).toLocaleDateString("en-US", {
-    weekday: "short",
-    month: "long",
-    day: "numeric",
-  })}{" "}
-  at{" "}
-  {new Date(msg.timestamp).toLocaleTimeString("en-US", {
-    hour: "2-digit",
-    minute: "2-digit",
-    hour12: true,
-  })}
-</p>
-        </div>
+         <div
+         className={`messageBubble ${
+           msg.sender_name === username ? "messageBubbleRight" : "messageBubbleLeft"
+         }`}
+       >
+         <p className="messageSender">{msg.sender_name}</p>
+         <p className="messageContent">{msg.content}</p>
+         <p className="messageTimestamp">
+           {new Date(msg.timestamp).toLocaleDateString("en-US", {
+             weekday: "short",
+             month: "long",
+             day: "numeric",
+           })}{" "}
+           at{" "}
+           {new Date(msg.timestamp).toLocaleTimeString("en-US", {
+             hour: "2-digit",
+             minute: "2-digit",
+             hour12: true,
+           })}
+         </p>
+       </div>
         ))}
       </div>
       <div className="replySection">

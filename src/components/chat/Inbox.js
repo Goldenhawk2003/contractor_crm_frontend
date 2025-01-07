@@ -50,7 +50,9 @@ const Inbox = () => {
   const handleConversationClick = (conversationId) => {
     navigate(`/conversation/${conversationId}`);
   };
-
+  if (error) {
+    return <p style={{ color: "red", textAlign:"center", textShadow: "2px 2px 4px rgba(0, 0, 0, 0.2)" }}>{error}</p>;
+  }
   return (
     <div className="inbox-container">
       <div className="header">
@@ -77,7 +79,7 @@ const Inbox = () => {
             onClick={() => handleConversationClick(conversation.id)}
           >
             <strong className="participants">
-              {conversation.participants[0]}
+              {conversation.participants[0]}, {conversation.participants[1]}
             </strong>
             <p className="latest-message">
               Last message: {conversation.latest_message || "No messages yet."}
