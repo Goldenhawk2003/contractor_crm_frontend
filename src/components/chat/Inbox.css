@@ -1,90 +1,112 @@
-/* Inbox Container */
+/* Inbox.css */
+
 .inbox-container {
-    font-family: "Open Sauce One", Arial, sans-serif;
-    background-color: #f8f8f8; /* White background */
-    color: #1b3656; /* Blue text */
-    padding: 20px;
-    border-radius: 10px;
-    max-width: 800px;
-    margin: 40px auto;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  font-family: 'Arial', sans-serif;
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 1rem;
+  background-color: #f8f8f8;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.inbox-header {
+  font-size: 1.8rem;
+  color: #333;
+  margin: 0;
+}
+
+.create-message-btn {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  color: white;
+  background-color: ;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.create-message-btn:hover {
+  background-color: #0056b3;
+}
+
+.error,
+.loading,
+.empty {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #888;
+  margin: 2rem 0;
+}
+
+.conversation-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.conversation-item {
+  padding: 1rem;
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-bottom: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  cursor: pointer;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.conversation-item:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+.participants {
+  font-weight: bold;
+  color: #333;
+  font-size: 1.1rem;
+}
+
+.latest-message {
+  font-size: 0.9rem;
+  color: #555;
+  margin: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  .inbox-container {
+    padding: 0.5rem;
   }
-  
-  /* Header Section */
-  .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
+
+  .inbox-header {
+    font-size: 1.5rem;
   }
-  
-  .inbox-header{
-    color: #5c7b78;
-    font-size: 2rem;
-  }
- 
-  
+
   .create-message-btn {
-    background-color: #dcbf79; /* Gold */
-    color: #1b3656; /* Blue */
-    border: none;
-    border-radius: 5px;
-    padding: 10px 15px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+    padding: 0.4rem 0.8rem;
+    font-size: 0.9rem;
   }
-  
-  .create-message-btn:hover {
-    background-color: #c5a766; /* Darker Gold */
-  }
-  
-  /* Error and Loading Messages */
-  .error {
-    color: red;
-    font-size: 14px;
-  }
-  
-  .loading {
-    font-size: 14px;
-    color: #5c7b78; /* Green */
-  }
-  
-  .empty {
-    font-size: 16px;
-    color: #5c7b78; /* Green */
-    text-align: center;
-  }
-  
-  /* Conversation List */
-  .conversation-list {
-    list-style-type: none;
-    padding: 0;
-  }
-  
+
   .conversation-item {
-    background-color: #ffffff; /* White */
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 15px;
-    margin-bottom: 10px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
+    padding: 0.8rem;
   }
-  
-  .conversation-item:hover {
-    background-color: #f1f1f1;
-    transform: translateY(-2px);
-  }
-  
+
   .participants {
-    color: #1b3656; /* Blue */
-    font-weight: bold;
-    font-size: 16px;
+    font-size: 1rem;
   }
-  
+
   .latest-message {
-    color: #5c7b78; /* Green */
-    font-size: 14px;
-    margin-top: 5px;
+    font-size: 0.8rem;
   }
+}

@@ -25,6 +25,8 @@ import CreateConversation from './components/chat/CreateConversation.js';
 import ContractPage from './components/Docusign/ContractPage.js';
 import PaymentPage from './components/Payment/PaymentPage.js';
 import CreateContract from './components/Contracts/CreateContract';
+import Chat from './components/chat/Inbox2.js';
+import Chat1 from './components/chat/Inbox3.js';
 
 function useCsrfToken() {
   useEffect(() => {
@@ -66,6 +68,9 @@ function App() {
             <Route path="/start-conversation" element={<CreateConversation contractors={[]} />} />
             <Route path="/contracts" element={<ContractPage />} />
             <Route path="/payment" element={<PaymentPage />} />
+            <Route path="/Inbox2" element={<Chat />} />
+            <Route path="/Inbox3" element={<Chat1 />} />
+
           
             
             

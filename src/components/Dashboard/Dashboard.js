@@ -256,6 +256,8 @@ useEffect(() => {
                     <p><strong>Username:</strong> {app.username}</p>
                     <p><strong>Job Type:</strong> {app.job_type}</p>
                     <p><strong>Location:</strong> {app.location}</p>
+                    <p><strong>Email:</strong> {app.email}</p>
+                    
                     <img
                       src={
                         app.logo && app.logo.startsWith('http')

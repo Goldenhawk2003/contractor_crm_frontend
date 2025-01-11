@@ -118,6 +118,15 @@ const UserProfile = () => {
             setSendError("Failed to send contract. Please try again.");
         }
     };
+    useEffect(() => {
+        // Add a class to the body for this specific page
+        document.body.classList.add("user");
+    
+        // Clean up by removing the class when the component is unmounted
+        return () => {
+          document.body.classList.remove("user");
+        };
+      }, []);
 
     const signContract = async (contractId) => {
         setSignError("");
@@ -151,6 +160,7 @@ const UserProfile = () => {
             ? `http://localhost:8000${userInfo.logo}`
             : null;
 
+            
     return (
         <div className="user-profile">
             <div className="profile-card">

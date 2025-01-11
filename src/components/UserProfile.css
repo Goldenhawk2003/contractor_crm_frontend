@@ -8,14 +8,15 @@
     --box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Consistent shadow styling */
 }
 
-body {
+body.user {
     font-family: var(--font-family);
-    background-color: var(--white);
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     color: var(--blue);
     line-height: 1.6;
+    background-color: var(--green);
+    
 }
 
 .user-profile {
@@ -32,15 +33,15 @@ body {
     text-align: center;
     margin-bottom: 20px;
     padding: 20px;
-    background-color: var(--green);
-    color: var(--white);
+    background-color: var(--white);
+    color: var(--green);
     border-radius: 8px;
 }
 
 .profile-card h1 {
     font-size: 2.4rem;
     margin-bottom: 10px;
-    color: var(--white);
+    color: var(--green);
 }
 
 .profile-card img {
@@ -54,16 +55,16 @@ body {
 
 .profile-card p {
     font-size: 1.2rem;
-    margin: 5px 0;
-    color: var(--white);
+   
+    color: var(--green);
 }
 
 .contract-section,
 .received-contracts {
     margin-top: 20px;
     padding: 15px;
-    background-color: var(--green);
-    color: var(--white);
+    background-color: var(--white);
+    color: var(--green);
     border-radius: 8px;
     box-shadow: var(--box-shadow);
 }
@@ -78,15 +79,16 @@ body {
 
 .contract-section p,
 .received-contracts p {
-    color: var(--white);
+    color: var(--green);
 }
 
 .selected-user {
-    color: var(--white);
+    color: var(--green);
 }
 
 .signed {
     color: var(--gold) !important;
+    padding-right: 5%;
 }
 
 .user-label {
@@ -94,7 +96,7 @@ body {
     margin-top: 15px;
     font-size: 1rem;
     font-weight: bold;
-    color: var(--white);
+    color: var(--green);
 }
 
 .user-input[type="text"],

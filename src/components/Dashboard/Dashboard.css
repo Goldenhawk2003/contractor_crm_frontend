@@ -81,7 +81,7 @@
 }
 
 .pending-applications p{
-  color: #dcbf79;
+  color: black;
 }
 
 .pending-applications h2 {
@@ -103,14 +103,13 @@
   margin-bottom: 15px;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: left;
 
 }
 
 .application-item img {
   width: 80px;
   height: 80px;
-  object-fit: contain;
   margin-bottom: 15px;
 }
 
@@ -170,7 +169,7 @@
 .service-request-item p {
   font-size: 1rem;
   margin: 5px 0;
-  color: #dcbf79;
+  color: black;
 }
 
 /* Loading and Error Messages */
@@ -189,8 +188,7 @@
   margin-bottom: 10px; /* Add spacing below the logo */
   border: 2px solid #dcbf79; /* Optional: Add a border to match your styling preferences */
   display: block; /* Ensures it behaves properly within a flexbox or grid */
-  margin-left: auto; /* Center horizontally */
-  margin-right: auto; /* Center horizontally */
+
 }
 
 /* Quiz Management Section */
@@ -260,7 +258,7 @@
 }
 
 .question-item strong {
-  color: #dcbf79;
+  color: #5c7b78;
 }
 
 .delete-btn {
@@ -356,7 +354,7 @@
 }
 
 .form-response-item strong {
-  color: #dcbf79;
+  color: black;
 }
 
 .error-message {

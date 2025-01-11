@@ -7,12 +7,14 @@
 
 .first-text, .browse-header{
     text-align: center;
+    font-weight: bold;
+    font-size: 1.7rem; 
 }
 
 .Contractors{
     text-align: center;
 }
-.filters {
+.filters, .browse-gold {
     display: flex;
     align-items: center;
     justify-content: center;

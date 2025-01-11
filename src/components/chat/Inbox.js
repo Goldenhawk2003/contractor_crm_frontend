@@ -55,8 +55,34 @@ const Inbox = () => {
   }
   return (
     <div className="inbox-container">
-      <div className="header">
-        <h1 className="inbox-header">Your Inbox</h1>
+    <header className="header">
+      <h1 className="inbox-header">Your Inbox</h1>
+    </header>
+    <div className="content">
+      <div className="conversation-list-container">
+        {error && <p className="error">{error}</p>}
+        {loading && <p className="loading">Loading...</p>}
+        {!loading && conversations.length === 0 && (
+          <p className="empty">No conversations found.</p>
+        )}
+        <ul className="conversation-list">
+          {conversations.map((conversation) => (
+            <li
+              key={conversation.id}
+              className="conversation-item"
+              onClick={() => handleConversationClick(conversation.id)}
+            >
+              <strong className="participants">
+                {conversation.participants.join(", ")}
+              </strong>
+              <p className="latest-message">
+                {conversation.latest_message || "No messages yet."}
+              </p>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div className="action-container">
         <button
           className="create-message-btn"
           onClick={() => navigate("/start-conversation")}
@@ -64,30 +90,8 @@ const Inbox = () => {
           Create New Message
         </button>
       </div>
-
-      {error && <p className="error">{error}</p>}
-      {loading && <p className="loading">Loading...</p>}
-      {!loading && conversations.length === 0 && (
-        <p className="empty">No conversations found.</p>
-      )}
-
-      <ul className="conversation-list">
-        {conversations.map((conversation) => (
-          <li
-            key={conversation.id}
-            className="conversation-item"
-            onClick={() => handleConversationClick(conversation.id)}
-          >
-            <strong className="participants">
-              {conversation.participants[0]}, {conversation.participants[1]}
-            </strong>
-            <p className="latest-message">
-              Last message: {conversation.latest_message || "No messages yet."}
-            </p>
-          </li>
-        ))}
-      </ul>
     </div>
+  </div>
   );
 };
 

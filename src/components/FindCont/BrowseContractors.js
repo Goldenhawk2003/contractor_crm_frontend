@@ -80,6 +80,9 @@ const Browse = () => {
 
     return (
         <div className="page">
+            <div className="browse-gold">
+            <p className='browse-header'> Customize your search to begin browsing contractors.</p>
+            </div>
             <div className="filters">
                 <form onSubmit={handleSubmit} className="form">
                     <span className="para">I’m looking for</span>
@@ -126,11 +129,13 @@ const Browse = () => {
                 </form>
             </div>
             <div className="Contractors">
-                <h2 className='browse-header'>Best Matches For You</h2>
+                
                 {isLoading ? (
                     <p>Loading contractors...</p>
-                ) : contractors.length > 0 ? (
+                ) : contractors.length > 0 ? (<div> 
+                    <h2 className='browse-header'>Best Matches For You</h2>
                     <div className="contractor-list">
+
                         {contractors.map((contractor) => (
                             <div key={contractor.id} className="contractor-card">
                                 <Link to={`/contractor/${contractor.id}`} className="contractor-link">
@@ -166,8 +171,9 @@ const Browse = () => {
                             </div>
                         ))}
                     </div>
+                    </div>
                 ) : (
-                    <p className='first-text'>Customize your search to begin browsing contractors.
+                    <p className='first-text'>
                     </p>
                 )}
                 {error && <p style={{ color: 'red' }}>{error}</p>}

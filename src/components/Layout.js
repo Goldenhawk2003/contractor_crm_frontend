@@ -42,6 +42,8 @@ const Layout = () => {
               <Link to="/dashboard" className="nav-button">Dashboard</Link>
             )}
             <Link to="/inbox" className="nav-button">Chat</Link>
+            <Link to="/Inbox2" className="nav-button">Chat2</Link>
+            <Link to="/Inbox3" className="nav-button">Chat3</Link>
             <Link to="/contact" className="nav-button">Contact Us</Link>
             <Link to="/user-profile" className="nav-button">User Profile</Link>
           </div>
