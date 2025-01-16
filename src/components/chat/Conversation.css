@@ -8,7 +8,7 @@ html, body {
 }
 
 body.specific {
-  background-image: url("../../../public/images/chat_page.png"); /* Ensure the correct path */
+  background-image: url(""); /* Ensure the correct path */
   background-size: cover; /* Ensure the image covers the entire section */
   background-position: center; /* Center the image */
   background-repeat: no-repeat;

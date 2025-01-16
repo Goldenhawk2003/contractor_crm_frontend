@@ -102,17 +102,17 @@ const Chat1 = () => {
   };
 
   return (
-    <div className="chat-container">
-      <div className="chat-sidebar">
-        <h2 className="sidebar-header">Inbox</h2>
+    <div className="chat-container-3">
+      <div className="chat-sidebar-3">
+        <h2 className="sidebar-header-3">Inbox</h2>
         {loadingConversations ? (
           <p>Loading...</p>
         ) : (
-          <ul className="conversation-list">
+          <ul className="conversation-list-3">
             {conversations.map((conversation) => (
               <li
                 key={conversation.id}
-                className={`conversation-item ${
+                className={`conversation-item-3 ${
                   conversation.id === selectedConversationId ? "active" : ""
                 }`}
                 onClick={() => setSelectedConversationId(conversation.id)}
@@ -124,12 +124,12 @@ const Chat1 = () => {
           </ul>
         )}
       </div>
-      <div className="chat-main">
+      <div className="chat-main-3">
         {loadingMessages ? (
           <p>Loading messages...</p>
         ) : selectedConversationId ? (
           <>
-            <div className="messages-container">
+            <div className="messages-container-3">
               {messages.map((msg) => (
                 <div
                   key={msg.id}
@@ -138,7 +138,7 @@ const Chat1 = () => {
                   }`}
                 >
                   <p className="sender">{msg.sender_name}</p>
-                  <p className="content">{msg.content}</p>
+                  <p className="content-3">{msg.content}</p>
                   <p className="timestamp">
                     {new Date(msg.timestamp).toLocaleString()}
                   </p>

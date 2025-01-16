@@ -124,22 +124,22 @@ const Home = () => {
     </div>
     <div className="Contractor-choices">
       <Link to="/find-contractor?type=Plumbing" className="contractor-choice-button">
-        <img src="/images/download.png" alt="Plumbing Services" />
+        <img src="" alt="Plumbing Services" />
       </Link>
       <Link to="/find-contractor?type=Renovations" className="contractor-choice-button">
-        <img src="/images/renovation.webp" alt="Renovation Services" />
+        <img src="" alt="Renovation Services" />
       </Link>
       <Link to="/find-contractor?type=Electrical" className="contractor-choice-button">
-        <img src="/images/electrical.webp" alt="Electrical Services" />
+        <img src="" alt="Electrical Services" />
       </Link>
       <Link to="/find-contractor?type=Carpentry" className="contractor-choice-button">
-        <img src="/images/carpentry.jpg" alt="Carpentry Services" />
+        <img src="" alt="Carpentry Services" />
       </Link>
       <Link to="/find-contractor?type=Painting" className="contractor-choice-button">
-        <img src="/images/painting.jpg" alt="Painting Services" />
+        <img src="" alt="Painting Services" />
       </Link>
       <Link to="/find-contractor?type=Snow-removal" className="contractor-choice-button">
-        <img src="/images/snow_removal.jpeg" alt="Snow Removal Services" />
+        <img src="" alt="Snow Removal Services" />
       </Link>
     </div>
   </div>
@@ -154,7 +154,7 @@ const Home = () => {
     </button>
    <button type='submit' className='trust-button' onClick={requestButton}>Request a Service</button>
   </div>
-  <img src="/images/happy_contractors.jpg" alt="Happy Contractors" className="contractor_img" />
+  <img src="" alt="Happy Contractors" className="contractor_img" />
 </div>
       <div className='our-process'> 
         <h2 className='our-header'>Our Process</h2>
@@ -169,7 +169,7 @@ const Home = () => {
     <div key="1" className="contractor-card">
         <Link to="/contractor/sample-id" className="contractor-link">
             <img
-                src="/images/generic_pic.jpg"
+                src=""
                 alt="Contractor Logo"
                 className="contractor-logo"
             />
@@ -200,7 +200,7 @@ const Home = () => {
     <div key="2" className="contractor-card">
         <Link to="/contractor/sample-id" className="contractor-link">
             <img
-                src="/images/generic_pic.jpg"
+                src=""
                 alt="Contractor Logo"
                 className="contractor-logo"
             />
@@ -231,7 +231,7 @@ const Home = () => {
     <div key="2" className="contractor-card">
         <Link to="/contractor/sample-id" className="contractor-link">
             <img
-                src="/images/generic_pic.jpg"
+                src=""
                 alt="Contractor Logo"
                 className="contractor-logo"
             />
@@ -262,7 +262,7 @@ const Home = () => {
     <div key="2" className="contractor-card">
         <Link to="/contractor/sample-id" className="contractor-link">
             <img
-                src="/images/generic_pic.jpg"
+                src=""
                 alt="Contractor Logo"
                 className="contractor-logo"
             />
@@ -293,7 +293,7 @@ const Home = () => {
     <div key="2" className="contractor-card">
         <Link to="/contractor/sample-id" className="contractor-link">
             <img
-                src="/images/generic_pic.jpg"
+                src=""
                 alt="Contractor Logo"
                 className="contractor-logo"
             />

@@ -16,7 +16,7 @@ html, body {
 
 body.specific-page {
   
-  background-image: url(../../public/images/home_page.png); /* Replace with your image path */
+  background-image: url("/images/home-page/Image-alone.png");/* Replace with your image path */
   background-size: cover; /* Ensure the image covers the entire section */
   background-position:center; /* Center the image */
   background-repeat: no-repeat;

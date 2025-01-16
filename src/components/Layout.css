@@ -25,6 +25,7 @@
 .left-nav {
   display: flex;
   gap: 15px; /* Add space between links */
+  padding-top: 2%;
 }
 
 .nav-button {
@@ -39,12 +40,17 @@
 }
 
 .nav-button:hover {
-  background-color:  #dcbf79; /* Darker blue on hover */
-  transform: scale(1.05); /* Slight zoom effect */
+   /* Darker blue on hover */
+  transform: scale(1.04); /* Slight zoom effect */
+  text-decoration: underline;
+  text-decoration-color:  #091268;
+  text-decoration-thickness: 2px; /* Thicker underline */
+  text-underline-offset: 3px; 
 }
 
 /* Right Navigation (Logo and Login/Logout) */
 .right-nav {
+  padding-top: 2%;
   display: flex;
   align-items: center;
   gap: 15px; /* Space between logo and button */
