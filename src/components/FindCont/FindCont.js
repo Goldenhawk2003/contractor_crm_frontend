@@ -106,7 +106,7 @@ const FindCont = () => {
                 
                 <ul className="contractor-results">
                     {contractors.map((contractor) => (
-                        <li key={contractor.id} className="contractor-card">
+                        <li key={contractor.id} className="contractor-card-find">
                             <Link to={`/contractor/${contractor.id}`} className="contractor-link">
                                 {contractor.logo && (
                                     <img

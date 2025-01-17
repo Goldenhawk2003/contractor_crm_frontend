@@ -1,113 +1,97 @@
-.page {
-    padding: 20px;
-    max-width: 100%;
-    margin: 0 auto;
-    background-color: #f8f9fa;
-}
+/* General Page Styles */
 
-.first-text, .browse-header{
+/* Headers */
+.first-text,
+.browse-header {
     text-align: center;
     font-weight: bold;
-    font-size: 1.7rem; 
+    font-size: 1.8rem;
+    color: #091268;
 }
 
-.Contractors{
-    text-align: center;
-}
+/* Filters Section */
 .filters, .browse-gold {
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #d4c08a; /* Matches the beige background */
+    background-color: #ECF0FC;
     padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Adds a subtle shadow to the section */
+    border-radius: 12px;
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.1);
 }
 
 .filters .form {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 15px;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 .filters .para {
-    font-size: 16px;
-    font-weight: bold;
-    color: #333; /* Darker text color for better contrast */
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: #091268;
     margin: 0;
 }
 
 .filters .dropdown {
     padding: 10px 15px;
-    font-size: 16px;
-    border: 1px solid #000; /* Adds a border matching the design */
-    border-radius: 6px;
+    font-size: 1rem;
+    border: 1px solid #1B3656;
+    border-radius: 8px;
     outline: none;
-    background-color: #fff;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Adds subtle shadow for depth */
+    background-color: #F8F8F8;
+    color: #091268;
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1);
     width: 200px;
+    transition: all 0.3s ease;
 }
-.filters .submit-btn {
-    vertical-align: middle;
+
+.filters .dropdown:focus {
+    border-color: #091268;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .filters .submit-btn {
-    background-color: #49594e;
-    color: #fff;
-    padding: 10px 25px;
+    background-color: #091268;
+    color: #F8F8F8;
+    padding: 12px 30px;
     border: none;
-    border-radius: 6px;
-    font-size: 16px;
+    border-radius: 8px;
+    font-size: 1rem;
     font-weight: bold;
     cursor: pointer;
     transition: all 0.3s ease;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Matches input shadow */
-    vertical-align: middle;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .filters .submit-btn:hover {
-    background-color: #36453f;
+    background-color: #1B3656;
+    transform: translateY(-3px);
 }
 
-@media (max-width: 768px) {
-    .filters {
-        flex-direction: column;
-        gap: 15px;
-    }
-
-    .filters .form {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .filters .dropdown,
-    .filters .submit-btn {
-        width: 100%;
-    }
+.filters .submit-btn:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
 }
 
 /* Contractors Section */
 .Contractors {
     margin-top: 20px;
+    text-align: center;
 }
 
 .Contractors h2 {
-    font-size: 24px;
-    margin-bottom: 10px;
-    color: #333;
-}
-
-.Contractors .cont-p {
-    font-size: 14px;
-    color: #777;
-    line-height: 1.5;
-    margin-bottom: 20px;
+    font-size: 2rem;
+    color: #091268;
+    margin-bottom: 15px;
 }
 
 .contractor-list {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 20px; /* Space between cards */
+    gap: 20px;
     padding: 10px;
 }
 
@@ -115,40 +99,49 @@
 
 .contractor-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.15);
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
 }
 
 .contractor-card a {
     text-decoration: none;
-    color: #0066cc;
-    font-size: 18px;
+    color: #091268;
+    font-size: 1rem;
     font-weight: bold;
 }
 
-.contractor-card p {
-    font-size: 14px;
-    color: #555;
-    margin: 5px 0;
+.contractor-card-browse p {
+     font-size: 1.2rem !important;
+  font-weight: bold !important;
+  color: #091268 !important;
+  margin-bottom: 5px!important;
+  display: inline-block !important;
+  padding-right: 8% !important;
 }
 
-.contractor-card p strong {
-    color: #333;
+.contractor-card-browse p strong {
+    color: #091268;
 }
+.contractor-card-browse {
+    background-color: #f8f8f8;
+    border-radius: 20px;
+    width: 200px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    padding-left: 10%;
+    text-align: left;
+    padding: 25px;
+      margin-bottom: 20px;
+  
+  }
+  
+  .contractor-card-browse:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-    .filters {
-        flex-direction: column;
-        align-items: stretch;
-        gap: 15px;
-    }
 
-    .filters .form {
-        flex-direction: column;
-    }
-}
+/* Stars */
 .star {
-    font-size: 20px;
+    font-size: 1.2rem;
     color: lightgray;
     margin-right: 2px;
 }
@@ -156,12 +149,25 @@
 .star.filled {
     color: gold;
 }
-.contractor-card {
-    border: 1px solid #e0e0e0;
-    border-radius: 10px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    margin: 20px;
-    max-width: 300px;
-    text-align: center;
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .filters {
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .filters .form {
+        flex-direction: column;
+    }
+
+    .filters .dropdown,
+    .filters .submit-btn {
+        width: 100%;
+    }
+
+    .contractor-logo {
+        height: 120px;
+    }
 }

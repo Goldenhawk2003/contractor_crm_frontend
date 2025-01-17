@@ -137,7 +137,7 @@ const Browse = () => {
                     <div className="contractor-list">
 
                         {contractors.map((contractor) => (
-                            <div key={contractor.id} className="contractor-card">
+                            <div key={contractor.id} className="contractor-card-browse">
                                 <Link to={`/contractor/${contractor.id}`} className="contractor-link">
                                     {contractor.logo && (
                                         <img
@@ -147,26 +147,24 @@ const Browse = () => {
                                         />
                                     )}
                                     <p>
-                                        <strong>Username:</strong> {contractor.username || contractor.name}
+                                        {contractor.username || contractor.name}
                                     </p>
                                 </Link>
                                 <p>
-                                    <strong>Job Type:</strong> {contractor.job_type}
+                                    {contractor.job_type}
+                                </p>
+                                
+                                <p>
+                                    <span className="stars">{renderStars(contractor.rating)}</span>
                                 </p>
                                 <p>
-                                    <strong>Experience:</strong> {contractor.experience_years} years
+                                   {contractor.profile_description || 'No description provided'}
                                 </p>
                                 <p>
-                                    <strong>Rating:</strong> <span className="stars">{renderStars(contractor.rating)}</span>
+                                    {contractor.location}
                                 </p>
                                 <p>
-                                    <strong>Description:</strong> {contractor.profile_description || 'No description provided'}
-                                </p>
-                                <p>
-                                    <strong>Location:</strong> {contractor.location}
-                                </p>
-                                <p>
-                                    <strong>Hourly Rate: $</strong>{contractor.hourly_rate}
+                                  ${contractor.hourly_rate}
                                 </p>
                             </div>
                         ))}

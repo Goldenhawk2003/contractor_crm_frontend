@@ -5,6 +5,7 @@
   margin: 0; /* Removes all margins */
   width: 100%;
   height: 100%;
+
   
 }
 
@@ -12,7 +13,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: transparent; /* Black background */
+  background-color: #091268; /* Black background */
   padding: 10px 20px;
   margin:none;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);

@@ -50,13 +50,6 @@ const Contact = () => {
           document.body.classList.remove("page");
         };
       }, []);
-      useEffect(() => {
-        document.body.classList.add("transparent-navbar-page");
-    
-        return () => {
-          document.body.classList.remove("transparent-navbar-page");
-        };
-      }, []);
     
 
     return (

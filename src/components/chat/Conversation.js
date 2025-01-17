@@ -45,13 +45,7 @@ const Conversation = () => {
       };
     }, []);
   
-     useEffect(() => {
-            document.body.classList.add("transparent-navbar-page");
-        
-            return () => {
-              document.body.classList.remove("transparent-navbar-page");
-            };
-          }, []);
+   
 
   const handleKeyPress = (event) => {
     if (event.key === 'Enter') {

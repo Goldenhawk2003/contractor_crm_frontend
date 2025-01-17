@@ -1,0 +1,522 @@
+@font-face {
+  font-family: 'Open Sauce One';
+  src: url('/src/Open Sauce Font/OpenSauceOne-Regular.ttf') format('truetype');
+  font-weight: 900;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Open Sauce One';
+  src: url('/src/Open Sauce Font/OpenSauceOne-Bold.ttf') format('truetype');
+  font-weight: 200; /* Regular */
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Open Sauce One';
+  src: url('/src/Open Sauce Font/OpenSauceOne-Medium.ttf') format('truetype');
+  font-weight: 800; /* Regular */
+  font-style: Bold;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  font-family: 'Open Sauce One', Arial, sans-serif;
+  background: none;
+}
+
+body.specific-page {
+  background-image: url("../../public/images/home-page/Image-alone.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+body.transparent-navbar-page .button-group {
+  background-color: transparent;
+  box-shadow: none;
+}
+
+.hero-section {
+  width: 100vw;
+  height: 85vh;
+  position: relative;
+}
+
+.hero-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+.hero-section h1,
+.hero-section p,
+.hero-section .search-bar-container,
+.hero-section .services-buttons,
+.hero-section .Contractor-choices, .search-results {
+  position: relative;
+  z-index: 1;
+}
+
+.Hero-header {
+  font-size: 2rem;
+  color: #F8F8F8;
+  margin-bottom: 20px;
+  text-align: left;
+  padding-left: 4.3%;
+  font-weight: 200;
+}
+
+.trust {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  width: 100%;
+  height: 100%;
+  background-color: #ECF0FC;
+  padding: 8% 0;
+  margin: 0;
+}
+
+.trust-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.trust-header {
+  font-size: 2rem;
+  color: #091268;
+  padding-left: 10%;
+  font-weight: 200;
+  width: 80%;
+  text-align: center;
+}
+
+.trust-p {
+  font-size: 1rem;
+  color: black;
+  padding-left: 10%;
+  font-weight: 900;
+  width: 80%;
+  text-align: center;
+}
+
+.trust-button {
+  padding: 10px 15px;
+  font-size: 1rem;
+  color: black;
+  background-color: transparent;
+  border: 1px black solid;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  width: 50%;
+  text-decoration: none;
+  font-weight: normal;
+  margin-top: 3%;
+}
+
+.trust-button:hover {
+  transform: scale(1.04);
+  text-decoration: underline;
+  text-decoration-color: #091268;
+  text-decoration-thickness: 4px;
+  text-underline-offset: 3px;
+}
+
+.contractor_img {
+  width: 80%;
+  height: auto;
+  object-fit: contain;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding-right: 6%;
+}
+
+.services-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  height: 100%;
+  background: linear-gradient(to bottom, #f8f8f8 70%, #1B3656 30%);
+}
+
+.service-header {
+  padding-top: 7%;
+  font-size: 2rem;
+  color: #091268;
+  text-align: center;
+  font-weight: 200;
+  width: 80%;
+  margin: 0 auto;
+}
+
+.search-bar-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin: 20px auto;
+  width: 100%;
+  max-width: 800px;
+}
+
+.search-bar {
+  width: 90%;
+  padding: 12px;
+  border: none;
+  border-radius: 50px;
+  font-size: 1rem;
+  background-color: #ECF0FC;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  outline: none;
+}
+
+.search-button {
+  background-color: #091268;
+  border: none;
+  border-radius: 50px;
+  padding: 12px 40px;
+  font-size: 1rem;
+  cursor: pointer;
+  color: #fff;
+  transition: transform 0.3s, box-shadow 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+.search-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.3);
+}
+
+.search-results {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+  width: 100%;
+}
+
+.search-results ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 90%;
+}
+
+.search-results li {
+  margin: 10px 0;
+}
+
+.service-link {
+  color: black;
+  border: none;
+  background-color: transparent;
+  padding: 10px 15px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s;
+  text-transform: capitalize;
+  display: inline-block;
+  width: auto;
+  text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.2);
+}
+
+.service-link:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  background-color: #091268;
+  color: #f8f8f8;
+}
+
+.service-h3 {
+  color: #091268;
+  font-weight: 200;
+  padding-left: 22%;
+  font-size: 1.5rem;
+}
+
+.service-p {
+  color: #1B3656;
+  font-weight: 200;
+  font-size: 1.2rem;
+  border: none;
+  background-color: transparent;
+  align-self: right;
+  padding-right: 12%;
+  align-items: right;
+  text-align: right;
+}
+
+.service-p:hover {
+  text-decoration: underline;
+}
+
+.contractor-choice-button {
+  height: 350px;
+}
+
+.Contractor-choices {
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  height: 100%;
+  gap: 25px;
+  margin: 20px auto;
+  justify-content: center;
+}
+
+.Contractor-choices a {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1;
+  background-color: #f8f8f8;
+  border-radius: 10px;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+}
+
+.Contractor-choices a:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.Contractor-choices img {
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  display: block;
+}
+
+.we-offer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  background-color: #1B3656;
+  color: #ffffff;
+  font-family: 'Open Sauce One', Arial, sans-serif;
+  border-top: 1px solid gray;
+  padding: 5% 0;
+}
+
+.we-offer-header {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 30px;
+  background-color: #1B3656;
+}
+
+.services-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  border: solid #f8f8f8;
+  border-radius: 40px;
+  padding: 5%;
+  margin: 0 2%;
+}
+
+.service {
+  text-align: center;
+}
+
+.service-icon {
+  width: 50px;
+  height: 50px;
+  background-color: #ffffff;
+  color: #091268;
+  font-size: 1.5rem;
+  font-weight: bold;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 15px auto;
+}
+
+.service-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.service-description {
+  font-size: 0.8rem;
+  line-height: 1.6;
+}
+
+.our-process {
+  background-color: #f8f8f8;
+  width: 100%;
+  padding: 50px 20px;
+  color: #091268;
+}
+
+.process-p {
+  max-width: 90%;
+  padding-left: 5%;
+}
+
+.our-header {
+  font-size: 2rem;
+  color: #091268;
+  font-weight: 200;
+  padding-left: 5%;
+}
+
+.match {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  background-color: #1B3656;
+  text-align: center;
+  padding: 8%;
+}
+
+.match-header {
+  font-size: 2rem;
+  color: #f8f8f8;
+  margin-bottom: 20px;
+  width: 90%;
+}
+
+.contractor-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.contractor-card {
+  background-color: #f8f8f8;
+  border-radius: 20px;
+  width: 90%;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  margin-bottom: 20px;
+}
+
+.contractor-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+.contractor-logo {
+  width: 100%;
+  height: 40vh;
+  object-fit: fill;
+  border-radius: 20px;
+}
+
+.card-name {
+  font-size: 1.2rem !important;
+  font-weight: bold !important;
+  color: #091268 !important;
+  margin-bottom: 5px !important;
+  display: inline-block !important;
+}
+
+.card-rating {
+  font-size: 1rem !important;
+  color: #091268 !important;
+  margin-bottom: 5px !important;
+  display: inline-block !important;
+}
+
+.contractor-job {
+  font-size: 1rem !important;
+  color: #091268 !important;
+  margin-bottom: 5px !important;
+  display: inline !important;
+}
+
+.contractor-location {
+  font-size: 0.9rem !important;
+  color: #555555 !important;
+  display: inline !important;
+}
+
+.testimonials-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 4% 0;
+}
+
+.testimonials-header {
+  text-align: center;
+  font-size: 2rem;
+  color: #091268;
+  font-weight: 800;
+  width: 90%;
+}
+
+.testimonials-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  width: 90%;
+}
+
+.testimonial-card {
+  background-color: #ECF0FC;
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  width: 90%;
+  transition: transform 0.3s ease;
+}
+
+.testimonial-card:hover {
+  transform: scale(1.05);
+}
+
+.testimonial-text {
+  font-size: 1rem;
+  color: #091268;
+  font-weight: 200;
+  margin-bottom: 15px;
+  text-align: left;
+}
+
+.testimonial-rating {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.stars {
+  font-size: 1.3rem;
+  color: #FFD700;
+  margin-bottom: 8px;
+}
+
+.client-name {
+  font-size: 0.9rem;
+  color: #091268;
+  text-align: left;
+}

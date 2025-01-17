@@ -12,6 +12,13 @@
   font-weight: 200; /* Regular */
   font-style: normal;
 }
+@font-face {
+  font-family: 'Open Sauce One';
+  src: url('/src/Open Sauce Font/OpenSauceOne-Medium.ttf') format('truetype');
+  font-weight: 800; /* Regular */
+  font-style: Bold;
+}
+
 
 html, body {
   margin: 0;
@@ -33,7 +40,7 @@ body.specific-page {
 }
 
 body.transparent-navbar-page .button-group {
-  background-color: transparent; /* Makes the navbar transparent */
+  background-color: transparent !important; /* Makes the navbar transparent */
   box-shadow: none; /* Removes shadow if desired */
 }
 
@@ -300,7 +307,7 @@ body.transparent-navbar-page .button-group {
 }
 
 .contractor-choice-button{
-  height: 400px;
+  height: 350px;
 }
 .Contractor-choices {
   display: flex;
@@ -485,9 +492,12 @@ body.transparent-navbar-page .button-group {
   background-color: #f8f8f8;
   border-radius: 20px;
   width: 200px;
-  text-align: center;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   padding-left: 10%;
+  text-align: left;
+  padding: 25px;
+    margin-bottom: 20px;
+
 }
 
 .contractor-card:hover {
@@ -509,6 +519,7 @@ body.transparent-navbar-page .button-group {
   color: #091268 !important;
   margin-bottom: 5px!important;
   display: inline-block !important;
+ 
 }
 .card-rating{
   font-size: 1rem !important;
@@ -516,6 +527,7 @@ body.transparent-navbar-page .button-group {
   margin-bottom: 5px !important;
   display: inline-block !important;
   padding-left: 5%;
+  text-align: right !important;
 }
 
 
@@ -549,13 +561,13 @@ body.transparent-navbar-page .button-group {
 .testimonials-header {
   /* Prevent header from shrinking */
   text-align: left; /* Ensure text in the header stays left-aligned */
-  font-size: 2rem;
-  
+  font-size: 3.2rem;
   color: #091268;
-  font-weight: 200; 
-  width: 40%;
-  padding-left: 5%;
-  padding-top: 10%;
+  font-weight: 800; 
+  width: 25%;
+  padding-top: 6%;
+  padding-right: 10%;
+
 }
 
 .testimonials-container {
@@ -563,8 +575,9 @@ body.transparent-navbar-page .button-group {
   flex-wrap: wrap;
   justify-content: flex-start; /* Align cards to the start within the container */
   gap: 15px;
-  max-width: 1200px;
-  margin: 0; /* No margin to align to the right */
+  max-width: 50%;
+  margin: 0;
+  padding-right: 2%; /* No margin to align to the right */
 }
 
 .testimonial-card {
@@ -588,25 +601,27 @@ body.transparent-navbar-page .button-group {
   color: #091268;
   font-weight: 200;
   margin-bottom: 15px;
+  text-align: left;
 }
 
 .testimonial-rating {
   display: flex;
   flex-direction: column;
-  align-items: center;
+ text-align: left;
 }
 
 .stars {
   font-size: 1.3rem;
   color: #FFD700;
   margin-bottom: 8px;
+
 }
 
 .client-name {
   font-size: 0.9rem;
   color: #091268;
+  text-align: left;
 }
-
 
 
 
