@@ -158,7 +158,7 @@ const Conversation = () => {
           onClick={handleReply}
           disabled={sending}
           className="button"
-          style={{ backgroundColor: sending ? "#ccc" : "#5c7b78" }}
+      
         >
           {sending ? "Sending..." : "Reply"}
         </button>

@@ -9,18 +9,20 @@
 
 /* Sidebar Styling */
 .chat-sidebar-3 {
-  width: 30%;
-  background-color: #091268;
+  width: 20%;
+  background-color: #ecf0fc;
   color: #f8f8f8;
   padding: 20px;
   overflow-y: auto;
   box-shadow: 4px 0 6px rgba(0, 0, 0, 0.1);
+  padding-left: 2%;
 }
 
 .sidebar-header-3 {
   font-size: 1.8rem;
   margin-bottom: 20px;
   text-align: center;
+  color: #091268;
 }
 
 .conversation-list-3 {
@@ -31,9 +33,11 @@
 
 .conversation-item-3 {
   padding: 15px;
+  margin-bottom: 2%;
   border-bottom: 1px solid #f8f8f8;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  background-color: #091268;
 }
 
 .conversation-item-3:hover,
@@ -60,6 +64,7 @@
   flex-direction: column;
   background-color: #f8f8f8;
   padding: 20px;
+  height: 80%;
 }
 
 .messages-container-3 {

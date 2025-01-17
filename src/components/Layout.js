@@ -73,11 +73,7 @@ const Layout = () => {
             )}
           
           
-          {isMobile ? (
-            <Link to="/inbox" className="nav-button">Chat</Link>
-          ) : (
-            <Link to="/Inbox3" className="nav-button">Chat</Link>
-          )}
+            <Link to="/Browse-contractors" className="nav-button"> Services</Link>
             <Link to="/contact" className="nav-button">Contact Us</Link>
             <Link to="/user-profile" className="nav-button">User Profile</Link>
            
