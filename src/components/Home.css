@@ -86,20 +86,24 @@ body.transparent-navbar-page .button-group {
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 }
 .services-section{
-  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch; /* Ensure children span the full width */
+  justify-content: flex-start;
+  height: 100%;
   background: linear-gradient(to bottom, #f8f8f8 70%, #1B3656 30%);
-  border-bottom: none;
+
+
 }
  
 .service-header{
   padding-top: 7%;
-  font-size: 2rem;
+  font-size: 2.5rem;
   color: #091268;
   text-align: center;
   font-weight: 200;
-
-
-  
+  width: 40%;
+  margin: 0 auto;
 }
 .search-bar-container {
   display: flex;
@@ -217,7 +221,7 @@ body.transparent-navbar-page .button-group {
 .request-button{
   padding: 10px 20px;
   background-color: #5c7b78;
-  color: #ffffff;
+  color: #f8f8f8;
   border: 2px solid #5c7b78;
   border-radius: 20px;
   cursor: pointer;
@@ -341,6 +345,7 @@ body.transparent-navbar-page .button-group {
   background-color: #ECF0FC ;
   padding-bottom: 8%;
   padding-top: 8%;
+  margin: 0;
 
 }
 
@@ -404,3 +409,74 @@ body.transparent-navbar-page .button-group {
   padding-right: 6%;
 }
 
+/* Overall Container */
+.we-offer {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch; /* Ensure children span the full width */
+  justify-content: flex-start;
+  background-color: #1B3656; /* Deep blue background */
+  color: #ffffff; /* White text for the container */
+  font-family: 'Open Sauce One', Arial, sans-serif; /* Custom font */
+  border-top: 1px solid gray; /* White border at the top */
+  padding-bottom: 5%;
+  padding-top: 5%;
+}
+
+/* Header Style */
+.we-offer-header {
+  position:absolute;
+  margin-top:-30px;
+  margin-left:85px;
+  text-align: left; /* Align text to the left */
+  font-size: 2.8rem; /* Large heading font size */
+  margin-bottom: 30px; /* Space below the header */
+  background-color: #1B3656;
+}
+
+/* Services Grid Container */
+.services-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* Four equal columns */
+  gap: 40px; /* Spacing between items */
+  border: solid #f8f8f8;
+  border-radius: 40px;
+  padding-top: 5%;
+  padding-left: 2%;
+  margin-left: 2%;
+  margin-right: 2%;
+}
+
+/* Individual Service Box */
+.service {
+  text-align: center; /* Center-align content */
+}
+
+/* Circular Icon for Numbers */
+.service-icon {
+  width: 60px;
+  height: 60px;
+  background-color: #ffffff; /* White background for the circle */
+  color: #091268; /* Deep blue text */
+  font-size: 1.8rem; /* Large font size for numbers */
+  font-weight: bold;
+  border-radius: 50%; /* Make it circular */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 15px auto; /* Center and add space below */
+}
+
+/* Service Title */
+.service-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 10px; /* Space below the title */
+}
+
+/* Service Description */
+.service-description {
+  font-size: 0.8rem;
+  line-height: 1.6; /* Increase line spacing for readability */
+
+}

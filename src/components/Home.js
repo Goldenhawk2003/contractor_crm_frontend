@@ -164,7 +164,39 @@ const Home = () => {
     
   </div>
 
-
+  <div class="we-offer">
+  <h2 class="we-offer-header">Our Services.</h2>
+  <div class="services-container">
+    <div class="service">
+      <div class="service-icon">1</div>
+      <h3 class="service-title">Discover</h3>
+      <p class="service-description">
+        Using our categories, search up different services you are looking for. Our skilled contractors will pop up, and you can decide to chat with them!
+      </p>
+    </div>
+    <div class="service">
+      <div class="service-icon">2</div>
+      <h3 class="service-title">Quiz</h3>
+      <p class="service-description">
+        Can’t find what you’re looking for? Take our advanced quiz to find results tailored to your needs.
+      </p>
+    </div>
+    <div class="service">
+      <div class="service-icon">3</div>
+      <h3 class="service-title">Chat</h3>
+      <p class="service-description">
+        Look through our contractors and chat with them to learn more!
+      </p>
+    </div>
+    <div class="service">
+      <div class="service-icon">4</div>
+      <h3 class="service-title">Contracts</h3>
+      <p class="service-description">
+        Lock in your contracts with your service provider directly on our site. We ensure protection and privacy and deliver with solutions.
+      </p>
+    </div>
+  </div>
+</div>
    
       
       <div className='our-process'> 
