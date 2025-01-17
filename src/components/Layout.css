@@ -5,13 +5,14 @@
   margin: 0; /* Removes all margins */
   width: 100%;
   height: 100%;
+  
 }
 
 .button-group {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #5c7b78; /* Black background */
+  background-color: transparent; /* Black background */
   padding: 10px 20px;
   margin:none;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -26,11 +27,12 @@
   display: flex;
   gap: 15px; /* Add space between links */
   padding-top: 2%;
+  padding-left: 3%;
 }
 
 .nav-button {
   text-decoration: none;
-  color: #f8f8f8;
+  color: #F8F8F8;
   font-size: 1rem;
   font-weight: bold;
   padding: 10px 15px;
@@ -54,6 +56,7 @@
   display: flex;
   align-items: center;
   gap: 15px; /* Space between logo and button */
+  padding-right: 3%;
 }
 
 .nav-logo {
@@ -76,7 +79,6 @@
 }
 
 .log-button:hover {
-  background-color: #dcbf79; /* Darker blue on hover */
   transform: scale(1.05); /* Slight zoom effect */
 }
 

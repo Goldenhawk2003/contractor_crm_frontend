@@ -57,6 +57,9 @@ const Home = () => {
   const requestButton = () => {
     navigate('/ServiceRequest');
   }
+  const BrowseButton = () => {
+    navigate('/Browse-Contractors');
+  }
   useEffect(() => {
     // Add a class to the body for this specific page
     document.body.classList.add("specific-page");
@@ -78,10 +81,29 @@ const Home = () => {
   return (
     <div className="home-container">
       <div className="hero-section">
-    <h1 className="head">Welcome To Elite Crafts Contractors</h1>
-    <p className="subhead">Your trusted platform for skilled contractors in every field.</p>
+    <h1 className='Hero-header'>Your Trusted Partners</h1>
+    <h1 className='Hero-header'>at Elite Craft.</h1>
+  </div>
 
-    <div className="search-bar-container">
+  <div className="trust">
+  <div className="trust-content">
+    <h1 className="trust-header">Trustworthy People, With Reliable Solutions.</h1>
+    <p className="trust-p">
+      Our quiz is designed to get the stress of looking for a contractor off your plate.
+    </p>
+    <button type="submit" className="trust-button" onClick={quizButton}>
+      How-To Guide
+    </button>
+  </div>
+  <img src="/images/home-page/Mission-block-image.png" alt="Happy Contractors" className="contractor_img" />
+</div>
+
+  <div className='services-section'>
+    <div className='services-header-box'>
+    <h1 className='service-header'>What Services are You Looking For?</h1>
+    </div>
+ 
+  <div className="search-bar-container">
       <input
         type="text"
         className="search-bar"
@@ -117,47 +139,36 @@ const Home = () => {
       </div>
     )}
 
-    <div className="services-buttons">
-      <Link to="/Browse-contractors" className="service-button">
-        Find A Contractor Now
-      </Link>
-    </div>
+    <div>
+      <h3 className='service-h3'>Discover With Elite</h3>
+      <p className='service-p'><button type="submit" className="service-p" onClick={BrowseButton}> View All </button></p>
+      </div>
+     
     <div className="Contractor-choices">
+   
       <Link to="/find-contractor?type=Plumbing" className="contractor-choice-button">
-        <img src="" alt="Plumbing Services" />
+        <img src="/images/home-page/Services-section-card1.png" alt="Plumbing Services" />
       </Link>
       <Link to="/find-contractor?type=Renovations" className="contractor-choice-button">
-        <img src="" alt="Renovation Services" />
+        <img src="/images/home-page/Services-section-card2.png" alt="Renovation Services" />
       </Link>
       <Link to="/find-contractor?type=Electrical" className="contractor-choice-button">
-        <img src="" alt="Electrical Services" />
+        <img src="/images/home-page/Services-section-card3.png" alt="Electrical Services" />
       </Link>
-      <Link to="/find-contractor?type=Carpentry" className="contractor-choice-button">
-        <img src="" alt="Carpentry Services" />
+      <Link to="/find-contractor?type=Electrical" className="contractor-choice-button">
+        <img src="/images/home-page/Services-section-card4.png" alt="Electrical Services" />
       </Link>
-      <Link to="/find-contractor?type=Painting" className="contractor-choice-button">
-        <img src="" alt="Painting Services" />
-      </Link>
-      <Link to="/find-contractor?type=Snow-removal" className="contractor-choice-button">
-        <img src="" alt="Snow Removal Services" />
-      </Link>
+      
     </div>
+
+    
   </div>
-      <div className="trust">
-  <div className="trust-content">
-    <h2 className="trust-header">Trustworthy People, With Reliable Solutions</h2>
-    <p className="trust-p">
-      Our quiz is designed to get the stress of looking for a contractor off your plate.
-    </p>
-    <button type="submit" className="trust-button" onClick={quizButton}>
-      Take Quiz Now
-    </button>
-   <button type='submit' className='trust-button' onClick={requestButton}>Request a Service</button>
-  </div>
-  <img src="" alt="Happy Contractors" className="contractor_img" />
-</div>
+
+
+   
+      
       <div className='our-process'> 
-        <h2 className='our-header'>Our Process</h2>
+        <h2 className='our-header'>Why Choose Us?</h2>
         <p className='process-p'>ECC is founded on the core principle of honest work by honest people. Our team is committed to sourcing dependable and high quality contractors for homeowners and businesses in the Durham Region. At ECC we do more than just connect people with services, we build lasting partnerships grounded in trust, mutual respect, and shared values.</p>
         
       </div>

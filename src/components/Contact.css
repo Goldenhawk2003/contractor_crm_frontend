@@ -8,7 +8,7 @@
 
 body.page{
     font-family: 'Open Sauce One', Arial, sans-serif;
-    background-image: url(); /* Light gray background */
+/* Light gray background */
     background-size: cover; /* Ensure the image covers the entire section */
     background-position:center; /* Center the image */
     background-repeat: no-repeat;
