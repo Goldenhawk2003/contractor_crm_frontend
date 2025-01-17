@@ -1,140 +1,102 @@
-
-.parent-container {
-  display: flex;
-  flex-direction: column; /* Ensures items stack vertically */
-  justify-content: center; /* Centers items vertically */
-  align-items: center; /* Centers items horizontally */ /* Full viewport height for demo purposes */
-  text-align: center; /* Centers text inside elements */
-  color: #5c7b78;
-}
-
-.header {
-  font-size: 2.5rem; /* Adjust font size as needed */
-  margin-bottom: 1rem; /* Adds spacing below the header */
-}
-
-
+/* General Container */
 .quiz-container {
-    font-family: 'Open Sauce One', Arial, sans-serif;
-    color: #5c7b78; /* Matching your theme */
-    background-color: #f8f8f8; /* Light background */
-    padding: 20px;
-    max-width: 800px;
-    margin: 20px auto;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  /* Quiz Header */
-  .quiz-container h1 {
-    text-align: center;
-    font-size: 2.5rem;
-    color: #5c7b78;
-    margin-bottom: 20px;
-  }
-  
-  /* Quiz Question Section */
-  .quiz-question {
-    margin-bottom: 30px;
-    padding: 20px;
-    border-radius: 10px;
-    background-color: #ffffff;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  }
-  
-  .quiz-question h2 {
-    font-size: 1.5rem;
-    color: #5c7b78;
-    margin-bottom: 10px;
-  }
-  
-  .quiz-question p {
-    font-size: 1rem;
-    color: #777;
-    margin-bottom: 15px;
-  }
-  
-  /* Textarea for Text-Based Questions */
-  .quiz-question textarea {
-    width: 100%;
-    height: 20px;
-    border: 1px solid #dcbf79;
-    border-radius: 8px;
-    padding: 10px;
-    font-size: 1rem;
-    color: #333;
-    font-family: 'Open Sauce One', Arial, sans-serif;
-    resize: vertical;
-    outline: none;
-    transition: border-color 0.3s;
-  }
-  
-  .quiz-question textarea:focus {
-    border-color: #5c7b78;
-  }
-  
-  /* Multiple Choice Questions */
-  .quiz-question input[type="radio"] {
-    margin-right: 10px;
-    accent-color: #5c7b78; /* Modern browsers support this */
-  }
-  
-  .quiz-question label {
-    font-size: 1rem;
-    color: #333;
-  }
-  
-  /* Submit Button */
-  .submit-button {
-    display: block;
-    width: 100%;
-    padding: 15px;
-    font-size: 1.2rem;
-    color: #ffffff;
-    background-color: #5c7b78;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    text-align: center;
-    transition: background-color 0.3s, transform 0.2s;
-  }
-  
-  .submit-button:hover {
-    background-color: #4a6863;
-    transform: translateY(-2px);
-  }
-  
-  .submit-button:active {
-    transform: translateY(0);
-  }
-  
-  /* Error Message */
-  .error {
-    color: #d9534f;
-    font-weight: bold;
-    text-align: center;
-    margin: 10px 0;
-  }
-  
-  /* Loading State */
-  .quiz-container p {
-    text-align: center;
-    font-size: 1.2rem;
-    color: #777;
-  }
-  
-  /* Responsive Design */
-  @media (max-width: 768px) {
-    .quiz-container {
-      padding: 15px;
-    }
-  
-    .quiz-question {
-      padding: 15px;
-    }
-  
-    .submit-button {
-      font-size: 1rem;
-      padding: 10px;
-    }
-  }
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f8f8f8;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Header Section */
+.quiz-header h1 {
+  text-align: center;
+  color: #1b3656;
+}
+
+.quiz-header p {
+  text-align: center;
+  font-size: 1rem;
+  color: #091268;
+  margin-top: 10px;
+}
+
+/* Question Container */
+.quiz-question-container {
+  margin-bottom: 20px;
+  padding: 20px;
+  background-color: #ecf0fc; /* Light greyish blue */
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Question Title and Description */
+.quiz-question h2 {
+  font-size: 1.2rem;
+  color: #1b3656;
+  margin-bottom: 10px;
+}
+
+.quiz-question p {
+  font-size: 1rem;
+  color: #091268;
+  margin-bottom: 15px;
+}
+
+/* Textarea Styling */
+.quiz-textarea {
+  width: 90%;
+  padding: 12px;
+  margin-top: 10px;
+  border: 1px solid #1b3656;
+  border-radius: 5px;
+  font-size: 1rem;
+  color: #091268;
+  background-color: #f8f8f8;
+  resize: vertical;
+}
+
+/* Multiple Choice Styling */
+.quiz-choice {
+  margin: 10px 0;
+}
+
+.quiz-choice label {
+  margin-left: 10px;
+  font-size: 1rem;
+  color: #1b3656;
+}
+
+/* Submit Button */
+.submit-button {
+  width: 100%;
+  padding: 12px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #f8f8f8;
+  background-color: #1b3656;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 20px;
+}
+
+.submit-button:hover {
+  background-color: #091268;
+}
+
+/* Feedback Messages */
+.loading-message, .error-message, .success-message {
+  text-align: center;
+  font-size: 1rem;
+  margin-top: 20px;
+}
+
+.error-message {
+  color: red;
+}
+
+.success-message {
+  color: green;
+}

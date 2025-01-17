@@ -1,241 +1,95 @@
-/* General Styling */
+/* General Styles */
 .dashboard {
-  font-family: 'Open Sauce One', Arial, sans-serif;
-  color: #5c7b78;
-  background-color: #f8f8f8;
+  font-family: Arial, sans-serif;
   padding: 20px;
-  line-height: 1.6;
+  background-color: #f8f8f8;
+  color: #333;
 }
 
 .dashboard-header {
   text-align: center;
-  background-color: #5c7b78;
-  color: white;
-  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.loading-message,
+.error-message {
+  text-align: center;
+  color: red;
+  margin: 10px 0;
+}
+
+/* Section Styles */
+.dashboard-content section {
+  background: #ffffff;
   border-radius: 8px;
+  padding: 20px;
   margin-bottom: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.dashboard-header h1 {
-  font-size: 3.2rem;
-  color: #f8f8f8;
+section h2 {
+  margin-bottom: 15px;
+  color: #1b3656;
 }
 
-.dashboard-header p {
-  font-size: 1.2rem;
-  color: #f8f8f8;
-}
-
-.logout-btn {
-  margin-top: 10px;
-  padding: 10px 20px;
-  font-size: 1rem;
-  color: white;
-  background-color: #dcbf79;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.logout-btn:hover {
-  background-color: #b89e5c;
-}
-
-/* Metrics Section */
-.metrics {
-  margin-bottom: 20px;
-}
-
+/* Key Metrics */
 .metric-cards {
-  display: flex;
-  gap: 20px;
-  flex-wrap: wrap;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 15px;
 }
 
 .card {
-  background-color: white;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
-  padding: 20px;
+  background: #091268;
+  color: #f8f8f8;
   text-align: center;
-  flex: 1;
-  min-width: 200px;
-  max-width: 250px;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .card h3 {
-  font-size: 1.5rem;
   margin-bottom: 10px;
 }
 
 .card p {
   font-size: 1.2rem;
-  color: #5c7b78;
+  font-weight: bold;
 }
 
-/* Pending Applications Section */
-.pending-applications {
-  margin-bottom: 20px;
-}
-
-.pending-applications p{
-  color: black;
-}
-
-.pending-applications h2 {
-  font-size: 2rem;
-  color: #5c7b78;
-  margin-bottom: 15px;
-}
-
+/* Pending Applications */
 .pending-list {
   list-style: none;
   padding: 0;
 }
 
 .application-item {
-  background-color: white;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
-  padding: 20px;
+  background: #ecf0fc;
   margin-bottom: 15px;
-  display: flex;
-  flex-direction: column;
-  align-items: left;
-
-}
-
-.application-item img {
-  width: 80px;
-  height: 80px;
-  margin-bottom: 15px;
-}
-
-.application-buttons {
-  display: flex;
-  gap: 10px;
-  margin-top: 15px;
-}
-
-.approve-btn,
-.reject-btn {
-  padding: 10px 20px;
-  font-size: 1rem;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.approve-btn {
-  background-color: #5c7b78;
-}
-
-.approve-btn:hover {
-  background-color: #4a6863;
-}
-
-.reject-btn {
-  background-color: #d9534f;
-}
-
-.reject-btn:hover {
-  background-color: #c12e2a;
-}
-
-/* Service Requests Section */
-.service-requests h2 {
-  font-size: 2rem;
-  color: #5c7b78;
-  margin-bottom: 15px;
-}
-
-.service-requests-list {
-  list-style: none;
-  padding: 0;
-}
-
-.service-request-item {
-  background-color: white;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
   padding: 15px;
-  margin-bottom: 10px;
-}
-
-.service-request-item p {
-  font-size: 1rem;
-  margin: 5px 0;
-  color: black;
-}
-
-/* Loading and Error Messages */
-.loading-message,
-.error-message {
-  text-align: center;
-  font-size: 1.2rem;
-  color: #d9534f;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .application-logo {
-  width: 150px; /* Increased size */
-  height: 150px; /* Ensure it's square */
-  object-fit: cover; /* Ensures the image fits within the square dimensions */
-  border-radius: 10px; /* Slightly rounded corners for a modern look */
-  margin-bottom: 10px; /* Add spacing below the logo */
-  border: 2px solid #dcbf79; /* Optional: Add a border to match your styling preferences */
-  display: block; /* Ensures it behaves properly within a flexbox or grid */
-
+  max-width: 100px;
+  max-height: 100px;
+  margin: 10px 0;
 }
 
-/* Quiz Management Section */
-.quiz-management {
-  margin-top: 20px;
+.application-buttons button {
+  margin-right: 10px;
 }
 
-.quiz-management h2 {
-  font-size: 2rem;
-  color: #5c7b78;
-  margin-bottom: 15px;
-  text-align: center;
-}
-
-.add-question {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 20px;
-}
-
+/* Quiz Management */
 .add-question input,
 .add-question select {
-  width: 80%;
-  max-width: 500px;
+  margin-right: 10px;
+  margin-bottom: 10px;
   padding: 10px;
-  font-size: 1rem;
-  border: 1px solid #dcbf79;
-  border-radius: 5px;
-  background-color: #fff;
-  color: #5c7b78;
-}
-
-.add-question button {
-  padding: 10px 20px;
-  font-size: 1rem;
-  color: white;
-  background-color: #dcbf79;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.add-question button:hover {
-  background-color: #b89e5c;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  width: calc(100% - 30px);
 }
 
 .question-list {
@@ -244,133 +98,65 @@
 }
 
 .question-item {
-  background-color: white;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
+  margin-bottom: 15px;
   padding: 15px;
-  margin-bottom: 10px;
-}
-
-.question-item p {
-  font-size: 1rem;
-  margin: 5px 0;
-  color: #5c7b78;
-}
-
-.question-item strong {
-  color: #5c7b78;
+  background: #ffffff;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .delete-btn {
-  padding: 10px 20px;
-  font-size: 1rem;
+  background-color: #dc3545;
   color: white;
-  background-color: #d9534f;
   border: none;
-  border-radius: 5px;
+  border-radius: 4px;
+  padding: 10px;
   cursor: pointer;
-  transition: background-color 0.3s;
-  margin-top: 10px;
 }
 
 .delete-btn:hover {
-  background-color: #c12e2a;
+  background-color: #c82333;
 }
 
-/* Responsive Design for Quiz Management */
-@media (max-width: 768px) {
-  .add-question input,
-  .add-question select {
-    width: 100%;
-  }
-
-  .question-item {
-    width: 100%;
-  }
-}
-/* Responsive Design */
-@media (max-width: 768px) {
-  .metric-cards {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .application-item {
-    width: 100%;
-  }
-
-  .service-request-item {
-    width: 100%;
-  }
-}
-.form-responses {
-  margin-top: 20px;
-  padding: 20px;
-  background-color: #ffffff;
-  border-radius: 10px;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.form-responses h2 {
-  font-size: 2rem;
-  color: #5c7b78;
-  margin-bottom: 15px;
-  text-align: center;
-}
-
+/* Form Responses */
 .form-responses-list {
   list-style: none;
   padding: 0;
-  margin: 0;
 }
 
 .form-response-group {
-  background-color: #f8f8f8;
-  border: 1px solid #dcbf79;
-  border-radius: 8px;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
   padding: 15px;
-}
-
-.form-response-group h3 {
-  font-size: 1.5rem;
-  color: #5c7b78;
-  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  background: #f8f8f8;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .form-response-item {
-  background-color: #ffffff;
-  border: 1px solid #dcbf79;
-  border-radius: 5px;
   margin-bottom: 10px;
   padding: 10px;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.05);
-}
-
-.form-response-item p {
-  font-size: 1rem;
-  color: #5c7b78;
-  margin: 5px 0;
-}
-
-.form-response-item strong {
-  color: black;
-}
-
-.error-message {
-  color: #d9534f;
-  font-size: 1.2rem;
-  text-align: center;
-  margin-bottom: 15px;
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
-  .form-response-group {
-    padding: 10px;
+  .metric-cards {
+      grid-template-columns: 1fr;
   }
 
-  .form-response-item {
-    padding: 8px;
+  .application-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+  }
+
+  .add-question input,
+  .add-question select,
+  .add-question button {
+      width: 100%;
   }
 }

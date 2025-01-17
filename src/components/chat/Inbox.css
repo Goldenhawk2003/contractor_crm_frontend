@@ -1,111 +1,128 @@
-/* Inbox.css */
 
+/* Inbox Container */
 .inbox-container {
-  font-family: 'Arial', sans-serif;
   max-width: 800px;
   margin: 2rem auto;
   padding: 1rem;
-  background-color: #f8f8f8;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+/* Header */
 .header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1rem;
+  text-align: center;
+  margin-bottom: 1.5rem;
 }
 
 .inbox-header {
-  font-size: 1.8rem;
-  color: #333;
+  font-size: 2rem;
+  color: #1b3656;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
   margin: 0;
 }
 
-.create-message-btn {
-  padding: 0.5rem 1rem;
-  font-size: 1rem;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+/* Content Area */
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
 }
 
-.create-message-btn:hover {
-  background-color: #0056b3;
-}
-
-.error,
-.loading,
-.empty {
-  text-align: center;
-  font-size: 1.2rem;
-  color: #888;
-  margin: 2rem 0;
+/* Conversation List */
+.conversation-list-container {
+  padding: 1rem;
+  background-color: #f4f6fb;
+  border-radius: 10px;
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .conversation-list {
   list-style: none;
-  padding: 0;
   margin: 0;
+  padding: 0;
 }
 
 .conversation-item {
-  padding: 1rem;
-  background-color: white;
-  border: 1px solid #ddd;
-  border-radius: 5px;
+  padding: 0.75rem 1rem;
   margin-bottom: 0.5rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.3rem;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   cursor: pointer;
-  transition: box-shadow 0.3s ease, transform 0.3s ease;
+  transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .conversation-item:hover {
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  transform: translateY(-2px);
+  transform: translateY(-3px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
 .participants {
   font-weight: bold;
-  color: #333;
-  font-size: 1.1rem;
+  color: #1b3656;
 }
 
 .latest-message {
+  margin: 0.5rem 0 0;
   font-size: 0.9rem;
   color: #555;
-  margin: 0;
+}
+
+/* Empty, Loading, and Error States */
+.empty,
+.loading,
+.error {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #888;
+  margin-top: 1rem;
+}
+
+.error {
+  color: red;
+  font-weight: bold;
+}
+
+/* Action Container */
+.action-container {
+  display: flex;
+  justify-content: center;
+}
+
+.create-message-btn {
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #ffffff;
+  background-color: #1b3656;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.create-message-btn:hover {
+  background-color: #091268;
+  transform: translateY(-2px);
 }
 
 /* Responsive Design */
 @media (max-width: 600px) {
   .inbox-container {
-    padding: 0.5rem;
+    padding: 1rem;
   }
 
   .inbox-header {
     font-size: 1.5rem;
   }
 
-  .create-message-btn {
-    padding: 0.4rem 0.8rem;
-    font-size: 0.9rem;
-  }
-
   .conversation-item {
-    padding: 0.8rem;
+    padding: 0.5rem 0.75rem;
   }
 
-  .participants {
-    font-size: 1rem;
-  }
-
-  .latest-message {
-    font-size: 0.8rem;
+  .create-message-btn {
+    font-size: 0.9rem;
+    padding: 0.5rem 1rem;
   }
 }
