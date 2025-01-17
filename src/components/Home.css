@@ -37,14 +37,12 @@ body.transparent-navbar-page .button-group {
   box-shadow: none; /* Removes shadow if desired */
 }
 
-
+/* Beginning of hero */
 .hero-section {
- 
   width: 100vw; /* Stretch the image to the full width of the screen */
   height: 85vh; /* Set the height to cover the full viewport */
   position: relative;
    /* Ensure text color contrasts with the image */
-
 }
 
 .hero-section::before {
@@ -66,10 +64,6 @@ body.transparent-navbar-page .button-group {
   z-index: 1; /* Ensure content is above the overlay */
 }
 
-
-
-
-
 .Hero-header{
   font-size: 3.2rem;
   color: #F8F8F8;
@@ -78,13 +72,98 @@ body.transparent-navbar-page .button-group {
   padding-left: 4.3%;
   font-weight: 200;
 }
+/* End of Hero */
 
-.subhead {
-  font-size: 1.2rem;
-  color: #f8f8f8;
-  text-align: center;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+
+
+
+
+
+
+
+
+/* Beginning of Trust */
+.trust {
+  display: flex; /* Arrange items in a row */
+  align-items: center; /* Align all items to the same vertical height */
+  justify-content: space-between; /* Space between text and image */
+  gap: 20px; /* Space between text and image */
+  width: 100%;
+  height: 100%;
+  background-color: #ECF0FC ;
+  padding-bottom: 8%;
+  padding-top: 8%;
+  margin: 0;
+
 }
+
+.trust-content {
+  display: flex;
+  flex-direction: column; /* Stack header, paragraph, and button */
+}
+
+.trust-header {
+  font-size: 3.2rem;
+  color:  #091268;
+  padding-left: 10%;
+  font-weight: 200;
+  width: 80%;
+}
+
+.trust-p {
+  font-size: 1rem;
+  color: black;
+  padding-left: 10%;
+  font-weight: 900;
+  font-size: larger;
+  width: 50%;
+  
+}
+
+.trust-button {
+  padding: 15px 20px;
+  font-size: 1rem;
+  color: black;
+  background-color: transparent;
+  border: 1px black solid;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  width: 20%;
+  align-self: left;
+  text-decoration: none;
+  font-weight: normal;
+  margin-top: 3%;
+  margin-left: 10%;
+}
+
+.trust-button:hover {
+  transform: scale(1.04); /* Slight zoom effect */
+  text-decoration: underline;
+  text-decoration-color:  #091268;
+  text-decoration-thickness: 4px; /* Thicker underline */
+  text-underline-offset: 3px; 
+}
+
+.contractor_img {
+  width: 40%; /* Adjust image width */
+  height: auto; /* Maintain aspect ratio */
+  object-fit: contain; /* Ensure image fits within its container */
+  border-radius: 8px; /* Optional: rounded corners */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional: subtle shadow */
+  padding-right: 6%;
+}
+/* End of Trust */
+
+
+
+
+
+
+
+
+
+/* Beginning of Services */
 .services-section{
   display: flex;
   flex-direction: column;
@@ -190,55 +269,11 @@ body.transparent-navbar-page .button-group {
 .service-link:hover {
   transform: scale(1.05);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  background-color: #dcbf79;
+  background-color: #091268;
+  color: #f8f8f8;
 }
 .search-results li:last-child {
   border-bottom: none;
-}
-
-.services-buttons {
-  display: flex;
-  gap: 15px;
-  margin-top: 20px;
-  justify-content: center;
-}
-
-.service-button {
-  padding: 10px 20px;
-  background-color: transparent;
-  color: #f8f8f8;
-  border: 2px solid #dcbf79;
-  border-radius: 20px;
-  cursor: pointer;
-  font-size: 1rem;
-  transition: background-color 0.3s ease, color 0.3s ease;
-  text-decoration: none;
-  font-weight: bold;
-  text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.2);
-  
-}
-
-.request-button{
-  padding: 10px 20px;
-  background-color: #5c7b78;
-  color: #f8f8f8;
-  border: 2px solid #5c7b78;
-  border-radius: 20px;
-  cursor: pointer;
-  font-size: 1rem;
-  transition: background-color 0.3s ease, color 0.3s ease;
-  text-decoration: none;
-  font-weight: bold;
-}
-
-.request-button:hover {
-  background-color: #dcbf79;
-  color: #f8f8f8;
-}
-
-.service-button:hover {
-  background-color: #dcbf79;
-  color: #f8f8f8;
 }
 
 .service-h3{
@@ -263,8 +298,6 @@ body.transparent-navbar-page .button-group {
 .service-p:hover{
   text-decoration: underline;
 }
-
-
 
 .contractor-choice-button{
   height: 400px;
@@ -300,116 +333,14 @@ body.transparent-navbar-page .button-group {
   object-fit:fill;
   display: block;
 }
+/* End of Services */
 
 
 
 
-.our-process {
-  background-color: #f8f8f8;
-  width: 100%;
-  padding: 50px 20px;
-  color: #091268;
-}
-.process-p{
-  max-width: 40%;
-  padding-left: 5%;
-}
 
-.our-header {
-  font-size: 2.5rem;
-  color: #091268;
-  font-weight: 200;
-  padding-left: 5%;
-}
 
-.match {
-  width: 100%;
-  background-color: #5c7b78;
-  padding: 50px 20px;
-  color: #f8f8f8f8;
-}
-
-.match-header {
-  font-size: 2rem;
-  text-align: center;
-  color: #f8f8f8
-}
-
-.trust {
-  display: flex; /* Arrange items in a row */
-  align-items: center; /* Align all items to the same vertical height */
-  justify-content: space-between; /* Space between text and image */
-  gap: 20px; /* Space between text and image */
-  width: 100%;
-  height: 100%;
-  background-color: #ECF0FC ;
-  padding-bottom: 8%;
-  padding-top: 8%;
-  margin: 0;
-
-}
-
-.trust-content {
-  display: flex;
-  flex-direction: column; /* Stack header, paragraph, and button */
-/* Space between each element */
- /* Limit the width of the text content */
-
-}
-
-.trust-header {
-  font-size: 3.2rem;
-  color:  #091268;
-  padding-left: 10%;
-  font-weight: 200;
-  width: 80%;
-}
-
-.trust-p {
-  font-size: 1rem;
-  color: black;
-  padding-left: 10%;
-  font-weight: 900;
-  font-size: larger;
-  width: 50%;
-  
-}
-
-.trust-button {
-  padding: 15px 20px;
-  font-size: 1rem;
-  color: black;
-  background-color: transparent;
-  border: 1px black solid;
-  border-radius: 20px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-  width: 20%;
-  align-self: left;
-  text-decoration: none;
-  font-weight: normal;
-  margin-top: 3%;
-  margin-left: 10%;
-}
-
-.trust-button:hover {
-  transform: scale(1.04); /* Slight zoom effect */
-  text-decoration: underline;
-  text-decoration-color:  #091268;
-  text-decoration-thickness: 4px; /* Thicker underline */
-  text-underline-offset: 3px; 
-}
-
-.contractor_img {
-  width: 40%; /* Adjust image width */
-  height: auto; /* Maintain aspect ratio */
-  object-fit: contain; /* Ensure image fits within its container */
-  border-radius: 8px; /* Optional: rounded corners */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional: subtle shadow */
-  padding-right: 6%;
-}
-
-/* Overall Container */
+/* Beginning of our services */
 .we-offer {
   display: flex;
   flex-direction: column;
@@ -447,12 +378,12 @@ body.transparent-navbar-page .button-group {
   margin-right: 2%;
 }
 
-/* Individual Service Box */
+
 .service {
   text-align: center; /* Center-align content */
 }
 
-/* Circular Icon for Numbers */
+
 .service-icon {
   width: 60px;
   height: 60px;
@@ -480,3 +411,58 @@ body.transparent-navbar-page .button-group {
   line-height: 1.6; /* Increase line spacing for readability */
 
 }
+/* End of our services */
+
+
+
+
+
+
+
+
+/* Beginning of Process */
+.our-process {
+  background-color: #f8f8f8;
+  width: 100%;
+  padding: 50px 20px;
+  color: #091268;
+}
+.process-p{
+  max-width: 40%;
+  padding-left: 5%;
+}
+
+.our-header {
+  font-size: 2.5rem;
+  color: #091268;
+  font-weight: 200;
+  padding-left: 5%;
+}
+/* End of Process */
+
+
+
+
+
+
+
+
+/* Beginning of Match */
+.match {
+  width: 100%;
+  background-color: #1B3656;
+  padding: 50px 20px;
+  color: #f8f8f8f8;
+}
+
+.match-header {
+  font-size: 2.5rem;
+  text-align: center;
+  color: #f8f8f8;
+  font-weight: 200;
+  width: 30%;
+  margin: 0 auto;
+}
+
+
+

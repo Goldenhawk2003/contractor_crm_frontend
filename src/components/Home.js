@@ -202,14 +202,14 @@ const Home = () => {
       <div className='our-process'> 
         <h2 className='our-header'>Why Choose Us?</h2>
         <p className='process-p'>ECC is founded on the core principle of honest work by honest people. Our team is committed to sourcing dependable and high quality contractors for homeowners and businesses in the Durham Region. At ECC we do more than just connect people with services, we build lasting partnerships grounded in trust, mutual respect, and shared values.</p>
-        
       </div>
+
+
+
+
       <div className='match'>
         <h2 className='match-header'>Match With Our Professionals Today.</h2>
-   
-
-<div className="contractor-list">
-    <div key="1" className="contractor-card">
+        <div key="1" className="contractor-card">
         <Link to="/contractor/sample-id" className="contractor-link">
             <img
                 src=""
@@ -240,132 +240,9 @@ const Home = () => {
             <strong>Hourly Rate: $</strong>50
         </p>
     </div>
-    <div key="2" className="contractor-card">
-        <Link to="/contractor/sample-id" className="contractor-link">
-            <img
-                src=""
-                alt="Contractor Logo"
-                className="contractor-logo"
-            />
-            <p>
-                <strong>Username:</strong> Jane Smith
-            </p>
-        </Link>
-        <p>
-            <strong>Job Type:</strong> Plumber
-        </p>
-        <p>
-            <strong>Experience:</strong> 8 years
-        </p>
-        <p>
-            <strong>Rating:</strong> 
-            <span className="stars">⭐⭐⭐⭐⭐</span>
-        </p>
-        <p>
-            <strong>Description:</strong> Experienced plumber with excellent customer service skills.
-        </p>
-        <p>
-            <strong>Location:</strong> Ajax, ON
-        </p>
-        <p>
-            <strong>Hourly Rate: $</strong>60
-        </p>
-    </div>
-    <div key="2" className="contractor-card">
-        <Link to="/contractor/sample-id" className="contractor-link">
-            <img
-                src=""
-                alt="Contractor Logo"
-                className="contractor-logo"
-            />
-            <p>
-                <strong>Username:</strong> Jane Smith
-            </p>
-        </Link>
-        <p>
-            <strong>Job Type:</strong> Plumber
-        </p>
-        <p>
-            <strong>Experience:</strong> 8 years
-        </p>
-        <p>
-            <strong>Rating:</strong> 
-            <span className="stars">⭐⭐⭐⭐⭐</span>
-        </p>
-        <p>
-            <strong>Description:</strong> Experienced plumber with excellent customer service skills.
-        </p>
-        <p>
-            <strong>Location:</strong> Ajax, ON
-        </p>
-        <p>
-            <strong>Hourly Rate: $</strong>60
-        </p>
-    </div>
-    <div key="2" className="contractor-card">
-        <Link to="/contractor/sample-id" className="contractor-link">
-            <img
-                src=""
-                alt="Contractor Logo"
-                className="contractor-logo"
-            />
-            <p>
-                <strong>Username:</strong> Jane Smith
-            </p>
-        </Link>
-        <p>
-            <strong>Job Type:</strong> Plumber
-        </p>
-        <p>
-            <strong>Experience:</strong> 8 years
-        </p>
-        <p>
-            <strong>Rating:</strong> 
-            <span className="stars">⭐⭐⭐⭐⭐</span>
-        </p>
-        <p>
-            <strong>Description:</strong> Experienced plumber with excellent customer service skills.
-        </p>
-        <p>
-            <strong>Location:</strong> Ajax, ON
-        </p>
-        <p>
-            <strong>Hourly Rate: $</strong>60
-        </p>
-    </div>
-    <div key="2" className="contractor-card">
-        <Link to="/contractor/sample-id" className="contractor-link">
-            <img
-                src=""
-                alt="Contractor Logo"
-                className="contractor-logo"
-            />
-            <p>
-                <strong>Username:</strong> Jane Smith
-            </p>
-        </Link>
-        <p>
-            <strong>Job Type:</strong> Plumber
-        </p>
-        <p>
-            <strong>Experience:</strong> 8 years
-        </p>
-        <p>
-            <strong>Rating:</strong> 
-            <span className="stars">⭐⭐⭐⭐⭐</span>
-        </p>
-        <p>
-            <strong>Description:</strong> Experienced plumber with excellent customer service skills.
-        </p>
-        <p>
-            <strong>Location:</strong> Ajax, ON
-        </p>
-        <p>
-            <strong>Hourly Rate: $</strong>60
-        </p>
-    </div>
-    {/* Add more contractor cards here */}
-</div>
+   
+
+
       </div>
     </div>
   );
