@@ -9,8 +9,46 @@ const Home = () => {
   const [searchText, setSearchText] = useState('');
   const [filteredServices, setFilteredServices] = useState([]);
   const navigate = useNavigate();
+  const [contractors, setContractors] = useState([]); // State for contractors
   
+  useEffect(() => {
+    const fetchContractors = async () => {
+      try {
+        const response = await fetch('http://localhost:8000/api/contractors/', {
+          method: 'GET',
+          headers: { 'Content-Type': 'application/json' },
+        });
 
+        if (!response.ok) {
+          throw new Error('Failed to fetch contractors.');
+        }
+
+        const data = await response.json();
+        setContractors(data);
+      } catch (err) {
+        setError('Could not fetch contractors. Please try again later.');
+      }
+    };
+
+    fetchContractors();
+  }, []);
+
+  // Find the specific contractor (e.g., with ID 20)
+  const specificContractor = contractors.find((contractor) => contractor.id === 20);
+  const specificContractor2 = contractors.find((contractor) => contractor.id === 17);
+  const specificContractor3 = contractors.find((contractor) => contractor.id === 18);
+  const specificContractor4 = contractors.find((contractor) => contractor.id === 19);
+  const renderStars = (rating) => {
+    const stars = [];
+    for (let i = 0; i < 5; i++) {
+      stars.push(
+        <span key={i} className={i < rating ? 'star filled' : 'star'}>
+          ★
+        </span>
+      );
+    }
+    return stars;
+  };
   const services = [
     { id: 1, name: 'Plumbing' },
     { id: 2, name: 'Renovations' },
@@ -209,41 +247,139 @@ const Home = () => {
 
       <div className='match'>
         <h2 className='match-header'>Match With Our Professionals Today.</h2>
-        <div key="1" className="contractor-card">
-        <Link to="/contractor/sample-id" className="contractor-link">
-            <img
-                src=""
-                alt="Contractor Logo"
-                className="contractor-logo"
-            />
-            <p>
-                <strong>Username:</strong> John Doe
-            </p>
+        <ul className="contractor-list">
+    {specificContractor ? (
+      <li key={specificContractor.id} className="contractor-card">
+        <Link to={`/contractor/${specificContractor.id}`} className="contractor-link">
+          <img
+            src={specificContractor.logo || '/placeholder.png'}
+            alt={`${specificContractor.job_type || 'Contractor'} Logo`}
+            className="contractor-logo"
+          />
+          <p className="card-name">{specificContractor.username || 'John Doe'}</p>
+          <p className="card-rating">{renderStars(specificContractor.rating || 0)} </p>
+          <p className="contractor-job">{specificContractor.job_type || 'Contractor'}</p>
+          <p className="contractor-location">{specificContractor.location || 'Durham Region'}</p>
         </Link>
-        <p>
-            <strong>Job Type:</strong> Carpenter
-        </p>
-        <p>
-            <strong>Experience:</strong> 5 years
-        </p>
-        <p>
-            <strong>Rating:</strong> 
-            <span className="stars">⭐⭐⭐⭐☆</span>
-        </p>
-        <p>
-            <strong>Description:</strong> Skilled contractor with expertise in carpentry and home renovations.
-        </p>
-        <p>
-            <strong>Location:</strong> Durham Region
-        </p>
-        <p>
-            <strong>Hourly Rate: $</strong>50
-        </p>
-    </div>
-   
+      </li>
+    ) : (
+      <p>Contractor not found</p>
+    )}
 
+    {/* Add similar structure for specificContractor2, 3, and 4 */}
+    {/* Repeat the list item for all contractors */}{specificContractor2 ? (
+          <li key={specificContractor2.id} className="contractor-card">
+          <Link to={`/contractor/${specificContractor2.id}`} className="contractor-link">
+            <img
+              src={specificContractor2.logo || '/placeholder.png'}
+              alt={`${specificContractor2.job_type || 'Contractor'} Logo`}
+              className="contractor-logo"
+            />
+            <p className="card-name"> {specificContractor2.username || 'No username available'}</p>
+            <p className="card-rating">{renderStars(specificContractor2.rating || 0)}</p>
+            <p className="contractor-job">{specificContractor2.job_type || 'Contractor'}</p>
+            <p className="contractor-location">{specificContractor2.location || 'Durham Region'}</p>
+           
+          </Link>
+        </li>
+      ) : (
+        <p>Contractor not found</p>
+      )}
+      {specificContractor3 ? (
+<li key={specificContractor3.id} className="contractor-card">
+  <Link to={`/contractor/${specificContractor3.id}`} className="contractor-link">
+    <img
+      src={specificContractor3.logo || '/placeholder.png'}
+      alt={`${specificContractor3.job_type || 'Contractor'} Logo`}
+      className="contractor-logo"
+    />
+    <p className="card-name"> {specificContractor3.username || 'No username available'}</p>
+    <p className="card-rating">{renderStars(specificContractor3.rating || 0)}</p>
+            <p className="contractor-job">{specificContractor3.job_type || 'Contractor'}</p>
+            <p className="contractor-location">{specificContractor3.location || 'Durham Region'}</p>
+  </Link>
+</li>
+) : (
+<p>Contractor not found</p>
+)}
 
+{specificContractor4 ? (
+<li key={specificContractor4.id} className="contractor-card">
+  <Link to={`/contractor/${specificContractor4.id}`} className="contractor-link">
+    <img
+      src={specificContractor4.logo || '/placeholder.png'}
+      alt={`${specificContractor4.job_type || 'Contractor'} Logo`}
+      className="contractor-logo"
+    />
+    <p className="card-name">{specificContractor4.username || 'No username available'}</p>
+    <p className="card-rating">{renderStars(specificContractor4.rating || 0)}</p>
+            <p className="contractor-job">{specificContractor4.job_type || 'Contractor'}</p>
+            <p className="contractor-location">{specificContractor4.location || 'Durham Region'}</p>
+  </Link>
+</li>
+) : (
+<p>Contractor not found</p>
+)}
+  </ul>
       </div>
+
+
+
+
+     <div class="testimonials-section">
+
+  <div class="testimonials-header">
+    <h2>Hear it from our clients.</h2>
+  </div>
+
+
+  <div class="testimonials-container">
+    <div class="testimonial-card">
+      <p class="testimonial-text">"Dream Home Come True"</p>
+      <div class="testimonial-rating">
+        <div class="stars">★★★★★</div>
+        <p class="client-name">Jane Doe</p>
+      </div>
+    </div>
+    <div class="testimonial-card">
+      <p class="testimonial-text">"Amazing people with helpful solutions for my home!"</p>
+      <div class="testimonial-rating">
+        <div class="stars">★★★★★</div>
+        <p class="client-name">John Doe</p>
+      </div>
+    </div>
+    <div class="testimonial-card">
+      <p class="testimonial-text">"Reliable and Efficient!"</p>
+      <div class="testimonial-rating">
+        <div class="stars">★★★★★</div>
+        <p class="client-name">Alice Smith</p>
+      </div>
+    </div>
+    <div class="testimonial-card">
+      <p class="testimonial-text">"Beautiful Results"</p>
+      <div class="testimonial-rating">
+        <div class="stars">★★★★★</div>
+        <p class="client-name">Michael Brown</p>
+      </div>
+    </div>
+    <div class="testimonial-card">
+      <p class="testimonial-text">"I found my go-to contractor who is located in my town!"</p>
+      <div class="testimonial-rating">
+        <div class="stars">★★★★★</div>
+        <p class="client-name">Jane Doe</p>
+      </div>
+    </div>
+    <div class="testimonial-card">
+      <p class="testimonial-text">"Found my parents a contractor to help with their sink!"</p>
+      <div class="testimonial-rating">
+        <div class="stars">★★★★★</div>
+        <p class="client-name">Emma Watson</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
     </div>
   );
 };

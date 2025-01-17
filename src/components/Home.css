@@ -449,20 +449,347 @@ body.transparent-navbar-page .button-group {
 
 /* Beginning of Match */
 .match {
-  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch; /* Ensure children span the full width */
+  justify-content: flex-start;
   background-color: #1B3656;
-  padding: 50px 20px;
-  color: #f8f8f8f8;
+  text-align: center;
+  padding-left: 8%;
+
 }
 
 .match-header {
   font-size: 2.5rem;
-  text-align: center;
   color: #f8f8f8;
-  font-weight: 200;
-  width: 30%;
+  margin-bottom: 20px;
+  width: 35%;
   margin: 0 auto;
+  padding-top: 5%;
+  padding-bottom: 2%;
+}
+
+.contractor-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  padding-left: 10%;
+
+}
+
+.contractor-card {
+  background-color: #f8f8f8;
+  border-radius: 20px;
+  width: 200px;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  padding-left: 10%;
+}
+
+.contractor-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+.contractor-logo {
+  width: 100%;
+  height: 40vh;
+  object-fit:fill;
+  border-radius: 20px;
+
+}
+
+.card-name  {
+  font-size: 1.2rem !important;
+  font-weight: bold !important;
+  color: #091268 !important;
+  margin-bottom: 5px!important;
+  display: inline-block !important;
+}
+.card-rating{
+  font-size: 1rem !important;
+  color: #091268 !important;
+  margin-bottom: 5px !important;
+  display: inline-block !important;
+  padding-left: 5%;
+}
+
+
+.contractor-job {
+  font-size: 1rem !important;
+  color: #091268 !important;
+  margin-bottom: 5px !important;
+  display: inline !important;
+  padding-right: 20% ;
+}
+
+.contractor-location {
+  padding-left: 15%;
+  font-size: 0.9rem !important; 
+  color: #555555 !important;
+  display: inline !important;
+}
+/* End of Match */
+
+
+/* Beginning of Testimonials */
+.testimonials-section {
+  display: flex;
+  justify-content: flex-end; /* Align everything to the right */
+  align-items: flex-start; /* Align header and cards at the top */
+  gap: 20px; /* Add spacing between the header and the cards */
+  padding-top: 4%;
+  padding-bottom: 4%;
+}
+
+.testimonials-header {
+  /* Prevent header from shrinking */
+  text-align: left; /* Ensure text in the header stays left-aligned */
+  font-size: 2rem;
+  
+  color: #091268;
+  font-weight: 200; 
+  width: 40%;
+  padding-left: 5%;
+  padding-top: 10%;
+}
+
+.testimonials-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start; /* Align cards to the start within the container */
+  gap: 15px;
+  max-width: 1200px;
+  margin: 0; /* No margin to align to the right */
+}
+
+.testimonial-card {
+  background-color: #ECF0FC;
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  flex: 1 1 calc(33% - 30px); /* Adjust width for three items per row */
+  max-width: 200px;
+  min-width: 200px;
+  transition: transform 0.3s ease;
+}
+
+.testimonial-card:hover {
+  transform: scale(1.05);
+}
+
+.testimonial-text {
+  font-size: 1rem;
+  color: #091268;
+  font-weight: 200;
+  margin-bottom: 15px;
+}
+
+.testimonial-rating {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.stars {
+  font-size: 1.3rem;
+  color: #FFD700;
+  margin-bottom: 8px;
+}
+
+.client-name {
+  font-size: 0.9rem;
+  color: #091268;
 }
 
 
 
+
+
+
+@media (max-width: 768px) {
+  html, body {
+    font-size: 14px; /* Adjust base font size for smaller screens */
+  }
+
+  /* Hero Section */
+  .hero-section {
+    height: 70vh; /* Reduce height to fit smaller screens */
+    text-align: center; /* Center-align content for mobile */
+    padding: 10px; /* Add padding */
+  }
+
+  .Hero-header {
+    font-size: 2rem; /* Adjust font size for headers */
+    padding-left: 0; /* Remove left padding */
+  }
+
+  /* Trust Section */
+  .trust {
+    flex-direction: column; /* Stack content vertically */
+    align-items: center; /* Center-align all items */
+    padding: 20px; /* Add padding for spacing */
+  }
+
+  .trust-content {
+    align-items: center; /* Center-align text */
+    text-align: center; /* Ensure text aligns to the center */
+    width: 100%; /* Allow full width */
+  }
+
+  .trust-header {
+    font-size: 2rem; /* Reduce font size */
+    padding-left: 0; /* Remove padding */
+  }
+
+  .trust-p {
+    font-size: 1rem;
+    padding-left: 0;
+    width: 100%; /* Expand text width */
+  }
+
+  .trust-button {
+    width: auto; /* Allow button to resize */
+    margin-left: 0; /* Remove left margin */
+  }
+
+  .contractor_img {
+    width: 80%; /* Reduce image size for mobile */
+    margin: 20px 0; /* Add spacing around the image */
+  }
+
+  /* Services Section */
+  .services-section {
+    padding: 20px; /* Add padding */
+  }
+
+  .service-header {
+    font-size: 1.8rem; /* Adjust header size */
+    width: 100%; /* Full width for mobile */
+    padding: 0; /* Remove padding */
+  }
+
+  .search-bar-container {
+    flex-direction: column; /* Stack search bar and button vertically */
+    gap: 10px; /* Reduce gap size */
+    width: 100%;
+  }
+
+  .search-bar {
+    width: 90%; /* Limit the width */
+    margin: 0 auto; /* Center search bar */
+  }
+
+  .Contractor-choices {
+    flex-wrap: wrap; /* Allow wrapping */
+    gap: 10px; /* Reduce spacing */
+    width: 100%; /* Full width */
+    margin: 20px auto;
+  }
+
+  .Contractor-choices a {
+    width: calc(50% - 10px); /* Two items per row */
+    height: 200px; /* Adjust height */
+  }
+
+  /* Our Services Section */
+  .we-offer {
+    padding: 20px; /* Add padding */
+  }
+
+  .we-offer-header {
+    font-size: 2rem; /* Adjust header size */
+    margin: 0 0 20px 0; /* Adjust margin */
+    text-align: center; /* Center-align text */
+  }
+
+  .services-container {
+    grid-template-columns: repeat(2, 1fr); /* Two columns for mobile */
+    gap: 20px; /* Reduce gap size */
+    padding: 10px;
+  }
+
+  .service-title {
+    font-size: 1rem; /* Reduce font size */
+  }
+
+  .service-description {
+    font-size: 0.8rem; /* Adjust font size */
+  }
+
+  /* Match Section */
+  .match {
+    align-items: center; /* Center-align content */
+    padding: 20px; /* Add padding */
+  }
+
+  .match-header {
+    font-size: 2rem; /* Adjust font size */
+    margin: 20px 0; /* Adjust margin */
+  }
+
+  .contractor-list {
+    display: flex; /* Enable flexbox */
+    flex-wrap: wrap; /* Allow items to wrap onto the next row */
+    gap: 20px; /* Add spacing between items */
+    justify-content: space-between; /* Spread items evenly across the row */
+    padding: 0;
+    margin: 0 auto; /* Center-align the whole container */
+    width: 100%; /* Ensure it spans the full width */
+  }
+  
+  .contractor-card {
+    flex: 1 1 calc(30% - 20px); /* Make cards flexible and fit up to 3 per row */
+    max-width: 30%; /* Prevent cards from exceeding one-third of the row */
+    min-width: 250px; /* Ensure cards don't shrink below this size */
+    margin: 0; /* Remove default margins */
+    box-sizing: border-box; /* Include padding and borders in width calculation */
+    background-color: #f8f8f8; /* Optional: Add background color */
+  }
+
+  .contractor-logo {
+    height: 200px; /* Adjust image height */
+  }
+
+  .card-name, .card-rating, .contractor-job, .contractor-location {
+    font-size: 0.9rem; /* Adjust font sizes */
+  }
+
+  /* Testimonials Section */
+  .testimonials-section {
+    flex-direction: column; /* Stack header and cards */
+    align-items: center; /* Center-align content */
+    padding: 20px;
+  }
+
+  .testimonials-header {
+    font-size: 1.8rem; /* Adjust font size */
+    width: 100%; /* Full width */
+    text-align: center; /* Center-align header */
+    padding: 0;
+  }
+
+  .testimonials-container {
+    flex-direction: column; /* Stack testimonials vertically */
+    gap: 10px; /* Reduce spacing */
+    width: 100%; /* Full width */
+  }
+
+  .testimonial-card {
+    width: 90%; /* Expand card width */
+    margin: 0 auto; /* Center-align cards */
+  }
+
+  .testimonial-text {
+    font-size: 0.9rem; /* Adjust font size */
+  }
+
+  .client-name {
+    font-size: 0.8rem; /* Adjust font size */
+  }
+}
