@@ -109,6 +109,10 @@
 
 /* Responsive Design */
 @media (max-width: 768px) {
+
+  .sidebar{
+    width: 90%;
+  }
   .user-profile {
     flex-direction: column;
     align-items: stretch;

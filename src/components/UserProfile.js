@@ -38,6 +38,12 @@ const UserProfile = () => {
     const [newContractContent, setNewContractContent] = useState("");
     const navigate = useNavigate();
     const [isMobile, setIsMobile] = useState(false);
+    const [showFullContent, setShowFullContent] = useState(false);
+    const maxLength = 100; // Adjust to your desired length for truncation.
+
+    const toggleShowMore = () => {
+        setShowFullContent(!showFullContent);
+    };
 
 
     useEffect(() => {
@@ -193,7 +199,19 @@ const UserProfile = () => {
                                                  {receivedContracts.map((contract) => (
                                                      <li key={contract.id}>
                                                          <p><strong>Title:</strong> {contract.title}</p>
-                                                         <p><strong>Content:</strong> {contract.content}</p> {/* Added content here */}
+                                                         <div>
+            <p><strong>Content:</strong> 
+                {showFullContent
+                    ? contract.content
+                    : contract.content.slice(0, maxLength) +
+                      (contract.content.length > maxLength ? "..." : "")}
+            </p>
+            {contract.content.length > maxLength && (
+                <button onClick={toggleShowMore} className="show-more-button">
+                    {showFullContent ? "Show Less" : "Show More"}
+                </button>
+            )}
+        </div>
                                                          <p><strong>Status:</strong> {contract.is_signed ? "Signed" : "Pending"}</p>
                                                          <div className="button-container">
                                                          {!contract.is_signed && (

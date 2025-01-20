@@ -561,12 +561,12 @@ body.transparent-navbar-page .button-group {
 .testimonials-header {
   /* Prevent header from shrinking */
   text-align: left; /* Ensure text in the header stays left-aligned */
-  font-size: 3.2rem;
+  font-size: 3rem;
   color: #091268;
   font-weight: 800; 
   width: 25%;
   padding-top: 6%;
-  padding-right: 10%;
+  padding-right: 2%;
 
 }
 
@@ -575,7 +575,7 @@ body.transparent-navbar-page .button-group {
   flex-wrap: wrap;
   justify-content: flex-start; /* Align cards to the start within the container */
   gap: 15px;
-  max-width: 50%;
+  max-width: 60%;
   margin: 0;
   padding-right: 2%; /* No margin to align to the right */
 }
