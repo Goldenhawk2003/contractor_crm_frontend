@@ -9,36 +9,38 @@
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   text-align: center;
+
 }
 
 /* Contractor Logo */
 .profile-logo {
   margin-bottom: 20px;
+  align-self: center;
 }
 
 .profile-logo img {
-  width: 150px;
-  height: 150px;
-  object-fit: contain;
-  border-radius: 50%;
+  object-fit:contain;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 15vw;
+  height: 40vh;
+  align-self: center;
 }
 
 /* Contractor Details */
 .contractor-profile h2 {
   font-size: 2rem;
-  color: #5c7b78;
+  color: #091268;
   margin-bottom: 10px;
 }
 
 .contractor-profile p {
   font-size: 1rem;
-  color: #777;
+  color: #1B3656;
   margin: 5px 0;
 }
 
 .contractor-profile strong {
-  color: #5c7b78;
+  color: #091268;
 }
 
 /* Chat Button */
@@ -47,7 +49,7 @@
   padding: 10px 20px;
   font-size: 1rem;
   color: #ffffff;
-  background-color: #5c7b78;
+  background-color: #091268 ;
   border: none;
   border-radius: 8px;
   cursor: pointer;
@@ -55,7 +57,7 @@
 }
 
 .chat .submit-rating-btn:hover {
-  background-color: #4a6863;
+  background-color: #1B3656;
   transform: translateY(-2px);
 }
 
@@ -67,7 +69,7 @@
 
 .rating-section h3 {
   font-size: 1.5rem;
-  color: #5c7b78;
+  color: #091268;
   margin-bottom: 10px;
 }
 
@@ -98,7 +100,7 @@
   padding: 10px 20px;
   font-size: 1rem;
   color: #ffffff;
-  background-color: #5c7b78;
+  background-color: #091268;
   border: none;
   border-radius: 8px;
   cursor: pointer;
@@ -106,9 +108,11 @@
 }
 
 .rating-section .submit-rating-btn:hover {
-  background-color: #4a6863;
+  background-color: #1B3656;
   transform: translateY(-2px);
 }
+
+
 
 /* Success and Error Messages */
 .success-message,

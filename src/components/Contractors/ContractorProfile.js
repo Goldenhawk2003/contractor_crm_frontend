@@ -105,7 +105,7 @@ const ContractorProfile = () => {
           <img
             src={logoUrl}
             alt="Contractor Logo"
-            style={{ width: '150px', height: '150px', objectFit: 'contain', borderRadius: '50%' }}
+            
           />
         </div>
       )}
@@ -114,6 +114,7 @@ const ContractorProfile = () => {
       <p><strong>Job Type:</strong> {contractor.job_type}</p>
       <p><strong>Experience:</strong> {contractor.experience_years} years</p>
       <p><strong>Rating:</strong> {renderStars(contractor.rating)}</p>
+      <p ><strong className='hourly-rate'>Rate:</strong>{contractor.hourly_rate}</p>
       <p><strong>Description:</strong> {contractor.profile_description || "No description provided"}</p>
       <div className='chat'>
         <button onClick={handleChatNow} className="submit-rating-btn">Chat with {contractor.username} now</button>
