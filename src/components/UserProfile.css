@@ -107,6 +107,13 @@
   color: #777;
 }
 
+.show-more-button{
+  background-color: transparent;
+  border: none;
+}
+.show-more-button:hover{
+  text-decoration: underline;
+}
 /* Responsive Design */
 @media (max-width: 768px) {
 

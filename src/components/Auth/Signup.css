@@ -69,7 +69,19 @@ label {
   border-radius: 8px;
   background-color: #fff;
 }
-
+.sign-up-dropdown{
+  appearance: none; /* Remove default styles */
+  -webkit-appearance: none; /* Safari/Chrome */
+  -moz-appearance: none;
+  background-color: #f8f8f8 !important;
+  border-radius: 0;
+  border: 1px solid #ccc;
+  padding: 15px;
+  width: 100%;
+  font-size: 1rem;
+  margin-top: 2%;
+  margin-bottom: 2%;
+}
 
 
 /* Responsive Design */

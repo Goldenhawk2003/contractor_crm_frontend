@@ -200,18 +200,18 @@ const UserProfile = () => {
                                                      <li key={contract.id}>
                                                          <p><strong>Title:</strong> {contract.title}</p>
                                                          <div>
-            <p><strong>Content:</strong> 
-                {showFullContent
-                    ? contract.content
-                    : contract.content.slice(0, maxLength) +
-                      (contract.content.length > maxLength ? "..." : "")}
-            </p>
-            {contract.content.length > maxLength && (
-                <button onClick={toggleShowMore} className="show-more-button">
-                    {showFullContent ? "Show Less" : "Show More"}
-                </button>
-            )}
-        </div>
+                                                        <p><strong>Content:</strong> 
+                                                            {showFullContent
+                                                                ? contract.content
+                                                                : contract.content.slice(0, maxLength) +
+                                                                (contract.content.length > maxLength ? "..." : "")}
+                                                        </p>
+                                                        {contract.content.length > maxLength && (
+                                                            <button onClick={toggleShowMore} className="show-more-button">
+                                                                {showFullContent ? "Show Less" : "Show More"}
+                                                            </button>
+                                                        )}
+                                                    </div>
                                                          <p><strong>Status:</strong> {contract.is_signed ? "Signed" : "Pending"}</p>
                                                          <div className="button-container">
                                                          {!contract.is_signed && (
