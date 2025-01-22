@@ -87,7 +87,18 @@ const UserProfile = () => {
                 navigate("/Inbox3");
             }
         };
-  
+    
+        const EditProfile = () => {
+        if(userInfo.type === "client"){
+            navigate("/clients/edit/:id");
+
+        }else{
+            navigate("/contractors/edit/:id");
+        
+        
+        }
+    };
+
 
   const renderContent = () => {
     if (activeTab === "home") {
@@ -106,7 +117,9 @@ const UserProfile = () => {
               <p><strong>Email:</strong> {userInfo.email}</p>
               <p><strong>Type:</strong> {userInfo.type}</p>
               <p><strong>Location:</strong> {userInfo.location}</p>
+              <button className="submit-btn" onClick={EditProfile} >Edit Profile</button>
           </div>
+
       ) : (
           <p>Loading information...</p>
       )}
