@@ -26,7 +26,7 @@ const Browse = () => {
                 });
 
                 const maxRate = hourlyRateRange ? parseInt(hourlyRateRange.split('-')[1], 10) : null;
-
+                const minRate = hourlyRateRange ? parseInt(hourlyRateRange.split('-')[0], 10) : null;
                 const response = await fetch(
                     `http://localhost:8000/api/contractors/?${queryParams.toString()}`,
                     {
@@ -46,8 +46,10 @@ const Browse = () => {
                 console.log('Fetched contractors:', data);
 
                 // Apply hourly rate filter if a range is selected
-                if (maxRate !== null) {
-                    data = data.filter((contractor) => contractor.hourly_rate <= maxRate);
+                if (minRate != null && maxRate !== null) {
+                    
+                    data = data.filter((contractor) =>   minRate <= contractor.hourly_rate && contractor.hourly_rate <= maxRate);
+
                     console.log('Filtered contractors by hourly rate:', data);
                 }
 
