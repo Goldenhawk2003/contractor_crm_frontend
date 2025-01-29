@@ -76,6 +76,7 @@ const Layout = () => {
             <Link to="/Browse-contractors" className="nav-button"> Services</Link>
             <Link to="/contact" className="nav-button">Contact Us</Link>
             <Link to="/user-profile" className="nav-button">User Profile</Link>
+            <Link to="/upload" className="nav-button">Tutorials</Link>
            
             {!isAuthenticated ? (
               <Link to="/login" className="nav-button">Login</Link>
