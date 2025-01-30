@@ -1,7 +1,8 @@
 import React, { useState } from "react";
+import "./UploadTutorials.css"; // Import the CSS file
 
 const UploadTutorial = () => {
-     const [title, setTitle] = useState("");
+  const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [video, setVideo] = useState(null);
   const [thumbnail, setThumbnail] = useState(null);
@@ -19,8 +20,8 @@ const UploadTutorial = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!title || !description || !video || !thumbnail) {
-      setMessage("Please fill out all fields and upload both files.");
+    if (!title || !description || !video) {
+      setMessage("Please fill out all fields and upload the video.");
       return;
     }
 
@@ -28,7 +29,9 @@ const UploadTutorial = () => {
     formData.append("title", title);
     formData.append("description", description);
     formData.append("video", video);
-    formData.append("thumbnail", thumbnail);
+    if (thumbnail) {
+      formData.append("thumbnail", thumbnail);
+    }
 
     setUploading(true);
 
@@ -55,18 +58,22 @@ const UploadTutorial = () => {
   };
 
   return (
-    <div className="max-w-2xl mx-auto p-6 bg-white shadow-md rounded-lg">
-      <h2 className="text-2xl font-bold mb-4">Upload a Tutorial</h2>
+    <div className="upload-container">
+      <h2 className="upload-heading">Upload a Tutorial</h2>
 
-      {message && <p className="text-red-500">{message}</p>}
+      {message && (
+        <p className={`upload-message ${message.includes("failed") ? "error-message" : "success-message"}`}>
+          {message}
+        </p>
+      )}
 
-      <form onSubmit={handleSubmit} className="space-y-4">
+      <form onSubmit={handleSubmit} className="upload-form">
         {/* Title */}
         <div>
-          <label className="block font-semibold">Title</label>
+          <label className="upload-label">Title</label>
           <input
             type="text"
-            className="w-full p-2 border rounded"
+            className="upload-input"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             required
@@ -75,9 +82,9 @@ const UploadTutorial = () => {
 
         {/* Description */}
         <div>
-          <label className="block font-semibold">Description</label>
+          <label className="upload-label">Description</label>
           <textarea
-            className="w-full p-2 border rounded"
+            className="upload-textarea"
             rows="4"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
@@ -87,38 +94,34 @@ const UploadTutorial = () => {
 
         {/* Video Upload */}
         <div>
-          <label className="block font-semibold">Upload Video</label>
+          <label className="upload-label">Upload Video</label>
           <input
             type="file"
             accept="video/*"
+            className="upload-file"
             onChange={(e) => handleFileChange(e, "video")}
             required
           />
         </div>
 
-        {/* Thumbnail Upload */}
+        {/* Thumbnail Upload (Optional) */}
         <div>
-          <label className="block font-semibold">Upload Thumbnail</label>
+          <label className="upload-label">Upload Thumbnail (Optional)</label>
           <input
             type="file"
             accept="image/*"
+            className="upload-file"
             onChange={(e) => handleFileChange(e, "thumbnail")}
-            required
           />
         </div>
 
         {/* Submit Button */}
-        <button
-          type="submit"
-          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-          disabled={uploading}
-        >
+        <button type="submit" className="upload-button" disabled={uploading}>
           {uploading ? "Uploading..." : "Upload"}
         </button>
       </form>
     </div>
   );
 };
-
 
 export default UploadTutorial;

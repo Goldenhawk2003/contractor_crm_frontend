@@ -1,0 +1,117 @@
+/* Container */
+.upload-container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+  }
+  
+  /* Heading */
+  .upload-heading {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #1b3656; /* Dark Blue */
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  /* Form Styling */
+  .upload-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  /* Labels */
+  .upload-label {
+    font-weight: bold;
+    color: #333;
+  }
+  
+  /* Inputs & Textarea */
+  .upload-input,
+  .upload-textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .upload-input:focus,
+  .upload-textarea:focus {
+    border-color: #1b3656;
+    outline: none;
+    box-shadow: 0 0 5px rgba(27, 54, 86, 0.3);
+  }
+  
+  /* File Upload */
+  .upload-file {
+    border: 1px dashed #999;
+    padding: 10px;
+    text-align: center;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .upload-file:hover {
+    background-color: rgba(27, 54, 86, 0.1);
+  }
+  
+  /* Submit Button */
+  .upload-button {
+    background-color: #1b3656;
+    color: white;
+    padding: 10px;
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .upload-button:hover {
+    background-color: #152a43;
+  }
+  
+  /* Disabled Button */
+  .upload-button:disabled {
+    background-color: #999;
+    cursor: not-allowed;
+  }
+  
+  /* Error & Success Message */
+  .upload-message {
+    text-align: center;
+    font-size: 1rem;
+    font-weight: bold;
+    padding: 10px;
+  }
+  
+  .error-message {
+    color: red;
+  }
+  
+  .success-message {
+    color: green;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .upload-container {
+      width: 90%;
+    }
+  
+    .upload-heading {
+      font-size: 1.5rem;
+    }
+  
+    .upload-button {
+      font-size: 0.9rem;
+    }
+  }

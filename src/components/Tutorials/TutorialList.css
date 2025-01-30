@@ -1,0 +1,181 @@
+* Container Styling */
+.tutorial-container {
+  max-width: 1400px;
+  margin: 40px auto;
+  padding: 20px;
+  background-color: #f8f8f8;
+}
+
+/* Heading */
+.tutorial-heading {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #1b3656;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Pinterest-Style Grid */
+.tutorial-grid {
+  column-count: 4; /* Creates 4 columns */
+  column-gap: 20px;
+  padding: 0;
+}
+
+/* Tutorial Card */
+.tutorial-card {
+  display: inline-block;
+  width: 100%;
+  margin-bottom: 20px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.tutorial-card:hover {
+  transform: scale(1.03);
+}
+
+/* Taller Thumbnail (Vertical Style) */
+.tutorial-thumbnail {
+  width: 100%;
+  height: 600px; /* Increased height for vertical effect */
+  object-fit: cover; /* Ensures proper cropping */
+  border-radius: 10px;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.tutorial-thumbnail:hover {
+  opacity: 0.8;
+}
+
+/* Title */
+.tutorial-title {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #333;
+  padding: 10px;
+  text-align: center;
+}
+
+/* Responsive Grid */
+@media (max-width: 1200px) {
+  .tutorial-grid {
+    column-count: 3;
+  }
+}
+
+@media (max-width: 900px) {
+  .tutorial-grid {
+    column-count: 2;
+  }
+}
+
+@media (max-width: 600px) {
+  .tutorial-grid {
+    column-count: 1;
+  }
+}
+  
+  /* ----- TikTok-Style Video Modal ----- */
+  .video-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  /* Centered Video */
+  .video-content {
+    position: relative;
+    width: 350px;
+    height: 600px;
+    background: black;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  /* Video Player */
+  .video-player {
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    object-fit: cover;
+  }
+  
+  /* Right Sidebar (Likes & Views) */
+  .video-sidebar {
+    position: absolute;
+    right: 10px;
+    bottom: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+  }
+  
+  /* View Count */
+  .view-count {
+    color: white;
+    font-size: 1rem;
+    font-weight: bold;
+  }
+  
+  /* Like Button */
+  .icon-button {
+    background: white;
+    border: none;
+    padding: 10px;
+    font-size: 1.5rem;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: transform 0.2s;
+  }
+  
+  .icon-button:hover {
+    transform: scale(1.1);
+  }
+  
+  /* Close Button */
+  .close-button {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    background: rgba(255, 255, 255, 0.8);
+    border: none;
+    padding: 10px;
+    font-size: 1.5rem;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+  
+  /* Responsive Grid */
+  @media (max-width: 1200px) {
+    .tutorial-grid {
+      column-count: 3;
+    }
+  }
+  
+  @media (max-width: 900px) {
+    .tutorial-grid {
+      column-count: 2;
+    }
+  }
+  
+  @media (max-width: 600px) {
+    .tutorial-grid {
+      column-count: 1;
+    }
+  }
