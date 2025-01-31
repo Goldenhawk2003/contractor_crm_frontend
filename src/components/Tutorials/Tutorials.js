@@ -1,9 +1,34 @@
 import React, { useEffect, useState } from "react";
+import axios from "axios";
 import "./TutorialList.css"; // Import CSS file
 import { useNavigate } from 'react-router-dom';
 
 const BASE_URL = "http://localhost:8000"; // Django Backend URL
 
+const getCSRFToken = () => {
+  const name = "csrftoken";
+  const cookies = document.cookie.split(";");
+  for (let cookie of cookies) {
+    cookie = cookie.trim();
+    if (cookie.startsWith(`${name}=`)) {
+      return cookie.substring(name.length + 1);
+    }
+  }
+  console.error("CSRF token not found");
+  return null;
+};
+
+// Add CSRF token to Axios requests dynamically
+axios.interceptors.request.use(
+  (config) => {
+    const csrfToken = getCSRFToken();
+    if (csrfToken) {
+      config.headers["X-CSRFToken"] = csrfToken;
+    }
+    return config;
+  },
+  (error) => Promise.reject(error)
+);
 
 const TutorialList = () => {
     const Navigate = useNavigate();
@@ -14,17 +39,28 @@ const TutorialList = () => {
   const [likes, setLikes] = useState({}); // Track likes for each video
 
   useEffect(() => {
-    fetch(`${BASE_URL}/api/tutorials/`)
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("API Response:", data);
-        setTutorials(data);
+    axios
+      .get(`${BASE_URL}/api/tutorials/`)
+      .then((response) => {
+        setTutorials(response.data);
         setLoading(false);
-        const initialLikes = data.reduce((acc, tutorial) => {
-          acc[tutorial.id] = 0; // Placeholder for likes (default 0)
-          return acc;
-        }, {});
-        setLikes(initialLikes);
+  
+        // Fetch like counts for all tutorials
+        const fetchLikes = async () => {
+          let likesData = {};
+          for (let tutorial of response.data) {
+            try {
+              const likeResponse = await axios.get(`${BASE_URL}/api/tutorials/${tutorial.id}/like/`);
+              likesData[tutorial.id] = likeResponse.data.likes; // Store real like count
+            } catch (error) {
+              console.error("Error fetching like count:", error);
+              likesData[tutorial.id] = 0; // Default to 0 if error occurs
+            }
+          }
+          setLikes(likesData);
+        };
+  
+        fetchLikes(); // Call the function
       })
       .catch((error) => {
         setError(error.message);
@@ -33,32 +69,53 @@ const TutorialList = () => {
   }, []);
 
   // Handle like button
-  const handleLike = (id) => {
-    fetch(`http://localhost:8000/api/tutorials/${id}/like/`, {
-      method: "POST",
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        setLikes((prevLikes) => ({
-          ...prevLikes,
-          [id]: data.likes, // Update like count from API response
-        }));
-      })
-      .catch((error) => console.error("Error liking tutorial:", error));
+  const handleLike = async (id) => {
+    try {
+      const response = await axios.post(
+        `http://localhost:8000/api/tutorials/${id}/like/`,
+        {},
+        { withCredentials: true }
+      );
+  
+      setLikes((prevLikes) => ({
+        ...prevLikes,
+        [id]: response.data.likes, // Ensure it updates correctly
+      }));
+    } catch (error) {
+      console.error("Error liking tutorial:", error);
+    }
   };
 
-  const handleOpenVideo = (tutorial) => {
+  const handleOpenVideo = async (tutorial) => {
     setSelectedVideo(tutorial);
-    
+
+    setTimeout(() => {
+      const modal = document.querySelector(".video-modal");
+      if (modal) modal.scrollIntoView({ behavior: "smooth" });
+    }, 100);
+  
+    // Fetch the like count when the video is opened
+    try {
+      const response = await axios.get(`${BASE_URL}/api/tutorials/${tutorial.id}/like/`);
+      setLikes((prevLikes) => ({
+        ...prevLikes,
+        [tutorial.id]: response.data.likes,  // Set correct like count
+      }));
+    } catch (error) {
+      console.error("Error fetching like count:", error);
+    }
+  
     // Send view request when video is opened
-    fetch(`http://localhost:8000/api/tutorials/${tutorial.id}/view/`, {
-      method: "POST",
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("View recorded:", data.views);
-      })
-      .catch((error) => console.error("Error recording view:", error));
+    try {
+      const response = await axios.post(`${BASE_URL}/api/tutorials/${tutorial.id}/view/`);
+      setTutorials((prevTutorials) =>
+        prevTutorials.map((t) =>
+          t.id === tutorial.id ? { ...t, views: response.data.views } : t
+        )
+      );
+    } catch (error) {
+      console.error("Error recording view:", error);
+    }
   };
 
   const handleupload = async () => {
@@ -68,7 +125,9 @@ const TutorialList = () => {
   return (
 
     <div className="tutorial-container">
-        <button onClick={handleupload}>upload videos</button>
+      <div className="button-container">
+  <button className="upload-button-gate" onClick={handleupload}>Upload</button>
+</div>
       <h2 className="tutorial-heading">Tutorial Videos</h2>
 
       {loading && <p className="tutorial-message">Loading tutorials...</p>}
@@ -80,42 +139,54 @@ const TutorialList = () => {
 
       {/* Pinterest-Style Grid */}
       <div className="tutorial-grid">
-        {tutorials.map((tutorial) => (
-          <div key={tutorial.id} className="tutorial-card">
-            <img
-              src={tutorial.thumbnail}
-              alt="Tutorial Thumbnail"
-              className="tutorial-thumbnail"
-              onClick={() => setSelectedVideo(tutorial)}
-              onError={(e) => console.error("Image failed to load:", e.target.src)}
-            />
-            <h3 className="tutorial-title">{tutorial.title}</h3>
-          </div>
-        ))}
-      </div>
+  {tutorials.map((tutorial) => (
+    <div key={tutorial.id} className="tutorial-card">
+      <img
+        src={tutorial.thumbnail}
+        alt="Tutorial Thumbnail"
+        className="tutorial-thumbnail"
+        onClick={() => handleOpenVideo(tutorial)} // Call this instead of setSelectedVideo
+        onError={(e) => console.error("Image failed to load:", e.target.src)}
+      />
+      <h3 className="tutorial-title">{tutorial.title}</h3>
+    </div>
+  ))}
+</div>
 
-      {/* TikTok-Style Video Player (Modal) */}
-      {selectedVideo && (
-        <div className="video-modal">
-          <div className="video-content">
-            <video controls autoPlay className="video-player">
-              <source src={selectedVideo.video} type="video/mp4" />
-              Your browser does not support the video tag.
-            </video>
+{/* TikTok-Style Video Player (Modal) */}
+{selectedVideo && (
+  <div className="video-modal">
+    <div className="video-wrapper"> {/* Wraps video and sidebar */}
 
-            {/* Sidebar with Likes & Views */}
-            <div className="video-sidebar">
-              <p className="view-count">👀 {Math.floor(Math.random() * 1000)} views</p>
-              <button className="icon-button" onClick={() => handleLike(selectedVideo.id)}>
-                ❤️ {likes[selectedVideo.id]}
-              </button>
-            </div>
+      {/* Video Player */}
+      <video controls autoPlay className="video-player">
+        <source src={selectedVideo.video} type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
 
-            {/* Close Button */}
-            <button className="close-button" onClick={() => setSelectedVideo(null)}>✖</button>
-          </div>
+      {/* Sidebar: Likes, Views, Caption */}
+      <div className="video-sidebar">
+        
+
+        {/* Caption Box */}
+        <div className="video-info-box">
+          <h3 className="video-title">{selectedVideo.title}</h3>
+          <p className="video-description">{selectedVideo.description}</p>
+          {/* Like Button */}
+        <button className="icon-button" onClick={() => handleLike(selectedVideo.id)}>
+          ❤️ {likes[selectedVideo.id] !== undefined ? likes[selectedVideo.id] : "Loading..."}
+        </button>
+
+        {/* View Count */}
+        <p className="view-count">👀 {selectedVideo.views !== undefined ? selectedVideo.views : "Loading..."}</p>
         </div>
-      )}
+      </div>
+    </div>
+
+    {/* Close Button */}
+    <button className="close-button" onClick={() => setSelectedVideo(null)}>✖</button>
+  </div>
+)}
     </div>
   );
 };

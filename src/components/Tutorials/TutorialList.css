@@ -1,4 +1,4 @@
-* Container Styling */
+/* Container Styling */
 .tutorial-container {
   max-width: 1400px;
   margin: 40px auto;
@@ -39,6 +39,31 @@
   transform: scale(1.03);
 }
 
+.button-container {
+  display: flex;
+  justify-content: flex-end; /* Pushes button to the right */
+  width: 100%;
+}
+/* Upload Button */
+.upload-button-gate {
+  background-color: #1b3656;
+  color: white;
+  padding: 10px;
+  font-size: 1rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  margin-right: 10%;
+  margin-top: 5%;
+}
+
+/* Button Hover Effect */
+.upload-button-gate:hover {
+  background-color: #152a43;
+}
+  
 /* Taller Thumbnail (Vertical Style) */
 .tutorial-thumbnail {
   width: 100%;
@@ -61,121 +86,188 @@
   text-align: center;
 }
 
-/* Responsive Grid */
-@media (max-width: 1200px) {
-  .tutorial-grid {
-    column-count: 3;
-  }
+  
+/* Modal: Background Overlay */
+.video-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.9);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
 }
 
-@media (max-width: 900px) {
-  .tutorial-grid {
-    column-count: 2;
-  }
+/* Video & Sidebar Wrapper */
+.video-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 20px; /* Space between video and sidebar */
 }
 
-@media (max-width: 600px) {
-  .tutorial-grid {
-    column-count: 1;
-  }
+/* Video Player */
+.video-player {
+  width: 350px;  /* TikTok-like size */
+  height: 600px;
+  border-radius: 10px;
+  object-fit: cover;
+  background: black;
+}
+
+/* Sidebar: Likes, Views, Description */
+.video-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  align-items: center;
+  justify-content: center;
+  max-width: 250px;
+}
+
+/* Like & View Buttons */
+.icon-button, .view-count {
+  background: white;
+  border: none;
+  padding: 10px;
+  font-size: 1.5rem;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform 0.2s;
+  text-align: center;
+}
+
+/* Like Button */
+.icon-button {
+  color: red;
+}
+
+.icon-button:hover {
+  transform: scale(1.1);
+}
+
+/* View Count */
+.view-count {
+  color: black;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+/* Caption Box */
+.video-info-box {
+  background: rgba(255, 255, 255, 0.15); /* Semi-transparent box */
+  padding: 15px;
+  border-radius: 10px;
+  text-align: center;
+  color: white;
+  width: 100%;
+  height: 60vh;
+}
+
+/* Video Title */
+.video-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+/* Video Description */
+.video-description {
+  font-size: 1rem;
+  line-height: 1.4;
+  margin-bottom: 50%;
+}
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  background: rgba(255, 255, 255, 0.8);
+  border: none;
+  padding: 10px;
+  font-size: 1.5rem;
+  border-radius: 50%;
+  cursor: pointer;
 }
   
-  /* ----- TikTok-Style Video Modal ----- */
-  .video-modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.9);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
+
+/* Adjust container padding & size for smaller screens */
+@media (max-width: 768px) {
+  .tutorial-container {
+    padding: 10px;
   }
-  
-  /* Centered Video */
-  .video-content {
-    position: relative;
-    width: 350px;
-    height: 600px;
-    background: black;
-    border-radius: 10px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+
+  /* Reduce grid columns for smaller screens */
+  .tutorial-grid {
+    column-count: 2; /* 2 columns for tablets */
   }
-  
-  /* Video Player */
-  .video-player {
-    width: 100%;
-    height: 100%;
-    border-radius: 10px;
-    object-fit: cover;
+
+  /* Reduce thumbnail height for better fit */
+  .tutorial-thumbnail {
+    height: 400px; /* Shorter thumbnails */
   }
-  
-  /* Right Sidebar (Likes & Views) */
-  .video-sidebar {
-    position: absolute;
-    right: 10px;
-    bottom: 50px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 15px;
-  }
-  
-  /* View Count */
-  .view-count {
-    color: white;
+
+  /* Make title smaller */
+  .tutorial-title {
     font-size: 1rem;
-    font-weight: bold;
+    padding: 5px;
   }
-  
-  /* Like Button */
-  .icon-button {
-    background: white;
-    border: none;
-    padding: 10px;
-    font-size: 1.5rem;
-    border-radius: 50%;
-    cursor: pointer;
-    transition: transform 0.2s;
+
+  /* Center the upload button */
+  .button-container {
+    justify-content: center; 
   }
-  
-  .icon-button:hover {
-    transform: scale(1.1);
+
+  .upload-button-gate {
+    width: 100%; /* Full width on mobile */
+    margin: 10px 0;
+    font-size: 0.9rem;
+    padding: 8px;
   }
-  
-  /* Close Button */
-  .close-button {
-    position: absolute;
-    top: 10px;
-    right: 15px;
-    background: rgba(255, 255, 255, 0.8);
-    border: none;
-    padding: 10px;
-    font-size: 1.5rem;
-    border-radius: 50%;
-    cursor: pointer;
+
+  /* Video Modal: Adjust for Mobile */
+ /* Video Modal: Keep Scrolling View */
+ .video-modal {
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+
+}
+
+/* Reduce Video Size for Mobile */
+.video-player {
+  width: 80vw;
+  height: 80vh;
+  border-radius: 10px;
+}
+
+/* Fix Sidebar Layout */
+.video-wrapper {
+  display: flex;
+ /* Stack video & sidebar */
+  align-items: center;
+  width: 100%;
+}
+
+.video-sidebar {
+  flex-direction: row; /* Place items in a row */
+  justify-content: space-around;
+  width: 100%;
+}
+
+/* Caption Box Adjustments */
+.video-info-box {
+  width: 90%;
+  text-align: center;
+}
+
+  .video-title {
+    font-size: 1rem;
   }
-  
-  /* Responsive Grid */
-  @media (max-width: 1200px) {
-    .tutorial-grid {
-      column-count: 3;
-    }
+
+  .video-description {
+    font-size: 0.9rem;
   }
-  
-  @media (max-width: 900px) {
-    .tutorial-grid {
-      column-count: 2;
-    }
-  }
-  
-  @media (max-width: 600px) {
-    .tutorial-grid {
-      column-count: 1;
-    }
-  }
+}
+
