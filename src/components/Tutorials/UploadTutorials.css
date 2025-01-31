@@ -91,6 +91,7 @@
     font-size: 1rem;
     font-weight: bold;
     padding: 10px;
+    
   }
   
   .error-message {
@@ -114,4 +115,15 @@
     .upload-button {
       font-size: 0.9rem;
     }
+  }
+
+
+  .error-border {
+    border: 2px solid red !important;
+  }
+  
+  .error-message {
+    color: red;
+    font-size: 0.9rem;
+    margin-top: 5px;
   }

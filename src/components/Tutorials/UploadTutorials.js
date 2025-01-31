@@ -20,10 +20,27 @@ const UploadTutorial = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+
+    if (
+      description.includes("@") || 
+      description.includes("gmail") || 
+      description.includes("yahoo") || 
+      description.includes("hotmail")
+    ) {
+      setMessage("Sharing email addresses is not allowed.");
+      return; // Stop form submission
+    }
+    const phoneRegex = /\b\d{7,}\b|(\d{3}[-.\s]?\d{3}[-.\s]?\d{4})/g;
+  if (phoneRegex.test(description)) {
+    setMessage("Sharing phone numbers is not allowed.");
+    return; // Stop form submission
+  }
+
     if (!title || !description || !video) {
       setMessage("Please fill out all fields and upload the video.");
       return;
     }
+
 
     const formData = new FormData();
     formData.append("title", title);
@@ -82,13 +99,21 @@ const UploadTutorial = () => {
 
         {/* Description */}
         <div>
-          <label className="upload-label">Description</label>
+          <label className="upload-label">Caption</label>
           <textarea
-            className="upload-textarea"
-            rows="4"
+           className={`upload-textarea ${
+            description.includes("@") || 
+            description.includes("gmail") || 
+            description.includes("yahoo") || 
+            description.includes("hotmail")
+              ? "error-border"
+              : ""
+          }`}
+            rows="2"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             required
+            maxLength={100}
           />
         </div>
 
