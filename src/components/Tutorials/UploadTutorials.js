@@ -4,75 +4,63 @@ import "./UploadTutorials.css"; // Import the CSS file
 const UploadTutorial = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [video, setVideo] = useState(null);
+  const [file, setFile] = useState(null);  // Unified state for image/video
   const [thumbnail, setThumbnail] = useState(null);
   const [uploading, setUploading] = useState(false);
   const [message, setMessage] = useState("");
 
-  const handleFileChange = (e, type) => {
-    if (type === "video") {
-      setVideo(e.target.files[0]);
-    } else if (type === "thumbnail") {
-      setThumbnail(e.target.files[0]);
-    }
+  const handleFileChange = (e) => {
+    setFile(e.target.files[0]); // Allow either image or video
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-
-    if (
-      description.includes("@") || 
-      description.includes("gmail") || 
-      description.includes("yahoo") || 
-      description.includes("hotmail")
-    ) {
-      setMessage("Sharing email addresses is not allowed.");
-      return; // Stop form submission
-    }
-    const phoneRegex = /\b\d{7,}\b|(\d{3}[-.\s]?\d{3}[-.\s]?\d{4})/g;
-  if (phoneRegex.test(description)) {
-    setMessage("Sharing phone numbers is not allowed.");
-    return; // Stop form submission
-  }
-
-    if (!title || !description || !video) {
-      setMessage("Please fill out all fields and upload the video.");
+    if (!title || !description || !file) {
+      setMessage("Please fill out all fields and upload an image or video.");
       return;
     }
-
 
     const formData = new FormData();
     formData.append("title", title);
     formData.append("description", description);
-    formData.append("video", video);
+    formData.append("video", file);
     if (thumbnail) {
-      formData.append("thumbnail", thumbnail);
+        formData.append("thumbnail", thumbnail);
+    }
+
+    console.log("Form Data:");
+    for (let [key, value] of formData.entries()) {
+        console.log(key, value);
     }
 
     setUploading(true);
 
     try {
-      const response = await fetch("http://localhost:8000/api/tutorials/", {
-        method: "POST",
-        body: formData,
-      });
+        const response = await fetch("http://localhost:8000/api/tutorials/", {
+            method: "POST",
+            body: formData,
+        });
 
-      if (response.ok) {
-        setMessage("Tutorial uploaded successfully!");
-        setTitle("");
-        setDescription("");
-        setVideo(null);
-        setThumbnail(null);
-      } else {
-        setMessage("Upload failed. Please try again.");
-      }
+        const responseData = await response.json();
+        console.log("Server Response:", responseData);
+
+        if (response.ok) {
+            setMessage("Tutorial uploaded successfully!");
+            setTitle("");
+            setDescription("");
+            setFile(null);
+            setThumbnail(null);
+        } else {
+            setMessage("Upload failed. Please try again.");
+        }
     } catch (error) {
-      setMessage("An error occurred. Please try again.");
+        console.error("Upload Error:", error);
+        setMessage("An error occurred. Please try again.");
     }
 
     setUploading(false);
-  };
+};
 
   return (
     <div className="upload-container">
@@ -101,14 +89,7 @@ const UploadTutorial = () => {
         <div>
           <label className="upload-label">Caption</label>
           <textarea
-           className={`upload-textarea ${
-            description.includes("@") || 
-            description.includes("gmail") || 
-            description.includes("yahoo") || 
-            description.includes("hotmail")
-              ? "error-border"
-              : ""
-          }`}
+            className={`upload-textarea ${description.includes("@") || /gmail|yahoo|hotmail/.test(description) ? "error-border" : ""}`}
             rows="2"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
@@ -117,14 +98,14 @@ const UploadTutorial = () => {
           />
         </div>
 
-        {/* Video Upload */}
+        {/* File Upload (Accepts Both Video & Image) */}
         <div>
-          <label className="upload-label">Upload Video</label>
+          <label className="upload-label">Upload Video or Image</label>
           <input
             type="file"
-            accept="video/*"
+            accept="video/*, image/*"  // ✅ Correct format
             className="upload-file"
-            onChange={(e) => handleFileChange(e, "video")}
+            onChange={handleFileChange}
             required
           />
         </div>
@@ -136,7 +117,7 @@ const UploadTutorial = () => {
             type="file"
             accept="image/*"
             className="upload-file"
-            onChange={(e) => handleFileChange(e, "thumbnail")}
+            onChange={(e) => setThumbnail(e.target.files[0])}
           />
         </div>
 
