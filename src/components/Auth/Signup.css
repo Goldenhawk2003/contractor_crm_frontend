@@ -102,3 +102,50 @@ label {
       font-size: 0.9rem;
   }
 }
+
+
+/* Style the select dropdown */
+.jobtype {
+  appearance: none; /* Remove default styles */
+  -webkit-appearance: none;
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  background-color: white;
+  cursor: pointer;
+}
+
+/* Style the dropdown options */
+.joptype option {
+  appearance: none; /* Remove default styles */
+  -webkit-appearance: none;
+  font-size: 16px;
+  padding: 10px;
+  cursor: pointer;
+}
+
+/* Highlight selected dropdown */
+.jobtype:focus {
+  appearance: none; /* Remove default styles */
+  -webkit-appearance: none;
+  border-color: #5c7b78; /* Use your green color */
+  outline: none;
+}
+
+/* Add transition for a smooth hover effect */
+.jobetype:hover {
+  appearance: none; /* Remove default styles */
+  -webkit-appearance: none;
+  border-color: #dcbf79; /* Gold color */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .jobtype {
+    font-size: 14px;
+    padding: 8px;
+  }
+}

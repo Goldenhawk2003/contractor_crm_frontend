@@ -195,15 +195,26 @@ function Signup() {
       
       {formData.role === 'professional' && (
         <>
-          <input
-            type="text"
-            name="job_type"
-            value={formData.job_type}
-            onChange={handleChange}
-            placeholder="Job Type (e.g., Plumber, Renovator)"
-            required
-            className='inp'
-          />
+          <select
+      name="job_type"
+      value={formData.job_type}
+      onChange={handleChange}
+      required
+      className="jobtype"
+    >
+      <option value="" disabled>Select Profession</option>
+      <option value="Plumbing">Plumber</option>
+      <option value="Electrical">Electrician</option>
+      <option value="Carpentery">Carpenter</option>
+      <option value="Renovation">Renovator</option>
+      <option value="Painting">Painter</option>
+      <option value="Landscaper">Landscaper</option>
+      <option value="Mechanic">Mechanic</option>
+      <option value="Welder">Welder</option>
+      <option value="Mason">Mason</option>
+      <option value="HVAC Technician">HVAC Technician</option>
+      <option vlaue="Snow Removal">Snow Removal</option>
+    </select>
           <input
             type="number"
             name="hourly_rate"
