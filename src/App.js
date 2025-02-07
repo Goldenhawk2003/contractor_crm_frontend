@@ -29,6 +29,9 @@ import Chat from './components/chat/Inbox2.js';
 import Chat1 from './components/chat/Inbox3.js';
 import TutorialList from './components/Tutorials/Tutorials.js';
 import UploadTutorial from './components/Tutorials/UploadTutorials.js';
+import BlogList from './components/Blogs/BlogList';
+import BlogDetail from './components/Blogs/BlogDetail';
+import UploadBlog from './components/Blogs/UploadBlog.js';
 
 function useCsrfToken() {
   useEffect(() => {
@@ -77,7 +80,11 @@ function App() {
             <Route path="/Inbox2" element={<Chat />} />
             <Route path="/Inbox3" element={<Chat1 />} />
 
-          
+           
+            <Route path="/blogs" element={<BlogList />} />
+            <Route path="/blogs/:pk" element={<BlogDetail />} />
+            <Route path="/upload-blog" element={<UploadBlog />} />
+
             
             
             {/* Client-related routes */}

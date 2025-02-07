@@ -98,6 +98,9 @@ const Home = () => {
   const BrowseButton = () => {
     navigate('/Browse-Contractors');
   }
+  const blogButton = () => {
+    navigate('/Blogs');
+  }
   useEffect(() => {
     // Add a class to the body for this specific page
     document.body.classList.add("specific-page");
@@ -132,6 +135,7 @@ const Home = () => {
     <button type="submit" className="trust-button" onClick={quizButton}>
       How-To Guide
     </button>
+    <button type="submit" className="trust-button" onClick={blogButton}> Blogs </button>
   </div>
   <img src="/images/home-page/Mission-block-image.png" alt="Happy Contractors" className="contractor_img" />
 </div>

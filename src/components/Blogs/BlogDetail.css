@@ -1,0 +1,90 @@
+/* Blog Detail Container */
+.blog-detail-container {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+    border-radius: 8px;
+    background: #f8f8f8;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Blog Title */
+  .blog-title {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 10px;
+  }
+  
+  /* Author */
+  .blog-author {
+    font-style: italic;
+    color: #777;
+    margin-bottom: 20px;
+  }
+  
+  /* Blog Image */
+  .blog-image {
+    width: 100%;
+    max-height: 400px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 20px;
+  }
+  
+  .no-image {
+    font-style: italic;
+    color: #999;
+  }
+  
+  /* Blog Content */
+  .blog-content {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    color: #444;
+  }
+  
+  /* Comments Section */
+  .comments-section {
+    margin-top: 30px;
+  }
+  
+  /* Comment List */
+  .comment-list {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .comment-item {
+    background: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+  }
+  
+  /* Comment Form */
+  .comment-form {
+    margin-top: 20px;
+  }
+  
+  .comment-form textarea {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+  }
+  
+  .comment-form button {
+    margin-top: 10px;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  
+  .comment-form button:hover {
+    background-color: #0056b3;
+  }
