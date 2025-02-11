@@ -1,4 +1,6 @@
 /* Container Styling */
+
+
 .tutorial-container {
   max-width: 1400px;
   margin: 40px auto;
@@ -9,12 +11,25 @@
 /* Heading */
 .tutorial-heading {
   font-size: 2rem;
-  font-weight: bold;
-  color: #1b3656;
+  font-weight: 200;
+  color: black;
   text-align: center;
-  margin-bottom: 20px;
-}
 
+  
+}
+.tutorial-intro-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  text-align: center;
+  margin: 0 auto;
+  padding: 0;
+}
+.tutorial-intro{
+ font-size: 1.2rem;
+ font-weight: 900;
+}
 /* Pinterest-Style Grid */
 .tutorial-grid {
   column-count: 4; /* Creates 4 columns */

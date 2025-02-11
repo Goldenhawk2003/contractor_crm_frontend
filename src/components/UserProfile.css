@@ -177,7 +177,28 @@
   transform: translateY(-2px); /* Subtle lift */
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
 }
+.profile-description{
+  float: left;
+  width: 40%;
+}
+.profile-description p{
 
+    margin-left: 30%;
+    font-size: 16px;
+
+
+}
+.profile-blue{
+  background-color: #091268;
+  color: #f8f8f8;
+  text-align: center;
+  border-radius: 25px;
+
+  width: 10%;
+  padding: 6%;
+  display: inline;
+  margin-right: 5%;
+}
 /* Search Results Styling */
 .search-results {
   margin-top: 15px;
@@ -264,6 +285,7 @@ textarea.user-input {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
   font-size: 1rem;
   color: #1B3656; /* Dark Blue */
+  height: 100vh;
 }
 /* Profile Section */
 .profile-content {
@@ -284,7 +306,17 @@ textarea.user-input {
   border-radius: 12px;
   z-index: -1;
 }
-
+.profile-container{
+  float: left;
+  margin-left: 2%;
+  margin-top: 2%;
+}
+.profile-username{
+  font-size: 35px;
+  font-weight: bold;
+  color: #1b3656;
+  margin-top: 10px;
+}
 /* Profile Image */
 .profile-image {
   width: 120px;
@@ -295,6 +327,7 @@ textarea.user-input {
   z-index: 1;
   position: absolute;
   top: 300px;
+  left: 320px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
@@ -303,6 +336,7 @@ textarea.user-input {
   margin-top: 10%;
   align-items: right;
   gap: 15px;
+  float: left;
 }
 
 .user-info h2 {

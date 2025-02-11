@@ -115,6 +115,10 @@ const TutorialList = () => {
 
   return (
     <div className="tutorial-container">
+      <h1 className="tutorial-heading">Get Inspired</h1>
+      <div className="tutorial-intro-container">
+      <p className="tutorial-intro">Check our Elite Contractor's work from the community </p>
+      </div>
       <div className="button-container">
         <button className="upload-button-gate" onClick={handleUpload}>Upload</button>
       </div>

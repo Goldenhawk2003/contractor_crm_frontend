@@ -49,6 +49,8 @@ const UserProfile = () => {
     const [message, setMessage] = useState("");
     const [loadingConversations, setLoadingConversations] = useState(true);
     const [loadingMessages, setLoadingMessages] = useState(false);
+    const [rating, setRating] = useState(0); // Track user rating input
+    const [hoveredRating, setHoveredRating] = useState(0); 
 
     const [sending, setSending] = useState(false);
   
@@ -91,6 +93,25 @@ const UserProfile = () => {
         fetchMessages();
       }
     }, [selectedConversationId]);
+
+
+    const renderStars = (ratingValue) => {
+      const stars = [];
+      for (let i = 1; i <= 5; i++) {
+        stars.push(
+          <span
+            key={i}
+            className={`star ${i <= (hoveredRating || ratingValue) ? "filled" : ""}`}
+            onClick={() => setRating(i)}
+            onMouseEnter={() => setHoveredRating(i)}
+            onMouseLeave={() => setHoveredRating(0)}
+          >
+            ★
+          </span>
+        );
+      }
+      return stars;
+    };
   
     const handleReply = async () => {
       if (!message.trim()) {
@@ -141,6 +162,8 @@ const UserProfile = () => {
     const toggleShowMore = () => {
         setShowFullContent(!showFullContent);
     };
+
+
 
 
     useEffect(() => {
@@ -211,12 +234,22 @@ const UserProfile = () => {
         />
       )}
             <div className="profile-info">
-              <p><strong>Username:</strong> {userInfo.username}</p>
-              <p><strong>Email:</strong> {userInfo.email}</p>
-              <p><strong>Type:</strong> {userInfo.type}</p>
-              <p><strong>Location:</strong> {userInfo.location}</p>
+            
               <button className="submit-btn" onClick={EditProfile} >Edit Profile</button>
               </div>
+              <div className="profile-container">
+              <p className="profile-username">{userInfo.username}</p>
+              {userInfo.type === "professional" && (
+                <>
+              <p className="profile-blue">{userInfo.type}</p>
+              <p className="profile-blue">{userInfo.location}</p>
+              <p>{renderStars(userInfo.rating)}</p>
+              </>
+    )}
+              </div>
+              <div className="profile-description">
+                <p>{userInfo.description}</p>
+                </div>
           </div>
 
       ) : (
@@ -377,7 +410,9 @@ const UserProfile = () => {
                       }`}
                       onClick={() => setSelectedConversationId(conversation.id)}
                     >
-                      <strong>{conversation.participants.join(", ")}</strong>
+                      {userInfo.type === "professional" ? (
+                      <strong>{conversation.participants[0]}</strong>
+                      ) : <strong>{conversation.participants[1]}</strong>}
                       <p>{conversation.latest_message || "No messages yet."}</p>
                     </li>
                   ))}
