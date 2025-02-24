@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./TutorialList.css"; // Import CSS file
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import Fuse from 'fuse.js';
 
 const BASE_URL = "http://localhost:8000"; // Django Backend URL
 
@@ -31,6 +32,9 @@ axios.interceptors.request.use(
 );
 
 const TutorialList = () => {
+  const [searchText, setSearchText] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
+  const [filteredServices, setFilteredServices] = useState([]);
   const Navigate = useNavigate();
   const [tutorials, setTutorials] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -38,6 +42,8 @@ const TutorialList = () => {
   const [selectedTutorial, setSelectedTutorial] = useState(null); // Track selected tutorial (image/video)
   const [likes, setLikes] = useState({}); // Track likes for each tutorial
   const [isImage, setIsImage] = useState(false); // Track if selected item is an image
+  const [selectedTag, setSelectedTag] = useState("All");
+  const location = useLocation();
 
   useEffect(() => {
     axios
@@ -86,32 +92,86 @@ const TutorialList = () => {
       console.error("Error liking tutorial:", error);
     }
   };
+  const services = [
+    "All",
+  "Interior",
+  "Renovation",
+  "Washroom",
+  "Roofing",
+  "Tiles",
+  "Woodwork",
+  ];
+  const fuse = new Fuse(tutorials, {
+    keys: ["title", "description", "contractor"],
+    threshold: 0.3, // Allows some mistakes in the search
+  });
 
-  const handleOpenTutorial = async (tutorial) => {
-    setSelectedTutorial(tutorial);
-
-    // Check if file is an image
-    const isImageFile = tutorial.video.match(/\.(jpeg|jpg|png|gif)$/i);
-    setIsImage(!!isImageFile);
-
-    if (!isImageFile) {
-      // Send view request when video is opened
-      try {
-        const response = await axios.post(`${BASE_URL}/api/tutorials/${tutorial.id}/view/`);
-        setTutorials((prevTutorials) =>
-          prevTutorials.map((t) =>
-            t.id === tutorial.id ? { ...t, views: response.data.views } : t
-          )
-        );
-      } catch (error) {
-        console.error("Error recording view:", error);
-      }
-    }
-  };
+const handleOpenTutorial = (tutorial) => {
+  Navigate("/video-player", {
+    state: {
+      videoUrl: tutorial.video,
+      title: tutorial.title,
+      description: tutorial.description,
+      contractor: tutorial.contractor,
+      videoId: tutorial.id, // ✅ Ensure this is passed
+    },
+  });
+};
 
   const handleUpload = () => {
     Navigate("/upload");
   };
+  const handleSearch = (event) => {
+    const value = event.target.value;
+    setSearchText(value);
+
+    if (value.length > 1) {
+      const results = fuse.search(value);
+      setSearchResults(results.map((result) => result.item)); // Extract actual items
+    } else {
+      setSearchResults([]);
+    }
+  };
+  const handleSelectResult = (tutorial) => {
+    Navigate("/video-player", {
+      state: {
+        videoUrl: tutorial.video,
+        title: tutorial.title,
+        description: tutorial.description,
+        contractor: tutorial.contractor,
+        videoId: tutorial.id,
+      },
+    });
+    setSearchText(""); // Clear search text after selection
+    setSearchResults([]); // Hide suggestions
+  };
+  const handleKeyDown = (event) => {
+    if (event.key === 'Enter' && searchText.trim()) {
+      Navigate('/find-contractor', { state: { query: searchText.trim() } });
+    }
+  };
+
+  useEffect(() => {
+    if (location.state?.selectedTag) {
+      setSelectedTag(location.state.selectedTag);
+    }
+  }, [location.state]); 
+
+  const handleSearchButtonClick = () => {
+    if (searchText.trim()) {
+      Navigate('/find-contractor', { state: { query: searchText.trim() } });
+    }
+  };
+  const handleServiceClick = (service) => {
+    setSelectedTag(service); // Update state
+    Navigate("/tutorials", { replace: true, state: { selectedTag: service } }); // Keep state when navigating
+  };
+
+
+  const filteredTutorials = selectedTag === "All"
+  ? tutorials
+  : tutorials.filter(tutorial => tutorial.tags.includes(selectedTag));
+
 
   return (
     <div className="tutorial-container">
@@ -119,10 +179,64 @@ const TutorialList = () => {
       <div className="tutorial-intro-container">
       <p className="tutorial-intro">Check our Elite Contractor's work from the community </p>
       </div>
+      <div className="search-bar-container">
+        <input
+          type="text"
+          className="search-bar"
+          placeholder="Search tutorials..."
+          value={searchText}
+          onChange={handleSearch}
+        />
+        <button
+          className="search-button"
+          onClick={() => searchText && handleSelectResult(searchResults[0])}
+          aria-label="Search"
+          disabled={!searchText.trim()}
+        >
+          <i className="fas fa-search search-icon"></i>
+        </button>
+
+        {/* Search Autocomplete Results */}
+        {searchResults.length > 0 && (
+          <div className="search-dropdown">
+            {searchResults.map((tutorial) => (
+              <div
+                key={tutorial.id}
+                className="search-result-item"
+                onClick={() => handleSelectResult(tutorial)}
+              >
+                <img
+                  src={tutorial.thumbnail || "https://via.placeholder.com/80"}
+                  alt={tutorial.title}
+                  className="search-thumbnail"
+                />
+                <div>
+                  <strong>{tutorial.title}</strong>
+                  <p className="search-desc">{tutorial.contractor} | {tutorial.description.substring(0, 50)}...</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+
+    <div className="tags">
+      {services.map((service) => (
+        <button
+          key={service}
+          onClick={() => handleServiceClick(service)}
+          className={`tag ${selectedTag === service ? "active" : ""}`}
+        >
+          {service}
+        </button>
+      ))}
+    </div>
+
+    
       <div className="button-container">
         <button className="upload-button-gate" onClick={handleUpload}>Upload</button>
       </div>
-      <h2 className="tutorial-heading">Tutorials</h2>
+    
 
       {loading && <p className="tutorial-message">Loading tutorials...</p>}
       {error && <p className="tutorial-message">{error}</p>}
@@ -132,50 +246,41 @@ const TutorialList = () => {
 
       {/* Grid for tutorials */}
       <div className="tutorial-grid">
-        {tutorials.map((tutorial) => (
-          <div key={tutorial.id} className="tutorial-card">
-            <img
-              src={tutorial.thumbnail || tutorial.video} // Use thumbnail if available, else use the media file itself
-              alt="Tutorial Preview"
-              className="tutorial-thumbnail"
-              onClick={() => handleOpenTutorial(tutorial)}
-              onError={(e) => console.error("Image failed to load:", e.target.src)}
-            />
-            <h3 className="tutorial-title">{tutorial.title}</h3>
-          </div>
-        ))}
-      </div>
+  {filteredTutorials.map((tutorial) => (
+    <div key={tutorial.id} className="tutorial-card">
+      <img
+        src={tutorial.thumbnail || tutorial.video}
+        alt="Tutorial Preview"
+        className="tutorial-thumbnail"
+        onClick={() => handleOpenTutorial(tutorial)} // Open in new tab
+        onError={(e) => console.error("Image failed to load:", e.target.src)}
+      />
+      <h3 className="tutorial-title">{tutorial.title}</h3>
+    </div>
+  ))}
+</div>
+
 
       {/* Modal for Videos */}
       {selectedTutorial && !isImage && (
-        <div className="video-modal">
-          <div className="video-wrapper">
-            <video controls autoPlay className="video-player">
-              <source src={selectedTutorial.video} type="video/mp4" />
-              Your browser does not support the video tag.
-            </video>
+  <div className="tutorial-display-card">
+    <video controls autoPlay className="tutorial-video">
+      <source src={selectedTutorial.video} type="video/mp4" />
+      Your browser does not support the video tag.
+    </video>
 
-            {/* Sidebar: Likes, Views, Caption */}
-            <div className="video-sidebar">
-              <div className="video-info-box">
-                <h3 className="video-title">{selectedTutorial.title}</h3>
-                <p className="video-description">{selectedTutorial.description}</p>
-
-                {/* Like Button */}
-                <button className="icon-button" onClick={() => handleLike(selectedTutorial.id)}>
-                  ❤️ {likes[selectedTutorial.id] !== undefined ? likes[selectedTutorial.id] : "Loading..."}
-                </button>
-
-                {/* View Count */}
-                <p className="view-count">👀 {selectedTutorial.views !== undefined ? selectedTutorial.views : "Loading..."}</p>
-              </div>
-            </div>
-          </div>
-
-          {/* Close Button */}
-          <button className="close-button" onClick={() => setSelectedTutorial(null)}>✖</button>
-        </div>
-      )}
+    <div className="tutorial-info">
+      <h3 className="tutorial-title">{selectedTutorial.title}</h3>
+      <div className="tutorial-meta">
+        <span>{selectedTutorial.date}</span>
+        <span>{selectedTutorial.location}</span>
+        <span>{selectedTutorial.duration}</span>
+      </div>
+      <p className="tutorial-description">{selectedTutorial.description}</p>
+      <button className="message-contractor">Message {selectedTutorial.contractor}</button>
+    </div>
+  </div>
+)}
 
       {/* Modal for Images */}
       {selectedTutorial && isImage && (

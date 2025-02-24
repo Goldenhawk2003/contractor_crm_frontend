@@ -1,0 +1,154 @@
+.video-player-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #f8f8f8;
+    min-height: 100vh;
+    padding: 20px;
+  }
+  
+  .video-content {
+    display: flex;
+    flex-direction: row; /* Side-by-side layout */
+    gap: 20px;
+    max-width: 1000px;
+    width: 90%;
+    margin-top: 20px;
+  }
+  
+  .video-wrapper {
+    flex: 1; /* Take up half the space */
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+  }
+  
+  .video-player {
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+  }
+  
+  .video-info {
+    flex: 1; /* Take up half the space */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+  }
+  
+  .video-title {
+    font-size: 1.8rem;
+    color: #1b3656;
+    margin-bottom: 8px;
+  }
+  
+  .video-description {
+    font-size: 1rem;
+    color: #333;
+  }
+  
+  .contractor-info {
+    font-size: 1rem;
+    color: #666;
+    margin-top: 5px;
+  }
+  
+  /* Responsive - Stack on small screens */
+  @media (max-width: 768px) {
+    .video-content {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .video-wrapper, .video-info {
+      width: 100%;
+    }
+  }
+  
+  .back-button {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: #1b3656;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .back-button:hover {
+    background: #142849;
+  }
+  
+  .error-message {
+    color: red;
+    font-size: 1.5rem;
+    text-align: center;
+  } 
+
+
+  .suggest-container {
+    margin-top: 20px;
+    padding: 15px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 800px;
+  }
+  
+  .suggest-title {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    color: #1b3656;
+  }
+  
+  .suggestions {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .suggestion-card {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.2s, background-color 0.2s;
+  }
+  
+  .suggestion-card:hover {
+    transform: scale(1.03);
+    background: #f8f8f8;
+  }
+  
+  .suggestion-thumbnail {
+    width: 80px;
+    height: 60px;
+    border-radius: 5px;
+    object-fit: cover;
+  }
+  
+  .suggestion-title {
+    font-size: 1rem;
+    color: #333;
+    font-weight: bold;
+  }
+  
+  /* Responsive */
+  @media (max-width: 768px) {
+    .suggest-container {
+      width: 100%;
+    }
+    .suggestion-card {
+      flex-direction: row;
+      gap: 10px;
+    }
+  }

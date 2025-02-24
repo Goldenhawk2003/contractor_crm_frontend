@@ -32,6 +32,8 @@ import UploadTutorial from './components/Tutorials/UploadTutorials.js';
 import BlogList from './components/Blogs/BlogList';
 import BlogDetail from './components/Blogs/BlogDetail';
 import UploadBlog from './components/Blogs/UploadBlog.js';
+import VideoPlayer from './components/Tutorials/VideoPlayer.js';
+
 
 function useCsrfToken() {
   useEffect(() => {
@@ -73,8 +75,12 @@ function App() {
             <Route path="/start-conversation" element={<CreateConversation contractors={[]} />} />
             <Route path="/contracts" element={<ContractPage />} />
             <Route path="/payment" element={<PaymentPage />} />
+
+
+
             <Route path="/upload" element={<UploadTutorial />} />
             <Route path="/tutorials" element={<TutorialList />} />
+            <Route path="/video-player" element={<VideoPlayer />} />
 
 
             <Route path="/Inbox2" element={<Chat />} />
