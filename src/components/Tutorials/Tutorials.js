@@ -114,6 +114,7 @@ const handleOpenTutorial = (tutorial) => {
       description: tutorial.description,
       contractor: tutorial.contractor,
       videoId: tutorial.id, // ✅ Ensure this is passed
+      tags: Array.isArray(tutorial.tags) ? tutorial.tags : [tutorial.tags], 
     },
   });
 };
@@ -139,11 +140,22 @@ const handleOpenTutorial = (tutorial) => {
         title: tutorial.title,
         description: tutorial.description,
         contractor: tutorial.contractor,
-        videoId: tutorial.id,
+        videoId: tutorial.id, // ✅ Ensure this is passed
+        tags: Array.isArray(tutorial.tags) ? tutorial.tags : [tutorial.tags], 
       },
     });
     setSearchText(""); // Clear search text after selection
     setSearchResults([]); // Hide suggestions
+  };
+
+  const normalizeTags = (tags) => {
+    if (!tags) return []; // 🔴 Handle empty tags
+    if (Array.isArray(tags)) return tags; // ✅ Already an array
+    try {
+      return JSON.parse(tags); // 🛠 If stringified array, parse it
+    } catch (error) {
+      return [tags]; // 🛑 If parsing fails, wrap in an array
+    }
   };
   const handleKeyDown = (event) => {
     if (event.key === 'Enter' && searchText.trim()) {
@@ -196,28 +208,29 @@ const handleOpenTutorial = (tutorial) => {
           <i className="fas fa-search search-icon"></i>
         </button>
 
-        {/* Search Autocomplete Results */}
         {searchResults.length > 0 && (
-          <div className="search-dropdown">
-            {searchResults.map((tutorial) => (
-              <div
-                key={tutorial.id}
-                className="search-result-item"
-                onClick={() => handleSelectResult(tutorial)}
-              >
-                <img
-                  src={tutorial.thumbnail || "https://via.placeholder.com/80"}
-                  alt={tutorial.title}
-                  className="search-thumbnail"
-                />
-                <div>
-                  <strong>{tutorial.title}</strong>
-                  <p className="search-desc">{tutorial.contractor} | {tutorial.description.substring(0, 50)}...</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
+  <div className="search-dropdown">
+    {searchResults.map((tutorial) => (
+      <div
+        key={tutorial.id}
+        className="search-result-item"
+        onClick={() => handleSelectResult(tutorial)}
+      >
+        <img
+          src={tutorial.thumbnail || "https://via.placeholder.com/80"}
+          alt={tutorial.title}
+          className="search-thumbnail"
+        />
+        <div>
+          <strong>{tutorial.title}</strong>
+          <p className="search-desc">
+            {tutorial.contractor} | {tutorial.description.substring(0, 50)}...
+          </p>
+        </div>
+      </div>
+    ))}
+  </div>
+)}
       </div>
 
     <div className="tags">

@@ -20,6 +20,7 @@
 }
 
 
+
 html, body {
   margin: 0;
   padding: 0;
@@ -27,6 +28,7 @@ html, body {
   height: 100vh;
   font-family: 'Open Sauce One', Arial, sans-serif;
   background: none;
+
 
 }
 
@@ -36,6 +38,7 @@ body.specific-page {
   background-size: cover; /* Ensure the image covers the entire section */
   background-position:center; /* Center the image */
   background-repeat: no-repeat;
+
 
 
 }

@@ -4,13 +4,26 @@ import "./UploadTutorials.css"; // Import the CSS file
 const UploadTutorial = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [file, setFile] = useState(null);  // Unified state for image/video
+  const [file, setFile] = useState(null);
   const [thumbnail, setThumbnail] = useState(null);
   const [uploading, setUploading] = useState(false);
   const [message, setMessage] = useState("");
+  const [selectedTags, setSelectedTags] = useState([]); // ✅ FIXED: Use an array for multiple tags
 
+  const services = ["Interior", "Renovation", "Washroom", "Roofing", "Tiles", "Woodwork"];
+
+  // Handle File Upload
   const handleFileChange = (e) => {
-    setFile(e.target.files[0]); // Allow either image or video
+    setFile(e.target.files[0]);
+  };
+
+  // ✅ FIXED: Handle tag selection (toggle selection)
+  const handleTagClick = (service) => {
+    setSelectedTags((prevTags) =>
+      prevTags.includes(service)
+        ? prevTags.filter((tag) => tag !== service) // Remove tag if already selected
+        : [...prevTags, service] // Add tag if not selected
+    );
   };
 
   const handleSubmit = async (e) => {
@@ -26,41 +39,43 @@ const UploadTutorial = () => {
     formData.append("description", description);
     formData.append("video", file);
     if (thumbnail) {
-        formData.append("thumbnail", thumbnail);
+      formData.append("thumbnail", thumbnail);
     }
+    formData.append("tags", JSON.stringify(selectedTags)); // ✅ FIXED: Send tags as JSON
 
     console.log("Form Data:");
     for (let [key, value] of formData.entries()) {
-        console.log(key, value);
+      console.log(key, value);
     }
 
     setUploading(true);
 
     try {
-        const response = await fetch("http://localhost:8000/api/tutorials/", {
-            method: "POST",
-            body: formData,
-        });
+      const response = await fetch("http://localhost:8000/api/tutorials/", {
+        method: "POST",
+        body: formData,
+      });
 
-        const responseData = await response.json();
-        console.log("Server Response:", responseData);
+      const responseData = await response.json();
+      console.log("Server Response:", responseData);
 
-        if (response.ok) {
-            setMessage("Tutorial uploaded successfully!");
-            setTitle("");
-            setDescription("");
-            setFile(null);
-            setThumbnail(null);
-        } else {
-            setMessage("Upload failed. Please try again.");
-        }
+      if (response.ok) {
+        setMessage("Tutorial uploaded successfully!");
+        setTitle("");
+        setDescription("");
+        setFile(null);
+        setThumbnail(null);
+        setSelectedTags([]); // ✅ Reset tags after successful upload
+      } else {
+        setMessage("Upload failed. Please try again.");
+      }
     } catch (error) {
-        console.error("Upload Error:", error);
-        setMessage("An error occurred. Please try again.");
+      console.error("Upload Error:", error);
+      setMessage("An error occurred. Please try again.");
     }
 
     setUploading(false);
-};
+  };
 
   return (
     <div className="upload-container">
@@ -98,27 +113,33 @@ const UploadTutorial = () => {
           />
         </div>
 
-        {/* File Upload (Accepts Both Video & Image) */}
+        {/* File Upload (Video/Image) */}
         <div>
           <label className="upload-label">Upload Video or Image</label>
-          <input
-            type="file"
-            accept="video/*, image/*"  // ✅ Correct format
-            className="upload-file"
-            onChange={handleFileChange}
-            required
-          />
+          <input type="file" accept="video/*, image/*" className="upload-file" onChange={handleFileChange} required />
         </div>
 
         {/* Thumbnail Upload (Optional) */}
         <div>
           <label className="upload-label">Upload Thumbnail (Optional)</label>
-          <input
-            type="file"
-            accept="image/*"
-            className="upload-file"
-            onChange={(e) => setThumbnail(e.target.files[0])}
-          />
+          <input type="file" accept="image/*" className="upload-file" onChange={(e) => setThumbnail(e.target.files[0])} />
+        </div>
+
+        {/* Tags Selection */}
+        <div className="upload-tags">
+          <label className="upload-label">Tags</label>
+          <div className="upload-tag">
+            {services.map((service) => (
+              <button
+                key={service}
+                type="button"
+                onClick={() => handleTagClick(service)}
+                className={`upload-tag ${selectedTags.includes(service) ? "active" : ""}`}
+              >
+                {service}
+              </button>
+            ))}
+          </div>
         </div>
 
         {/* Submit Button */}

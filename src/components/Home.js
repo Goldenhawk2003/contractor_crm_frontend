@@ -111,6 +111,9 @@ const Home = () => {
     };
   }, []);
 
+
+  
+
    useEffect(() => {
           document.body.classList.add("transparent-navbar-page");
       
