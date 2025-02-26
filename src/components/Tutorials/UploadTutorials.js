@@ -1,5 +1,19 @@
 import React, { useState } from "react";
 import "./UploadTutorials.css"; // Import the CSS file
+import axios from "axios";
+
+const getCSRFToken = () => {
+  const name = "csrftoken";
+  const cookies = document.cookie.split(";");
+  for (let cookie of cookies) {
+      cookie = cookie.trim();
+      if (cookie.startsWith(`${name}=`)) {
+          return cookie.substring(name.length + 1);
+      }
+  }
+  console.error("CSRF token not found");
+  return null;
+};
 
 const UploadTutorial = () => {
   const [title, setTitle] = useState("");
@@ -51,15 +65,17 @@ const UploadTutorial = () => {
     setUploading(true);
 
     try {
-      const response = await fetch("http://localhost:8000/api/tutorials/", {
-        method: "POST",
-        body: formData,
+      const response = await axios.post("http://localhost:8000/api/tutorials/", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          "X-CSRFToken": getCSRFToken(),  // ✅ Ensure CSRF token is included
+        },
+        withCredentials: true,  // ✅ Ensures authentication cookies are sent
       });
-
-      const responseData = await response.json();
-      console.log("Server Response:", responseData);
-
-      if (response.ok) {
+    
+      console.log("✅ Server Response:", response.data);  // ✅ response.data contains the actual data
+    
+      if (response.status === 201) {  // ✅ Check for successful upload (201 Created)
         setMessage("Tutorial uploaded successfully!");
         setTitle("");
         setDescription("");
@@ -70,8 +86,8 @@ const UploadTutorial = () => {
         setMessage("Upload failed. Please try again.");
       }
     } catch (error) {
-      console.error("Upload Error:", error);
-      setMessage("An error occurred. Please try again.");
+      console.error("❌ Upload Error:", error.response ? error.response.data : error);
+      setMessage(`An error occurred: ${error.response?.data?.detail || "Unknown error"}`);
     }
 
     setUploading(false);

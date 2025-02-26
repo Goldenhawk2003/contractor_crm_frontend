@@ -40,10 +40,14 @@ const TutorialList = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [selectedTutorial, setSelectedTutorial] = useState(null); // Track selected tutorial (image/video)
-  const [likes, setLikes] = useState({}); // Track likes for each tutorial
-  const [isImage, setIsImage] = useState(false); // Track if selected item is an image
+  const [likes, setLikes] = useState({}); // Track likes for each tutorial// Track if selected item is an image
   const [selectedTag, setSelectedTag] = useState("All");
   const location = useLocation();
+
+
+
+  const mediaUrl = location.state?.videoUrl; // ✅ This should hold the correct media URL
+  const isImage = location.state?.isImage || false;
 
   useEffect(() => {
     axios
@@ -107,14 +111,25 @@ const TutorialList = () => {
   });
 
 const handleOpenTutorial = (tutorial) => {
+  const BASE_URL = "http://localhost:8000"; // Adjust this if needed
+  const imageExtensions = ["jpg", "jpeg", "png", "gif"];
+  const fileExtension = tutorial.video ? tutorial.video.split(".").pop().toLowerCase() : "";
+  const isImage = imageExtensions.includes(fileExtension);
+  
+  // ✅ Ensure full URL
+  const fullMediaUrl = tutorial.video?.startsWith("http") ? tutorial.video : `${BASE_URL}${tutorial.video}`;
+
+  console.log("📤 Navigating with Media URL:", fullMediaUrl, "📸 Is Image?", isImage);
   Navigate("/video-player", {
     state: {
-      videoUrl: tutorial.video,
+      mediaUrl: fullMediaUrl,
+      isImage,
       title: tutorial.title,
       description: tutorial.description,
-      contractor: tutorial.contractor,
+      contractor: tutorial.uploaded_by || "Unknown",
+      createdAt: tutorial.created_at,
       videoId: tutorial.id, // ✅ Ensure this is passed
-      tags: Array.isArray(tutorial.tags) ? tutorial.tags : [tutorial.tags], 
+      tags: Array.isArray(tutorial.tags) ? tutorial.tags : JSON.parse(tutorial.tags || "[]"), 
     },
   });
 };
@@ -134,16 +149,27 @@ const handleOpenTutorial = (tutorial) => {
     }
   };
   const handleSelectResult = (tutorial) => {
+    const BASE_URL = "http://localhost:8000"; // Adjust this if needed
+    const imageExtensions = ["jpg", "jpeg", "png", "gif"];
+    const fileExtension = tutorial.video ? tutorial.video.split(".").pop().toLowerCase() : "";
+    const isImage = imageExtensions.includes(fileExtension);
+    
+    // ✅ Ensure full URL
+    const fullMediaUrl = tutorial.video?.startsWith("http") ? tutorial.video : `${BASE_URL}${tutorial.video}`;
+
+    console.log("📤 Navigating with Media URL:", fullMediaUrl, "📸 Is Image?", isImage);
     Navigate("/video-player", {
       state: {
-        videoUrl: tutorial.video,
+        mediaUrl: fullMediaUrl,
+        isImage,
         title: tutorial.title,
         description: tutorial.description,
-        contractor: tutorial.contractor,
+        contractor: tutorial.uploaded_by || "Unknown",
+        createdAt: tutorial.created_at,
         videoId: tutorial.id, // ✅ Ensure this is passed
-        tags: Array.isArray(tutorial.tags) ? tutorial.tags : [tutorial.tags], 
+        tags: Array.isArray(tutorial.tags) ? tutorial.tags : JSON.parse(tutorial.tags || "[]"), 
       },
-    });
+  });
     setSearchText(""); // Clear search text after selection
     setSearchResults([]); // Hide suggestions
   };
@@ -277,7 +303,7 @@ const handleOpenTutorial = (tutorial) => {
       {/* Modal for Videos */}
       {selectedTutorial && !isImage && (
   <div className="tutorial-display-card">
-    <video controls autoPlay className="tutorial-video">
+    <video controls  className="tutorial-video">
       <source src={selectedTutorial.video} type="video/mp4" />
       Your browser does not support the video tag.
     </video>

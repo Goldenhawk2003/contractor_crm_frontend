@@ -33,6 +33,7 @@ import BlogList from './components/Blogs/BlogList';
 import BlogDetail from './components/Blogs/BlogDetail';
 import UploadBlog from './components/Blogs/UploadBlog.js';
 import VideoPlayer from './components/Tutorials/VideoPlayer.js';
+import AboutUs from './components/AboutUs/AboutUs.js';
 
 
 function useCsrfToken() {
@@ -76,7 +77,7 @@ function App() {
             <Route path="/contracts" element={<ContractPage />} />
             <Route path="/payment" element={<PaymentPage />} />
 
-
+            <Route path="/AboutUs" element={<AboutUs />} />
 
             <Route path="/upload" element={<UploadTutorial />} />
             <Route path="/tutorials" element={<TutorialList />} />

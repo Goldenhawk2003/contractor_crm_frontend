@@ -9,7 +9,7 @@ const BASE_URL = "http://localhost:8000"; // Your backend URL
 const VideoPlayer = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const videoUrl = location.state?.videoUrl;
+  const videoUrl = location.state?.mediaUrl;
   const title = location.state?.title;
   const description = location.state?.description;
   const contractor = location.state?.contractor;
@@ -20,9 +20,12 @@ const VideoPlayer = () => {
   const [searchResults, setSearchResults] = useState([]);
   const [tutorials, setTutorials] = useState([]);
   const videoTags = location.state?.tags || []; 
+  const createdAt = location.state?.createdAt || "";
+  const mediaUrl = location.state?.mediaUrl; // Now supports both images and videos
+  const isImage = location.state?.isImage;
 
   
-  
+
   
   useEffect(() => {
     if (!videoId || !videoTags.length) return;
@@ -77,16 +80,27 @@ const VideoPlayer = () => {
         videoUrl: suggestion.video,
         title: suggestion.title,
         description: suggestion.description,
-        contractor: suggestion.contractor,
+        contractor: suggestion.uploaded_by || "Unknown",
+        createdAt: suggestion.created_at,
         videoId: suggestion.id,
-        tags: Array.isArray(suggestion.tags) ? suggestion.tags : [suggestion.tags],
+        tags: Array.isArray(suggestion.tags) ? suggestion.tags : JSON.parse(suggestion.tags || "[]"), 
       },
     });
+
+    
   
     // 🔥 Force video element to reload properly
     setTimeout(() => {
       window.location.reload();
     }, 100);
+  };
+
+  const sendtext = () => {
+    if (!contractor) {
+      console.error("❌ Contractor username is missing!");
+      return;
+    }
+    navigate(`/start-conversation?username=${encodeURIComponent(contractor)}`);
   };
 
 
@@ -113,12 +127,19 @@ const VideoPlayer = () => {
         title: tutorial.title,
         description: tutorial.description,
         contractor: tutorial.contractor,
+        createdAt: tutorial.created_at,
         videoId: tutorial.id,
+        tags: Array.isArray(suggestion.tags) ? suggestion.tags : [suggestion.tags],
       },
     });
     setSearchText(""); // Clear search text after selection
     setSearchResults([]); // Hide suggestions
   };
+  const formattedDate = createdAt ? new Date(createdAt).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "numeric",
+    day: "numeric",
+  }) : "Unknown Date";
 
   useEffect(() => {
     document.body.classList.add("video-player-page");
@@ -126,6 +147,10 @@ const VideoPlayer = () => {
   }, []);
 
   const services = ["All", "Interior", "Renovation", "Washroom", "Roofing", "Tiles", "Woodwork"];
+
+  console.log("📸 Media URL:", mediaUrl);
+  console.log("🖼️ Is Image?", isImage);
+
 
   if (!videoUrl) {
     return <h2 className="error-message">No video found!</h2>;
@@ -194,18 +219,31 @@ const VideoPlayer = () => {
       {/* Video & Info Side by Side */}
       <div className="video-content">
         {/* Video Section */}
+        
         <div className="video-wrapper">
+        {isImage ? (
+          <img src={mediaUrl} alt={title} className="tutorial-image-display" />
+        ) : (
           <video controls autoPlay className="video-player">
             <source src={videoUrl} type="video/mp4" />
             Your browser does not support the video tag.
           </video>
+        )}
         </div>
 
         {/* Info Section */}
         <div className="video-info">
           <h2 className="video-title">{title}</h2>
-          <p className="video-description">{description}</p>
-          <p className="contractor-info">Uploaded by: <strong>{contractor}</strong></p>
+          <div className="date">
+          <p className="video-date">{formattedDate}</p>
+          </div>
+          <p className="contractor-info">
+  Contractor:{" "}
+  <strong>{contractor || "Unknown"}</strong>
+</p>
+
+<p className="video-description">{description}</p>
+<button type="submit" onClick={sendtext} className="submit-btn">Contact {contractor} </button>
         </div>
       </div>
 

@@ -72,6 +72,7 @@ const Layout = () => {
               <Link to="/dashboard" className="nav-button">Dashboard</Link>
             )}
           
+            <Link to="/AboutUs" className="nav-button">About Us</Link>
           
             <Link to="/Browse-contractors" className="nav-button"> Services</Link>
             <Link to="/contact" className="nav-button">Contact Us</Link>

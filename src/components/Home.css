@@ -19,6 +19,12 @@
   font-style: Bold;
 }
 
+@font-face {
+  font-family: 'Open Sauce One';
+  src: url('/src/Open Sauce Font/OpenSauceOne-Light.ttf') format('truetype');
+  font-weight: 100; /* Regular */
+  font-style: normal;
+}
 
 
 html, body {
