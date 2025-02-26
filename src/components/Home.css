@@ -413,14 +413,22 @@ body.transparent-navbar-page .button-group {
 
 .service {
   text-align: left;
-  display: inline-block; /* Center-align content */
+  display: flex;
+  flex-direction: column; /* ✅ Stack elements vertically */
+  align-items: center; /* ✅ Center align the icon and title */
+  text-align: center; 
+}
 
+.service-header-box {
+  display: flex;
+  align-items: center; /* ✅ Keep the icon and title on the same row */
+  gap: 10px; /* ✅ Space between icon and title */
 }
 
 
 .service-icon {
-  width: 60px;
-  height: 60px;
+  width: 40px;
+  height: 40px;
   background-color: #ffffff; /* White background for the circle */
   color: #091268; /* Deep blue text */
   font-size: 1.8rem; /* Large font size for numbers */
@@ -429,7 +437,8 @@ body.transparent-navbar-page .button-group {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 auto 15px auto; /* Center and add space below */
+  margin: 0 ;
+  flex: shrink;
 }
 
 /* Service Title */
