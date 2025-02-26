@@ -184,7 +184,7 @@ const Home = () => {
       </div>
     )}
 
-    <div>
+    <div className='services-box'>
       <h3 className='service-h3'>Discover With Elite</h3>
       <p className='service-p'><button type="submit" className="service-p" onClick={BrowseButton}> View All </button></p>
       </div>
@@ -384,9 +384,13 @@ const Home = () => {
       </div>
     </div>
   </div>
+
 </div>
 
-
+<div className='Explore'>
+    <h1 className='Explore-header'>Explore</h1>
+    
+  </div>
     </div>
   );
 };

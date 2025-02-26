@@ -5,13 +5,10 @@ const AboutUs = () => {
   return (
     <div>
       {/* About Us Section */}
-      <div className="about-us-container">
-        <div className="text-content">
-          <h1>About Us</h1>
-          <h2>Leading the Way in Trust and Community</h2>
-          <p>We believe what's good for the community is good for contractors.</p>
-        </div>
-        <img src="/images/home-page/commercial-roofing_orig.jpg" alt="About Us" />
+      <div className="our-mission">
+      <div className="mission-container">
+       <img src="/images/5163DC0D-2DD9-4D70-87C3-DE31114A455F.jpeg" className="mission-image" alt="About Us" />
+       </div>
       </div>
 
       {/* Our Impact Section */}
@@ -31,12 +28,34 @@ const AboutUs = () => {
       </section>
 
       <div className="our-story">
-        <h2>Our Story</h2>
-        <div className="story-container"><p>
-          We are a community-based elite contracting platform that connects local contractors with community members. We believe that what's good for the community is good for contractors. Our platform is designed to help contractors grow their businesses and provide community members with a trusted source for their contracting needs.
-        </p></div>
-        
-      </div>
+  <div className="story-container">
+    <h2 className="story-title">Our Story</h2>
+    <div className="story-text-container">
+      <p className="story-text">
+        Elite Craft Contractors was built on the commitment to delivering honest, high-quality work to clients who value integrity and trust. As a homeowner in the Durham Region, it is an ongoing problem to find respectable and qualified contractors.
+      </p>
+      <p className="story-text">
+        ECC was created to comfort and inspire home and business owners while connecting with professionals who maintain loyalty to Durham Region’s community.
+      </p>
+    </div>
+  </div>
+</div>
+
+<div className="our-mission">
+  <div className="mission-container">
+   <img src="/images/Our-Story-icons-01.png" alt="Our Mission" className="mission-image" />
+    </div>
+</div>
+<div className="our-mission">
+  <div className="mission-container">
+    <img src="/images/About-Us-Page-01.png" alt="Our Mission" className="mission-image" /> 
+    <button className="overlay-button">Work With Us</button>
+    </div>
+    </div>
+
+
+
+
     </div>
   );
 };

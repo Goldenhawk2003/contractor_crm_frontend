@@ -223,7 +223,7 @@ const UserProfile = () => {
   const renderContent = () => {
     if (activeTab === "home") {
       return  <div className="tab-content">
-        <img src="images/Jobs-Workforce.png" alt="Jobs Workforce" className="profile-header" />
+        <img src="" alt="" className="profile-header" />
       {userInfo ? (
           <div>
              {userInfo?.logo && (

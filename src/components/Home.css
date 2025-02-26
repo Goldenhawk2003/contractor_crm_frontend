@@ -57,8 +57,9 @@ body.transparent-navbar-page .button-group {
 /* Beginning of hero */
 .hero-section {
   width: 100vw; /* Stretch the image to the full width of the screen */
-  height: 85vh; /* Set the height to cover the full viewport */
+  height: 80vh; /* Set the height to cover the full viewport */
   position: relative;
+  padding-top: 4%;
    /* Ensure text color contrasts with the image */
 }
 
@@ -79,6 +80,7 @@ body.transparent-navbar-page .button-group {
 .hero-section .Contractor-choices, .search-results {
   position: relative;
   z-index: 1; /* Ensure content is above the overlay */
+  margin: 0;
 }
 
 .Hero-header{
@@ -108,8 +110,8 @@ body.transparent-navbar-page .button-group {
   width: 100%;
   height: 100%;
   background-color: #ECF0FC ;
-  padding-bottom: 8%;
-  padding-top: 8%;
+  padding-bottom: 4%;
+  padding-top: 4%;
   margin: 0;
 
 }
@@ -168,7 +170,7 @@ body.transparent-navbar-page .button-group {
   object-fit: contain; /* Ensure image fits within its container */
   border-radius: 8px; /* Optional: rounded corners */
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional: subtle shadow */
-  padding-right: 6%;
+  margin-right: 6%;
 }
 /* End of Trust */
 
@@ -194,7 +196,7 @@ body.transparent-navbar-page .button-group {
  
 .service-header{
   padding-top: 7%;
-  font-size: 2.5rem;
+  font-size: 3.2rem;
   color: #091268;
   text-align: center;
   font-weight: 200;
@@ -296,8 +298,9 @@ body.transparent-navbar-page .button-group {
 .service-h3{
   color:#091268;
   font-weight: 200;
-  padding-left: 22%;
+  padding-left: 23%;
   font-size: 1.5rem;
+  width: 100%;
 }
 .service-p{
   color: #1B3656;
@@ -306,9 +309,15 @@ body.transparent-navbar-page .button-group {
   border: none;
   background-color: transparent;
   align-self: right;
-  padding-right: 12%;
+  padding-right: 18%;
   align-items: right;
   text-align: right;
+  width: 100%;
+
+}
+.services-box{
+  display: flex;
+  padding-top: 4%;
 
 }
 
@@ -326,17 +335,20 @@ body.transparent-navbar-page .button-group {
   gap: 25px;
   margin: 20px auto;
   justify-content: center;
+  margin-top: 0;
 }
 
 .Contractor-choices a {
   display: block;
-  width: 100%;
+  width: 100vw;
   aspect-ratio: 1; /* Keeps them square */
-  background-color: #f8f8f8;
+  background-color: #ECF0FC;
   border-radius: 10px;
   overflow: hidden;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   position: relative;
+  height: 38vh;
+
 }
 
 .Contractor-choices a:hover {
@@ -346,7 +358,7 @@ body.transparent-navbar-page .button-group {
 
 .Contractor-choices img {
   width: 100%;
-  height: 100%;
+  height: 40vh;
   object-fit:fill;
   display: block;
 }
@@ -378,7 +390,10 @@ body.transparent-navbar-page .button-group {
   margin-left:85px;
   text-align: left; /* Align text to the left */
   font-size: 2.8rem; /* Large heading font size */
-  margin-bottom: 30px; /* Space below the header */
+  margin-bottom: 30px;
+  padding-right: 1.8%;
+  padding-left: 1.8%;
+   /* Space below the header */
   background-color: #1B3656;
 }
 
@@ -397,7 +412,9 @@ body.transparent-navbar-page .button-group {
 
 
 .service {
-  text-align: center; /* Center-align content */
+  text-align: left;
+  display: inline-block; /* Center-align content */
+
 }
 
 
@@ -441,7 +458,8 @@ body.transparent-navbar-page .button-group {
 .our-process {
   background-color: #f8f8f8;
   width: 100%;
-  padding: 50px 20px;
+  padding-top: 10%;
+  padding-bottom: 10%;
   color: #091268;
 }
 .process-p{
@@ -484,6 +502,7 @@ body.transparent-navbar-page .button-group {
   margin: 0 auto;
   padding-top: 5%;
   padding-bottom: 2%;
+  font-weight: 200;
 }
 
 .contractor-list {
@@ -577,6 +596,7 @@ body.transparent-navbar-page .button-group {
   width: 25%;
   padding-top: 6%;
   padding-right: 2%;
+  font-weight: 200;
 
 }
 

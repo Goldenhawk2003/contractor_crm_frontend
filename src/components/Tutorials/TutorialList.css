@@ -5,26 +5,28 @@
   max-width: 1400px;
   margin: 40px auto;
   padding: 20px;
-  background-color: white;
+
 }
 
 /* Heading */
 .tutorial-heading {
-  font-size: 2rem;
+  font-size: 3.2rem;
   font-weight: 200;
   color: black;
   text-align: center;
+  margin-bottom: 0;
 
   
 }
 .tutorial-intro-container{
-  display: flex;
   justify-content: center;
   align-items: center;
   align-content: center;
   text-align: center;
   margin: 0 auto;
   padding: 0;
+
+
 }
 .tutorial-intro{
  font-size: 1.2rem;
@@ -267,7 +269,7 @@
   border-radius: 40px;
   cursor: pointer;
   transition: all 0.3s ease-in-out;
-  margin-right: 3%;
+  margin-right: 0.5%;
   margin-top: 5%;
 }
 
@@ -285,6 +287,7 @@
   display: flex;
   align-items: center;
   z-index: 20;
+
 }
 
 /* 🔍 Search Results Dropdown */
@@ -373,7 +376,7 @@
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 0.2; /* ✅ Removes gap between tags */
   margin-top: 20px; /* ✅ Ensures spacing between search and tags */
 }
 

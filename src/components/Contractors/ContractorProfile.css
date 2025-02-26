@@ -1,157 +1,176 @@
-/* General Contractor Profile Container */
-.contractor-profile {
-  font-family: 'Open Sauce One', Arial, sans-serif;
-  background-color: #f8f8f8;
-  color: #5c7b78;
-  padding: 20px;
-  max-width: 800px;
-  margin: 20px auto;
+
+
+.cont-contractor-profile {
+  background-color: #ECF0FC;
+  padding: 40px;
   border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  text-align: center;
+  max-width: 900px;
+  margin: auto;
+  box-sizing: border-box;
+}
+
+.cont-profile-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.cont-profile-left {
+  flex: 1;
+}
+
+.cont-profile-img {
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  
+}
+
+.cont-profile-right {
+  flex: 2;
+  padding-left: 6%;
 
 }
 
-/* Contractor Logo */
-.profile-logo {
-  margin-bottom: 20px;
-  align-self: center;
+.cont-contractor-name {
+  font-size: 3.2rem;
+  font-weight: 200;
+  color: #091268;
 }
 
-.profile-logo img {
-  object-fit:contain;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  width: 15vw;
-  height: 40vh;
-  align-self: center;
+.cont-contractor-badge {
+  background-color: #091268;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-weight: 100;
+
 }
 
-/* Contractor Details */
-.contractor-profile h2 {
+.cont-location-tags span {
+  background-color: white;
+  padding: 5px 10px;
+  border-radius: 20px;
+  margin-right: 5px;
+  font-weight: 100;
+  color:#091268;
+
+}
+
+.cont-location-tags{
+  margin-top: 3.5%;
+  margin-bottom: 2%;
+}
+
+.cont-rating-section {
+  display: flex;
+  align-items: center;
+}
+
+.cont-stars {
+  color: gold;
+  font-size: 1.5rem;
+}
+
+.cont-contractor-bio {
+  margin-top: 10%;
+  font-weight: 100;
+  color: #091268;
+}
+
+.const-section-divider {
+  width: 100%;
+  height: 2px;
+  background-color: #091268; /* Dark blue to match the design */
+  margin: 20px 0; /* Add spacing */
+}
+
+
+.cont-past-work-section h3 {
+  margin-top: 20px;
   font-size: 2rem;
   color: #091268;
-  margin-bottom: 10px;
+  font-weight: 200;
+
 }
 
-.contractor-profile p {
+.cont-work-gallery {
+  display: flex;
+  gap: 10px;
+
+}
+
+.cont-past-work-img {
+  width: 80px;
+  height: 80px;
+  border-radius: 5px;
+}
+
+.cont-contact-section {
+  margin-top: 20px;
+  display: flex;
+  gap: 10px;
+}
+
+.cont-send-message-btn, .cont-add-to-contacts-btn {
+  background-color: #091268;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
   font-size: 1rem;
-  color: #1B3656;
+}
+
+.cont-submit-rating-btn {
+  background-color: #FFD700;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer; 
+  border-radius: 5px;
+}
+
+.success-message, .error-message {
+  color: red;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.const-tutorials-container {
+  width: 100%;
+  overflow-x: auto;
+  white-space: nowrap;
+  padding: 10px 0;
+}
+
+.const-tutorials-flex {
+  display: flex;
+  gap: 15px;
+}
+
+.const-tutorial-card {
+  background: transparent;
+
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  width: 250px;
+  flex: 0 0 auto;
+}
+
+.const-tutorial-video, .const-tutorial-image {
+  width: 15vw;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 5px;
+
+}
+
+.const-tutorial-title {
+  font-size: 1rem;
   margin: 5px 0;
 }
 
-.contractor-profile strong {
-  color: #091268;
-}
-
-/* Chat Button */
-.chat .submit-rating-btn {
-  margin-top: 20px;
-  padding: 10px 20px;
-  font-size: 1rem;
-  color: #ffffff;
-  background-color: #091268 ;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-.chat .submit-rating-btn:hover {
-  background-color: #1B3656;
-  transform: translateY(-2px);
-}
-
-/* Rating Section */
-.rating-section {
-  margin-top: 30px;
-  text-align: center;
-}
-
-.rating-section h3 {
-  font-size: 1.5rem;
-  color: #091268;
-  margin-bottom: 10px;
-}
-
-.rating-section .stars {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  margin-bottom: 20px;
-}
-
-.rating-section .star {
-  font-size: 2rem;
-  color: #ccc;
-  cursor: pointer;
-  transition: color 0.2s ease, transform 0.2s ease;
-}
-
-.rating-section .star.filled {
-  color: #dcbf79;
-}
-
-.rating-section .star:hover {
-  color: #dcbf79;
-  transform: scale(1.2);
-}
-
-.rating-section .submit-rating-btn {
-  padding: 10px 20px;
-  font-size: 1rem;
-  color: #ffffff;
-  background-color: #091268;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-.rating-section .submit-rating-btn:hover {
-  background-color: #1B3656;
-  transform: translateY(-2px);
-}
-
-
-
-/* Success and Error Messages */
-.success-message,
-.error-message {
-  margin-top: 20px;
-  font-size: 1rem;
-  font-weight: bold;
-  text-align: center;
-}
-
-.success-message {
-  color: #28a745;
-}
-
-.error-message {
-  color: #d9534f;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-  .contractor-profile {
-    padding: 15px;
-  }
-
-  .profile-logo img {
-    width: 120px;
-    height: 120px;
-  }
-
-  .contractor-profile h2 {
-    font-size: 1.8rem;
-  }
-
-  .rating-section .stars .star {
-    font-size: 1.8rem;
-  }
-
-  .rating-section .submit-rating-btn {
-    font-size: 0.9rem;
-    padding: 8px 15px;
-  }
+.const-tutorial-description {
+  font-size: 0.9rem;
+  color: gray;
 }
