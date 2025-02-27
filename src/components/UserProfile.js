@@ -53,7 +53,26 @@ const UserProfile = () => {
     const [hoveredRating, setHoveredRating] = useState(0); 
 
     const [sending, setSending] = useState(false);
-  
+    const [unreadMessages, setUnreadMessages] = useState(0);
+
+    useEffect(() => {
+      const fetchUnreadMessages = async () => {
+        try {
+          const response = await axios.get("http://localhost:8000/api/unread-messages/", {
+            withCredentials: true,
+          });
+          setUnreadMessages(response.data.unread_count); // ✅ Update unread count
+        } catch (err) {
+          console.error("Failed to fetch unread messages.");
+        }
+      };
+    
+      // Fetch unread messages every 10 seconds
+      const interval = setInterval(fetchUnreadMessages, 10000);
+      fetchUnreadMessages(); // Initial fetch
+    
+      return () => clearInterval(interval); // Cleanup on unmount
+    }, []);
     // Fetch conversations
     useEffect(() => {
       const fetchConversations = async () => {
@@ -128,6 +147,8 @@ const UserProfile = () => {
   
         if (!csrfToken) {
           throw new Error("CSRF token is missing.");
+
+      
         }
   
         const response = await axios.post(
@@ -152,11 +173,16 @@ const UserProfile = () => {
           },
         ]);
         setMessage("");
+
+        await axios.get("http://localhost:8000/api/unread-messages/", {
+          withCredentials: true,
+        });
       } catch (err) {
         setError("Failed to send the message.");
       } finally {
         setSending(false);
       }
+      
     };
 
     const toggleShowMore = () => {
@@ -533,12 +559,13 @@ const sendContract = async () => {
             <i className="fa fa-home"></i> Home
           </Link>
           <Link
-            to="#"
-            className={`menu-item ${activeTab === "chats" ? "active" : ""}`}
-            onClick={() => setActiveTab("chats")}
-          >
-            <i className="fa fa-comments"></i> Chats
-          </Link>
+  to="#"
+  className={`menu-item ${activeTab === "chats" ? "active" : ""}`}
+  onClick={() => setActiveTab("chats")}
+>
+  <i className="fa fa-comments"></i> Chats
+  {unreadMessages > 0 && <span className="notification-badge">{unreadMessages}</span>} 
+</Link>
           <Link
             to="#"
             className={`menu-item ${activeTab === "payments" ? "active" : ""}`}

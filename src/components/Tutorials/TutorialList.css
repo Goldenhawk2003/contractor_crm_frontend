@@ -1,10 +1,10 @@
-/* Container Styling */
 
 
 .tutorial-container {
-  max-width: 1400px;
-  margin: 40px auto;
-  padding: 20px;
+  width: 100vw;
+  margin: 0 auto;
+
+
 
 }
 
@@ -15,6 +15,7 @@
   color: black;
   text-align: center;
   margin-bottom: 0;
+  padding-top: 10%;
 
   
 }
@@ -28,32 +29,54 @@
 
 
 }
+
+.tutorial-header{
+  background: linear-gradient(to bottom, #ECF0FC 90%, white 10%);
+  padding-top: 0;
+  margin-top: 0;
+/* Makes sure the section is tall enough */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+}
 .tutorial-intro{
  font-size: 1.2rem;
  font-weight: 900;
 }
 /* Pinterest-Style Grid */
 .tutorial-grid {
-  column-count: 4; /* Creates 4 columns */
-  column-gap: 20px;
-  padding: 0;
+  padding-top: 4%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  align-items: stretch; /* Ensures all items take the same height */
 }
 
 /* Tutorial Card */
 .tutorial-card {
-  display: inline-block;
   width: 100%;
-  margin-bottom: 20px;
-  background: white;
-  border-radius: 10px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-  transition: transform 0.2s ease-in-out;
-  cursor: pointer;
+  height: 250px; /* Adjust as needed */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  transition: transform 0.2s ease-in-out; /* Smooth hover effect */
+  background-color: #ECF0FC;
+  border-radius: 40px;
+}
+.tutorial-card img {
+  margin-top: 4%;
+  width: 95%;
+  height: 150px; /* Keep images same height */
+  object-fit: cover; /* Prevent stretching */
+  border-radius: 20px;
 }
 
 .tutorial-card:hover {
-  transform: scale(1.03);
+  transform: scale(1.02); /* Slight hover effect without shifting */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .button-container {

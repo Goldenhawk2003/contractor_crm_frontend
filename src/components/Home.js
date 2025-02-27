@@ -296,7 +296,7 @@ const Home = () => {
 
 {specificContractor2 ? (
     <li key={specificContractor2.id} className="contractor-card-prof">
-    <Link to={`/contractor/${specificContractor4.id}`} className="contractor-link-prof">
+    <Link to={`/contractor/${specificContractor2.id}`} className="contractor-link-prof">
         {specificContractor2.logo && (
             <img
                 src={specificContractor2.logo || '/placeholder.png'}
@@ -324,7 +324,7 @@ const Home = () => {
 
 {specificContractor3 ? (
      <li key={specificContractor3.id} className="contractor-card-prof">
-     <Link to={`/contractor/${specificContractor4.id}`} className="contractor-link-prof">
+     <Link to={`/contractor/${specificContractor3.id}`} className="contractor-link-prof">
          {specificContractor3.logo && (
              <img
                  src={specificContractor3.logo || '/placeholder.png'}

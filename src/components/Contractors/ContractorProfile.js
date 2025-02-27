@@ -111,7 +111,7 @@ const ContractorProfile = () => {
     : `http://localhost:8000${contractor.logo}`;
 
   const handleChatNow = () => {
-    navigate(`/start-conversation?username=${contractor.username}`);
+    Navigate(`/start-conversation?username=${contractor.username}`);
   };
 
   const handleOpenTutorial = (tutorial) => {

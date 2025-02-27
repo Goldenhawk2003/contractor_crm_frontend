@@ -396,3 +396,15 @@ textarea.user-input {
   margin-top: 20px;
   min-height: 150px;
 }
+
+.notification-badge {
+  background-color: red;
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 4px 8px;
+  border-radius: 50%;
+  margin-left: 8px;
+  min-width: 10px;
+  text-align: center;
+}

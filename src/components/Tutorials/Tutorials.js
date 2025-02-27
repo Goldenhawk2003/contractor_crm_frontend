@@ -213,7 +213,7 @@ const handleOpenTutorial = (tutorial) => {
 
   return (
     <div className="tutorial-container">
-      
+      <div className="tutorial-header"> 
       <h1 className="tutorial-heading">Get Inspired</h1>
       <div className="tutorial-intro-container">
       <p className="tutorial-intro">Check our Elite Contractor's work from the community </p>
@@ -258,6 +258,8 @@ const handleOpenTutorial = (tutorial) => {
     ))}
   </div>
 )}
+      </div>
+
       </div>
 
     <div className="tags">
