@@ -662,8 +662,59 @@ body.transparent-navbar-page .button-group {
   text-align: left;
 }
 
+.Explore{
+border-top: 2px solid #091268;
+}
 
+.Explore-header{
+  font-size: 3.2rem;
+  color: #091268;
+  font-weight: 200;
+  padding-left: 5%;
+}
 
+.contractorExplore-button {
+  height: 350px;
+  background-color: white;
+
+}
+
+.ContractorExplore {
+  display: flex;
+  width: 55%;
+  height: 100%;
+  gap: 25px;
+  margin: 20px auto;
+  justify-content: center;
+  margin-top: 0;
+  background-color: white;
+  margin-bottom: 3%;
+
+}
+
+.ContractorExplore a {
+  display: block;
+  width: 100vw; /* Keeps them square */
+  background-color: white;
+  border-radius: 10px;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  height: 38vh;
+}
+
+.ContractorExplore a:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.ContractorExplore img {
+  width: 100%;
+  height: 40vh;
+  object-fit: fill;
+  display: block;
+  background-color: white;
+}
 
 
 @media (max-width: 768px) {

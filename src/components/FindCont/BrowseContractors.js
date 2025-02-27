@@ -138,38 +138,31 @@ const Browse = () => {
                     <h2 className='browse-header'>Best Matches For You</h2>
                     <div className="contractor-list">
 
-                        {contractors.map((contractor) => (
-                            <div key={contractor.id} className="contractor-card-browse">
-                                <Link to={`/contractor/${contractor.id}`} className="contractor-link">
-                                    {contractor.logo && (
-                                        <img
-                                            src={contractor.logo || '/placeholder.png'}
-                                            alt={`${contractor.username || contractor.name} Logo`}
-                                            className="contractor-logo"
-                                        />
-                                    )}
-                                    <p>
-                                        {contractor.username || contractor.name}
-                                    </p>
-                                </Link>
-                                <p>
-                                    {contractor.job_type}
-                                </p>
-                                
-                                <p>
-                                    <span className="stars">{renderStars(contractor.rating)}</span>
-                                </p>
-                                <p>
-                                   {contractor.profile_description || 'No description provided'}
-                                </p>
-                                <p>
-                                    {contractor.location}
-                                </p>
-                                <p>
-                                  ${contractor.hourly_rate}
-                                </p>
-                            </div>
-                        ))}
+                    {contractors.map((contractor) => (
+    <li key={contractor.id} className="contractor-card-prof">
+        <Link to={`/contractor/${contractor.id}`} className="contractor-link-prof">
+            {contractor.logo && (
+                <img
+                    src={contractor.logo || '/placeholder.png'}
+                    alt={`${contractor.username || contractor.name} Logo`}
+                    className="contractor-logo-prof"
+                />
+            )}
+        </Link>
+        
+        <div className="contractor-info-prof">
+        <div className="contractor-details-prof">
+            <h3 className="contractor-name-prof">{contractor.username || 'Unknown'}</h3>
+            <p className="contractor-stars-prof">{renderStars(contractor.rating)}</p>
+            </div>
+            <div className="contractor-details-prof">
+                <p>{contractor.job_type || 'N/A'}</p>
+                <p className="contractor-rating-prof">{contractor.rating || '0'}/5</p>
+            </div>
+           
+        </div>
+    </li>
+))}
                     </div>
                     </div>
                 ) : (

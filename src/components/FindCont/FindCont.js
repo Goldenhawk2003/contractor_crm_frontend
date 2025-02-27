@@ -106,24 +106,31 @@ const FindCont = () => {
                     <div className="contractor-list-find">
                     
                     <ul className="contractor-results">
-                        {contractors.map((contractor) => (
-                            <li key={contractor.id} className="contractor-card-find">
-                                <Link to={`/contractor/${contractor.id}`} className="contractor-link">
-                                    {contractor.logo && (
-                                        <img
-                                            src={contractor.logo || '/placeholder.png'}
-                                            alt={`${contractor.username || contractor.name} Logo`}
-                                            className="contractor-logo"
-                                        />
-                                    )}
-                                    <p><strong>Username:</strong> {contractor.username || 'Unknown'}</p>
-                                </Link>
-                                <p><strong>Job Type:</strong> {contractor.job_type || 'N/A'}</p>
-                                <p><strong>Experience:</strong> {contractor.experience_years || 'N/A'} years</p>
-                                <p><strong>Rating:</strong> {renderStars(contractor.rating)}</p>
-                                <p><strong>Description:</strong> {contractor.profile_description || 'No description provided'}</p>
-                            </li>
-                        ))}
+                    {contractors.map((contractor) => (
+    <li key={contractor.id} className="contractor-card-prof">
+        <Link to={`/contractor/${contractor.id}`} className="contractor-link-prof">
+            {contractor.logo && (
+                <img
+                    src={contractor.logo || '/placeholder.png'}
+                    alt={`${contractor.username || contractor.name} Logo`}
+                    className="contractor-logo-prof"
+                />
+            )}
+        </Link>
+        
+        <div className="contractor-info-prof">
+        <div className="contractor-details-prof">
+            <h3 className="contractor-name-prof">{contractor.username || 'Unknown'}</h3>
+            <p className="contractor-stars-prof">{renderStars(contractor.rating)}</p>
+            </div>
+            <div className="contractor-details-prof">
+                <p>{contractor.job_type || 'N/A'}</p>
+                <p className="contractor-rating-prof">{contractor.rating || '0'}/5</p>
+            </div>
+           
+        </div>
+    </li>
+))}
                     </ul>
                 </div>
                 </div>

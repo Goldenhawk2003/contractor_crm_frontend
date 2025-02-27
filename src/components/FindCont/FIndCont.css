@@ -121,20 +121,7 @@
     margin: 0;
 }
 
-/* Contractor Card */
-.contractor-card-find {
-    background-color: #ecf0fc; /* Greyish background */
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-    padding: 20px;
-    text-align: center;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
 
-.contractor-card-find:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-}
 
 .contractor-link {
     text-decoration: none;
@@ -145,6 +132,84 @@
 
 .contractor-link:hover {
     text-decoration: underline;
+}
+
+
+.contractor-card-prof {
+    background-color: #ECF0FC; /* Dark blue */
+    border-radius: 15px;
+    padding: 15px;
+    width: 280px;
+    text-align: center;
+    color: white;
+    font-family: 'Open Sauce One', Arial, sans-serif;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.contractor-card-prof:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.contractor-logo-prof {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+.contractor-info-prof {
+    background-color: transparent;
+    border-radius: 10px;
+    padding: 10px;
+    color: white;
+    text-align: left;
+}
+
+.contractor-name-prof {
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-align: left;
+    color: white;
+}
+
+.contractor-details-prof {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Two columns */
+    gap: 5px 10px;
+    font-size: 0.9rem;
+}
+
+.contractor-details-prof p {
+    margin: 5px 0;
+    font-size: 0.8rem;
+}
+
+.contractor-stars-prof {
+    color: #FFD700; /* Gold stars */
+    text-align: left;
+    padding-top: 10%;
+
+}
+
+.contractor-rating-prof {
+    font-size: 0.9rem;
+    color: white;
+    text-align: right;
+}
+
+/* Truncate long descriptions */
+.contractor-description-prof {
+    font-size: 0.85rem;
+    color: white;
+    margin-top: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+    max-width: 100%;
 }
 
 
