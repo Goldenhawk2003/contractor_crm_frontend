@@ -378,8 +378,8 @@ body.transparent-navbar-page .button-group {
   background-color: #1B3656; /* Deep blue background */
   color: #ffffff; /* White text for the container */
   font-family: 'Open Sauce One', Arial, sans-serif; /* Custom font */
-  border-top: 1px solid gray; /* White border at the top */
-  padding-bottom: 5%;
+/* White border at the top */
+  padding-bottom: 8%;
   padding-top: 5%;
 }
 
@@ -452,6 +452,7 @@ body.transparent-navbar-page .button-group {
 .service-description {
   font-size: 0.8rem;
   line-height: 1.6; /* Increase line spacing for readability */
+  text-align: left;
 
 }
 /* End of our services */
@@ -474,10 +475,11 @@ body.transparent-navbar-page .button-group {
 .process-p{
   max-width: 40%;
   padding-left: 5%;
+  font-weight: 100;
 }
 
 .our-header {
-  font-size: 2.5rem;
+  font-size: 2.8rem;
   color: #091268;
   font-weight: 200;
   padding-left: 5%;
@@ -499,7 +501,9 @@ body.transparent-navbar-page .button-group {
   justify-content: flex-start;
   background-color: #1B3656;
   text-align: center;
-  padding-left: 8%;
+  padding-left: 6%;
+  padding-right: 4%;
+  padding-bottom: 6%;
 
 }
 
@@ -663,7 +667,9 @@ body.transparent-navbar-page .button-group {
 }
 
 .Explore{
-border-top: 2px solid #091268;
+padding-top: 3%;
+padding-bottom: 4%;
+background-color: #ECF0FC;
 }
 
 .Explore-header{
@@ -671,11 +677,12 @@ border-top: 2px solid #091268;
   color: #091268;
   font-weight: 200;
   padding-left: 5%;
+  text-align: center;
 }
 
 .contractorExplore-button {
   height: 350px;
-  background-color: white;
+  background-color: transparent;
 
 }
 
@@ -687,15 +694,15 @@ border-top: 2px solid #091268;
   margin: 20px auto;
   justify-content: center;
   margin-top: 0;
-  background-color: white;
-  margin-bottom: 3%;
+  background-color: transparent;
+
 
 }
 
 .ContractorExplore a {
   display: block;
   width: 100vw; /* Keeps them square */
-  background-color: white;
+  background-color: transparent;
   border-radius: 10px;
   overflow: hidden;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -713,7 +720,7 @@ border-top: 2px solid #091268;
   height: 40vh;
   object-fit: fill;
   display: block;
-  background-color: white;
+  background-color:transparent;
 }
 
 

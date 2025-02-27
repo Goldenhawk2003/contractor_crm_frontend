@@ -38,24 +38,27 @@
   cursor: pointer;
   transition: background-color 0.3s ease;
   background-color: #091268;
+  border-radius: 6px;
 }
 
 .conversation-item-3:hover,
 .conversation-item-3.active {
-  background-color: #1b3656;
+  background-color: white;
+  color:#091268;
 }
 
 .conversation-item-3 strong {
   display: block;
   font-size: 1.2rem;
-  color: #fff;
+
 }
 
 .conversation-item-3 p {
   font-size: 0.9rem;
-  color: #d0d0d0;
+
   margin-top: 5px;
 }
+
 
 /* Main Chat Styling */
 .chat-main-3 {
@@ -207,6 +210,7 @@
   justify-content: center;
   gap: 10px;
   margin-top: 15px;
+
 }
 
 .confirm-button {

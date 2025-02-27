@@ -54,6 +54,7 @@ const UserProfile = () => {
 
     const [sending, setSending] = useState(false);
     const [unreadMessages, setUnreadMessages] = useState(0);
+ 
 
     useEffect(() => {
       const fetchUnreadMessages = async () => {
@@ -131,6 +132,28 @@ const UserProfile = () => {
       }
       return stars;
     };
+
+    const signContract = async (contractId) => {
+      setSignError("");
+      setSignSuccess("");
+
+      try {
+          await axios.post(
+              "http://localhost:8000/api/sign-contract/",
+              { contract_id: contractId },
+              { withCredentials: true }
+          );
+
+          setSignSuccess("Contract signed successfully!");
+          setReceivedContracts((prev) =>
+              prev.map((contract) =>
+                  contract.id === contractId ? { ...contract, is_signed: true } : contract
+              )
+          );
+      } catch {
+          setSignError("Failed to sign contract. Please try again.");
+      }
+  };
   
     const handleReply = async () => {
       if (!message.trim()) {
@@ -170,6 +193,7 @@ const UserProfile = () => {
             content: message,
             sender_name: username,
             timestamp: new Date().toISOString(),
+          
           },
         ]);
         setMessage("");
@@ -190,7 +214,34 @@ const UserProfile = () => {
     };
 
 
-
+    const sendContract = async () => {
+      if (!newContractTitle || !newContractContent || !selectedUser) {
+          setSendError("Please fill in all fields and select a user.");
+          return;
+      }
+  
+      setSendError("");
+      setSendSuccess("");
+  
+      try {
+          const payload = {
+              user_id: selectedUser.id,
+              title: newContractTitle, // Include title
+              contractContent: newContractContent, // Include content
+          };
+  
+          await axios.post("http://localhost:8000/api/send-contract/", payload, {
+              withCredentials: true,
+          });
+  
+          setSendSuccess("Contract sent successfully!");
+          setSelectedUser(null);
+          setNewContractTitle("");
+          setNewContractContent("");
+      } catch {
+          setSendError("Failed to send contract. Please try again.");
+      }
+  };
 
     useEffect(() => {
         axios
@@ -245,6 +296,7 @@ const UserProfile = () => {
         }
     };
 
+    const [contractTab, setContractTab] = useState("create");
 
   const renderContent = () => {
     if (activeTab === "home") {
@@ -287,47 +339,78 @@ const UserProfile = () => {
       return <div className="tab-content">
                           <h2>Your Contracts</h2>
                           {userInfo.type === "professional" && (
-                                         <div className="contract-section">
-                                             <h2>Create and Send a Contract</h2>
-                                             {sendError && <p className="error-message">{sendError}</p>}
-                                             {sendSuccess && <p className="success-message">{sendSuccess}</p>}
-                         
-                                             {/* Search User */}
-                                             <label htmlFor="user-search" className="user-label">Search for a User:</label>
-                                             <input
-                                                 id="user-search"
-                                                 type="text"
-                                                 value={searchTerm}
-                                                 onChange={(e) => setSearchTerm(e.target.value)}
-                                                 placeholder="Enter a username..."
-                                                 className="user-input"
-                                             />
-                                             <button onClick={handleSearch} disabled={searching} className="user-button">
-                                                 {searching ? "Searching..." : "Search"}
-                                             </button>
-                         
-                                             <div className="search-results">
-                                                 {searchResults.map((user) => (
-                                                     <div
-                                                         key={user.id}
-                                                         className={`search-result-item ${
-                                                             selectedUser?.id === user.id ? "selected" : ""
-                                                         }`}
-                                                         onClick={() => setSelectedUser(user)}
-                                                     >
-                                                         {user.username}
-                                                     </div>
-                                                 ))}
-                                             </div>
-                         
-                                             {selectedUser && (
-                                                 <p className="selected-user">
-                                                     Selected User: <strong>{selectedUser.username}</strong>
-                                                 </p>
-                                             )}
-                         
-                                             {/* Create Contract */}
-                                             <label>Contract Title</label>
+
+<div>
+
+
+{/* Tab Buttons */}
+<div className="contract-tabs">
+   <button className={`contract-tab ${contractTab === "create" ? "active" : ""}`} onClick={() => setContractTab("create")}>Create New Contract</button>
+        <button className={`contract-tab ${contractTab === "sent" ? "active" : ""}`} onClick={() => setContractTab("sent")}>Sent Contracts</button>
+        <button className={`contract-tab ${contractTab === "signed" ? "active" : ""}`} onClick={() => setContractTab("signed")}>Signed Contracts</button>
+</div>
+
+                  {contractTab === "create" && (
+                  <div className="contract-form-container">
+                    {sendSuccess && <p className="success-message">{sendSuccess}</p>}
+                    {sendError && <p className="error-message">{sendError}</p>}
+                    <h3 className="form-title">New Contract</h3>
+                    <p className="contract-date"><strong>Date:</strong> {new Date().toLocaleDateString()}</p>
+
+                    <div className="form-grid">
+                      {/* Recipient Details */}
+                      <div className="form-group">
+                      <label htmlFor="user-search" className="user-label">To:</label>
+                                                              <input
+                                                                  id="user-search"
+                                                                  type="text"
+                                                                  value={searchTerm}
+                                                                  onChange={(e) => setSearchTerm(e.target.value)}
+                                                                  placeholder="Enter a username..."
+                                                                  className="user-input"
+                                                              />
+                                                              <button onClick={handleSearch} disabled={searching} className="user-button">
+                                                                  {searching ? "Searching..." : "Search"}
+                                                              </button>
+                                          
+                                                              <div className="search-results">
+                                                                  {searchResults.map((user) => (
+                                                                      <div
+                                                                          key={user.id}
+                                                                          className={`search-result-item-contracts ${
+                                                                              selectedUser?.id === user.id ? "selected" : ""
+                                                                          }`}
+                                                                          onClick={() => setSelectedUser(user)}
+                                                                      >
+                                                                          {user.username}
+                                                                      </div>
+                                                                  ))}
+                                                                    {selectedUser && (
+                                                                  <p className="selected-user">
+                                                                      Selected User: <strong>{selectedUser.username}</strong>
+                                                                  </p>
+                                                              )}
+                                                              </div>
+                      </div>
+                  
+
+                      {/* Project Dates */}
+                      <div className="form-group">
+                        <label>Project Start & End Date:</label>
+                        <input type="date" />
+                        <input type="date" />
+                      </div>
+
+                      {/* Pricing Section */}
+                      <div className="form-group">
+                        <label>Pricing:</label>
+                        <input type="text" placeholder="$" />
+                        <input type="text" placeholder="Payment Cycle" />
+                      </div>
+
+                    
+                    </div>
+                    <label>Contract Title</label>
                                              <input
                                                  type="text"
                                                  value={newContractTitle}
@@ -335,30 +418,60 @@ const UserProfile = () => {
                                                  placeholder="Enter contract title"
                                                  className="user-input"
                                              />
-                                             <label>Contract Content</label>
-                                             <textarea
-                                                 value={newContractContent}
-                                                 onChange={(e) => setNewContractContent(e.target.value)}
-                                                 placeholder="Enter contract content"
-                                                 className="user-input"
-                                                 rows="5"
-                                             ></textarea>
-                         
-                                             <button onClick={sendContract} className="user-button">
+                    {/* Project Description */}
+                    <div className="form-group-full-width">
+                      <label>Terms:</label>
+                      <textarea value={newContractContent}
+                                                 onChange={(e) => setNewContractContent(e.target.value)} placeholder="Enter project details"></textarea>
+                    </div>
+                    <div class="button-container-send">
+                    <button onClick={sendContract} className="user-button-send">
                                                  Send Contract
                                              </button>
-                         
-                                             <h2>Sent Contracts</h2>
-                                             <ul className="user-ul">
-                                                 {sentContracts.map((contract) => (
-                                                     <li key={contract.id} className="user-li">
-                                                         <p><strong>Title:</strong> {contract.title}</p>
-                                                         <p><strong>Recipient:</strong> {contract.recipient}</p>
-                                                         <p><strong>Status:</strong> {contract.is_signed ? "Signed" : "Pending"}</p>
-                                                     </li>
-                                                 ))}
-                                             </ul>
-                                         </div>
+                                             </div>
+                  </div>
+                        )}
+
+                  {contractTab === "sent" && (
+                          <div className="contract-list">
+                            <h3>Sent Contracts</h3>
+                            {sentContracts.length === 0 ? (
+                              <p>No sent contracts available.</p>
+                            ) : (
+                              <ul>
+                                {sentContracts.map((contract) => (
+                                  <li key={contract.id} className="contract-item">
+                                    <p><strong>Title:</strong> {contract.title}</p>
+                                    <p><strong>Recipient:</strong> {contract.recipient}</p>
+                                    <p><strong>Status:</strong> {contract.is_signed ? "Signed" : "Pending"}</p>
+                                  </li>
+                                ))}
+                              </ul>
+                            )}
+                          </div>
+                        )}
+
+                  {contractTab=== "signed" && (
+                          <div className="contract-list">
+                            <h3>Signed Contracts</h3>
+                            {sentContracts.filter(contract => contract.is_signed).length === 0 ? (
+                              <p>No signed contracts available.</p>
+                            ) : (
+                              <ul>
+                                {sentContracts.filter(contract => contract.is_signed).map((contract) => (
+                                  <li key={contract.id} className="contract-item">
+                                    <p><strong>Title:</strong> {contract.title}</p>
+                                    <p><strong>Recipient:</strong> {contract.recipient}</p>
+                                    <p><strong>Signed Date:</strong> {contract.signed_date || "N/A"}</p>
+                                  </li>
+                                ))}
+                              </ul>
+                            )}
+                          </div>
+                        )}
+
+
+                  </div>
                                      )}
                          
                                      {userInfo.type === "client" && (
@@ -461,8 +574,20 @@ const UserProfile = () => {
                         <p className="sender">{msg.sender_name}</p>
                         <p className="content-3">{msg.content}</p>
                         <p className="timestamp">
-                          {new Date(msg.timestamp).toLocaleString()}
+                        {new Date(msg.timestamp).toLocaleString([], { 
+    weekday: "short",  
+    
+    month: "short",  // "Feb" instead of "02"
+    day: "2-digit", 
+    hour: "2-digit", 
+    minute: "2-digit", 
+    hour12: true // Keeps AM/PM format
+})}
                         </p>
+
+                   
+
+
                       </div>
                     ))}
                   </div>
@@ -510,34 +635,7 @@ const UserProfile = () => {
     }
 };
 
-const sendContract = async () => {
-    if (!newContractTitle || !newContractContent || !selectedUser) {
-        setSendError("Please fill in all fields and select a user.");
-        return;
-    }
 
-    setSendError("");
-    setSendSuccess("");
-
-    try {
-        const payload = {
-            user_id: selectedUser.id,
-            title: newContractTitle, // Include title
-            contractContent: newContractContent, // Include content
-        };
-
-        await axios.post("http://localhost:8000/api/send-contract/", payload, {
-            withCredentials: true,
-        });
-
-        setSendSuccess("Contract sent successfully!");
-        setSelectedUser(null);
-        setNewContractTitle("");
-        setNewContractContent("");
-    } catch {
-        setSendError("Failed to send contract. Please try again.");
-    }
-};
 
   return (
     <div className="user-profile">

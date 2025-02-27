@@ -136,12 +136,12 @@
 
 
 .contractor-card-prof {
-    background-color: #ECF0FC; /* Dark blue */
+    background-color: white; /* Dark blue */
     border-radius: 15px;
     padding: 15px;
     width: 280px;
     text-align: center;
-    color: white;
+    color: #091268;
     font-family: 'Open Sauce One', Arial, sans-serif;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     overflow: hidden;
@@ -172,7 +172,7 @@
     font-size: 1.2rem;
     font-weight: bold;
     text-align: left;
-    color: white;
+    color: #091268;
 }
 
 .contractor-details-prof {
@@ -185,6 +185,7 @@
 .contractor-details-prof p {
     margin: 5px 0;
     font-size: 0.8rem;
+    color: #091268;
 }
 
 .contractor-stars-prof {

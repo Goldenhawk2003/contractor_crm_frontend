@@ -138,7 +138,7 @@ const Home = () => {
     <button type="submit" className="trust-button" onClick={quizButton}>
       How-To Guide
     </button>
-    <button type="submit" className="trust-button" onClick={blogButton}> Blogs </button>
+    
   </div>
   <img src="/images/home-page/Mission-block-image.png" alt="Happy Contractors" className="contractor_img" />
 </div>
@@ -447,7 +447,7 @@ const Home = () => {
       <Link to="/Tutorials" className="contractorExplore-button">
         <img src="/images/home-page/914C6975-B3FD-468A-AB42-1446DBF23AE1.jpeg" alt="Renovation Services" />
       </Link>
-      <Link to="/find-contractor?type=Electrical" className="contractorExplore-button">
+      <Link to="blogs" className="contractorExplore-button">
         <img src="/images/home-page/5008674F-7D14-4363-AA72-5A541F001C79.jpeg" alt="Electrical Services" />
       </Link>
       <Link to="/quiz" className="contractorExplore-button">

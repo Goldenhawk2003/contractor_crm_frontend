@@ -272,12 +272,13 @@ const handleOpenTutorial = (tutorial) => {
           {service}
         </button>
       ))}
+  
+        <button className="upload-button-gate" onClick={handleUpload}>Upload</button>
+      
     </div>
 
     
-      <div className="button-container">
-        <button className="upload-button-gate" onClick={handleUpload}>Upload</button>
-      </div>
+     
     
 
       {loading && <p className="tutorial-message">Loading tutorials...</p>}
