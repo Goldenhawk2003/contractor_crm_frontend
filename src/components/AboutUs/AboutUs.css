@@ -192,3 +192,15 @@
       gap: 20px;
     }
   }
+
+  .learn-more-btn{
+    position: absolute;
+    top: 550px; /* Adjust position */
+    left: 5%;
+    background-color: #ECF0FC;
+    width: 20%;
+    height: 10%;
+    border-radius: 20px;
+    border: none;
+    
+  }
