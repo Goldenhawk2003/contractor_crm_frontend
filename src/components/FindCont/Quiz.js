@@ -8,6 +8,7 @@ const Quiz = () => {
     const [loading, setLoading] = useState(true);
     const [submitting, setSubmitting] = useState(false);
     const [submitted, setSubmitted] = useState(false);
+    const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
 
     useEffect(() => {
         const fetchQuestions = async () => {
@@ -35,13 +36,21 @@ const Quiz = () => {
         }));
     };
 
-    const handleSubmit = async () => {
-        const unansweredQuestions = questions.filter(
-            (question) => !responses[question.id]
-        );
+    const handleNext = () => {
+        if (currentQuestionIndex < questions.length - 1) {
+            setCurrentQuestionIndex(currentQuestionIndex + 1);
+        }
+    };
 
-        if (unansweredQuestions.length > 0) {
-            alert('Please answer all questions before submitting.');
+    const handlePrevious = () => {
+        if (currentQuestionIndex > 0) {
+            setCurrentQuestionIndex(currentQuestionIndex - 1);
+        }
+    };
+
+    const handleSubmit = async () => {
+        if (!responses[questions[currentQuestionIndex].id]) {
+            alert('Please answer the question before submitting.');
             return;
         }
 
@@ -79,66 +88,63 @@ const Quiz = () => {
     if (loading) return <p className="loading-message">Loading questions...</p>;
     if (error) return <p className="error-message">{error}</p>;
 
+    const currentQuestion = questions[currentQuestionIndex];
+
     return (
         <div className="quiz-container">
             <div className="quiz-header">
                 <h1>Help Us Help You</h1>
                 <p>Our custom quiz is designed to help you find the best match for your needs.</p>
             </div>
-
-            {questions.map((question) => (
-                <div key={question.id} className="quiz-question-container">
-                    <div className="quiz-question">
-                        <h2>{question.question}</h2>
-                        {question.description && <p>{question.description}</p>}
-                    </div>
-                    <div className="quiz-options">
-                        {question.question_type === 'text' && (
-                            <textarea
-                                placeholder="Type your answer here..."
-                                rows="4"
-                                value={responses[question.id] || ''}
-                                onChange={(e) => handleChange(question.id, e.target.value)}
-                                className="quiz-textarea"
-                            />
-                        )}
-
-                        {question.question_type === 'multiple_choice' &&
-                            question.choices &&
-                            question.choices.map((choice, index) => (
-                                <div key={index} className="quiz-choice">
-                                    <input
-                                        type="radio"
-                                        id={`choice-${index}-${question.id}`}
-                                        name={`question-${question.id}`}
-                                        value={choice}
-                                        checked={responses[question.id] === choice}
-                                        onChange={(e) => handleChange(question.id, e.target.value)}
-                                    />
-                                    <label htmlFor={`choice-${index}-${question.id}`}>
-                                        {choice}
-                                    </label>
-                                </div>
-                            ))}
-                    </div>
+            
+            <div key={currentQuestion.id} className="quiz-question-container">
+                <div className="quiz-question">
+                    <h2>{currentQuestion.question}</h2>
+                    {currentQuestion.description && <p>{currentQuestion.description}</p>}
                 </div>
-            ))}
+                <div className="quiz-options">
+                    {currentQuestion.question_type === 'text' && (
+                        <textarea
+                            placeholder="Type your answer here..."
+                            rows="4"
+                            value={responses[currentQuestion.id] || ''}
+                            onChange={(e) => handleChange(currentQuestion.id, e.target.value)}
+                            className="quiz-textarea"
+                        />
+                    )}
 
-            {!submitted && (
-                <button
-                    onClick={handleSubmit}
-                    className="submit-button"
-                    disabled={submitting}
-                >
-                    {submitting ? 'Submitting...' : 'Submit'}
+                    {currentQuestion.question_type === 'multiple_choice' &&
+                        currentQuestion.choices &&
+                        currentQuestion.choices.map((choice, index) => (
+                            <div key={index} className="quiz-choice">
+                                <input
+                                    type="radio"
+                                    id={`choice-${index}-${currentQuestion.id}`}
+                                    name={`question-${currentQuestion.id}`}
+                                    value={choice}
+                                    checked={responses[currentQuestion.id] === choice}
+                                    onChange={(e) => handleChange(currentQuestion.id, e.target.value)}
+                                />
+                                <label htmlFor={`choice-${index}-${currentQuestion.id}`}>{choice}</label>
+                            </div>
+                        ))}
+                </div>
+            </div>
+
+            <div className="quiz-navigation">
+                <button onClick={handlePrevious} disabled={currentQuestionIndex === 0}  className="submit-btn">
+                    Previous
                 </button>
-            )}
+                {currentQuestionIndex < questions.length - 1 ? (
+                    <button onClick={handleNext}  className="submit-btn">Next</button>
+                ) : (
+                    <button onClick={handleSubmit} disabled={submitting}  className="submit-btn">
+                        {submitting ? 'Submitting...' : 'Submit'}
+                    </button>
+                )}
+            </div>
 
-            {submitted && (
-                <p className="success-message">
-                    Your responses have been submitted. Thank you!
-                </p>
-            )}
+            {submitted && <p className="success-message">Your responses have been submitted. Thank you!</p>}
         </div>
     );
 };
