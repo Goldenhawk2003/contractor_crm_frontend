@@ -1,686 +1,728 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./UserProfile.css";
-import { useNavigate } from 'react-router-dom';
 import { useAuth } from "/Users/ammarogeil/Documents/GitHub/contractor_crm_frontend/src/context/AuthContext.js";
 
+// Helper to get CSRF token
 const getCSRFToken = () => {
-    const name = "csrftoken";
-    const cookies = document.cookie.split(";");
-    for (let cookie of cookies) {
-        cookie = cookie.trim();
-        if (cookie.startsWith(`${name}=`)) {
-            return cookie.substring(name.length + 1);
-        }
+  const name = "csrftoken";
+  const cookies = document.cookie.split(";");
+  for (let cookie of cookies) {
+    cookie = cookie.trim();
+    if (cookie.startsWith(`${name}=`)) {
+      return cookie.substring(name.length + 1);
     }
-    console.error("CSRF token not found");
-    return null;
+  }
+  console.error("CSRF token not found");
+  return null;
 };
-
-
 axios.defaults.headers.common["X-CSRFToken"] = getCSRFToken();
 
-const UserProfile = () => {
-    const [activeTab, setActiveTab] = useState("home");
-    const [userInfo, setUserInfo] = useState(null);
-    const [sentContracts, setSentContracts] = useState([]);
-    const [receivedContracts, setReceivedContracts] = useState([]);
-    const [error, setError] = useState(null);
-    const [searchTerm, setSearchTerm] = useState("");
-    const [searchResults, setSearchResults] = useState([]);
-    const [selectedUser, setSelectedUser] = useState(null);
-    const [sendSuccess, setSendSuccess] = useState("");
-    const [sendError, setSendError] = useState("");
-    const [signSuccess, setSignSuccess] = useState("");
-    const [signError, setSignError] = useState("");
-    const [searching, setSearching] = useState(false);
-    const [newContractTitle, setNewContractTitle] = useState("");
-    const [newContractContent, setNewContractContent] = useState("");
-    const navigate = useNavigate();
-    const [isMobile, setIsMobile] = useState(false);
-    const [showFullContent, setShowFullContent] = useState(false);
-    const maxLength = 100; // Adjust to your desired length for truncation.
-    const { user } = useAuth();
-    const username = user?.username;
-    const [conversations, setConversations] = useState([]);
-    const [messages, setMessages] = useState([]);
-    const [selectedConversationId, setSelectedConversationId] = useState(null);
-    const [message, setMessage] = useState("");
-    const [loadingConversations, setLoadingConversations] = useState(true);
-    const [loadingMessages, setLoadingMessages] = useState(false);
-    const [rating, setRating] = useState(0); // Track user rating input
-    const [hoveredRating, setHoveredRating] = useState(0); 
-
-    const [sending, setSending] = useState(false);
-    const [unreadMessages, setUnreadMessages] = useState(0);
- 
-
-    useEffect(() => {
-      const fetchUnreadMessages = async () => {
-        try {
-          const response = await axios.get("http://localhost:8000/api/unread-messages/", {
-            withCredentials: true,
-          });
-          setUnreadMessages(response.data.unread_count); // ✅ Update unread count
-        } catch (err) {
-          console.error("Failed to fetch unread messages.");
-        }
-      };
-    
-      // Fetch unread messages every 10 seconds
-      const interval = setInterval(fetchUnreadMessages, 10000);
-      fetchUnreadMessages(); // Initial fetch
-    
-      return () => clearInterval(interval); // Cleanup on unmount
-    }, []);
-    // Fetch conversations
-    useEffect(() => {
-      const fetchConversations = async () => {
-        setLoadingConversations(true);
-        try {
-          const response = await axios.get("http://localhost:8000/api/conversations/", {
-            withCredentials: true,
-          });
-          setConversations(response.data);
-        } catch (err) {
-          setError("Failed to load conversations.");
-        } finally {
-          setLoadingConversations(false);
-        }
-      };
-      fetchConversations();
-    }, []);
-  
-    // Fetch messages for selected conversation
-    useEffect(() => {
-      if (selectedConversationId) {
-        setLoadingMessages(true);
-        setError("");
-        const fetchMessages = async () => {
-          try {
-            const response = await axios.get(
-              `http://localhost:8000/api/conversations/${selectedConversationId}/messages/`,
-              { withCredentials: true }
-            );
-            setMessages(response.data);
-          } catch (err) {
-            setError("Failed to load messages.");
-          } finally {
-            setLoadingMessages(false);
-          }
-        };
-        fetchMessages();
-      }
-    }, [selectedConversationId]);
-
-
-    const renderStars = (ratingValue) => {
-      const stars = [];
-      for (let i = 1; i <= 5; i++) {
-        stars.push(
-          <span
-            key={i}
-            className={`star ${i <= (hoveredRating || ratingValue) ? "filled" : ""}`}
-            onClick={() => setRating(i)}
-            onMouseEnter={() => setHoveredRating(i)}
-            onMouseLeave={() => setHoveredRating(0)}
-          >
-            ★
-          </span>
-        );
-      }
-      return stars;
-    };
-
-    const signContract = async (contractId) => {
-      setSignError("");
-      setSignSuccess("");
-
-      try {
-          await axios.post(
-              "http://localhost:8000/api/sign-contract/",
-              { contract_id: contractId },
-              { withCredentials: true }
-          );
-
-          setSignSuccess("Contract signed successfully!");
-          setReceivedContracts((prev) =>
-              prev.map((contract) =>
-                  contract.id === contractId ? { ...contract, is_signed: true } : contract
-              )
-          );
-      } catch {
-          setSignError("Failed to sign contract. Please try again.");
-      }
-  };
-  
-    const handleReply = async () => {
-      if (!message.trim()) {
-        setError("Message cannot be empty.");
-        return;
-      }
-  
-      setSending(true);
-      try {
-        const csrfToken = document.cookie
-          .split("; ")
-          .find((row) => row.startsWith("csrftoken="))
-          ?.split("=")[1];
-  
-        if (!csrfToken) {
-          throw new Error("CSRF token is missing.");
-
-      
-        }
-  
-        const response = await axios.post(
-          `http://localhost:8000/api/conversations/${selectedConversationId}/reply/`,
-          { content: message },
-          {
-            headers: {
-              "Content-Type": "application/json",
-              "X-CSRFToken": csrfToken,
-            },
-            withCredentials: true,
-          }
-        );
-  
-        setMessages((prevMessages) => [
-          ...prevMessages,
-          {
-            id: response.data.id,
-            content: message,
-            sender_name: username,
-            timestamp: new Date().toISOString(),
-          
-          },
-        ]);
-        setMessage("");
-
-        await axios.get("http://localhost:8000/api/unread-messages/", {
-          withCredentials: true,
-        });
-      } catch (err) {
-        setError("Failed to send the message.");
-      } finally {
-        setSending(false);
-      }
-      
-    };
-
-    const toggleShowMore = () => {
-        setShowFullContent(!showFullContent);
-    };
-
-
-    const sendContract = async () => {
-      if (!newContractTitle || !newContractContent || !selectedUser) {
-          setSendError("Please fill in all fields and select a user.");
-          return;
-      }
-  
-      setSendError("");
-      setSendSuccess("");
-  
-      try {
-          const payload = {
-              user_id: selectedUser.id,
-              title: newContractTitle, // Include title
-              contractContent: newContractContent, // Include content
-          };
-  
-          await axios.post("http://localhost:8000/api/send-contract/", payload, {
-              withCredentials: true,
-          });
-  
-          setSendSuccess("Contract sent successfully!");
-          setSelectedUser(null);
-          setNewContractTitle("");
-          setNewContractContent("");
-      } catch {
-          setSendError("Failed to send contract. Please try again.");
-      }
-  };
-
-    useEffect(() => {
-        axios
-            .get("http://localhost:8000/api/user-info/", { withCredentials: true })
-            .then((response) => setUserInfo(response.data))
-            .catch(() => setError("Please sign in"));
-    }, []);
-
-    // Fetch sent contracts for professionals
-    useEffect(() => {
-        if (userInfo?.type === "professional" && activeTab === "contracts") {
-            axios
-                .get("http://localhost:8000/api/sent-contracts/", { withCredentials: true })
-                .then((response) => setSentContracts(response.data.contracts))
-                .catch(() => setError("Failed to fetch sent contracts."));
-        }
-    }, [userInfo, activeTab]);
-
-    // Fetch received contracts for clients
-    useEffect(() => {
-        if (userInfo?.type === "client" && activeTab === "contracts") {
-            axios
-                .get("http://localhost:8000/api/received-contracts/", { withCredentials: true })
-                .then((response) => setReceivedContracts(response.data.contracts))
-                .catch(() => setError("Failed to fetch received contracts."));
-        }
-    }, [userInfo, activeTab]);
-
-    useEffect(() => {
-            const handleResize = () => setIsMobile(window.innerWidth <= 950);
-            handleResize(); // Check initial size
-            window.addEventListener("resize", handleResize);
-            return () => window.removeEventListener("resize", handleResize);
-        }, []);
-    
-        const handleChat = () => {
-            if (isMobile) {
-                navigate("/inbox");
-            } else {
-                navigate("/Inbox3");
-            }
-        };
-    
-        const EditProfile = () => {
-        if(userInfo.type === "client"){
-            navigate("/clients/edit/:id");
-
-        }else{
-            navigate("/contractors/edit/:id");
-        
-        
-        }
-    };
-
-    const [contractTab, setContractTab] = useState("create");
-
-  const renderContent = () => {
-    if (activeTab === "home") {
-      return  <div className="tab-content">
-        <img src="" alt="" className="profile-header" />
-      {userInfo ? (
-          <div>
-             {userInfo?.logo && (
+// ------------------- Sidebar Component -------------------
+const Sidebar = ({ activeTab, unreadMessages, setActiveTab }) => {
+  return (
+    <div className="sidebar">
+      <div className="logo">
         <img
-          src={userInfo.logo.startsWith("http") ? userInfo.logo : `http://localhost:8000${userInfo.logo}`}
-          alt="User Logo"
-          className="profile-image"
+          src={`/images/EC_Primary_White.png`}
+          alt="Logo"
+          className="nav-logo"
+          height="50px"
         />
-      )}
-            <div className="profile-info">
-            
-              <button className="submit-btn" onClick={EditProfile} >Edit Profile</button>
-              </div>
-              <div className="profile-container">
-              <p className="profile-username">{userInfo.username}</p>
-              {userInfo.type === "professional" && (
-                <>
-              <p className="profile-blue">{userInfo.type}</p>
-              <p className="profile-blue">{userInfo.location}</p>
-              <p>{renderStars(userInfo.rating)}</p>
-              </>
-    )}
-              </div>
-              <div className="profile-description">
-                <p>{userInfo.description}</p>
-                </div>
-          </div>
-
-      ) : (
-          <p>Loading information...</p>
-      )}
-  </div>;
-    }
-    if (activeTab === "contracts") {
-      return <div className="tab-content">
-                          <h2>Your Contracts</h2>
-                          {userInfo.type === "professional" && (
-
-<div>
-
-
-{/* Tab Buttons */}
-<div className="contract-tabs">
-   <button className={`contract-tab ${contractTab === "create" ? "active" : ""}`} onClick={() => setContractTab("create")}>Create New Contract</button>
-        <button className={`contract-tab ${contractTab === "sent" ? "active" : ""}`} onClick={() => setContractTab("sent")}>Sent Contracts</button>
-        <button className={`contract-tab ${contractTab === "signed" ? "active" : ""}`} onClick={() => setContractTab("signed")}>Signed Contracts</button>
-</div>
-
-                  {contractTab === "create" && (
-                  <div className="contract-form-container">
-                    {sendSuccess && <p className="success-message">{sendSuccess}</p>}
-                    {sendError && <p className="error-message">{sendError}</p>}
-                    <h3 className="form-title">New Contract</h3>
-                    <p className="contract-date"><strong>Date:</strong> {new Date().toLocaleDateString()}</p>
-
-                    <div className="form-grid">
-                      {/* Recipient Details */}
-                      <div className="form-group">
-                      <label htmlFor="user-search" className="user-label">To:</label>
-                                                              <input
-                                                                  id="user-search"
-                                                                  type="text"
-                                                                  value={searchTerm}
-                                                                  onChange={(e) => setSearchTerm(e.target.value)}
-                                                                  placeholder="Enter a username..."
-                                                                  className="user-input"
-                                                              />
-                                                              <button onClick={handleSearch} disabled={searching} className="user-button">
-                                                                  {searching ? "Searching..." : "Search"}
-                                                              </button>
-                                          
-                                                              <div className="search-results">
-                                                                  {searchResults.map((user) => (
-                                                                      <div
-                                                                          key={user.id}
-                                                                          className={`search-result-item-contracts ${
-                                                                              selectedUser?.id === user.id ? "selected" : ""
-                                                                          }`}
-                                                                          onClick={() => setSelectedUser(user)}
-                                                                      >
-                                                                          {user.username}
-                                                                      </div>
-                                                                  ))}
-                                                                    {selectedUser && (
-                                                                  <p className="selected-user">
-                                                                      Selected User: <strong>{selectedUser.username}</strong>
-                                                                  </p>
-                                                              )}
-                                                              </div>
-                      </div>
-                  
-
-                      {/* Project Dates */}
-                      <div className="form-group">
-                        <label>Project Start & End Date:</label>
-                        <input type="date" />
-                        <input type="date" />
-                      </div>
-
-                      {/* Pricing Section */}
-                      <div className="form-group">
-                        <label>Pricing:</label>
-                        <input type="text" placeholder="$" />
-                        <input type="text" placeholder="Payment Cycle" />
-                      </div>
-
-                    
-                    </div>
-                    <label>Contract Title</label>
-                                             <input
-                                                 type="text"
-                                                 value={newContractTitle}
-                                                 onChange={(e) => setNewContractTitle(e.target.value)}
-                                                 placeholder="Enter contract title"
-                                                 className="user-input"
-                                             />
-                    {/* Project Description */}
-                    <div className="form-group-full-width">
-                      <label>Terms:</label>
-                      <textarea value={newContractContent}
-                                                 onChange={(e) => setNewContractContent(e.target.value)} placeholder="Enter project details"></textarea>
-                    </div>
-                    <div class="button-container-send">
-                    <button onClick={sendContract} className="user-button-send">
-                                                 Send Contract
-                                             </button>
-                                             </div>
-                  </div>
-                        )}
-
-                  {contractTab === "sent" && (
-                          <div className="contract-list">
-                            <h3>Sent Contracts</h3>
-                            {sentContracts.length === 0 ? (
-                              <p>No sent contracts available.</p>
-                            ) : (
-                              <ul>
-                                {sentContracts.map((contract) => (
-                                  <li key={contract.id} className="contract-item">
-                                    <p><strong>Title:</strong> {contract.title}</p>
-                                    <p><strong>Recipient:</strong> {contract.recipient}</p>
-                                    <p><strong>Status:</strong> {contract.is_signed ? "Signed" : "Pending"}</p>
-                                  </li>
-                                ))}
-                              </ul>
-                            )}
-                          </div>
-                        )}
-
-                  {contractTab=== "signed" && (
-                          <div className="contract-list">
-                            <h3>Signed Contracts</h3>
-                            {sentContracts.filter(contract => contract.is_signed).length === 0 ? (
-                              <p>No signed contracts available.</p>
-                            ) : (
-                              <ul>
-                                {sentContracts.filter(contract => contract.is_signed).map((contract) => (
-                                  <li key={contract.id} className="contract-item">
-                                    <p><strong>Title:</strong> {contract.title}</p>
-                                    <p><strong>Recipient:</strong> {contract.recipient}</p>
-                                    <p><strong>Signed Date:</strong> {contract.signed_date || "N/A"}</p>
-                                  </li>
-                                ))}
-                              </ul>
-                            )}
-                          </div>
-                        )}
-
-
-                  </div>
-                                     )}
-                         
-                                     {userInfo.type === "client" && (
-                                         <div className="received-contracts">
-                                             <h2>Received Contracts</h2>
-                                             {signError && <p className="error-message">{signError}</p>}
-                                             {signSuccess && <p className="success-message">{signSuccess}</p>}
-                                             <ul>
-                                                 {receivedContracts.map((contract) => (
-                                                     <li key={contract.id}>
-                                                         <p><strong>Title:</strong> {contract.title}</p>
-                                                         <div>
-                                                        <p><strong>Content:</strong> 
-                                                            {showFullContent
-                                                                ? contract.content
-                                                                : contract.content.slice(0, maxLength) +
-                                                                (contract.content.length > maxLength ? "..." : "")}
-                                                        </p>
-                                                        {contract.content.length > maxLength && (
-                                                            <button onClick={toggleShowMore} className="show-more-button">
-                                                                {showFullContent ? "Show Less" : "Show More"}
-                                                            </button>
-                                                        )}
-                                                    </div>
-                                                         <p><strong>Status:</strong> {contract.is_signed ? "Signed" : "Pending"}</p>
-                                                         <div className="button-container">
-                                                         {!contract.is_signed && (
-                                                             <button
-                                                                 onClick={() => signContract(contract.id)}
-                                                                 className="user-button"
-                                                             >
-                                                                 Sign
-                                                             </button>
-                                                         )}
-                                                         {contract.is_signed && (
-                                                             <>
-                                                                 <p className="signed">Contract signed!</p>
-                                                              
-                                                                     <p>
-                                                                 <Link to="/payment" className="user-button">
-                                                                     Pay Now
-                                                                 </Link>
-                                                                 </p>
-                                                              
-                                                             </>
-                                                         )}
-                                                         </div>
-                                                     </li>
-                                                 ))}
-                                             </ul>
-                                         </div>
-                                     )}
-                      </div>;
-    }
-    if (activeTab === "payments") {
-      return <div>Payments Content</div>;
-    }
-    if (activeTab === "chats") {
-      
-        if (isMobile) {
-            navigate("/inbox");
-        } else {
-            return     <div className="chat-container-3">
-            <div className="chat-sidebar-3">
-              <h2 className="sidebar-header-3">Inbox</h2>
-              {loadingConversations ? (
-                <p>Loading...</p>
-              ) : (
-                <ul className="conversation-list-3">
-                  {conversations.map((conversation) => (
-                    <li
-                      key={conversation.id}
-                      className={`conversation-item-3 ${
-                        conversation.id === selectedConversationId ? "active" : ""
-                      }`}
-                      onClick={() => setSelectedConversationId(conversation.id)}
-                    >
-                      {userInfo.type === "professional" ? (
-                      <strong>{conversation.participants[0]}</strong>
-                      ) : <strong>{conversation.participants[1]}</strong>}
-                      <p>{conversation.latest_message || "No messages yet."}</p>
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </div>
-            <div className="chat-main-3">
-              {loadingMessages ? (
-                <p>Loading messages...</p>
-              ) : selectedConversationId ? (
-                <>
-                  <div className="messages-container-3">
-                    {messages.map((msg) => (
-                      <div
-                        key={msg.id}
-                        className={`message ${
-                          msg.sender_name === username ? "sent" : "received"
-                        }`}
-                      >
-                        <p className="sender">{msg.sender_name}</p>
-                        <p className="content-3">{msg.content}</p>
-                        <p className="timestamp">
-                        {new Date(msg.timestamp).toLocaleString([], { 
-    weekday: "short",  
-    
-    month: "short",  // "Feb" instead of "02"
-    day: "2-digit", 
-    hour: "2-digit", 
-    minute: "2-digit", 
-    hour12: true // Keeps AM/PM format
-})}
-                        </p>
-
-                   
-
-
-                      </div>
-                    ))}
-                  </div>
-                  <div className="reply-section">
-                    <textarea
-                      value={message}
-                      onChange={(e) => setMessage(e.target.value)}
-                      placeholder="Write your reply..."
-                    />
-                    <button onClick={handleReply} disabled={sending}>
-                      {sending ? "Sending..." : "Reply"}
-                    </button>
-                  </div>
-                </>
-              ) : (
-                <p>Select a conversation to view messages.</p>
-              )}
-            </div>
-          </div>
-        }
-    }
-  };
-  const handleSearch = async () => {
-    if (!searchTerm.trim()) {
-        setSendError("Please enter a username to search.");
-        return;
-    }
-
-    setSearching(true);
-    setSendError("");
-
-    try {
-        const response = await axios.get(
-            `http://localhost:8000/api/users/search/?q=${searchTerm}`,
-            { withCredentials: true }
-        );
-        setSearchResults(response.data);
-        if (response.data.length === 0) {
-            setSendError("No users found with the provided username.");
-        }
-    } catch {
-        setSendError("Failed to search for users. Please try again.");
-    } finally {
-        setSearching(false);
-    }
+      </div>
+      <div className="menu">
+        <Link
+          to="#"
+          className={`menu-item ${activeTab === "home" ? "active" : ""}`}
+          onClick={() => setActiveTab("home")}
+        >
+          <i className="fa fa-home"></i> Home
+        </Link>
+        <Link
+          to="#"
+          className={`menu-item ${activeTab === "chats" ? "active" : ""}`}
+          onClick={() => setActiveTab("chats")}
+        >
+          <i className="fa fa-comments"></i> Chats
+          {unreadMessages > 0 && (
+            <span className="notification-badge">{unreadMessages}</span>
+          )}
+        </Link>
+        <Link
+          to="#"
+          className={`menu-item ${activeTab === "payments" ? "active" : ""}`}
+          onClick={() => setActiveTab("payments")}
+        >
+          <i className="fa fa-credit-card"></i> Payments
+        </Link>
+        <Link
+          to="#"
+          className={`menu-item ${activeTab === "contracts" ? "active" : ""}`}
+          onClick={() => setActiveTab("contracts")}
+        >
+          <i className="fa fa-file-contract"></i> Contracts
+        </Link>
+      </div>
+    </div>
+  );
 };
 
+// ------------------- StarRating Component -------------------
+const StarRating = ({ ratingValue, onRate }) => {
+  const [hoveredRating, setHoveredRating] = useState(0);
 
+  return (
+    <div>
+      {[1, 2, 3, 4, 5].map((i) => (
+        <span
+          key={i}
+          className={`star ${i <= (hoveredRating || ratingValue) ? "filled" : ""}`}
+          onClick={() => onRate && onRate(i)}
+          onMouseEnter={() => setHoveredRating(i)}
+          onMouseLeave={() => setHoveredRating(0)}
+        >
+          ★
+        </span>
+      ))}
+    </div>
+  );
+};
+
+// ------------------- HomeTab Component -------------------
+const HomeTab = ({ userInfo }) => {
+  const navigate = useNavigate();
+
+  const editProfile = useCallback(() => {
+    if (userInfo?.type === "client") {
+      navigate("/clients/edit/:id");
+    } else {
+      navigate("/contractors/edit/:id");
+    }
+  }, [navigate, userInfo]);
+
+  return (
+    <div className="tab-content">
+      {userInfo ? (
+        <div>
+          {userInfo.logo && (
+            <img
+              src={
+                userInfo.logo.startsWith("http")
+                  ? userInfo.logo
+                  : `http://localhost:8000${userInfo.logo}`
+              }
+              alt="User Logo"
+              className="profile-image"
+            />
+          )}
+          <div className="profile-info">
+            <button className="submit-btn" onClick={editProfile}>
+              Edit Profile
+            </button>
+          </div>
+          <div className="profile-container">
+            <p className="profile-username">{userInfo.username}</p>
+            {userInfo.type === "professional" && (
+              <>
+                <p className="profile-blue">{userInfo.type}</p>
+                <p className="profile-blue">{userInfo.location}</p>
+                <StarRating ratingValue={userInfo.rating} />
+              </>
+            )}
+          </div>
+          <div className="profile-description">
+            <p>{userInfo.description}</p>
+          </div>
+        </div>
+      ) : (
+        <p>Loading information...</p>
+      )}
+    </div>
+  );
+};
+
+// ------------------- ProfessionalContracts Component -------------------
+const ProfessionalContracts = () => {
+  const [contractTab, setContractTab] = useState("create");
+  const [newContractTitle, setNewContractTitle] = useState("");
+  const [newContractContent, setNewContractContent] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
+  const [selectedUser, setSelectedUser] = useState(null);
+  const [sendSuccess, setSendSuccess] = useState("");
+  const [sendError, setSendError] = useState("");
+  const [sentContracts, setSentContracts] = useState([]);
+  const [error, setError] = useState(null);
+
+  const handleSearch = useCallback(async () => {
+    if (!searchTerm.trim()) {
+      setSendError("Please enter a username to search.");
+      return;
+    }
+    setSendError("");
+    try {
+      const response = await axios.get(
+        `http://localhost:8000/api/users/search/?q=${searchTerm}`,
+        { withCredentials: true }
+      );
+      setSearchResults(response.data);
+      if (response.data.length === 0) {
+        setSendError("No users found with the provided username.");
+      }
+    } catch {
+      setSendError("Failed to search for users. Please try again.");
+    }
+  }, [searchTerm]);
+
+  const sendContract = useCallback(async () => {
+    if (!newContractTitle || !newContractContent || !selectedUser) {
+      setSendError("Please fill in all fields and select a user.");
+      return;
+    }
+    setSendError("");
+    setSendSuccess("");
+    try {
+      const payload = {
+        user_id: selectedUser.id,
+        title: newContractTitle,
+        contractContent: newContractContent,
+      };
+      await axios.post("http://localhost:8000/api/send-contract/", payload, {
+        withCredentials: true,
+      });
+      setSendSuccess("Contract sent successfully!");
+      setSelectedUser(null);
+      setNewContractTitle("");
+      setNewContractContent("");
+    } catch {
+      setSendError("Failed to send contract. Please try again.");
+    }
+  }, [newContractTitle, newContractContent, selectedUser]);
+
+  // Fetch sent contracts when switching to "sent" or "signed" tab
+  useEffect(() => {
+    if (contractTab === "sent" || contractTab === "signed") {
+      axios
+        .get("http://localhost:8000/api/sent-contracts/", { withCredentials: true })
+        .then((response) => setSentContracts(response.data.contracts))
+        .catch(() => setError("Failed to fetch sent contracts."));
+    }
+  }, [contractTab]);
+
+  return (
+    <div>
+      <div className="contract-tabs">
+        <button
+          className={`contract-tab ${contractTab === "create" ? "active" : ""}`}
+          onClick={() => setContractTab("create")}
+        >
+          Create New Contract
+        </button>
+        <button
+          className={`contract-tab ${contractTab === "sent" ? "active" : ""}`}
+          onClick={() => setContractTab("sent")}
+        >
+          Sent Contracts
+        </button>
+        <button
+          className={`contract-tab ${contractTab === "signed" ? "active" : ""}`}
+          onClick={() => setContractTab("signed")}
+        >
+          Signed Contracts
+        </button>
+      </div>
+
+      {contractTab === "create" && (
+        <div className="contract-form-container">
+          {sendSuccess && <p className="success-message">{sendSuccess}</p>}
+          {sendError && <p className="error-message">{sendError}</p>}
+          <h3 className="form-title">New Contract</h3>
+          <p className="contract-date">
+            <strong>Date:</strong> {new Date().toLocaleDateString()}
+          </p>
+          <div className="form-grid">
+            <div className="form-group">
+              <label htmlFor="user-search" className="user-label">
+                To:
+              </label>
+              <input
+                id="user-search"
+                type="text"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                placeholder="Enter a username..."
+                className="user-input"
+              />
+              <button onClick={handleSearch} className="user-button">
+                Search
+              </button>
+              <div className="search-results">
+                {searchResults.map((user) => (
+                  <div
+                    key={user.id}
+                    className={`search-result-item-contracts ${
+                      selectedUser?.id === user.id ? "selected" : ""
+                    }`}
+                    onClick={() => setSelectedUser(user)}
+                  >
+                    {user.username}
+                  </div>
+                ))}
+                {selectedUser && (
+                  <p className="selected-user">
+                    Selected User: <strong>{selectedUser.username}</strong>
+                  </p>
+                )}
+              </div>
+            </div>
+            <div className="form-group">
+              <label>Project Start & End Date:</label>
+              <input type="date" />
+              <input type="date" />
+            </div>
+            <div className="form-group">
+              <label>Pricing:</label>
+              <input type="text" placeholder="$" />
+              <input type="text" placeholder="Payment Cycle" />
+            </div>
+          </div>
+          <label>Contract Title</label>
+          <input
+            type="text"
+            value={newContractTitle}
+            onChange={(e) => setNewContractTitle(e.target.value)}
+            placeholder="Enter contract title"
+            className="user-input"
+          />
+          <div className="form-group-full-width">
+            <label>Terms:</label>
+            <textarea
+              value={newContractContent}
+              onChange={(e) => setNewContractContent(e.target.value)}
+              placeholder="Enter project details"
+            ></textarea>
+          </div>
+          <div className="button-container-send">
+            <button onClick={sendContract} className="user-button-send">
+              Send Contract
+            </button>
+          </div>
+        </div>
+      )}
+
+      {contractTab === "sent" && (
+        <div className="contract-list">
+          <h3>Sent Contracts</h3>
+          {error && <p className="error-message">{error}</p>}
+          {sentContracts.length === 0 ? (
+            <p>No sent contracts available.</p>
+          ) : (
+            <ul>
+              {sentContracts.map((contract) => (
+                <li key={contract.id} className="contract-item">
+                  <p>
+                    <strong>Title:</strong> {contract.title}
+                  </p>
+                  <p>
+                    <strong>Recipient:</strong> {contract.recipient}
+                  </p>
+                  <p>
+                    <strong>Status:</strong>{" "}
+                    {contract.is_signed ? "Signed" : "Pending"}
+                  </p>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+      )}
+
+      {contractTab === "signed" && (
+        <div className="contract-list">
+          <h3>Signed Contracts</h3>
+          {error && <p className="error-message">{error}</p>}
+          {sentContracts.filter((c) => c.is_signed).length === 0 ? (
+            <p>No signed contracts available.</p>
+          ) : (
+            <ul>
+              {sentContracts
+                .filter((c) => c.is_signed)
+                .map((contract) => (
+                  <li key={contract.id} className="contract-item">
+                    <p>
+                      <strong>Title:</strong> {contract.title}
+                    </p>
+                    <p>
+                      <strong>Recipient:</strong> {contract.recipient}
+                    </p>
+                    <p>
+                      <strong>Signed Date:</strong>{" "}
+                      {contract.signed_date || "N/A"}
+                    </p>
+                  </li>
+                ))}
+            </ul>
+          )}
+        </div>
+      )}
+    </div>
+  );
+};
+
+// ------------------- ClientContracts Component -------------------
+const ClientContracts = () => {
+  const [receivedContracts, setReceivedContracts] = useState([]);
+  const [signError, setSignError] = useState("");
+  const [signSuccess, setSignSuccess] = useState("");
+  const [showFullContent, setShowFullContent] = useState(false);
+  const maxLength = 100;
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:8000/api/received-contracts/", {
+        withCredentials: true,
+      })
+      .then((response) => setReceivedContracts(response.data.contracts))
+      .catch(() => {});
+  }, []);
+
+  const toggleShowMore = useCallback(() => {
+    setShowFullContent((prev) => !prev);
+  }, []);
+
+  const signContract = useCallback(async (contractId) => {
+    setSignError("");
+    setSignSuccess("");
+    try {
+      await axios.post(
+        "http://localhost:8000/api/sign-contract/",
+        { contract_id: contractId },
+        { withCredentials: true }
+      );
+      setSignSuccess("Contract signed successfully!");
+      setReceivedContracts((prev) =>
+        prev.map((contract) =>
+          contract.id === contractId
+            ? { ...contract, is_signed: true }
+            : contract
+        )
+      );
+    } catch {
+      setSignError("Failed to sign contract. Please try again.");
+    }
+  }, []);
+
+  return (
+    <div className="received-contracts">
+      <h2>Received Contracts</h2>
+      {signError && <p className="error-message">{signError}</p>}
+      {signSuccess && <p className="success-message">{signSuccess}</p>}
+      <ul>
+        {receivedContracts.map((contract) => (
+          <li key={contract.id}>
+            <p>
+              <strong>Title:</strong> {contract.title}
+            </p>
+            <div>
+              <p>
+                <strong>Content:</strong>{" "}
+                {showFullContent
+                  ? contract.content
+                  : contract.content.slice(0, maxLength) +
+                    (contract.content.length > maxLength ? "..." : "")}
+              </p>
+              {contract.content.length > maxLength && (
+                <button onClick={toggleShowMore} className="show-more-button">
+                  {showFullContent ? "Show Less" : "Show More"}
+                </button>
+              )}
+            </div>
+            <p>
+              <strong>Status:</strong>{" "}
+              {contract.is_signed ? "Signed" : "Pending"}
+            </p>
+            <div className="button-container">
+              {!contract.is_signed && (
+                <button
+                  onClick={() => signContract(contract.id)}
+                  className="user-button"
+                >
+                  Sign
+                </button>
+              )}
+              {contract.is_signed && (
+                <>
+                  <p className="signed">Contract signed!</p>
+                  <p>
+                    <Link to="/payment" className="user-button">
+                      Pay Now
+                    </Link>
+                  </p>
+                </>
+              )}
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+};
+
+// ------------------- ContractsTab Component -------------------
+const ContractsTab = ({ userInfo }) => {
+  if (userInfo?.type === "professional") {
+    return <ProfessionalContracts />;
+  } else if (userInfo?.type === "client") {
+    return <ClientContracts />;
+  }
+  return null;
+};
+
+// ------------------- ChatsTab Component -------------------
+const ChatsTab = ({ userInfo, username }) => {
+  const [conversations, setConversations] = useState([]);
+  const [messages, setMessages] = useState([]);
+  const [selectedConversationId, setSelectedConversationId] = useState(null);
+  const [message, setMessage] = useState("");
+  const [loadingConversations, setLoadingConversations] = useState(true);
+  const [loadingMessages, setLoadingMessages] = useState(false);
+  const [error, setError] = useState("");
+  const [sending, setSending] = useState(false);
+  const navigate = useNavigate();
+  const isMobile = false; // You can enhance this with a mobile-detection hook
+  const totalUnreadCount = conversations.reduce(
+    (total, conv) => total + (conv.unread_count || 0),
+    0
+  );
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:8000/api/conversations/", {
+        withCredentials: true,
+      })
+      .then((response) => setConversations(response.data))
+      .catch(() => setError("Failed to load conversations."))
+      .finally(() => setLoadingConversations(false));
+  }, []);
+
+  useEffect(() => {
+    if (selectedConversationId) {
+      setLoadingMessages(true);
+      axios
+        .get(
+          `http://localhost:8000/api/conversations/${selectedConversationId}/messages/`,
+          { withCredentials: true }
+        )
+        .then((response) => setMessages(response.data))
+        .catch(() => setError("Failed to load messages."))
+        .finally(() => setLoadingMessages(false));
+    }
+  }, [selectedConversationId]);
+
+  const handleReply = useCallback(async () => {
+    if (!message.trim()) {
+      setError("Message cannot be empty.");
+      return;
+    }
+    setSending(true);
+    try {
+      const csrfToken = document.cookie
+        .split("; ")
+        .find((row) => row.startsWith("csrftoken="))
+        ?.split("=")[1];
+      if (!csrfToken) throw new Error("CSRF token is missing.");
+
+      const response = await axios.post(
+        `http://localhost:8000/api/conversations/${selectedConversationId}/reply/`,
+        { content: message },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "X-CSRFToken": csrfToken,
+          },
+          withCredentials: true,
+        }
+      );
+      
+      
+      setMessages((prevMessages) => [
+        ...prevMessages,
+        {
+          id: response.data.id,
+          content: message,
+          sender_name: username,
+          timestamp: new Date().toISOString(),
+        },
+      ]);
+      setMessage("");
+      await axios.get("http://localhost:8000/api/unread-messages/", {
+        withCredentials: true,
+      });
+    } catch (err) {
+      setError("Failed to send the message.");
+    } finally {
+      setSending(false);
+    }
+    
+  }, [message, selectedConversationId, username]);
+
+  if (isMobile) {
+    navigate("/inbox");
+  }
+
+  return (
+    <div className="chat-container-3">
+      <div className="chat-sidebar-3">
+        <h2 className="sidebar-header-3"><h2 className="sidebar-header-3">
+          Inbox{" "}
+          {totalUnreadCount > 0 && (
+            <span className="notification-badge">{totalUnreadCount}</span>
+          )}
+        </h2></h2>
+        {loadingConversations ? (
+          <p>Loading...</p>
+        ) : (
+          <ul className="conversation-list-3">
+            {conversations.map((conversation) => (
+              <li
+                key={conversation.id}
+                className={`conversation-item-3 ${
+                  conversation.id === selectedConversationId ? "active" : ""
+                }`}
+                onClick={() => setSelectedConversationId(conversation.id)}
+              >
+                <div className="conversation-item-content">
+                  <div className="conversation-name">
+                    {userInfo.type === "professional" ? (
+                      <strong>{conversation.participants[0]}</strong>
+                    ) : (
+                      <strong>{conversation.participants[1]}</strong>
+                    )}
+
+                     {/* Unread Notification (badge) right next to the name */}
+    {conversation.unread_count > 0 && (
+      <span className="notification-badge">
+        {conversation.unread_count}
+      </span>
+    )}
+                  </div>
+                  {conversation.unreadMessages > 0 && (
+                    <span className="notification-badge">
+                      {conversation.unreadMessages}
+                    </span>
+                  )}
+                </div>
+                <p>{conversation.latest_message || "No messages yet."}</p>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+      <div className="chat-main-3">
+        {loadingMessages ? (
+          <p>Loading messages...</p>
+        ) : selectedConversationId ? (
+          <>
+            <div className="messages-container-3">
+              {messages.map((msg) => (
+                <div
+                  key={msg.id}
+                  className={`message ${
+                    msg.sender_name === username ? "sent" : "received"
+                  }`}
+                >
+                  <p className="sender">{msg.sender_name}</p>
+                  <p className="content-3">{msg.content}</p>
+                  <p className="timestamp">
+                    {new Date(msg.timestamp).toLocaleString([], {
+                      weekday: "short",
+                      month: "short",
+                      day: "2-digit",
+                      hour: "2-digit",
+                      minute: "2-digit",
+                      hour12: true,
+                    })}
+                  </p>
+                </div>
+              ))}
+            </div>
+            <div className="reply-section">
+              <textarea
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+                placeholder="Write your reply..."
+              />
+              <button onClick={handleReply} disabled={sending}>
+                {sending ? "Sending..." : "Reply"}
+              </button>
+            </div>
+          </>
+        ) : (
+          <p>Select a conversation to view messages.</p>
+        )}
+      </div>
+    </div>
+  );
+};
+
+// ------------------- PaymentsTab Component -------------------
+const PaymentsTab = () => {
+  return <div>Payments Content</div>;
+};
+
+// ------------------- Main UserProfile Component -------------------
+const UserProfile = () => {
+  const [activeTab, setActiveTab] = useState("home");
+  const [userInfo, setUserInfo] = useState(null);
+  const [unreadMessages, setUnreadMessages] = useState(0);
+  const [error, setError] = useState(null);
+  const { user } = useAuth();
+  const username = user?.username;
+  const navigate = useNavigate();
+
+  // Fetch user info
+  useEffect(() => {
+    axios
+      .get("http://localhost:8000/api/user-info/", { withCredentials: true })
+      .then((response) => setUserInfo(response.data))
+      .catch(() => setError("Please sign in"));
+  }, []);
+
+  // Poll for unread messages
+  useEffect(() => {
+    const fetchUnreadMessages = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:8000/api/unread-messages/",
+          { withCredentials: true }
+        );
+        setUnreadMessages(response.data.unread_count);
+      } catch (err) {
+        console.error("Failed to fetch unread messages.");
+      }
+    };
+
+    fetchUnreadMessages();
+    const interval = setInterval(fetchUnreadMessages, 1000);
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <div className="user-profile">
-      <div className="sidebar">
-        <div className="logo">
-        <img
-                src={`/images/EC_Primary_White.png`}
-                alt="Logo"
-                className="nav-logo"
-                height="50px"
-              />
-        </div>
-        <div className="menu">
-          <Link
-            to="#"
-            className={`menu-item ${activeTab === "home" ? "active" : ""}`}
-            onClick={() => setActiveTab("home")}
-          >
-            <i className="fa fa-home"></i> Home
-          </Link>
-          <Link
-  to="#"
-  className={`menu-item ${activeTab === "chats" ? "active" : ""}`}
-  onClick={() => setActiveTab("chats")}
->
-  <i className="fa fa-comments"></i> Chats
-  {unreadMessages > 0 && <span className="notification-badge">{unreadMessages}</span>} 
-</Link>
-          <Link
-            to="#"
-            className={`menu-item ${activeTab === "payments" ? "active" : ""}`}
-            onClick={() => setActiveTab("payments")}
-          >
-            <i className="fa fa-credit-card"></i> Payments
-          </Link>
-          <Link
-            to="#"
-            className={`menu-item ${activeTab === "contracts" ? "active" : ""}`}
-            onClick={() => setActiveTab("contracts")}
-          >
-            <i className="fa fa-file-contract"></i> Contracts
-          </Link>
-        </div>
+      <Sidebar
+        activeTab={activeTab}
+        unreadMessages={unreadMessages}
+        setActiveTab={setActiveTab}
+      />
+      <div className="main-content">
+        {activeTab === "home" && <HomeTab userInfo={userInfo} />}
+        {activeTab === "contracts" && <ContractsTab userInfo={userInfo} />}
+        {activeTab === "chats" && (
+          <ChatsTab userInfo={userInfo} username={username} />
+        )}
+        {activeTab === "payments" && <PaymentsTab />}
       </div>
-      <div className="main-content">{renderContent()}</div>
     </div>
   );
 };
