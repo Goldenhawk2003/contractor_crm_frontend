@@ -82,31 +82,52 @@
 .log-button:hover {
   transform: scale(1.05); /* Slight zoom effect */
 }
-
-/* Mobile Responsiveness */
 @media (max-width: 768px) {
+  /* Ensure full-width container with proper box-sizing */
   .button-group {
-      flex-direction: column;
-      align-items: center;
-      width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 118%;
+    padding: 10px 0;
+    box-sizing: border-box;
   }
 
-  .left-nav {
-      flex-direction: column;
-      align-items: center;
-      gap: 10px; /* Reduce gap for mobile */
-  }
-
+  /* Both navigation containers take full width and center their items */
+  .left-nav,
   .right-nav {
-      margin-top: 10px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
   }
 
+  /* Left navigation: display items in a row with wrapping */
+  .left-nav {
+    flex-direction: row;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+
+  /* Right navigation: align items in a row with a gap */
+  .right-nav {
+    flex-direction: row;
+    gap: 10px;
+  }
+
+  /* Ensure nav and login buttons fill available space but don’t exceed screen width */
   .nav-button,
   .log-button {
-      width: 100%;
-      text-align: center;
+    flex: 1;
+    max-width: 90%;
+    margin: 5px;
+    padding: 10px;
+    text-align: center;
+    box-sizing: border-box;
   }
 }
-
 
 

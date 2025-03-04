@@ -164,43 +164,130 @@
     background-color: white;
     color: black;
   }
-  /* Responsive Design */
   @media (max-width: 768px) {
-    .story-container {
-      flex-direction: column;
-      text-align: center;
-    }
-  
-    .story-text {
-      padding-left: 0;
-      margin-top: 10px;
-    }
-  }
-  /* Responsive Design */
-  @media (max-width: 768px) {
+    /* About Us Section Adjustments */
     .about-us-container {
-      flex-direction: column;
-      text-align: center;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        width: 110%;
     }
-  
-    .about-us-container img {
-      margin: 20px 0 0;
-    }
-  
-    .impact-content {
-      flex-direction: column;
-      gap: 20px;
-    }
-  }
-
-  .learn-more-btn{
-    position: absolute;
-    top: 550px; /* Adjust position */
-    left: 5%;
-    background-color: #ECF0FC;
-    width: 20%;
-    height: 10%;
-    border-radius: 20px;
-    border: none;
     
+    .text-content {
+        width: 90%;
+        padding-left: 0;
+        padding-top: 10px;
+        text-align: center;
+    }
+    
+    .about-us-container img {
+        width: 150%;
+       height: 110%;
+        object-fit: cover;
+        margin: 10px 0;
+        border-radius: 5%;
+    }
+    
+    .about-us-container h1 {
+        font-size: 0.9rem;
+    }
+    
+    .about-us-container h2 {
+        font-size: 2rem;
+        width: 90%;
+        margin: 0 auto;
+    }
+    
+    .about-us-container p {
+        width: 90%;
+        margin: 0 auto;
+        font-size: 0.9rem;
+    }
+    
+    /* Impact Section Adjustments */
+    .impact-section {
+        padding: 30px 10px;
+        text-align: center;
+    }
+    
+    .impact-container {
+        width: 110%;
+        margin: 0 auto;
+    }
+    
+    .impact-title {
+        font-size: 2.5rem;
+        justify-content: center;
+        margin-left: 0;
+    }
+    
+    .impact-content {
+        flex-direction: column;
+        gap: 20px;
+        padding: 20px 10px;
+    }
+    
+    .impact-card {
+        margin-bottom: 20px;
+    }
+    
+    .impact-number {
+        font-size: 2.5rem;
+    }
+    
+    .impact-text {
+        font-size: 0.9rem;
+        width: 90%;
+        margin: 0 auto;
+    }
+    
+    /* Our Story Section Adjustments */
+    .our-story {
+        padding: 10px 10px 20px;
+        width: 112%;
+    }
+    
+    .story-container {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .story-title {
+        font-size: 2rem;
+        padding-left: 0;
+        white-space: normal;
+        text-align: center;
+    }
+    
+    .story-text {
+        flex: 2;
+        padding-left: 0;
+        width: 95%;
+        font-size: 1rem;
+        padding-top: 10px;
+        text-align: center;
+        line-height: 1.5;
+    }
+    
+    /* Overlay Button Adjustments */
+    .overlay-button {
+        position: relative;
+        bottom: 50px;
+      
+        left: 50%;
+        transform: translateX(-50%);
+        width: 60%;
+        height: auto;
+       
+        padding: 12px 0;
+      
+        border: none;
+    }
+
+    .our-mission{
+      width: 117%;
+      height: 150%;
+    }
   }

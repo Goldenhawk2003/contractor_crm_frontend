@@ -153,24 +153,55 @@
     color: gold;
 }
 
-/* Responsive Design */
 @media (max-width: 768px) {
-    .filters {
-        flex-direction: column;
-        align-items: center;
-        gap: 15px;
+    /* Headers */
+    .first-text,
+    .browse-header {
+        width: 100%;
+        margin: 8% auto 0; /* center horizontally */
+        box-sizing: border-box;
     }
-
-    .filters .form {
-        flex-direction: column;
+    
+    /* Filters Section Containers */
+    .filters,
+    .browse-gold {
+        width: 117%;
+        margin: 0 auto;
+        box-sizing: border-box;
     }
-
+    
+    /* Filters Inner Elements (optional, adjust as needed) */
+    .filters .form,
     .filters .dropdown,
     .filters .submit-btn {
+        width: 80%;
+        box-sizing: border-box;
+    }
+    
+    /* Contractors Section */
+    .Contractors {
+        width: 110%;
+        margin: 0 auto;
+        box-sizing: border-box;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin-left: 3%;
+    }
+    
+    .contractor-list {
+       
+        margin: 0 auto;
+        box-sizing: border-box;
+      
+    }
+    
+    .contractor-card,
+    .contractor-card-browse {
         width: 100%;
+        margin: 0 auto;
+        box-sizing: border-box;
     }
-
-    .contractor-logo {
-        height: 120px;
-    }
-}
+  }

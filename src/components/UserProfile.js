@@ -21,6 +21,16 @@ axios.defaults.headers.common["X-CSRFToken"] = getCSRFToken();
 
 // ------------------- Sidebar Component -------------------
 const Sidebar = ({ activeTab, unreadMessages, setActiveTab }) => {
+
+  const [isMobile, setIsMobile] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= 950);
+    handleResize(); // Check initial size
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
   return (
     <div className="sidebar">
       <div className="logo">
@@ -40,10 +50,15 @@ const Sidebar = ({ activeTab, unreadMessages, setActiveTab }) => {
           <i className="fa fa-home"></i> Home
         </Link>
         <Link
-          to="#"
-          className={`menu-item ${activeTab === "chats" ? "active" : ""}`}
-          onClick={() => setActiveTab("chats")}
-        >
+  to={isMobile ? "/inbox" : "#"}
+  className={`menu-item ${activeTab === "chats" ? "active" : ""}`}
+  onClick={(e) => {
+    if (!isMobile) {
+      e.preventDefault(); // Prevent default navigation if not on mobile
+      setActiveTab("chats");
+    }
+  }}
+>
           <i className="fa fa-comments"></i> Chats
           {unreadMessages > 0 && (
             <span className="notification-badge">{unreadMessages}</span>
@@ -490,7 +505,7 @@ const ChatsTab = ({ userInfo, username }) => {
   const [error, setError] = useState("");
   const [sending, setSending] = useState(false);
   const navigate = useNavigate();
-  const isMobile = false; // You can enhance this with a mobile-detection hook
+// You can enhance this with a mobile-detection hook
   const totalUnreadCount = conversations.reduce(
     (total, conv) => total + (conv.unread_count || 0),
     0
@@ -576,9 +591,6 @@ const ChatsTab = ({ userInfo, username }) => {
   
   }, [message, selectedConversationId, username]);
 
-  if (isMobile) {
-    navigate("/inbox");
-  }
 
   return (
     <div className="chat-container-3">

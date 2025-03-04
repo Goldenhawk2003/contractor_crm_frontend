@@ -7,7 +7,6 @@ const AboutUs = () => {
       {/* About Us Section */}
       <div className="our-mission">
       <div className="mission-container">
-        <button className="learn-more-btn"></button>
        <img src="/images/5163DC0D-2DD9-4D70-87C3-DE31114A455F.jpeg" className="mission-image" alt="About Us" />
        </div>
       </div>
@@ -50,7 +49,7 @@ const AboutUs = () => {
 <div className="our-mission">
   <div className="mission-container">
     <img src="/images/About-Us-Page-01.png" alt="Our Mission" className="mission-image" /> 
-    <button className="overlay-button">Work With Us</button>
+ 
     </div>
     </div>
 

@@ -168,84 +168,7 @@
   cursor: pointer;
 }
 
-/* Adjust container padding & size for smaller screens */
-@media (max-width: 768px) {
-  .tutorial-container {
-    padding: 10px;
-  }
 
-  /* Reduce grid columns for smaller screens */
-  .tutorial-grid {
-    column-count: 2; /* 2 columns for tablets */
-  }
-
-  /* Reduce thumbnail height for better fit */
-  .tutorial-thumbnail {
-    height: 400px; /* Shorter thumbnails */
-  }
-
-  /* Make title smaller */
-  .tutorial-title {
-    font-size: 1rem;
-    padding: 5px;
-  }
-
-  /* Center the upload button */
-  .button-container {
-    justify-content: center; 
-  }
-
-  .upload-button-gate {
-    width: 100%; /* Full width on mobile */
-    margin: 10px 0;
-    font-size: 0.9rem;
-    padding: 8px;
-  }
-
-  /* Video Modal: Adjust for Mobile */
- /* Video Modal: Keep Scrolling View */
- .video-modal {
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-
-}
-
-/* Reduce Video Size for Mobile */
-.video-player {
-  width: 80vw;
-  height: 80vh;
-  border-radius: 10px;
-}
-
-/* Fix Sidebar Layout */
-.video-wrapper {
-  display: flex;
- /* Stack video & sidebar */
-  align-items: center;
-  width: 100%;
-}
-
-.video-sidebar {
-  flex-direction: row; /* Place items in a row */
-  justify-content: space-around;
-  width: 100%;
-}
-
-/* Caption Box Adjustments */
-.video-info-box {
-  width: 90%;
-  text-align: center;
-}
-
-  .video-title {
-    font-size: 1rem;
-  }
-
-  .video-description {
-    font-size: 0.9rem;
-  }
-}
 
 .thumbnail-container {
   position: relative;
@@ -412,28 +335,163 @@
   margin-left: 8%;
 }
 
-/*  Mobile Optimization */
 @media (max-width: 768px) {
-  .search-bar-container {
-    max-width: 90%;
+  /* Container and Headings */
+  .tutorial-container {
+    width: 120%;
+    margin: 0 auto;
+    padding: 0 10px;
+    box-sizing: border-box;
   }
-
-  .search-dropdown {
+  
+  .tutorial-heading {
+    font-size: 2.4rem;
+    padding-top: 5%;
+    width: 90%;
+    margin: 0 auto 10px;
+    box-sizing: border-box;
+  }
+  
+  .tutorial-intro-container {
+    padding: 10px;
+    text-align: center;
+    margin: 0 auto;
+  }
+  
+  .tutorial-header {
+    background: linear-gradient(to bottom, #ECF0FC 90%, white 10%);
+    padding-top: 0;
+    margin-top: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .tutorial-intro {
+    font-size: 1rem;
+    font-weight: 900;
+  }
+  
+  /* Grid and Cards */
+  .tutorial-grid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 10px;
+    margin: 0 5%;
+  }
+  
+  .tutorial-card {
     width: 100%;
-    left: 0;
-    border-radius: 10px;
+    height: auto;
+    padding: 10px;
+    box-sizing: border-box;
   }
-
-  .search-result-item {
+  
+  .tutorial-card img {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 5px;
+    margin-top: 4%;
+  }
+  
+  /* Button Container */
+  .button-container {
+    justify-content: center;
+  }
+  
+  .upload-button-gate {
+    margin: 10px auto;
+    width: 80%;
     padding: 10px;
   }
-
-  .search-thumbnail {
-    width: 45px;
-    height: 45px;
-    margin-right: 10px;
+  
+  /* Thumbnail and Video */
+  .tutorial-thumbnail {
+    height: 300px;
   }
-
+  
+  .tutorial-title {
+    font-size: 1rem;
+    padding: 5px;
+    text-align: center;
+  }
+  
+  .tutorial-display-card {
+    flex-direction: column;
+    padding: 10px;
+    gap: 10px;
+  }
+  
+  .tutorial-video {
+    width: 100%;
+    max-height: 300px;
+  }
+  
+  .tutorial-info {
+    width: 100%;
+  }
+  
+  .tutorial-meta span {
+    font-size: 0.8rem;
+    padding: 3px 8px;
+  }
+  
+  .message-contractor {
+    padding: 8px 12px;
+    font-size: 0.9rem;
+  }
+  
+  /* Thumbnail Overlay */
+  .thumbnail-container {
+    width: 100%;
+  }
+  
+  .play-button {
+    font-size: 20px;
+    padding: 8px 12px;
+  }
+  
+  .full-image {
+    max-height: 60vh;
+  }
+  
+  /* Tags and Search */
+  .tags {
+    margin: 10px auto;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  
+  .tags button {
+    padding: 8px 12px;
+    margin: 5px;
+    font-size: 0.9rem;
+  }
+  
+  .search-bar-container {
+    max-width: 90%;
+    margin: 15px auto;
+  }
+  
+  .search-dropdown {
+    max-height: 200px;
+  }
+  
+  .search-result-item {
+    padding: 10px 12px;
+  }
+  
+  .search-thumbnail {
+    width: 40px;
+    height: 40px;
+    margin-right: 8px;
+  }
+  
+  .search-result-item strong {
+    font-size: 0.9rem;
+  }
+  
   .search-desc {
     font-size: 0.75rem;
     max-width: 200px;

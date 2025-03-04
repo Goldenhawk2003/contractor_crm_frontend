@@ -74,15 +74,23 @@ const VideoPlayer = () => {
 
   const handleSuggestionClick = (suggestion) => {
     console.log("🎯 Clicking suggestion:", suggestion);
+    const BASE_URL = "http://localhost:8000"; // Adjust this if needed
+    const imageExtensions = ["jpg", "jpeg", "png", "gif"];
+    const fileExtension = suggestion.video ? suggestion.video.split(".").pop().toLowerCase() : "";
+    const isImage = imageExtensions.includes(fileExtension);
+    
+    // ✅ Ensure full URL
+    const fullMediaUrl = suggestion.video?.startsWith("http") ? suggestion.video : `${BASE_URL}${suggestion.video}`;
   
     navigate("/video-player", {
       state: {
-        videoUrl: suggestion.video,
+        mediaUrl: fullMediaUrl,
+        isImage,
         title: suggestion.title,
         description: suggestion.description,
         contractor: suggestion.uploaded_by || "Unknown",
         createdAt: suggestion.created_at,
-        videoId: suggestion.id,
+        videoId: suggestion.id, // ✅ Ensure this is passed
         tags: Array.isArray(suggestion.tags) ? suggestion.tags : JSON.parse(suggestion.tags || "[]"), 
       },
     });
