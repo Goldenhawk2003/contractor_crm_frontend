@@ -34,7 +34,7 @@ import BlogDetail from './components/Blogs/BlogDetail';
 import UploadBlog from './components/Blogs/UploadBlog.js';
 import VideoPlayer from './components/Tutorials/VideoPlayer.js';
 import AboutUs from './components/AboutUs/AboutUs.js';
-
+import LocationAutocomplete from './components/APIStuff/AutoComplete.js';
 
 function useCsrfToken() {
   useEffect(() => {
@@ -105,6 +105,9 @@ function App() {
             <Route path="/contractors/edit/:id" element={<ContractorForm />} />
             <Route path="contractors/add" element={<ContractorForm />} />
             <Route path="Browse-Contractors" element={<Browse />} />
+
+
+            <Route path="/AutoComplete" element={<LocationAutocomplete />} />  
 
           </Route>
         </Routes>

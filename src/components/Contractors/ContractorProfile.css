@@ -174,3 +174,142 @@
   font-size: 0.9rem;
   color: gray;
 }
+
+
+@media (max-width: 768px) {
+  /* Contractor Profile Container */
+  .cont-contractor-profile {
+    width: 117%;
+    padding: 20px;
+    margin: 10px auto;
+    box-sizing: border-box;
+  }
+  
+  /* Header Section: Stack instead of side-by-side */
+  .cont-profile-header {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .cont-profile-left,
+  .cont-profile-right {
+    width: 100%;
+    padding: 0;
+    text-align: center;
+  }
+  
+  /* Adjust the profile image to auto height */
+  .cont-profile-img {
+    width: 90%;
+    height: auto;
+    margin: 0 auto 15px;
+  }
+  
+  /* Profile Name and Badge */
+  .cont-contractor-name {
+    font-size: 2rem;
+    margin-bottom: 10px;
+  }
+  
+  .cont-contractor-badge {
+    font-size: 0.9rem;
+    padding: 4px 8px;
+  }
+  
+  /* Location Tags */
+  .cont-location-tags {
+    margin: 10px 0;
+    text-align: center;
+  }
+  
+  .cont-location-tags span {
+    margin-right: 5px;
+    margin-bottom: 5px;
+    display: inline-block;
+    font-size: 0.9rem;
+  }
+  
+  /* Rating Section */
+  .cont-rating-section {
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 15px;
+  }
+  
+  .cont-stars {
+    font-size: 1.2rem;
+  }
+  
+  /* Contractor Bio */
+  .cont-contractor-bio {
+    margin-top: 15px;
+    font-size: 0.9rem;
+  }
+  
+  /* Section Divider */
+  .const-section-divider {
+    margin: 15px 0;
+  }
+  
+  /* Past Work Section */
+  .cont-past-work-section h3 {
+    font-size: 1.5rem;
+    margin-top: 15px;
+  }
+  
+  .cont-work-gallery {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+  }
+  
+  .cont-past-work-img {
+    width: 60px;
+    height: 60px;
+  }
+  
+  /* Contact Section: Stack buttons vertically */
+  .cont-contact-section {
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+  }
+  
+  .cont-send-message-btn,
+  .cont-add-to-contacts-btn,
+  .cont-submit-rating-btn {
+    width: 90%;
+    font-size: 0.9rem;
+    padding: 8px 16px;
+    margin: 5px 0;
+  }
+  
+  /* Tutorials Container: Ensure scrolling if needed */
+  .const-tutorials-container {
+    width: 100%;
+    overflow-x: auto;
+    white-space: nowrap;
+    padding: 10px 0;
+  }
+  
+  .const-tutorial-card {
+    width: 80%;
+    margin: 0 auto;
+  }
+  
+  .const-tutorial-video,
+  .const-tutorial-image {
+    width: 50vw;
+    height: 120px;
+  }
+  
+  .const-tutorial-title {
+    font-size: 0.9rem;
+    margin: 4px 0;
+  }
+  
+  .const-tutorial-description {
+    font-size: 0.8rem;
+  }
+}

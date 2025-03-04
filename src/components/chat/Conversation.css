@@ -123,6 +123,10 @@
 @media (max-width: 768px) {
   .container {
     padding: 10px;
+   
+    margin-left: 50px;
+    width: 90%;
+
   }
 
   .messagesContainer {
@@ -131,13 +135,17 @@
 
   .textarea {
     font-size: 0.85rem;
+    width: 95%
   }
 
   .button {
     font-size: 0.85rem;
+    align-self: center;
   }
 
   .messageBubble {
-    max-width: 80%; /* Slightly wider bubbles for smaller screens */
+    max-width: 50%; /* Slightly wider bubbles for smaller screens */
+    max-height: 80px;
+
   }
 }

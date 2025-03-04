@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import LocationAutocomplete from '../APIStuff/AutoComplete';
 import './Signup.css';
 
 function Signup() {
@@ -160,15 +161,11 @@ function Signup() {
         required
         className='inp'
       />
-      <input
-        type="text"
-        name="location"
+       <LocationAutocomplete
         value={formData.location}
         onChange={handleChange}
-        placeholder="City Name"
-        required
-        className='inp'
       />
+
       
       <label>
         <input
