@@ -525,14 +525,23 @@ const ChatsTab = ({ userInfo, username }) => {
       setError("Message cannot be empty.");
       return;
     }
-    setSending(true);
+  
+    if (message.includes('@') || message.includes('gmail') || message.includes('yahoo') || message.includes('hotmail')) {
+      console.log("❌ Email reference detected in message!");  // Debugging
+      setError("Message content cannot contain email references.");
+      return; // 🔹 Ensure we exit the function if there's an error
+    }
+  
+    setSending(true);  // 🔹 Only set this once, after passing validation
+    setError("");
+  
     try {
       const csrfToken = document.cookie
         .split("; ")
         .find((row) => row.startsWith("csrftoken="))
         ?.split("=")[1];
       if (!csrfToken) throw new Error("CSRF token is missing.");
-
+  
       const response = await axios.post(
         `http://localhost:8000/api/conversations/${selectedConversationId}/reply/`,
         { content: message },
@@ -544,8 +553,7 @@ const ChatsTab = ({ userInfo, username }) => {
           withCredentials: true,
         }
       );
-      
-      
+  
       setMessages((prevMessages) => [
         ...prevMessages,
         {
@@ -556,6 +564,7 @@ const ChatsTab = ({ userInfo, username }) => {
         },
       ]);
       setMessage("");
+      
       await axios.get("http://localhost:8000/api/unread-messages/", {
         withCredentials: true,
       });
@@ -564,7 +573,7 @@ const ChatsTab = ({ userInfo, username }) => {
     } finally {
       setSending(false);
     }
-    
+  
   }, [message, selectedConversationId, username]);
 
   if (isMobile) {
@@ -704,8 +713,7 @@ const UserProfile = () => {
     };
 
     fetchUnreadMessages();
-    const interval = setInterval(fetchUnreadMessages, 1000);
-    return () => clearInterval(interval);
+  
   }, []);
 
   return (
