@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./Inbox3.css";
-import { useAuth } from "/Users/ammarogeil/Documents/GitHub/contractor_crm_frontend/src/context/AuthContext.js";
+import{useAuth} from '../../context/AuthContext';
 
 const Chat1 = () => {
   const { user } = useAuth();
