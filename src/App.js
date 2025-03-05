@@ -35,6 +35,7 @@ import UploadBlog from './components/Blogs/UploadBlog.js';
 import VideoPlayer from './components/Tutorials/VideoPlayer.js';
 import AboutUs from './components/AboutUs/AboutUs.js';
 import LocationAutocomplete from './components/APIStuff/AutoComplete.js';
+import axios from 'axios';
 
 function useCsrfToken() {
   useEffect(() => {

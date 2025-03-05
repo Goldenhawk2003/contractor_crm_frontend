@@ -16,30 +16,22 @@ const Login = () => {
 
     const handleLogin = async (event) => {
         event.preventDefault();
-    
+
         try {
-            const csrfToken = getCSRFToken();
-            console.log('CSRF Token:', csrfToken);
-    
+           
+
             await axios.post(
                 `${process.env.REACT_APP_BACKEND_URL}/api/login/`,
                 { username, password },
                 {
                     headers: {
-                        'X-CSRFToken': csrfToken,
+                        
                         'Content-Type': 'application/json',
                     },
-                    withCredentials: true, // Ensure cookies are included
+                    withCredentials: true,
                 }
             );
-    
-            // Check user info immediately after login to verify session
-            const userInfoResponse = await axios.get(
-                `${process.env.REACT_APP_BACKEND_URL}/api/user-info/`,
-                { withCredentials: true }
-            );
-    
-            console.log("User Info:", userInfoResponse.data);  // Debugging
+
             navigate('/user-profile'); // Redirect after successful login
             window.location.reload(); 
         } catch (err) {
