@@ -14,7 +14,7 @@ const Home = () => {
   useEffect(() => {
     const fetchContractors = async () => {
       try {
-        const response = await fetch('http://localhost:8000/api/contractors/', {
+        const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/contractors/`, {
           method: 'GET',
           headers: { 'Content-Type': 'application/json' },
         });

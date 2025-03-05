@@ -65,7 +65,7 @@ const UploadTutorial = () => {
     setUploading(true);
 
     try {
-      const response = await axios.post("http://localhost:8000/api/tutorials/", formData, {
+      const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/tutorials/`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
           "X-CSRFToken": getCSRFToken(),  // ✅ Ensure CSRF token is included

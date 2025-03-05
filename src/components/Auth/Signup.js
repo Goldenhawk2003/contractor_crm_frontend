@@ -73,7 +73,7 @@ function Signup() {
     }
 
     try {
-      const response = await fetch('http://localhost:8000/api/register/', {
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/register/`, {
         method: 'POST',
         body: formDataPayload,
       });
@@ -161,9 +161,15 @@ function Signup() {
         required
         className='inp'
       />
-       <LocationAutocomplete
+
+      <input
+        type="text"
+        name="location"
         value={formData.location}
         onChange={handleChange}
+        placeholder="City Name"
+        required
+        className='inp'
       />
 
       

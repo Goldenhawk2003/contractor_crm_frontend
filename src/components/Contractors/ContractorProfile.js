@@ -34,7 +34,7 @@ const ContractorProfile = () => {
   useEffect(() => {
     const fetchContractor = async () => {
       try {
-        const response = await axios.get(`http://localhost:8000/api/contractors/${id}/`);
+        const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/contractors/${id}/`);
         setContractor(response.data);
       } catch (error) {
         console.error('Error fetching contractor details:', error);
@@ -53,7 +53,7 @@ const ContractorProfile = () => {
 
     try {
       const response = await axios.post(
-        `http://localhost:8000/api/contractors/${id}/rate/`,
+        `${process.env.REACT_APP_BACKEND_URL}/api/contractors/${id}/rate/`,
         { rating },
         { withCredentials: true }
       );
@@ -74,7 +74,7 @@ const ContractorProfile = () => {
   useEffect(() => {
     const fetchTutorials = async () => {
       try {
-        const response = await axios.get(`http://localhost:8000/api/contractors/${id}/tutorials/`);
+        const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/contractors/${id}/tutorials/`);
         console.log("Tutorials API Response:", response.data);  // 🔍 Debugging
         setTutorials(response.data);
       } catch (error) {
@@ -108,14 +108,14 @@ const ContractorProfile = () => {
 
   const logoUrl = contractor.logo?.startsWith("http")
     ? contractor.logo
-    : `http://localhost:8000${contractor.logo}`;
+    : `${process.env.REACT_APP_BACKEND_URL}${contractor.logo}`;
 
   const handleChatNow = () => {
     Navigate(`/start-conversation?username=${contractor.username}`);
   };
 
   const handleOpenTutorial = (tutorial) => {
-    const BASE_URL = "http://localhost:8000"; // Adjust this if needed
+    const BASE_URL = "https://ecc-backend-8684636373f0.herokuapp.com"; // Adjust this if needed
     const imageExtensions = ["jpg", "jpeg", "png", "gif"];
     const fileExtension = tutorial.video ? tutorial.video.split(".").pop().toLowerCase() : "";
     const isImage = imageExtensions.includes(fileExtension);

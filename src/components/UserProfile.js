@@ -125,7 +125,7 @@ const HomeTab = ({ userInfo }) => {
               src={
                 userInfo.logo.startsWith("http")
                   ? userInfo.logo
-                  : `http://localhost:8000${userInfo.logo}`
+                  : `${process.env.REACT_APP_BACKEND_URL}${userInfo.logo}`
               }
               alt="User Logo"
               className="profile-image"
@@ -178,7 +178,7 @@ const ProfessionalContracts = () => {
     setSendError("");
     try {
       const response = await axios.get(
-        `http://localhost:8000/api/users/search/?q=${searchTerm}`,
+        `${process.env.REACT_APP_BACKEND_URL}/api/users/search/?q=${searchTerm}`,
         { withCredentials: true }
       );
       setSearchResults(response.data);
@@ -203,7 +203,7 @@ const ProfessionalContracts = () => {
         title: newContractTitle,
         contractContent: newContractContent,
       };
-      await axios.post("http://localhost:8000/api/send-contract/", payload, {
+      await axios.post("${process.env.REACT_APP_BACKEND_URL}/api/send-contract/", payload, {
         withCredentials: true,
       });
       setSendSuccess("Contract sent successfully!");
@@ -219,7 +219,7 @@ const ProfessionalContracts = () => {
   useEffect(() => {
     if (contractTab === "sent" || contractTab === "signed") {
       axios
-        .get("http://localhost:8000/api/sent-contracts/", { withCredentials: true })
+        .get("${process.env.REACT_APP_BACKEND_URL}/api/sent-contracts/", { withCredentials: true })
         .then((response) => setSentContracts(response.data.contracts))
         .catch(() => setError("Failed to fetch sent contracts."));
     }
@@ -395,7 +395,7 @@ const ClientContracts = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8000/api/received-contracts/", {
+      .get("${process.env.REACT_APP_BACKEND_URL}/api/received-contracts/", {
         withCredentials: true,
       })
       .then((response) => setReceivedContracts(response.data.contracts))
@@ -411,7 +411,7 @@ const ClientContracts = () => {
     setSignSuccess("");
     try {
       await axios.post(
-        "http://localhost:8000/api/sign-contract/",
+        "${process.env.REACT_APP_BACKEND_URL}/api/sign-contract/",
         { contract_id: contractId },
         { withCredentials: true }
       );
@@ -513,7 +513,7 @@ const ChatsTab = ({ userInfo, username }) => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8000/api/conversations/", {
+      .get("${process.env.REACT_APP_BACKEND_URL}/api/conversations/", {
         withCredentials: true,
       })
       .then((response) => setConversations(response.data))
@@ -526,7 +526,7 @@ const ChatsTab = ({ userInfo, username }) => {
       setLoadingMessages(true);
       axios
         .get(
-          `http://localhost:8000/api/conversations/${selectedConversationId}/messages/`,
+          `${process.env.REACT_APP_BACKEND_URL}/api/conversations/${selectedConversationId}/messages/`,
           { withCredentials: true }
         )
         .then((response) => setMessages(response.data))
@@ -558,7 +558,7 @@ const ChatsTab = ({ userInfo, username }) => {
       if (!csrfToken) throw new Error("CSRF token is missing.");
   
       const response = await axios.post(
-        `http://localhost:8000/api/conversations/${selectedConversationId}/reply/`,
+        `${process.env.REACT_APP_BACKEND_URL}/api/conversations/${selectedConversationId}/reply/`,
         { content: message },
         {
           headers: {
@@ -580,7 +580,7 @@ const ChatsTab = ({ userInfo, username }) => {
       ]);
       setMessage("");
       
-      await axios.get("http://localhost:8000/api/unread-messages/", {
+      await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/unread-messages/`, {
         withCredentials: true,
       });
     } catch (err) {
@@ -705,7 +705,7 @@ const UserProfile = () => {
   // Fetch user info
   useEffect(() => {
     axios
-      .get("http://localhost:8000/api/user-info/", { withCredentials: true })
+      .get(`${process.env.REACT_APP_BACKEND_URL}/api/user-info/`, { withCredentials: true })
       .then((response) => setUserInfo(response.data))
       .catch(() => setError("Please sign in"));
   }, []);
@@ -715,7 +715,7 @@ const UserProfile = () => {
     const fetchUnreadMessages = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:8000/api/unread-messages/",
+          `${process.env.REACT_APP_BACKEND_URL}/api/unread-messages/`,
           { withCredentials: true }
         );
         setUnreadMessages(response.data.unread_count);

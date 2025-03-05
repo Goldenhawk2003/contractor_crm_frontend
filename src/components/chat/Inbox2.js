@@ -20,7 +20,7 @@ const Chat = () => {
     const fetchConversations = async () => {
       setLoadingConversations(true);
       try {
-        const response = await axios.get("http://localhost:8000/api/conversations/", {
+        const response = await axios.get("https://ecc-frontend-0ce8d42f6dc5.herokuapp.com/api/conversations/", {
           withCredentials: true,
         });
         setConversations(response.data);
@@ -41,7 +41,7 @@ const Chat = () => {
       const fetchMessages = async () => {
         try {
           const response = await axios.get(
-            `http://localhost:8000/api/conversations/${selectedConversationId}/messages/`,
+            `${process.env.REACT_APP_BACKEND_URL}/api/conversations/${selectedConversationId}/messages/`,
             { withCredentials: true }
           );
           setMessages(response.data);
@@ -73,7 +73,7 @@ const Chat = () => {
       }
 
       const response = await axios.post(
-        `http://localhost:8000/api/conversations/${selectedConversationId}/reply/`,
+        `${process.env.REACT_APP_BACKEND_URL}/api/conversations/${selectedConversationId}/reply/`,
         { content: message },
         {
           headers: {

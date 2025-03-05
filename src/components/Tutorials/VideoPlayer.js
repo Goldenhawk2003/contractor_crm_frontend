@@ -4,7 +4,7 @@ import axios from "axios";
 import "./VideoPlayer.css"; // Add custom styles
 import Fuse from 'fuse.js';
 
-const BASE_URL = "http://localhost:8000"; // Your backend URL
+const BASE_URL = "https://ecc-backend-8684636373f0.herokuapp.com"; // Your backend URL
 
 const VideoPlayer = () => {
   const location = useLocation();

@@ -13,7 +13,7 @@ const Layout = () => {
   useEffect(() => {
     const fetchUserInfo = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/api/user-info-superuser/', {
+        const response = await axios.get(`{process.env.REACT_APP_BACKEND_URL}/api/user-info-superuser/`, {
           withCredentials: true, // Ensures cookies are sent
         });
 

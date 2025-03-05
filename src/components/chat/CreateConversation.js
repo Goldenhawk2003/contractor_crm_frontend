@@ -33,7 +33,7 @@ const CreateConversation = () => {
       const fetchRecipient = async () => {
         try {
           const response = await fetch(
-            `http://localhost:8000/api/users/username/${preselectedUsername}/`,
+            `${process.env.REACT_APP_BACKEND_URL}/api/users/username/${preselectedUsername}/`,
             { credentials: "include" }
           );
           if (!response.ok) throw new Error("Recipient not found.");
@@ -58,7 +58,7 @@ const CreateConversation = () => {
     setError("");
     try {
       const response = await fetch(
-        `http://localhost:8000/api/users/search/?q=${searchTerm}`,
+        `${process.env.REACT_APP_BACKEND_URL}/api/users/search/?q=${searchTerm}`,
         { credentials: "include" }
       );
       if (!response.ok) throw new Error("Failed to search for users.");
@@ -91,7 +91,7 @@ const CreateConversation = () => {
       return;
     }
     try {
-      const response = await fetch("http://localhost:8000/api/messages/", {
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/messages/`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

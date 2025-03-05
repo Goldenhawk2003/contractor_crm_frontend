@@ -45,7 +45,7 @@ const ServiceRequest = () => {
 
         try {
             const response = await axios.post(
-                'http://localhost:8000/api/request-service/',
+                'https://ecc-backend-8684636373f0.herokuapp.comapi/request-service/',
                 { searchText },
                 { withCredentials: true }
             );

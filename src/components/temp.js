@@ -43,7 +43,7 @@ const UserProfile = () => {
     // Fetch user profile
     useEffect(() => {
         axios
-            .get("http://localhost:8000/api/user-info/", { withCredentials: true })
+            .get(`${process.env.REACT_APP_BACKEND_URL}/api/user-info/`, { withCredentials: true })
             .then((response) => setUserInfo(response.data))
             .catch(() => setError("Please sign in"));
     }, []);

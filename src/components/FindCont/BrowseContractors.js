@@ -28,7 +28,7 @@ const Browse = () => {
                 const maxRate = hourlyRateRange ? parseInt(hourlyRateRange.split('-')[1], 10) : null;
                 const minRate = hourlyRateRange ? parseInt(hourlyRateRange.split('-')[0], 10) : null;
                 const response = await fetch(
-                    `http://localhost:8000/api/contractors/?${queryParams.toString()}`,
+                    `${process.env.REACT_APP_BACKEND_URL}/api/contractors/?${queryParams.toString()}`,
                     {
                         method: 'GET',
                         headers: {

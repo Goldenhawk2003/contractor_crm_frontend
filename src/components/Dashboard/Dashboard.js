@@ -30,7 +30,7 @@ const Dashboard = () => {
   // Fetch dashboard data
   const fetchDashboard = async () => {
     try {
-      const response = await fetch('http://localhost:8000/dashboard/', {
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/dashboard/`, {
         method: 'GET',
         credentials: 'include',
         headers: { 'Content-Type': 'application/json' },
@@ -52,7 +52,7 @@ const Dashboard = () => {
   // Fetch quiz responses data
   const fetchFormResponses = async () => {
     try {
-        const response = await fetch('http://localhost:8000/dashboard/form-responses/', {
+        const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/dashboard/form-responses/`, {
             method: 'GET',
             credentials: 'include',
             headers: { 'Content-Type': 'application/json' },
@@ -77,7 +77,7 @@ const Dashboard = () => {
 
   const fetchQuestions = async () => {
     try {
-        const response = await fetch('http://localhost:8000/quiz/questions/', {
+        const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/quiz/questions/`, {
             method: 'GET',
             headers: { 'Content-Type': 'application/json' },
         });
@@ -105,7 +105,7 @@ const addQuestion = async () => {
     }
 
     try {
-        const response = await fetch('http://localhost:8000/quiz/add-question/', {
+        const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/quiz/add-question/`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -143,7 +143,7 @@ const deleteQuestion = async (questionId) => {
   if (!window.confirm('Are you sure you want to delete this question?')) return;
 
   try {
-    const response = await fetch(`http://localhost:8000/quiz/delete-question/${questionId}/`, {
+    const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/quiz/delete-question/${questionId}/`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
@@ -169,7 +169,7 @@ useEffect(() => {
 
   const handleApprove = async (id) => {
     try {
-        const response = await fetch(`http://localhost:8000/api/approve-contractor/${id}/`, {
+        const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/approve-contractor/${id}/`, {
             method: 'POST',
             credentials: 'include',
             headers: {
@@ -191,7 +191,7 @@ useEffect(() => {
 
   const handleReject = async (id) => {
     try {
-        const response = await fetch(`http://localhost:8000/api/reject-contractor/${id}/`, {
+        const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/reject-contractor/${id}/`, {
             method: 'POST',
             credentials: 'include',
             headers: {

@@ -21,7 +21,7 @@ const Conversation = () => {
     const fetchMessages = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8000/api/conversations/${conversationId}/messages/`,
+          `${process.env.REACT_APP_BACKEND_URL}/api/conversations/${conversationId}/messages/`,
           { withCredentials: true }
         );
         setMessages(response.data);
@@ -80,7 +80,7 @@ const Conversation = () => {
       }
 
       const response = await axios.post(
-        `http://localhost:8000/api/conversations/${conversationId}/reply/`,
+        `${process.env.REACT_APP_BACKEND_URL}/api/conversations/${conversationId}/reply/`,
         { content: message },
         {
           headers: {

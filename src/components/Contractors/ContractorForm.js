@@ -21,7 +21,7 @@ const ContractorForm = () => {
   useEffect(() => {
     if (id) {
       setLoading(true);
-      fetch(`http://localhost:8000/api/contractors/by-user/${id}/`, {
+      fetch(`${process.env.REACT_APP_BACKEND_URL}/api/contractors/by-user/${id}/`, {
         method: 'GET',
         credentials: 'include', // Ensure cookies are sent
       })
@@ -70,7 +70,7 @@ const ContractorForm = () => {
     setError(null);
   
     try {
-      const url = `http://localhost:8000/api/contractors/${contractorId}/`;
+      const url = `${process.env.REACT_APP_BACKEND_URL}/api/contractors/${contractorId}/`;
       const response = await fetch(url, {
         method: 'PUT',
         credentials: 'include',

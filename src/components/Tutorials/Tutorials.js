@@ -4,7 +4,7 @@ import "./TutorialList.css"; // Import CSS file
 import { useLocation, useNavigate } from "react-router-dom";
 import Fuse from 'fuse.js';
 
-const BASE_URL = "http://localhost:8000"; // Django Backend URL
+const BASE_URL = "https://ecc-backend-8684636373f0.herokuapp.com"; // Django Backend URL
 
 const getCSRFToken = () => {
   const name = "csrftoken";
@@ -51,7 +51,7 @@ const TutorialList = () => {
 
   useEffect(() => {
     axios
-      .get(`${BASE_URL}/api/tutorials/`)
+      .get(`${process.env.REACT_APP_BACKEND_URL}/api/tutorials/`)
       .then((response) => {
         setTutorials(response.data);
         setLoading(false);
@@ -61,7 +61,7 @@ const TutorialList = () => {
           let likesData = {};
           for (let tutorial of response.data) {
             try {
-              const likeResponse = await axios.get(`${BASE_URL}/api/tutorials/${tutorial.id}/like/`);
+              const likeResponse = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/tutorials/${tutorial.id}/like/`);
               likesData[tutorial.id] = likeResponse.data.likes; // Store real like count
             } catch (error) {
               console.error("Error fetching like count:", error);
@@ -111,7 +111,7 @@ const TutorialList = () => {
   });
 
 const handleOpenTutorial = (tutorial) => {
-  const BASE_URL = "http://localhost:8000"; // Adjust this if needed
+  const BASE_URL = "https://ecc-backend-8684636373f0.herokuapp.com"; // Adjust this if needed
   const imageExtensions = ["jpg", "jpeg", "png", "gif"];
   const fileExtension = tutorial.video ? tutorial.video.split(".").pop().toLowerCase() : "";
   const isImage = imageExtensions.includes(fileExtension);

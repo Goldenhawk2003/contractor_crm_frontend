@@ -13,7 +13,7 @@ const Quiz = () => {
     useEffect(() => {
         const fetchQuestions = async () => {
             try {
-                const response = await fetch('http://localhost:8000/api/quiz/questions/');
+                const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/quiz/questions/`);
                 if (!response.ok) {
                     throw new Error('Failed to fetch questions');
                 }
@@ -59,7 +59,7 @@ const Quiz = () => {
 
         try {
             for (const questionId of Object.keys(responses)) {
-                const response = await fetch('http://localhost:8000/api/quiz/submit/', {
+                const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/quiz/submit/`, {
                     method: 'POST',
                     credentials: 'include',
                     headers: {

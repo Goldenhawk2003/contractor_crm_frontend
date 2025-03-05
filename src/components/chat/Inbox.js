@@ -13,7 +13,7 @@ const Inbox = () => {
       setLoading(true);
       setError("");
       try {
-        const response = await fetch("http://localhost:8000/api/conversations/", {
+        const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/conversations/`, {
           method: "GET",
           credentials: "include",
         });

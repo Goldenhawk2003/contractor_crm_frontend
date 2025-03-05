@@ -33,7 +33,7 @@ const FindCont = () => {
     
         try {
             const token = localStorage.getItem('authToken');
-            const response = await fetch(`http://localhost:8000/api/contractors/?job_type=${type}`, {
+            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/contractors/?job_type=${type}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
