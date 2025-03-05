@@ -26,7 +26,13 @@
     defer>
   </script>
   <script>
-    const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+    const getCSRFToken = () => {
+    const csrfCookie = document.cookie
+        .split('; ')
+        .find(row => row.startsWith('csrftoken='));
+    
+    return csrfCookie ? csrfCookie.split('=')[1] : null;
+};
     document.cookie = `csrftoken=${csrfToken}; path=/`;
   </script>
 </body>

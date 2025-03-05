@@ -26,7 +26,13 @@ const Login = () => {
         event.preventDefault();
     
         try {
-            const csrfToken = document.cookie.split('; ').find(row => row.startsWith('csrftoken='))?.split('=')[1];
+            const csrfToken = getCSRFToken(); // Fetch CSRF token from cookies
+    
+            if (!csrfToken) {
+                console.error("CSRF token is missing!");
+                setError("CSRF token not found. Please refresh and try again.");
+                return;
+            }
     
             console.log('Using CSRF Token:', csrfToken);
     
