@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import "./Conversation.css";
-import { useAuth } from "/Users/ammarogeil/Documents/GitHub/contractor_crm_frontend/src/context/AuthContext.js";
+import{useAuth} from '../../context/AuthContext';
 
 const Conversation = () => {
   const { conversationId } = useParams();
