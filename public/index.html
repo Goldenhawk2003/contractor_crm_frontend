@@ -33,7 +33,7 @@
     
     return csrfCookie ? csrfCookie.split('=')[1] : null;
 };
-    document.cookie = `csrftoken=${csrfToken}; path=/`;
+    document.cookie = `csrftoken=${getCSRFToken}; path=/`;
   </script>
 </body>
 </html>
