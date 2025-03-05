@@ -9,31 +9,40 @@ const Login = () => {
     const [error, setError] = useState('');
     const navigate = useNavigate();
 
-    const getCSRFToken = () => {
-        const cookie = document.cookie.split('; ').find(row => row.startsWith('csrftoken='));
-        return cookie ? cookie.split('=')[1] : null;
+    const getCSRFToken = async () => {
+        try {
+            const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/csrf_token/`, {
+                withCredentials: true,
+            });
+            console.log("CSRF Token Fetched:", response.data.csrfToken);
+            return response.data.csrfToken;
+        } catch (error) {
+            console.error("Error fetching CSRF Token:", error);
+            return null;
+        }
     };
 
     const handleLogin = async (event) => {
         event.preventDefault();
-
+    
         try {
-           
-
+            const csrfToken = await getCSRFToken();  // Fetch CSRF before login
+            console.log('CSRF Token:', csrfToken);
+    
             await axios.post(
                 `${process.env.REACT_APP_BACKEND_URL}/api/login/`,
                 { username, password },
                 {
                     headers: {
-                        
+                        'X-CSRFToken': csrfToken,  // Ensure token is sent
                         'Content-Type': 'application/json',
                     },
                     withCredentials: true,
                 }
             );
-
-            navigate('/user-profile'); // Redirect after successful login
-            window.location.reload(); 
+    
+            navigate('/user-profile');
+            window.location.reload();
         } catch (err) {
             console.error('Login failed:', err.response ? err.response.data : err.message);
             setError('Login failed. Please try again.');

@@ -44,12 +44,14 @@ function useCsrfToken() {
         const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/csrf_token/`, {
           withCredentials: true,
         });
-        localStorage.setItem('csrfToken', response.data.csrfToken);
-        console.log('CSRF Token fetched and stored:', response.data.csrfToken);
-      } catch (error) {
-        console.error('Error fetching CSRF token:', error);
-      }
+        console.log("CSRF Token Fetched:", response.data.csrfToken);
+        return response.data.csrfToken;
+    } catch (error) {
+        console.error("Error fetching CSRF Token:", error);
+        return null;
+    }
     };
+    
 
     fetchCsrfToken();
   }, []);
