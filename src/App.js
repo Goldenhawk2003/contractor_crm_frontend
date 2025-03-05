@@ -40,7 +40,7 @@ function useCsrfToken() {
   useEffect(() => {
     const fetchCsrfToken = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/api/csrf_token/', {
+        const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/csrf_token/`, {
           withCredentials: true,
         });
         localStorage.setItem('csrfToken', response.data.csrfToken);

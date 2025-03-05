@@ -203,7 +203,7 @@ const ProfessionalContracts = () => {
         title: newContractTitle,
         contractContent: newContractContent,
       };
-      await axios.post("${process.env.REACT_APP_BACKEND_URL}/api/send-contract/", payload, {
+      await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/send-contract/`, payload, {
         withCredentials: true,
       });
       setSendSuccess("Contract sent successfully!");
@@ -219,7 +219,7 @@ const ProfessionalContracts = () => {
   useEffect(() => {
     if (contractTab === "sent" || contractTab === "signed") {
       axios
-        .get("${process.env.REACT_APP_BACKEND_URL}/api/sent-contracts/", { withCredentials: true })
+        .get(`${process.env.REACT_APP_BACKEND_URL}/api/sent-contracts/`, { withCredentials: true })
         .then((response) => setSentContracts(response.data.contracts))
         .catch(() => setError("Failed to fetch sent contracts."));
     }
@@ -395,7 +395,7 @@ const ClientContracts = () => {
 
   useEffect(() => {
     axios
-      .get("${process.env.REACT_APP_BACKEND_URL}/api/received-contracts/", {
+      .get(`${process.env.REACT_APP_BACKEND_URL}/api/received-contracts/`, {
         withCredentials: true,
       })
       .then((response) => setReceivedContracts(response.data.contracts))
@@ -513,7 +513,7 @@ const ChatsTab = ({ userInfo, username }) => {
 
   useEffect(() => {
     axios
-      .get("${process.env.REACT_APP_BACKEND_URL}/api/conversations/", {
+      .get(`${process.env.REACT_APP_BACKEND_URL}/api/conversations/`, {
         withCredentials: true,
       })
       .then((response) => setConversations(response.data))
