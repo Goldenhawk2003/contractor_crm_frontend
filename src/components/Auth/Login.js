@@ -43,10 +43,11 @@ const Login = () => {
         event.preventDefault();
     
         try {
-            let csrfToken = getCSRFToken(); // Try to get CSRF token from cookies
+            // Wait for CSRF token to be fetched before proceeding
+            let csrfToken = getCSRFToken();
     
             if (!csrfToken) {
-                csrfToken = await fetchCsrfToken(); // Fetch CSRF token if missing
+                csrfToken = await fetchCsrfToken();  // Ensure it's fully resolved before proceeding
             }
     
             if (!csrfToken) {
@@ -76,7 +77,6 @@ const Login = () => {
             setError("Login failed. Please try again.");
         }
     };
-    
 
     return (
         <div className="log-container">
