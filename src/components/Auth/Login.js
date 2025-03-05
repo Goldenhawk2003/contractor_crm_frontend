@@ -22,15 +22,31 @@ const Login = () => {
         }
     };
 
+    const fetchCsrfToken = async () => {
+        try {
+            const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/csrf_token/`, {
+                withCredentials: true,  // Ensure cookies are set
+            });
+    
+            const csrfToken = response.data.csrfToken;
+            document.cookie = `csrftoken=${csrfToken}; path=/; Secure; SameSite=None`;
+    
+            console.log("CSRF Token stored in cookies:", csrfToken);
+            return csrfToken;
+        } catch (error) {
+            console.error("Error fetching CSRF Token:", error);
+            return null;
+        }
+    };
+
     const handleLogin = async (event) => {
         event.preventDefault();
     
         try {
-            // Ensure CSRF token is fetched before sending login request
             let csrfToken = getCSRFToken(); // Try to get CSRF token from cookies
     
             if (!csrfToken) {
-                csrfToken = await fetchCsrfToken(); // Wait for token to be fetched
+                csrfToken = await fetchCsrfToken(); // Fetch CSRF token if missing
             }
     
             if (!csrfToken) {

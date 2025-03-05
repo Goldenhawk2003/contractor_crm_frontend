@@ -39,20 +39,22 @@ import axios from 'axios';
 
 function useCsrfToken() {
   useEffect(() => {
-      const fetchCsrfToken = async () => {
-          try {
-              const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/csrf_token/`, {
-                  withCredentials: true,
-              });
-
-              const csrfToken = response.data.csrfToken;
-              document.cookie = `csrftoken=${csrfToken}; path=/; Secure; SameSite=None`;
-              
-              console.log('CSRF Token stored in cookies:', csrfToken);
-          } catch (error) {
-              console.error('Error fetching CSRF token:', error);
-          }
-      };
+    const fetchCsrfToken = async () => {
+      try {
+          const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/csrf_token/`, {
+              withCredentials: true,  // Ensure cookies are set
+          });
+  
+          const csrfToken = response.data.csrfToken;
+          document.cookie = `csrftoken=${csrfToken}; path=/; Secure; SameSite=None`;
+  
+          console.log("CSRF Token stored in cookies:", csrfToken);
+          return csrfToken;
+      } catch (error) {
+          console.error("Error fetching CSRF Token:", error);
+          return null;
+      }
+  };
 
       fetchCsrfToken();
   }, []);
