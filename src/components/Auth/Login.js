@@ -26,7 +26,12 @@ const Login = () => {
         event.preventDefault();
     
         try {
-            const csrfToken = getCSRFToken(); // Fetch CSRF token from cookies
+            // Ensure CSRF token is fetched before sending login request
+            let csrfToken = getCSRFToken(); // Try to get CSRF token from cookies
+    
+            if (!csrfToken) {
+                csrfToken = await fetchCsrfToken(); // Wait for token to be fetched
+            }
     
             if (!csrfToken) {
                 console.error("CSRF token is missing!");
@@ -34,7 +39,7 @@ const Login = () => {
                 return;
             }
     
-            console.log('Using CSRF Token:', csrfToken);
+            console.log("Using CSRF Token:", csrfToken);
     
             await axios.post(
                 `${process.env.REACT_APP_BACKEND_URL}/api/login/`,
@@ -51,8 +56,8 @@ const Login = () => {
             navigate('/user-profile');
             window.location.reload();
         } catch (err) {
-            console.error('Login failed:', err.response ? err.response.data : err.message);
-            setError('Login failed. Please try again.');
+            console.error("Login failed:", err.response ? err.response.data : err.message);
+            setError("Login failed. Please try again.");
         }
     };
     
