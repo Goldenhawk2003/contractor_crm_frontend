@@ -26,18 +26,19 @@ const Login = () => {
         event.preventDefault();
     
         try {
-            const csrfToken = await getCSRFToken();  // Fetch CSRF before login
-            console.log('CSRF Token:', csrfToken);
+            const csrfToken = document.cookie.split('; ').find(row => row.startsWith('csrftoken='))?.split('=')[1];
+    
+            console.log('Using CSRF Token:', csrfToken);
     
             await axios.post(
                 `${process.env.REACT_APP_BACKEND_URL}/api/login/`,
                 { username, password },
                 {
                     headers: {
-                        'X-CSRFToken': csrfToken,  // Ensure token is sent
+                        'X-CSRFToken': csrfToken,  // Send CSRF token explicitly
                         'Content-Type': 'application/json',
                     },
-                    withCredentials: true,
+                    withCredentials: true,  // Allow cross-origin authentication
                 }
             );
     

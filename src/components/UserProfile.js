@@ -5,19 +5,22 @@ import "./UserProfile.css";
 import { useAuth } from "../context/AuthContext.js";
 
 // Helper to get CSRF token
-const getCSRFToken = () => {
-  const name = "csrftoken";
-  const cookies = document.cookie.split(";");
-  for (let cookie of cookies) {
-    cookie = cookie.trim();
-    if (cookie.startsWith(`${name}=`)) {
-      return cookie.substring(name.length + 1);
-    }
+const getCSRFToken = async () => {
+  try {
+      const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/csrf_token/`, {
+          withCredentials: true,
+      });
+
+      const csrfToken = response.data.csrfToken;
+      document.cookie = `csrftoken=${csrfToken}; path=/`;  // Manually set cookie
+      console.log("CSRF Token Fetched:", csrfToken);
+      return csrfToken;
+  } catch (error) {
+      console.error("Error fetching CSRF Token:", error);
+      return null;
   }
-  console.error("CSRF token not found");
-  return null;
 };
-axios.defaults.headers.common["X-CSRFToken"] = getCSRFToken();
+axios.defaults.headers.common["x-csrftoken"] = getCSRFToken();
 
 // ------------------- Sidebar Component -------------------
 const Sidebar = ({ activeTab, unreadMessages, setActiveTab }) => {
