@@ -10,12 +10,15 @@ export const AuthProvider = ({ children }) => {
     // Function to check if the user is authenticated
     const checkAuthStatus = async () => {
         try {
-            const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/user-info/`, {
-                withCredentials: true,
-            });
+            const response = await axios.get(
+                `${process.env.REACT_APP_BACKEND_URL}/api/user-info/`,
+                { withCredentials: true } // ✅ Ensures session cookie is sent
+            );
+            
+            console.log("User data:", response.data);
             if (response.data.username) {
                 setIsAuthenticated(true);
-                setUser(response.data); // Store user details like username
+                setUser(response.data);
             } else {
                 setIsAuthenticated(false);
                 setUser(null);
