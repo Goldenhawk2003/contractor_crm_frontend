@@ -1,5 +1,4 @@
-// Login.js
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import './Login.css';
@@ -10,69 +9,72 @@ const Login = () => {
     const [error, setError] = useState('');
     const navigate = useNavigate();
 
-    // Fetch CSRF token once on component mount
-    useEffect(() => {
-        const initializeCsrfToken = async () => {
-            try {
-                const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/csrf_token/`, {
-                    withCredentials: true,
-                });
-                console.log("CSRF Token Fetched:", response.data.csrfToken);
-                // No need to manually set cookie; Django does this
-            } catch (error) {
-                console.error("Error fetching CSRF Token:", error);
-            }
-        };
-        initializeCsrfToken();
-    }, []);
-
-    // Get CSRF token from cookies
-    const getCookie = (name) => {
-        let cookieValue = null;
-        if (document.cookie && document.cookie !== '') {
-            const cookies = document.cookie.split(';');
-            for (let i = 0; i < cookies.length; i++) {
-                const cookie = cookies[i].trim();
-                if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                    break;
-                }
-            }
+    const getCSRFToken = async () => {
+        try {
+            const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/csrf_token/`, {
+                withCredentials: true,
+            });
+            console.log("CSRF Token Fetched:", response.data.csrfToken);
+            return response.data.csrfToken;
+        } catch (error) {
+            console.error("Error fetching CSRF Token:", error);
+            return null;
         }
-        return cookieValue;
+    };
+
+    const fetchCsrfToken = async () => {
+        try {
+            const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/csrf_token/`, {
+                withCredentials: true,  // Ensure cookies are set
+            });
+    
+            const csrfToken = response.data.csrfToken;
+            document.cookie = `csrftoken=${csrfToken}; path=/; Secure; SameSite=None`;
+    
+            console.log("CSRF Token stored in cookies:", csrfToken);
+            return csrfToken;
+        } catch (error) {
+            console.error("Error fetching CSRF Token:", error);
+            return null;
+        }
     };
 
     const handleLogin = async (event) => {
         event.preventDefault();
-        setError(''); // Clear previous errors
-
+    
         try {
-            const csrfToken = getCookie('csrftoken');
+            // Wait for CSRF token to be fetched before proceeding
+            let csrfToken = getCSRFToken();
+    
             if (!csrfToken) {
+                csrfToken = await fetchCsrfToken();  // Ensure it's fully resolved before proceeding
+            }
+    
+            if (!csrfToken) {
+                console.error("CSRF token is missing!");
                 setError("CSRF token not found. Please refresh and try again.");
                 return;
             }
-
+    
             console.log("Using CSRF Token:", csrfToken);
-
-            const response = await axios.post(
+    
+            await axios.post(
                 `${process.env.REACT_APP_BACKEND_URL}/api/login/`,
                 { username, password },
                 {
                     headers: {
-                        'X-CSRFToken': csrfToken,
+                        'X-CSRFToken': csrfToken,  // Send CSRF token explicitly
                         'Content-Type': 'application/json',
                     },
-                    withCredentials: true,
+                    withCredentials: true,  // Allow cross-origin authentication
                 }
             );
-
-            console.log("Login successful:", response.data);
+    
             navigate('/user-profile');
             window.location.reload();
         } catch (err) {
             console.error("Login failed:", err.response ? err.response.data : err.message);
-            setError("Login failed. Please check your credentials and try again.");
+            setError("Login failed. Please try again.");
         }
     };
 
