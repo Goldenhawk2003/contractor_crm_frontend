@@ -2,30 +2,28 @@ import React, { useEffect, useState } from 'react';
 import { Link, Outlet, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import Footer from './Footer';
-import axios from 'axios'; // Ensure axios is imported
+import axios from 'axios';
 import './Layout.css';
 
 const Layout = () => {
-  const { isAuthenticated, logout } = useAuth(); // Ensure setIsAuthenticated is available from context
-  const navigate = useNavigate(); // For redirecting after logout
-  const [isSuperUser, setIsSuperUser] = useState(false); // State to track superuser status
+  // Destructure auth state, including authLoaded and isAuthenticated
+  const { isAuthenticated, authLoaded, logout } = useAuth();
+  const navigate = useNavigate();
+  const [isSuperUser, setIsSuperUser] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+
   useEffect(() => {
     const fetchUserInfo = async () => {
       try {
         // If using token-based auth, get token from localStorage
         const token = localStorage.getItem("access_token");
-  
         const response = await axios.get(
           `${process.env.REACT_APP_BACKEND_URL}/api/user-info-superuser/`,
           {
             headers: {
               "Content-Type": "application/json",
-              // If you’re using token-based auth, include the token:
               ...(token && { Authorization: `Bearer ${token}` }),
             },
-            // If using token-based auth, you generally don't need withCredentials:
-            // withCredentials: true,
           }
         );
   
@@ -47,27 +45,26 @@ const Layout = () => {
   useEffect(() => {
     // Function to check screen size
     const handleResize = () => {
-      setIsMobile(window.innerWidth <= 768); // Adjust the width threshold as needed
+      setIsMobile(window.innerWidth <= 768); // Adjust threshold as needed
     };
 
-    // Initial check
+    // Initial check and add event listener
     handleResize();
-
-    // Add resize event listener
     window.addEventListener("resize", handleResize);
-
-    // Cleanup listener on unmount
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  // Render a loading state until auth check is complete
+  if (!authLoaded) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="layout-container">
       <header className="layout-header">
         <nav className="button-group">
           <div className="left-nav">
-
-
-          <Link to="/" className="logo-link">
+            <Link to="/" className="logo-link">
               <img
                 src={`${process.env.PUBLIC_URL}/images/EC_Primary_White.png`}
                 alt="Logo"
@@ -75,21 +72,15 @@ const Layout = () => {
                 height="50px"
               />
             </Link>
-            
-            
           </div>
-
           <div className="right-nav">
-          {isSuperUser && (
+            {isSuperUser && (
               <Link to="/dashboard" className="nav-button">Dashboard</Link>
             )}
-          
             <Link to="/AboutUs" className="nav-button">About Us</Link>
-          
-            <Link to="/Browse-contractors" className="nav-button"> Services</Link>
+            <Link to="/Browse-contractors" className="nav-button">Services</Link>
             <Link to="/contact" className="nav-button">Contact Us</Link>
             <Link to="/user-profile" className="nav-button">User Profile</Link>
-           
             {!isAuthenticated ? (
               <Link to="/login" className="nav-button">Login</Link>
             ) : (
