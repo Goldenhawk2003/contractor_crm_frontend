@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 import axios from "axios";
+axios.defaults.withCredentials = true;
 
 const AuthContext = createContext();
 
@@ -12,9 +13,15 @@ export const AuthProvider = ({ children }) => {
         try {
             const response = await axios.get(
                 `${process.env.REACT_APP_BACKEND_URL}/api/user-info/`,
-                { withCredentials: true } // ✅ Ensures session cookie is sent
+                {
+                    withCredentials: true,
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Accept": "application/json",
+                    }
+                }
             );
-            
+    
             console.log("User data:", response.data);
             if (response.data.username) {
                 setIsAuthenticated(true);
