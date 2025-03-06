@@ -3,7 +3,7 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import "./UserProfile.css";
 import { useAuth } from "../context/AuthContext.js";
-
+axios.defaults.withCredentials = true;
 // Helper to get CSRF token
 const getCSRFToken = async () => {
   try {

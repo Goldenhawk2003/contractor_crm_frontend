@@ -1,7 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 import axios from "axios";
 axios.defaults.withCredentials = true;
-const REACT_APP_BACKEND_URL= "https://ecc-backend-8684636373f0.herokuapp.com"; 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
@@ -12,7 +11,7 @@ export const AuthProvider = ({ children }) => {
     const checkAuthStatus = async () => {
         try {
             const response = await axios.get(
-                `${REACT_APP_BACKEND_URL}/api/user-info/`,
+                `${process.env.REACT_APP_BACKEND_URL}/api/user-info/`,
                 {
                     withCredentials: true,
                     headers: {
@@ -39,7 +38,7 @@ export const AuthProvider = ({ children }) => {
 
     const logout = async () => {
         try {
-            await axios.post(`${REACT_APP_BACKEND_URL}/api/logout/`, {}, { withCredentials: true });
+            await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/logout/`, {}, { withCredentials: true });
             setIsAuthenticated(false);
             setUser(null); // Clear user data on logout
             window.location.reload(); // Force a full page reload
