@@ -4,21 +4,10 @@ import { Link, useNavigate } from "react-router-dom";
 import "./UserProfile.css";
 import { useAuth } from "../context/AuthContext";
 
-// Helper to get CSRF token
-const getCSRFToken = () => {
-  const name = "csrftoken";
-  const cookies = document.cookie.split(";");
-  for (let cookie of cookies) {
-    cookie = cookie.trim();
-    if (cookie.startsWith(`${name}=`)) {
-      return cookie.substring(name.length + 1);
-    }
-  }
-  console.error("CSRF token not found");
-  return null;
+const getAuthHeaders = () => {
+  const token = localStorage.getItem("access_token");
+  return token ? { Authorization: `Bearer ${token}` } : {};
 };
-
-axios.defaults.headers.common["X-CSRFToken"] = getCSRFToken();
 
 // ------------------- Sidebar Component -------------------
 const Sidebar = ({ activeTab, unreadMessages, setActiveTab }) => {
@@ -180,7 +169,10 @@ const ProfessionalContracts = () => {
     try {
       const response = await axios.get(
         `${process.env.REACT_APP_BACKEND_URL}/api/users/search/?q=${searchTerm}`,
-        { withCredentials: true }
+        { headers: {
+          "Content-Type": "application/json",
+          ...getAuthHeaders(),
+        }, }
       );
       setSearchResults(response.data);
       if (response.data.length === 0) {
@@ -205,7 +197,10 @@ const ProfessionalContracts = () => {
         contractContent: newContractContent,
       };
       await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/send-contract/`, payload, {
-        withCredentials: true,
+        headers: {
+          "Content-Type": "application/json",
+          ...getAuthHeaders(),
+        },
       });
       setSendSuccess("Contract sent successfully!");
       setSelectedUser(null);
@@ -220,7 +215,10 @@ const ProfessionalContracts = () => {
   useEffect(() => {
     if (contractTab === "sent" || contractTab === "signed") {
       axios
-        .get(`${process.env.REACT_APP_BACKEND_URL}/api/sent-contracts/`, { withCredentials: true })
+        .get(`${process.env.REACT_APP_BACKEND_URL}/api/sent-contracts/`, { headers: {
+          "Content-Type": "application/json",
+          ...getAuthHeaders(),
+        }, })
         .then((response) => setSentContracts(response.data.contracts))
         .catch(() => setError("Failed to fetch sent contracts."));
     }
@@ -397,7 +395,10 @@ const ClientContracts = () => {
   useEffect(() => {
     axios
       .get(`${process.env.REACT_APP_BACKEND_URL}/api/received-contracts/`, {
-        withCredentials: true,
+        headers: {
+          "Content-Type": "application/json",
+          ...getAuthHeaders(),
+        },
       })
       .then((response) => setReceivedContracts(response.data.contracts))
       .catch(() => {});
@@ -414,7 +415,10 @@ const ClientContracts = () => {
       await axios.post(
         `${process.env.REACT_APP_BACKEND_URL}/api/sign-contract/`,
         { contract_id: contractId },
-        { withCredentials: true }
+        { headers: {
+          "Content-Type": "application/json",
+          ...getAuthHeaders(),
+        }, }
       );
       setSignSuccess("Contract signed successfully!");
       setReceivedContracts((prev) =>
@@ -515,7 +519,10 @@ const ChatsTab = ({ userInfo, username }) => {
   useEffect(() => {
     axios
       .get(`${process.env.REACT_APP_BACKEND_URL}/api/conversations/`, {
-        withCredentials: true,
+        headers: {
+          "Content-Type": "application/json",
+          ...getAuthHeaders(),
+        },
       })
       .then((response) => setConversations(response.data))
       .catch(() => setError("Failed to load conversations."))
@@ -528,7 +535,10 @@ const ChatsTab = ({ userInfo, username }) => {
       axios
         .get(
           `${process.env.REACT_APP_BACKEND_URL}/api/conversations/${selectedConversationId}/messages/`,
-          { withCredentials: true }
+          { headers: {
+            "Content-Type": "application/json",
+            ...getAuthHeaders(),
+          }, }
         )
         .then((response) => setMessages(response.data))
         .catch(() => setError("Failed to load messages."))
@@ -564,9 +574,8 @@ const ChatsTab = ({ userInfo, username }) => {
         {
           headers: {
             "Content-Type": "application/json",
-            "X-CSRFToken": csrfToken,
+            ...getAuthHeaders(),
           },
-          withCredentials: true,
         }
       );
   
@@ -582,7 +591,10 @@ const ChatsTab = ({ userInfo, username }) => {
       setMessage("");
       
       await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/unread-messages/`, {
-        withCredentials: true,
+        headers: {
+          "Content-Type": "application/json",
+          ...getAuthHeaders(),
+        },
       });
     } catch (err) {
       setError("Failed to send the message.");
@@ -706,7 +718,10 @@ const UserProfile = () => {
   // Fetch user info
   useEffect(() => {
     axios
-      .get(`${process.env.REACT_APP_BACKEND_URL}/api/user-info/`, { withCredentials: true })
+      .get(`${process.env.REACT_APP_BACKEND_URL}/api/user-info/`, { headers: {
+        "Content-Type": "application/json",
+        ...getAuthHeaders(),
+      }, })
       .then((response) => setUserInfo(response.data))
       .catch(() => setError("Please sign in"));
   }, []);
@@ -717,7 +732,10 @@ const UserProfile = () => {
       try {
         const response = await axios.get(
           `${process.env.REACT_APP_BACKEND_URL}/api/unread-messages/`,
-          { withCredentials: true }
+          { headers: {
+            "Content-Type": "application/json",
+            ...getAuthHeaders(),
+          }, }
         );
         setUnreadMessages(response.data.unread_count);
       } catch (err) {
