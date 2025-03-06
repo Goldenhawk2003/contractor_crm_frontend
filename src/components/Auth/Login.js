@@ -18,25 +18,26 @@ const Login = () => {
 
     const handleLogin = async (event) => {
         event.preventDefault();
-
         try {
-            const csrfToken = getCSRFToken();
-            console.log('CSRF Token:', csrfToken);
-
-            await axios.post(
-                `${process.env.REACT_APP_BACKEND_URL}/api/login/`,
-                { username, password },
-                {
-                    headers: {
-                        'X-CSRFToken': csrfToken,
-                        'Content-Type': 'application/json',
-                    },
-                    withCredentials: true,
-                }
-            );
-
+            const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/token/`, {
+                username,
+                password,
+            }, {
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                withCredentials: false,  // No need for cookies when using token auth
+            });
+    
+            const { access, refresh } = response.data;
+            // Save tokens (consider localStorage, context, or a state management library)
+            localStorage.setItem('access_token', access);
+            localStorage.setItem('refresh_token', refresh);
+    
+            // Set Axios default header for subsequent requests
+            axios.defaults.headers.common['Authorization'] = `Bearer ${access}`;
+    
             navigate('/user-profile'); // Redirect after successful login
-            window.location.reload(); 
         } catch (err) {
             console.error('Login failed:', err.response ? err.response.data : err.message);
             setError('Login failed. Please try again.');
