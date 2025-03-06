@@ -13,20 +13,32 @@ const Layout = () => {
   useEffect(() => {
     const fetchUserInfo = async () => {
       try {
-        const response = await axios.get(`{process.env.REACT_APP_BACKEND_URL}/api/user-info-superuser/`, {
-          withCredentials: true, // Ensures cookies are sent
-        });
-
+        // If using token-based auth, get token from localStorage
+        const token = localStorage.getItem("access_token");
+  
+        const response = await axios.get(
+          `${process.env.REACT_APP_BACKEND_URL}/api/user-info-superuser/`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              // If you’re using token-based auth, include the token:
+              ...(token && { Authorization: `Bearer ${token}` }),
+            },
+            // If using token-based auth, you generally don't need withCredentials:
+            // withCredentials: true,
+          }
+        );
+  
         // Check if the user is a superuser
         if (response.data.is_superuser) {
           setIsSuperUser(true);
         }
       } catch (error) {
-        console.error('Failed to fetch user info:', error);
+        console.error("Failed to fetch user info:", error);
       }
     };
-
-    // Fetch user info if authenticated
+  
+    // Fetch user info only if the user is authenticated
     if (isAuthenticated) {
       fetchUserInfo();
     }
