@@ -1,18 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import './Dashboard.css';
 
-const getCSRFToken = () => {
-  const name = "csrftoken";
-  const cookies = document.cookie.split(";");
-  for (let cookie of cookies) {
-      cookie = cookie.trim();
-      if (cookie.startsWith(`${name}=`)) {
-          return cookie.substring(name.length + 1);
-      }
-  }
-  console.error("CSRF token not found");
-  return null;
+const getAuthHeaders = () => {
+  const token = localStorage.getItem("access_token");
+  return token ? { Authorization: `Bearer ${token}` } : {};
 };
+
+const BASE_URL = process.env.REACT_APP_BACKEND_URL;
 
 const Dashboard = () => {
   const [data, setData] = useState(null);
@@ -30,10 +24,12 @@ const Dashboard = () => {
   // Fetch dashboard data
   const fetchDashboard = async () => {
     try {
-      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/dashboard/`, {
+      const response = await fetch(`${BASE_URL}/dashboard/`, {
         method: 'GET',
-        credentials: 'include',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+          'Content-Type': 'application/json',
+          ...getAuthHeaders(),
+        },
       });
 
       if (!response.ok) {
@@ -52,180 +48,244 @@ const Dashboard = () => {
   // Fetch quiz responses data
   const fetchFormResponses = async () => {
     try {
-        const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/dashboard/form-responses/`, {
-            method: 'GET',
-            credentials: 'include',
-            headers: { 'Content-Type': 'application/json' },
-        });
+      const response = await fetch(`${BASE_URL}/dashboard/form-responses/`, {
+        method: 'GET',
+        headers: { 
+          'Content-Type': 'application/json',
+          ...getAuthHeaders(),
+        },
+      });
 
-        if (!response.ok) {
-            throw new Error('Failed to fetch form responses.');
-        }
+      if (!response.ok) {
+        throw new Error('Failed to fetch form responses.');
+      }
 
-        const data = await response.json();
-        setFormResponses(data.responses);
+      const data = await response.json();
+      setFormResponses(data.responses);
     } catch (error) {
-        setFormError('Error loading form responses.');
+      setFormError('Error loading form responses.');
     }
-};
+  };
 
+  // Fetch quiz questions data
+  const fetchQuestions = async () => {
+    try {
+      const response = await fetch(`${BASE_URL}/quiz/questions/`, {
+        method: 'GET',
+        headers: { 
+          'Content-Type': 'application/json',
+          ...getAuthHeaders(),
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to fetch questions.');
+      }
+
+      const data = await response.json();
+      setQuestions(data.questions);
+    } catch (error) {
+      setQuizError('Error loading quiz questions.');
+    }
+  };
+
+  const addQuestion = async () => {
+    if (!newQuestion.trim()) {
+      alert("Question text cannot be empty.");
+      return;
+    }
+
+    if (newQuestionType === "multiple_choice" && !newChoices.trim()) {
+      alert("Choices cannot be empty for multiple-choice questions.");
+      return;
+    }
+
+    try {
+      const response = await fetch(`${BASE_URL}/quiz/add-question/`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          ...getAuthHeaders(),
+        },
+        body: JSON.stringify({
+          question: newQuestion,
+          description: newDescription,
+          question_type: newQuestionType,
+          choices: newQuestionType === "multiple_choice" ? newChoices.split(',') : null,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to add question.');
+      }
+
+      const data = await response.json();
+      setQuestions([...questions, {
+        id: data.id,
+        question: newQuestion,
+        description: newDescription,
+        question_type: newQuestionType,
+        choices: newQuestionType === "multiple_choice" ? newChoices.split(',') : null,
+      }]);
+      setNewQuestion('');
+      setNewDescription('');
+      setNewQuestionType('text');
+      setNewChoices('');
+    } catch (error) {
+      alert('Error adding question. Please try again.');
+    }
+  };
+
+  const deleteQuestion = async (questionId) => {
+    if (!window.confirm('Are you sure you want to delete this question?')) return;
+
+    try {
+      const response = await fetch(`${BASE_URL}/quiz/delete-question/${questionId}/`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          ...getAuthHeaders(),
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to delete question.');
+      }
+
+      // Remove the question from the state
+      setQuestions(questions.filter((question) => question.id !== questionId));
+      alert('Question deleted successfully.');
+    } catch (error) {
+      alert('Error deleting question. Please try again.');
+    }
+  };
+
+  const handleApprove = async (id) => {
+    try {
+      const response = await fetch(`${BASE_URL}/api/approve-contractor/${id}/`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          ...getAuthHeaders(),
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to approve contractor.');
+      }
+
+      alert('Contractor approved successfully!');
+      fetchDashboard(); // Refresh data
+    } catch (error) {
+      alert('Error approving contractor. Please try again.');
+    }
+  };
+
+  const handleReject = async (id) => {
+    try {
+      const response = await fetch(`${BASE_URL}/api/reject-contractor/${id}/`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          ...getAuthHeaders(),
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to reject contractor.');
+      }
+
+      alert('Contractor rejected successfully!');
+      fetchDashboard(); // Refresh the data
+    } catch (error) {
+      alert('Error rejecting contractor. Please try again.');
+    }
+  };
 
   useEffect(() => {
     fetchDashboard();
     fetchFormResponses();
   }, []);
 
-  const fetchQuestions = async () => {
-    try {
-        const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/quiz/questions/`, {
-            method: 'GET',
-            headers: { 'Content-Type': 'application/json' },
-        });
+  useEffect(() => {
+    fetchQuestions();
+  }, []);
 
-        if (!response.ok) {
-            throw new Error('Failed to fetch questions.');
-        }
+  // Fuse.js for search
+  const Fuse = require('fuse.js');
+  const fuse = new Fuse(tutorials, {
+    keys: ["title", "description", "contractor"],
+    threshold: 0.3,
+  });
 
-        const data = await response.json();
-        setQuestions(data.questions);
-    } catch (error) {
-        setQuizError('Error loading quiz questions.');
+  const handleSearch = (event) => {
+    const value = event.target.value;
+    setSearchText(value);
+
+    if (value.length > 1) {
+      const results = fuse.search(value);
+      setSearchResults(results.map((result) => result.item));
+    } else {
+      setSearchResults([]);
     }
-};
+  };
 
-const addQuestion = async () => {
-    if (!newQuestion.trim()) {
-        alert("Question text cannot be empty.");
-        return;
-    }
-
-    if (newQuestionType === "multiple_choice" && !newChoices.trim()) {
-        alert("Choices cannot be empty for multiple-choice questions.");
-        return;
-    }
-
-    try {
-        const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/quiz/add-question/`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRFToken': getCSRFToken(),
-            },
-            body: JSON.stringify({
-                question: newQuestion,
-                description: newDescription,
-                question_type: newQuestionType,
-                choices: newQuestionType === "multiple_choice" ? newChoices.split(',') : null,
-            }),
-        });
-
-        if (!response.ok) {
-            throw new Error('Failed to add question.');
-        }
-
-        const data = await response.json();
-        setQuestions([...questions, {
-            id: data.id,
-            question: newQuestion,
-            description: newDescription,
-            question_type: newQuestionType,
-            choices: newQuestionType === "multiple_choice" ? newChoices.split(',') : null,
-        }]);
-        setNewQuestion('');
-        setNewDescription('');
-        setNewQuestionType('text');
-        setNewChoices('');
-    } catch (error) {
-        alert('Error adding question. Please try again.');
-    }
-};
-const deleteQuestion = async (questionId) => {
-  if (!window.confirm('Are you sure you want to delete this question?')) return;
-
-  try {
-    const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/quiz/delete-question/${questionId}/`, {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-CSRFToken': getCSRFToken(),
+  const handleSelectResult = (tutorial) => {
+    navigate("/video-player", {
+      state: {
+        videoUrl: tutorial.video,
+        title: tutorial.title,
+        description: tutorial.description,
+        contractor: tutorial.contractor,
+        createdAt: tutorial.created_at,
+        videoId: tutorial.id,
+        tags: Array.isArray(tutorial.tags) ? tutorial.tags : JSON.parse(tutorial.tags || "[]"),
       },
     });
+    setSearchText("");
+    setSearchResults([]);
+  };
 
-    if (!response.ok) {
-      throw new Error('Failed to delete question.');
-    }
-
-    // Remove the question from the state
-    setQuestions(questions.filter((question) => question.id !== questionId));
-    alert('Question deleted successfully.');
-  } catch (error) {
-    alert('Error deleting question. Please try again.');
-  }
-};
-
-useEffect(() => {
-  fetchQuestions();
-}, []);
-
-  const handleApprove = async (id) => {
+  const normalizeTags = (tags) => {
+    if (!tags) return [];
+    if (Array.isArray(tags)) return tags;
     try {
-        const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/approve-contractor/${id}/`, {
-            method: 'POST',
-            credentials: 'include',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRFToken': getCSRFToken(),
-            },
-        });
-
-        if (!response.ok) {
-            throw new Error('Failed to approve contractor.');
-        }
-
-        alert('Contractor approved successfully!');
-        fetchDashboard(); // Refresh data
+      return JSON.parse(tags);
     } catch (error) {
-        alert('Error approving contractor. Please try again.');
+      return [tags];
     }
   };
 
-  const handleReject = async (id) => {
-    try {
-        const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/reject-contractor/${id}/`, {
-            method: 'POST',
-            credentials: 'include',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRFToken': getCSRFToken(),
-            },
-        });
-
-        if (!response.ok) {
-            throw new Error('Failed to reject contractor.');
-        }
-
-        alert('Contractor rejected successfully!');
-        fetchDashboard(); // Refresh the data
-    } catch (error) {
-        alert('Error rejecting contractor. Please try again.');
+  const handleKeyDown = (event) => {
+    if (event.key === 'Enter' && searchText.trim()) {
+      navigate('/find-contractor', { state: { query: searchText.trim() } });
     }
   };
+
+  const handleServiceClick = (service) => {
+    setSelectedTag(service);
+    navigate("/tutorials", { replace: true, state: { selectedTag: service } });
+  };
+
+  const filteredTutorials = selectedTag === "All"
+    ? tutorials
+    : tutorials.filter((tutorial) => {
+        const tags = Array.isArray(tutorial.tags)
+          ? tutorial.tags
+          : normalizeTags(tutorial.tags);
+        return tags.includes(selectedTag);
+      });
 
   return (
     <div className="dashboard">
-      {/* Header */}
       <header className="dashboard-header">
         <h1>Super Admin Dashboard</h1>
         <p>Welcome back, <strong>Admin</strong>!</p>
       </header>
 
-      {/* Loading State */}
       {isLoading && <p className="loading-message">Loading...</p>}
-
-      {/* Error Message */}
       {error && <p className="error-message">{error}</p>}
 
-      {/* Main Content */}
       {!isLoading && data && (
         <div className="dashboard-content">
           {/* Key Metrics */}
@@ -259,25 +319,15 @@ useEffect(() => {
                     <p><strong>Email:</strong> {app.email}</p>
                     
                     <img
-                      src={
-                        app.logo && app.logo.startsWith('http')
-                          ? app.logo
-                          : `http://localhost:8000${app.logo}`
-                      }
+                      src={app.logo && app.logo.startsWith('http') ? app.logo : `${BASE_URL}${app.logo}`}
                       alt={`${app.username}'s logo`}
                       className="application-logo"
                     />
                     <div className="application-buttons">
-                      <button
-                        className="approve-btn"
-                        onClick={() => handleApprove(app.id)}
-                      >
+                      <button className="approve-btn" onClick={() => handleApprove(app.id)}>
                         Approve
                       </button>
-                      <button
-                        className="reject-btn"
-                        onClick={() => handleReject(app.id)}
-                      >
+                      <button className="reject-btn" onClick={() => handleReject(app.id)}>
                         Reject
                       </button>
                     </div>
@@ -288,8 +338,9 @@ useEffect(() => {
               <p>No pending applications.</p>
             )}
           </section>
-           {/* Service Requests */}
-           <section className="service-requests">
+
+          {/* Service Requests */}
+          <section className="service-requests">
             <h2>Recent Service Requests</h2>
             {data.recent_service_requests && data.recent_service_requests.length > 0 ? (
               <ul className="service-requests-list">
@@ -308,81 +359,81 @@ useEffect(() => {
 
           {/* Quiz Responses Dashboard */}
           <section className="form-responses">
-    <h2>Quiz Answers</h2>
-    {formError && <p className="error-message">{formError}</p>}
-    {formResponses.length > 0 ? (
-        <ul className="form-responses-list">
-            {formResponses.map((group, index) => (
-                <li key={index} className="form-response-group">
+            <h2>Quiz Answers</h2>
+            {formError && <p className="error-message">{formError}</p>}
+            {formResponses.length > 0 ? (
+              <ul className="form-responses-list">
+                {formResponses.map((group, index) => (
+                  <li key={index} className="form-response-group">
                     <h3>Client: {group.client}</h3>
                     <ul>
-                        {group.responses.map((response, respIndex) => (
-                            <li key={respIndex} className="form-response-item">
-                                <p><strong>Question:</strong> {response.quiz_question}</p>
-                                {response.answer && <p><strong>Answer:</strong> {response.answer}</p>}
-                                {response.selected_choice && <p><strong>Selected Choice:</strong> {response.selected_choice}</p>}
-                                {response.contractor_suggestion && (
-                                    <p><strong>Contractor Suggestion:</strong> {response.contractor_suggestion}</p>
-                                )}
-                                <p><strong>Submitted At:</strong> {response.created_at}</p>
-                            </li>
-                        ))}
+                      {group.responses.map((response, respIndex) => (
+                        <li key={respIndex} className="form-response-item">
+                          <p><strong>Question:</strong> {response.quiz_question}</p>
+                          {response.answer && <p><strong>Answer:</strong> {response.answer}</p>}
+                          {response.selected_choice && <p><strong>Selected Choice:</strong> {response.selected_choice}</p>}
+                          {response.contractor_suggestion && <p><strong>Contractor Suggestion:</strong> {response.contractor_suggestion}</p>}
+                          <p><strong>Submitted At:</strong> {response.created_at}</p>
+                        </li>
+                      ))}
                     </ul>
-                </li>
-            ))}
-        </ul>
-    ) : (
-        <p>No form responses available.</p>
-    )}
-</section>
-<section className="quiz-management">
-    <h2>Manage Quiz Questions</h2>
-    {quizError && <p className="error-message">{quizError}</p>}
-    <div className="add-question">
-        <input
-            type="text"
-            value={newQuestion}
-            onChange={(e) => setNewQuestion(e.target.value)}
-            placeholder="Enter a new question..."
-        />
-        <select
-            value={newQuestionType}
-            onChange={(e) => setNewQuestionType(e.target.value)}
-        >
-            <option value="text">Text Answer</option>
-            <option value="multiple_choice">Multiple Choice</option>
-        </select>
-        {newQuestionType === "multiple_choice" && (
-            <input
-                type="text"
-                value={newChoices}
-                onChange={(e) => setNewChoices(e.target.value)}
-                placeholder="Enter choices, separated by commas..."
-            />
-        )}
-        <button onClick={addQuestion} className="user-button">Add Question</button>
-    </div>
-    <ul className="question-list">
-        {questions.map((question) => (
-            <li key={question.id} className="question-item">
-                <p><strong>Question:</strong> {question.question}</p>
-                {question.description && <p><strong>Description:</strong> {question.description}</p>}
-                <p><strong>Type:</strong> {question.question_type}</p>
-                {question.question_type === "multiple_choice" && (
-                    <p><strong>Choices:</strong> {question.choices.join(', ')}</p>
-                )}
-                <button onClick={() => deleteQuestion(question.id)} className="delete-btn">
-                    Delete
-                </button>
-            </li>
-        ))}
-    </ul>
-</section>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p>No form responses available.</p>
+            )}
+          </section>
 
+          {/* Quiz Management */}
+          <section className="quiz-management">
+            <h2>Manage Quiz Questions</h2>
+            {quizError && <p className="error-message">{quizError}</p>}
+            <div className="add-question">
+              <input
+                type="text"
+                value={newQuestion}
+                onChange={(e) => setNewQuestion(e.target.value)}
+                placeholder="Enter a new question..."
+              />
+              <select
+                value={newQuestionType}
+                onChange={(e) => setNewQuestionType(e.target.value)}
+              >
+                <option value="text">Text Answer</option>
+                <option value="multiple_choice">Multiple Choice</option>
+              </select>
+              {newQuestionType === "multiple_choice" && (
+                <input
+                  type="text"
+                  value={newChoices}
+                  onChange={(e) => setNewChoices(e.target.value)}
+                  placeholder="Enter choices, separated by commas..."
+                />
+              )}
+              <button onClick={addQuestion} className="user-button">
+                Add Question
+              </button>
+            </div>
+            <ul className="question-list">
+              {questions.map((question) => (
+                <li key={question.id} className="question-item">
+                  <p><strong>Question:</strong> {question.question}</p>
+                  {question.description && <p><strong>Description:</strong> {question.description}</p>}
+                  <p><strong>Type:</strong> {question.question_type}</p>
+                  {question.question_type === "multiple_choice" && (
+                    <p><strong>Choices:</strong> {question.choices.join(', ')}</p>
+                  )}
+                  <button onClick={() => deleteQuestion(question.id)} className="delete-btn">
+                    Delete
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </section>
         </div>
       )}
 
-      {/* Fallback */}
       {!isLoading && !data && <p>No dashboard data available.</p>}
     </div>
   );

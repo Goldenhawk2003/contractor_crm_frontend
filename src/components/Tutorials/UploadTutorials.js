@@ -2,18 +2,19 @@ import React, { useState } from "react";
 import "./UploadTutorials.css"; // Import the CSS file
 import axios from "axios";
 
-const getCSRFToken = () => {
-  const name = "csrftoken";
-  const cookies = document.cookie.split(";");
-  for (let cookie of cookies) {
-      cookie = cookie.trim();
-      if (cookie.startsWith(`${name}=`)) {
-          return cookie.substring(name.length + 1);
-      }
-  }
-  console.error("CSRF token not found");
-  return null;
-};
+// Optional: Remove CSRF token function if you're using token-based auth.
+// const getCSRFToken = () => {
+//   const name = "csrftoken";
+//   const cookies = document.cookie.split(";");
+//   for (let cookie of cookies) {
+//     cookie = cookie.trim();
+//     if (cookie.startsWith(`${name}=`)) {
+//       return cookie.substring(name.length + 1);
+//     }
+//   }
+//   console.error("CSRF token not found");
+//   return null;
+// };
 
 const UploadTutorial = () => {
   const [title, setTitle] = useState("");
@@ -22,7 +23,7 @@ const UploadTutorial = () => {
   const [thumbnail, setThumbnail] = useState(null);
   const [uploading, setUploading] = useState(false);
   const [message, setMessage] = useState("");
-  const [selectedTags, setSelectedTags] = useState([]); // ✅ FIXED: Use an array for multiple tags
+  const [selectedTags, setSelectedTags] = useState([]); // Use an array for multiple tags
 
   const services = ["Interior", "Renovation", "Washroom", "Roofing", "Tiles", "Woodwork"];
 
@@ -31,7 +32,7 @@ const UploadTutorial = () => {
     setFile(e.target.files[0]);
   };
 
-  // ✅ FIXED: Handle tag selection (toggle selection)
+  // Handle tag selection (toggle selection)
   const handleTagClick = (service) => {
     setSelectedTags((prevTags) =>
       prevTags.includes(service)
@@ -55,7 +56,7 @@ const UploadTutorial = () => {
     if (thumbnail) {
       formData.append("thumbnail", thumbnail);
     }
-    formData.append("tags", JSON.stringify(selectedTags)); // ✅ FIXED: Send tags as JSON
+    formData.append("tags", JSON.stringify(selectedTags)); // Send tags as JSON
 
     console.log("Form Data:");
     for (let [key, value] of formData.entries()) {
@@ -65,23 +66,31 @@ const UploadTutorial = () => {
     setUploading(true);
 
     try {
-      const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/tutorials/`, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          "X-CSRFToken": getCSRFToken(),  // ✅ Ensure CSRF token is included
-        },
-        withCredentials: true,  // ✅ Ensures authentication cookies are sent
-      });
-    
-      console.log("✅ Server Response:", response.data);  // ✅ response.data contains the actual data
-    
-      if (response.status === 201) {  // ✅ Check for successful upload (201 Created)
+      // Get the access token from localStorage
+      const token = localStorage.getItem("access_token");
+
+      const response = await axios.post(
+        `${process.env.REACT_APP_BACKEND_URL}/api/tutorials/`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            ...(token && { Authorization: `Bearer ${token}` }),
+            // If you still need CSRF protection, add:
+            // "X-CSRFToken": getCSRFToken(),
+          },
+          // Remove withCredentials when using token-based auth
+        }
+      );
+
+      console.log("✅ Server Response:", response.data);
+      if (response.status === 201) {
         setMessage("Tutorial uploaded successfully!");
         setTitle("");
         setDescription("");
         setFile(null);
         setThumbnail(null);
-        setSelectedTags([]); // ✅ Reset tags after successful upload
+        setSelectedTags([]); // Reset tags after successful upload
       } else {
         setMessage("Upload failed. Please try again.");
       }
@@ -98,7 +107,11 @@ const UploadTutorial = () => {
       <h2 className="upload-heading">Upload a Tutorial</h2>
 
       {message && (
-        <p className={`upload-message ${message.includes("failed") ? "error-message" : "success-message"}`}>
+        <p
+          className={`upload-message ${
+            message.includes("failed") ? "error-message" : "success-message"
+          }`}
+        >
           {message}
         </p>
       )}
@@ -120,7 +133,11 @@ const UploadTutorial = () => {
         <div>
           <label className="upload-label">Caption</label>
           <textarea
-            className={`upload-textarea ${description.includes("@") || /gmail|yahoo|hotmail/.test(description) ? "error-border" : ""}`}
+            className={`upload-textarea ${
+              description.includes("@") || /gmail|yahoo|hotmail/.test(description)
+                ? "error-border"
+                : ""
+            }`}
             rows="2"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
@@ -132,13 +149,24 @@ const UploadTutorial = () => {
         {/* File Upload (Video/Image) */}
         <div>
           <label className="upload-label">Upload Video or Image</label>
-          <input type="file" accept="video/*, image/*" className="upload-file" onChange={handleFileChange} required />
+          <input
+            type="file"
+            accept="video/*, image/*"
+            className="upload-file"
+            onChange={handleFileChange}
+            required
+          />
         </div>
 
         {/* Thumbnail Upload (Optional) */}
         <div>
           <label className="upload-label">Upload Thumbnail (Optional)</label>
-          <input type="file" accept="image/*" className="upload-file" onChange={(e) => setThumbnail(e.target.files[0])} />
+          <input
+            type="file"
+            accept="image/*"
+            className="upload-file"
+            onChange={(e) => setThumbnail(e.target.files[0])}
+          />
         </div>
 
         {/* Tags Selection */}
