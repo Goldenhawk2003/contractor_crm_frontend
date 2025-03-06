@@ -22,7 +22,7 @@ const Login = () => {
             console.log('CSRF Token:', csrfToken);
 
             await axios.post(
-                'http://localhost:8000/api/login/',
+                `${process.env.REACT_APP_BACKEND_URL}/api/login/`,
                 { username, password },
                 {
                     headers: {

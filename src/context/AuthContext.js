@@ -10,7 +10,7 @@ export const AuthProvider = ({ children }) => {
     // Function to check if the user is authenticated
     const checkAuthStatus = async () => {
         try {
-            const response = await axios.get("http://localhost:8000/api/user-info/", {
+            const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/user-info/`, {
                 withCredentials: true,
             });
             if (response.data.username) {
@@ -29,7 +29,7 @@ export const AuthProvider = ({ children }) => {
 
     const logout = async () => {
         try {
-            await axios.post("http://localhost:8000/api/logout/", {}, { withCredentials: true });
+            await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/logout/`, {}, { withCredentials: true });
             setIsAuthenticated(false);
             setUser(null); // Clear user data on logout
             window.location.reload(); // Force a full page reload
