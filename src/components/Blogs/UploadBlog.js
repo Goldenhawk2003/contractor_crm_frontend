@@ -3,8 +3,6 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./UploadBlog.css"; // Add styles
 
-const BASE_URL = "http://localhost:8000"; // Update if needed
-
 const UploadBlog = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -12,7 +10,6 @@ const UploadBlog = () => {
     content: "",
     image: null,
   });
-
   const [error, setError] = useState("");
   const [uploading, setUploading] = useState(false);
   const [message, setMessage] = useState("");
@@ -26,7 +23,7 @@ const UploadBlog = () => {
     }
   };
 
-  // 🔥 Handle form submission
+  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
@@ -47,21 +44,28 @@ const UploadBlog = () => {
     setUploading(true);
 
     try {
-      const response = await axios.post(`${BASE_URL}/api/blogs/`, blogData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-        withCredentials: true, // Ensures authentication cookies are sent
-      });
+      // Get the access token from localStorage
+      const token = localStorage.getItem("access_token");
+
+      const response = await axios.post(
+        `${process.env.REACT_APP_BACKEND_URL}/api/blogs/`,
+        blogData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            "Authorization": token ? `Bearer ${token}` : "",
+          },
+        }
+      );
 
       if (response.status === 201) {
         setMessage("Blog uploaded successfully!");
-        setTimeout(() => navigate("/blogs"), 2000); // Redirect after success
+        setTimeout(() => navigate("/blogs"), 2000);
       } else {
         setError("Failed to upload blog. Try again.");
       }
-    } catch (error) {
-      console.error("Error uploading blog:", error);
+    } catch (err) {
+      console.error("Error uploading blog:", err);
       setError("Something went wrong. Please try again.");
     }
 
@@ -73,7 +77,6 @@ const UploadBlog = () => {
       <h2>Upload a Blog</h2>
       {error && <p className="error-message">{error}</p>}
       {message && <p className="success-message">{message}</p>}
-
       <form onSubmit={handleSubmit} className="upload-blog-form">
         <label>Title:</label>
         <input
@@ -83,7 +86,6 @@ const UploadBlog = () => {
           onChange={handleChange}
           required
         />
-
         <label>Content:</label>
         <textarea
           name="content"
@@ -92,7 +94,6 @@ const UploadBlog = () => {
           onChange={handleChange}
           required
         />
-
         <label>Image (Optional):</label>
         <input
           type="file"
@@ -100,7 +101,6 @@ const UploadBlog = () => {
           accept="image/*"
           onChange={handleChange}
         />
-
         <button type="submit" disabled={uploading}>
           {uploading ? "Uploading..." : "Upload Blog"}
         </button>
