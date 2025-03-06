@@ -9,64 +9,38 @@ const Login = () => {
     const [error, setError] = useState('');
     const navigate = useNavigate();
 
-    const getCSRFToken = async () => {
-        try {
-            const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/csrf_token/`, {
-                withCredentials: true,
-            });
-            console.log("CSRF Token Fetched:", response.data.csrfToken);
-            return response.data.csrfToken;
-        } catch (error) {
-            console.error("Error fetching CSRF Token:", error);
-            return null;
-        }
-    };
-
-    const fetchCsrfToken = async () => {
-        try {
-            const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/csrf_token/`, {
-                withCredentials: true,  // Ensure cookies are set
-            });
-    
-            const csrfToken = response.data.csrfToken;
-            document.cookie = `csrftoken=${csrfToken}; path=/; Secure; SameSite=None`;
-    
-            console.log("CSRF Token stored in cookies:", csrfToken);
-            return csrfToken;
-        } catch (error) {
-            console.error("Error fetching CSRF Token:", error);
-            return null;
-        }
+    const getCSRFToken = () => {
+        const cookie = document.cookie.split('; ').find(row => row.startsWith('csrftoken='));
+        return cookie ? cookie.split('=')[1] : null;
     };
 
     const handleLogin = async (event) => {
         event.preventDefault();
-    
+
         try {
-            const response = await axios.post(
-                `${process.env.REACT_APP_BACKEND_URL}/api/login/`,
+            const csrfToken = getCSRFToken();
+            console.log('CSRF Token:', csrfToken);
+
+            await axios.post(
+                'http://localhost:8000/api/login/',
                 { username, password },
                 {
                     headers: {
-                        "Content-Type": "application/json",
+                        'X-CSRFToken': csrfToken,
+                        'Content-Type': 'application/json',
                     },
-                    withCredentials: true,  // ✅ Ensures cookies are sent
+                    withCredentials: true,
                 }
             );
-    
-            console.log("Login successful:", response.data);
-    
-            // ✅ Store sessionid manually (optional)
-            document.cookie = `sessionid=${response.data.session_id}; path=/; Secure; SameSite=None;`;
-    
-            navigate('/user-profile'); // Redirect to user profile
+
+            navigate('/user-profile'); // Redirect after successful login
             window.location.reload(); 
-    
         } catch (err) {
-            console.error("Login failed:", err.response ? err.response.data : err.message);
-            setError("Login failed. Please try again.");
+            console.error('Login failed:', err.response ? err.response.data : err.message);
+            setError('Login failed. Please try again.');
         }
     };
+    
 
     return (
         <div className="log-container">
