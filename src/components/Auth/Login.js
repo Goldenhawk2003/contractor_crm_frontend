@@ -13,6 +13,8 @@ const Login = () => {
         const cookie = document.cookie.split('; ').find(row => row.startsWith('csrftoken='));
         return cookie ? cookie.split('=')[1] : null;
     };
+    console.log("CSRF Token:", token);
+    axios.defaults.headers.common['X-CSRFToken'] = getCSRFToken();
 
     const handleLogin = async (event) => {
         event.preventDefault();
