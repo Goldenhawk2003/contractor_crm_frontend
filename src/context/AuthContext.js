@@ -4,49 +4,68 @@ import axios from "axios";
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
-    const [user, setUser] = useState(null); // Store user details
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [user, setUser] = useState(null); // Store user details
 
-    // Function to check if the user is authenticated
-    const checkAuthStatus = async () => {
-        try {
-            const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/user-info/`, {
-                withCredentials: true,
-            });
-            if (response.data.username) {
-                setIsAuthenticated(true);
-                setUser(response.data); // Store user details like username
-            } else {
-                setIsAuthenticated(false);
-                setUser(null);
-            }
-        } catch (error) {
-            console.error("Failed to fetch user info:", error);
-            setIsAuthenticated(false);
-            setUser(null);
-        }
-    };
+  // When the provider mounts, check if an access token exists and set the default Authorization header.
+  useEffect(() => {
+    const token = localStorage.getItem("access_token");
+    if (token) {
+      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+    } else {
+      delete axios.defaults.headers.common["Authorization"];
+    }
+  }, []);
 
-    const logout = async () => {
-        try {
-            await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/logout/`, {}, { withCredentials: true });
-            setIsAuthenticated(false);
-            setUser(null); // Clear user data on logout
-            window.location.reload(); // Force a full page reload
-        } catch (error) {
-            console.error("Logout failed:", error);
-        }
-    };
+  // Function to check if the user is authenticated based on token
+  const checkAuthStatus = async () => {
+    try {
+      const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/user-info/`);
+      if (response.data.username) {
+        setIsAuthenticated(true);
+        setUser(response.data); // Store user details like username, email, etc.
+      } else {
+        setIsAuthenticated(false);
+        setUser(null);
+      }
+    } catch (error) {
+      console.error("Failed to fetch user info:", error);
+      setIsAuthenticated(false);
+      setUser(null);
+    }
+  };
 
-    useEffect(() => {
-        checkAuthStatus(); // Check auth status when the app loads
-    }, []);
+  // Function to log out the user by removing tokens and clearing Axios headers
+  const logout = async () => {
+    try {
+      // Optionally, call a logout endpoint if needed.
+      // await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/logout/`);
+      
+      // Remove tokens from localStorage and Axios defaults
+      localStorage.removeItem("access_token");
+      localStorage.removeItem("refresh_token");
+      delete axios.defaults.headers.common["Authorization"];
+      
+      setIsAuthenticated(false);
+      setUser(null);
+      
+      // Optionally force a reload to update UI state.
+      window.location.reload();
+    } catch (error) {
+      console.error("Logout failed:", error);
+    }
+  };
 
-    return (
-        <AuthContext.Provider value={{ isAuthenticated, user, setIsAuthenticated, logout }}>
-            {children}
-        </AuthContext.Provider>
-    );
+  // Check authentication status when the component mounts
+  useEffect(() => {
+    checkAuthStatus();
+  }, []);
+
+  return (
+    <AuthContext.Provider value={{ isAuthenticated, user, setIsAuthenticated, logout }}>
+      {children}
+    </AuthContext.Provider>
+  );
 };
 
 export const useAuth = () => useContext(AuthContext);
