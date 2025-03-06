@@ -3,7 +3,8 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import "./BlogDetail.css"; // Ensure CSS file exists
 
-const BASE_URL = "http://localhost:8000"; // Change if needed
+// Use the environment variable for the backend URL
+const BASE_URL = process.env.REACT_APP_BACKEND_URL;
 
 const BlogDetail = () => {
   const { pk } = useParams(); // Fetch the `pk` parameter from the URL
@@ -13,29 +14,39 @@ const BlogDetail = () => {
   const [comment, setComment] = useState("");
   const [replies, setReplies] = useState([]);
 
+  // Helper function to get the token from localStorage
+  const getAuthHeaders = () => {
+    const token = localStorage.getItem("access_token");
+    return token ? { Authorization: `Bearer ${token}` } : {};
+  };
+
   // 🔹 Fetch the blog details
   useEffect(() => {
-
     console.log("Blog ID (pk) from URL:", pk);
     if (!pk) {
       setError("Invalid blog ID.");
       setLoading(false);
       return;
     }
-  
+    
     axios
-      .get(`${BASE_URL}/api/blogs/${pk}/`) // Use `pk` instead of slug
+      .get(`${BASE_URL}/api/blogs/${pk}/`, {
+        headers: {
+          "Content-Type": "application/json",
+          ...getAuthHeaders(),
+        },
+      })
       .then((response) => {
         setBlog(response.data);
         setReplies(response.data.replies || []);
         setLoading(false);
       })
-      .catch((error) => {
-        console.error("Error fetching blog:", error);
+      .catch((err) => {
+        console.error("Error fetching blog:", err);
         setError("Failed to load blog. Try again later.");
         setLoading(false);
       });
-  }, [pk]); 
+  }, [pk]);
 
   // 🔹 Submit a reply to the blog post
   const handleCommentSubmit = async (e) => {
@@ -46,21 +57,25 @@ const BlogDetail = () => {
       const response = await axios.post(
         `${BASE_URL}/api/blogs/${pk}/reply/`, // Ensure this API endpoint exists
         { content: comment },
-        { withCredentials: true }
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            ...getAuthHeaders(),
+          },
+        }
       );
 
       setReplies([...replies, response.data]); // Append new reply
       setComment(""); // Clear input field
-    } catch (error) {
-      console.error("Error posting comment:", error);
+    } catch (err) {
+      console.error("Error posting comment:", err);
       setError("Failed to post reply.");
     }
-
   };
 
   if (loading) return <p className="blog-message">Loading blog...</p>;
   if (error) return <p className="blog-message error">{error}</p>;
-  console.log("Image URL:", blog.image);
+  
   return (
     <div className="blog-detail-container">
       <h2 className="blog-title">{blog.title}</h2>
@@ -68,7 +83,14 @@ const BlogDetail = () => {
 
       {/* Handle missing images properly */}
       {blog.image ? (
-       <img src={blog.image} alt={blog.title} className="blog-image" onError={(e) => console.error("Image failed to load:", e.target.src)} />
+        <img
+          src={blog.image}
+          alt={blog.title}
+          className="blog-image"
+          onError={(e) =>
+            console.error("Image failed to load:", e.target.src)
+          }
+        />
       ) : (
         <p className="no-image">No image available</p>
       )}
@@ -83,7 +105,9 @@ const BlogDetail = () => {
         ) : (
           <ul className="comment-list">
             {replies.map((reply, index) => (
-              <li key={index} className="comment-item">{reply.content}</li>
+              <li key={index} className="comment-item">
+                {reply.content}
+              </li>
             ))}
           </ul>
         )}
