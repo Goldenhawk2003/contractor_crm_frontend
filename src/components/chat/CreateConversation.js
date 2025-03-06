@@ -1,16 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useSearchParams } from "react-router-dom";
 import "./Inbox3.css";
 
-const getCSRFToken = () => {
-  const csrfToken = document.cookie
-    .split("; ")
-    .find((row) => row.startsWith("csrftoken="))
-    ?.split("=")[1];
-  if (!csrfToken) {
-    console.error("CSRF token is missing. Please refresh the page.");
-  }
-  return csrfToken;
+// Helper for token-based authentication headers
+const getAuthHeaders = () => {
+  const token = localStorage.getItem("access_token");
+  return token ? { Authorization: `Bearer ${token}` } : {};
 };
 
 const CreateConversation = () => {
@@ -26,15 +21,21 @@ const CreateConversation = () => {
   const [success, setSuccess] = useState("");
   const [loading, setLoading] = useState(false);
   const [searching, setSearching] = useState(false);
-  const [showModal, setShowModal] = useState(false); 
+  const [showModal, setShowModal] = useState(false);
 
+  // Fetch recipient details if a username is preselected via query param
   useEffect(() => {
     if (preselectedUsername) {
       const fetchRecipient = async () => {
         try {
           const response = await fetch(
             `${process.env.REACT_APP_BACKEND_URL}/api/users/username/${preselectedUsername}/`,
-            { credentials: "include" }
+            {
+              headers: {
+                "Content-Type": "application/json",
+                ...getAuthHeaders(),
+              },
+            }
           );
           if (!response.ok) throw new Error("Recipient not found.");
           const recipient = await response.json();
@@ -49,6 +50,7 @@ const CreateConversation = () => {
     }
   }, [preselectedUsername]);
 
+  // Handle user search
   const handleSearch = async () => {
     if (!searchTerm.trim()) {
       setError("Please enter a name to search.");
@@ -59,13 +61,18 @@ const CreateConversation = () => {
     try {
       const response = await fetch(
         `${process.env.REACT_APP_BACKEND_URL}/api/users/search/?q=${searchTerm}`,
-        { credentials: "include" }
+        {
+          headers: {
+            "Content-Type": "application/json",
+            ...getAuthHeaders(),
+          },
+        }
       );
       if (!response.ok) throw new Error("Failed to search for users.");
       const data = await response.json();
       setSearchResults(data);
       if (data.length === 0) {
-        setError("No users found. Try a different search term.");
+        setError("No users found with the provided username.");
       }
     } catch (error) {
       console.error("Search failed:", error);
@@ -75,6 +82,7 @@ const CreateConversation = () => {
     }
   };
 
+  // Create conversation API call using token-based auth
   const createConversation = async () => {
     setError("");
     setSuccess("");
@@ -84,20 +92,13 @@ const CreateConversation = () => {
       setLoading(false);
       return;
     }
-    const csrfToken = getCSRFToken();
-    if (!csrfToken) {
-      setError("CSRF token is missing. Please refresh the page and try again.");
-      setLoading(false);
-      return;
-    }
     try {
       const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/messages/`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "X-CSRFToken": csrfToken,
+          ...getAuthHeaders(),
         },
-        credentials: "include",
         body: JSON.stringify({ recipient_id: recipientId, content: message }),
       });
       if (!response.ok) {
@@ -170,8 +171,8 @@ const CreateConversation = () => {
             onChange={(e) => setMessage(e.target.value)}
             placeholder="Write a message..."
           />
-         <button
-            onClick={() => setShowModal(true)} // ✅ Open the confirmation modal
+          <button
+            onClick={() => setShowModal(true)} // Open confirmation modal
             disabled={loading || !recipientId}
           >
             {loading ? "Sending..." : "Send"}
@@ -184,8 +185,12 @@ const CreateConversation = () => {
             <h3>Consent Required</h3>
             <p>Are you sure you want to send this message?</p>
             <div className="modal-buttons">
-              <button className="confirm-button" onClick={createConversation}>Yes, Send</button>
-              <button className="cancel-button" onClick={() => setShowModal(false)}>Cancel</button>
+              <button className="confirm-button" onClick={createConversation}>
+                Yes, Send
+              </button>
+              <button className="cancel-button" onClick={() => setShowModal(false)}>
+                Cancel
+              </button>
             </div>
           </div>
         </div>
