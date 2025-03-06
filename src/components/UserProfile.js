@@ -707,10 +707,24 @@ const UserProfile = () => {
 
   // Fetch user info
   useEffect(() => {
-    axios
-      .get(`${process.env.REACT_APP_BACKEND_URL}/api/user-info/`, { withCredentials: true })
-      .then((response) => setUserInfo(response.data))
-      .catch(() => setError("Please sign in"));
+    const fetchUserInfo = async () => {
+      try {
+        const csrfToken = getCSRFToken(); // Ensure CSRF is included
+        const response = await axios.get(
+          `${process.env.REACT_APP_BACKEND_URL}/api/user-info/`,
+          {
+            withCredentials: true,
+            headers: { "X-CSRFToken": csrfToken }, // Include CSRF
+          }
+        );
+        setUserInfo(response.data);
+      } catch (err) {
+        console.error("User info fetch error:", err); // Debugging
+        setError("Please sign in");
+      }
+    };
+
+    fetchUserInfo();
   }, []);
 
   // Poll for unread messages
