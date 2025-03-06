@@ -17,7 +17,7 @@ const getCSRFToken = () => {
   console.error("CSRF token not found");
   return null;
 };
-console.log("CSRF Token:", token);
+
 axios.defaults.headers.common["X-CSRFToken"] = getCSRFToken();
 
 // ------------------- Sidebar Component -------------------
