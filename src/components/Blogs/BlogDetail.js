@@ -29,7 +29,7 @@ const BlogDetail = () => {
     }
     
     axios
-      .get(`${BASE_URL}/api/blogs/${pk}/`, {
+      .get(`${process.env.REACT_APP_BACKEND_URL}/api/blogs/${pk}/`, {
         headers: {
           "Content-Type": "application/json",
           ...getAuthHeaders(),

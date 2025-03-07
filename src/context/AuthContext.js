@@ -5,8 +5,8 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [authLoaded, setAuthLoaded] = useState(false); // New state to track auth check completion
-  const [user, setUser] = useState(null); // Store user details
+  const [authLoaded, setAuthLoaded] = useState(false);
+  const [user, setUser] = useState(null);
 
   // Set Authorization header on mount
   useEffect(() => {
@@ -21,6 +21,8 @@ export const AuthProvider = ({ children }) => {
   const checkAuthStatus = async () => {
     try {
       const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/user-info/`);
+      console.log("User info response:", response.data);  // Log user info
+
       if (response.data.username) {
         setIsAuthenticated(true);
         setUser(response.data);
@@ -39,8 +41,6 @@ export const AuthProvider = ({ children }) => {
 
   const logout = async () => {
     try {
-      // Optionally call a logout endpoint
-      // await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/logout/`);
       localStorage.removeItem("access_token");
       localStorage.removeItem("refresh_token");
       delete axios.defaults.headers.common["Authorization"];

@@ -1,27 +1,21 @@
 import React, { useEffect, useState } from 'react';
-import { Link, Outlet, useNavigate } from 'react-router-dom';
+import { Link, Outlet } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import Footer from './Footer';
-import axios from 'axios';
 import './Layout.css';
 
 const Layout = () => {
   const { isAuthenticated, authLoaded, user, logout } = useAuth();
-  const navigate = useNavigate();
-  const [isMobile, setIsMobile] = useState(false);
 
-  // Instead of a separate call, use the `user` from AuthContext to determine superuser status.
-  const isSuperUser = user?.is_superuser || false;
-
+  // Log the user object and superuser check
   useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth <= 768);
-    };
+    console.log("Current user:", user);
+    if (user) {
+      console.log("User is superuser:", user.is_superuser);
+    }
+  }, [user]);
 
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  const isSuperUser = user?.is_superuser || false;
 
   if (!authLoaded) {
     return <div>Loading...</div>;
