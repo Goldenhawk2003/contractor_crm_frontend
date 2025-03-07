@@ -72,33 +72,36 @@ const Quiz = () => {
       alert("Please answer the question before submitting.");
       return;
     }
-
+  
     setSubmitting(true);
     setError(null);
-
+  
     try {
-      // Loop over each question response and submit it
-      for (const questionId of Object.keys(responses)) {
-        const response = await fetch(
-          `${process.env.REACT_APP_BACKEND_URL}/api/quiz/submit/`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              ...getAuthHeaders(),
-            },
-            body: JSON.stringify({
-              quiz_id: questionId,
-              answer: responses[questionId],
-            }),
-          }
-        );
-
-        if (!response.ok) {
-          throw new Error("Failed to submit responses");
+      // Create an array of answers from the responses object
+      const answersPayload = Object.keys(responses).map((questionId) => ({
+        quiz_id: questionId,
+        answer: responses[questionId],
+      }));
+  
+      // Send a single POST request with all answers
+      const response = await fetch(
+        `${process.env.REACT_APP_BACKEND_URL}/api/quiz/submit/`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            ...getAuthHeaders(),
+          },
+          body: JSON.stringify({ answers: answersPayload }),
         }
+      );
+  
+      if (!response.ok) {
+        // Optionally, you can inspect the response body for details:
+        const errorData = await response.json();
+        throw new Error(errorData.error || "Failed to submit responses");
       }
-
+  
       setSubmitted(true);
       alert("Thank you! Your responses have been submitted.");
     } catch (err) {

@@ -15,7 +15,6 @@ const Layout = () => {
   useEffect(() => {
     const fetchUserInfo = async () => {
       try {
-        // If using token-based auth, get token from localStorage
         const token = localStorage.getItem("access_token");
         const response = await axios.get(
           `${process.env.REACT_APP_BACKEND_URL}/api/user-info-superuser/`,
@@ -26,17 +25,17 @@ const Layout = () => {
             },
           }
         );
-  
-        // Check if the user is a superuser
+        console.log("User info response:", response.data);
         if (response.data.is_superuser) {
           setIsSuperUser(true);
+        } else {
+          setIsSuperUser(false);
         }
       } catch (error) {
         console.error("Failed to fetch user info:", error);
       }
     };
   
-    // Fetch user info only if the user is authenticated
     if (isAuthenticated) {
       fetchUserInfo();
     }
