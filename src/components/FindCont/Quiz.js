@@ -83,6 +83,10 @@ const Quiz = () => {
         answer: responses[questionId],
       }));
   
+      console.log("Submitting answers payload:", answersPayload);
+      console.log("Using backend URL:", process.env.REACT_APP_BACKEND_URL);
+      console.log("Auth Headers:", getAuthHeaders());
+  
       // Send a single POST request with all answers
       const response = await fetch(
         `${process.env.REACT_APP_BACKEND_URL}/api/quiz/submit/`,
@@ -97,8 +101,8 @@ const Quiz = () => {
       );
   
       if (!response.ok) {
-        // Optionally, you can inspect the response body for details:
         const errorData = await response.json();
+        console.error("Submission error response:", errorData);
         throw new Error(errorData.error || "Failed to submit responses");
       }
   
