@@ -3,7 +3,6 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import "./BlogDetail.css"; // Ensure CSS file exists
 
-// Use the environment variable for the backend URL
 const BASE_URL = process.env.REACT_APP_BACKEND_URL;
 
 const BlogDetail = () => {
@@ -54,18 +53,23 @@ const BlogDetail = () => {
     if (!comment.trim()) return;
 
     try {
+      // Change Content-Type to application/json
       const response = await axios.post(
         `${BASE_URL}/api/blogs/${pk}/reply/`, // Ensure this API endpoint exists
         { content: comment },
         {
           headers: {
-            "Content-Type": "multipart/form-data",
+            "Content-Type": "application/json",
             ...getAuthHeaders(),
           },
         }
       );
 
-      setReplies([...replies, response.data]); // Append new reply
+      // Log the response for debugging
+      console.log("Reply posted successfully:", response.data);
+
+      // Append the new reply
+      setReplies([...replies, response.data]);
       setComment(""); // Clear input field
     } catch (err) {
       console.error("Error posting comment:", err);

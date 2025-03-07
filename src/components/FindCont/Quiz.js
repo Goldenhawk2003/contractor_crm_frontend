@@ -66,21 +66,23 @@ const Quiz = () => {
   };
 
   // Submit all responses using token-based authentication
-  const handleSubmit = async () => {
-    const currentQuestionId = questions[currentQuestionIndex].id;
-    if (!responses[currentQuestionId]) {
-      alert("Please answer the question before submitting.");
-      return;
+ // Submit all responses using token-based authentication
+const handleSubmit = async () => {
+    // Optionally, check that every question has a response
+    for (let question of questions) {
+      if (!responses[question.id]) {
+        alert("Please answer all questions before submitting.");
+        return;
+      }
     }
   
     setSubmitting(true);
     setError(null);
   
     try {
-      // Build payload for the current question only
+      // Build payload for all responses
       const payload = {
-        quiz_id: currentQuestionId,
-        answer: responses[currentQuestionId],
+        responses: responses, // you could structure this differently if needed
       };
   
       console.log("Submitting payload:", payload);
@@ -99,11 +101,11 @@ const Quiz = () => {
   
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.error || "Failed to submit response");
+        throw new Error(errorData.error || "Failed to submit responses");
       }
   
       setSubmitted(true);
-      alert("Thank you! Your response has been submitted.");
+      alert("Thank you! Your responses have been submitted.");
     } catch (err) {
       setError(err.message);
     } finally {
