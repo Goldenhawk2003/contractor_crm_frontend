@@ -67,8 +67,8 @@ const Quiz = () => {
 
   // Submit all responses using token-based authentication
   const handleSubmit = async () => {
-    // Ensure the current question is answered before submitting
-    if (!responses[questions[currentQuestionIndex].id]) {
+    const currentQuestionId = questions[currentQuestionIndex].id;
+    if (!responses[currentQuestionId]) {
       alert("Please answer the question before submitting.");
       return;
     }
@@ -77,17 +77,14 @@ const Quiz = () => {
     setError(null);
   
     try {
-      // Create an array of answers from the responses object
-      const answersPayload = Object.keys(responses).map((questionId) => ({
-        quiz_id: questionId,
-        answer: responses[questionId],
-      }));
+      // Build payload for the current question only
+      const payload = {
+        quiz_id: currentQuestionId,
+        answer: responses[currentQuestionId],
+      };
   
-      console.log("Submitting answers payload:", answersPayload);
-      console.log("Using backend URL:", process.env.REACT_APP_BACKEND_URL);
-      console.log("Auth Headers:", getAuthHeaders());
+      console.log("Submitting payload:", payload);
   
-      // Send a single POST request with all answers
       const response = await fetch(
         `${process.env.REACT_APP_BACKEND_URL}/api/quiz/submit/`,
         {
@@ -96,18 +93,17 @@ const Quiz = () => {
             "Content-Type": "application/json",
             ...getAuthHeaders(),
           },
-          body: JSON.stringify({ answers: answersPayload }),
+          body: JSON.stringify(payload),
         }
       );
   
       if (!response.ok) {
         const errorData = await response.json();
-        console.error("Submission error response:", errorData);
-        throw new Error(errorData.error || "Failed to submit responses");
+        throw new Error(errorData.error || "Failed to submit response");
       }
   
       setSubmitted(true);
-      alert("Thank you! Your responses have been submitted.");
+      alert("Thank you! Your response has been submitted.");
     } catch (err) {
       setError(err.message);
     } finally {
