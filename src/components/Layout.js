@@ -6,54 +6,23 @@ import axios from 'axios';
 import './Layout.css';
 
 const Layout = () => {
-  // Destructure auth state, including authLoaded and isAuthenticated
-  const { isAuthenticated, authLoaded, logout } = useAuth();
+  const { isAuthenticated, authLoaded, user, logout } = useAuth();
   const navigate = useNavigate();
-  const [isSuperUser, setIsSuperUser] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
-  useEffect(() => {
-    const fetchUserInfo = async () => {
-      try {
-        const token = localStorage.getItem("access_token");
-        const response = await axios.get(
-          `${process.env.REACT_APP_BACKEND_URL}/api/user-info-superuser/`,
-          {
-            headers: {
-              "Content-Type": "application/json",
-              ...(token && { Authorization: `Bearer ${token}` }),
-            },
-          }
-        );
-        console.log("User info response:", response.data);
-        if (response.data.is_superuser) {
-          setIsSuperUser(true);
-        } else {
-          setIsSuperUser(false);
-        }
-      } catch (error) {
-        console.error("Failed to fetch user info:", error);
-      }
-    };
-  
-    if (isAuthenticated) {
-      fetchUserInfo();
-    }
-  }, [isAuthenticated]);
+  // Instead of a separate call, use the `user` from AuthContext to determine superuser status.
+  const isSuperUser = user?.is_superuser || false;
 
   useEffect(() => {
-    // Function to check screen size
     const handleResize = () => {
-      setIsMobile(window.innerWidth <= 768); // Adjust threshold as needed
+      setIsMobile(window.innerWidth <= 768);
     };
 
-    // Initial check and add event listener
     handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // Render a loading state until auth check is complete
   if (!authLoaded) {
     return <div>Loading...</div>;
   }
