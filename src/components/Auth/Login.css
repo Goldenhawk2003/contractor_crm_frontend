@@ -121,6 +121,7 @@
     .log-container {
         flex-direction: column;
         padding: 20px;
+        width: 110%;
     }
 
     .contain, .sign-up {

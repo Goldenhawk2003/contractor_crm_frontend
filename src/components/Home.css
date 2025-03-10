@@ -730,6 +730,7 @@ background-color: #ECF0FC;
       width: 100%;
 
 
+
     }
   
     /* Hero Section */
@@ -767,7 +768,7 @@ background-color: #ECF0FC;
   
     .trust-button {
       width: 80%;
-      margin-left: 0;
+      margin-left: 8%;
       text-align: center;
     }
   
@@ -797,6 +798,7 @@ background-color: #ECF0FC;
     .search-bar {
       width: 100%;
       font-size: 0.9rem;
+
     }
   
     .search-button {
@@ -842,7 +844,9 @@ background-color: #ECF0FC;
     .we-offer-header {
       font-size: 2rem;
       text-align: center;
-      margin: 0 auto;
+      margin-left: 2%;
+      margin-bottom: 2%;
+   
     }
   
     .services-container {
@@ -945,7 +949,7 @@ background-color: #ECF0FC;
       flex-direction: column;
       align-items: center;
       width: 100%;
-      padding-left: 2%;
+      padding-left: 10%;
     }
   
     .contractorExplore-button {

@@ -529,7 +529,6 @@ textarea.user-input {
 
   .user-profile,
   .sidebar,
-  .main-content,
   .card,
   .profile-header,
   .profile-content,
@@ -541,6 +540,9 @@ textarea.user-input {
       /* Optionally, you might want to reset margin/padding for proper alignment */
       margin: 0 auto; /* Center the container if needed */
       box-sizing: border-box;
+  }
+  .main-content{
+    width: 105%;
   }
 
   .user-profile {
