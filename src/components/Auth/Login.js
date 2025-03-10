@@ -36,7 +36,7 @@ const Login = () => {
     
             // Set Axios default header for subsequent requests
             axios.defaults.headers.common['Authorization'] = `Bearer ${access}`;
-    
+            window.location.reload();
             navigate('/user-profile'); // Redirect after successful login
         } catch (err) {
             console.error('Login failed:', err.response ? err.response.data : err.message);
