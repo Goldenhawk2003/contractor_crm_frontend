@@ -1,7 +1,15 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./AboutUs.css";
+import AddressAutocomplete from "../APIStuff/AutoComplete";
 
 const AboutUs = () => {
+  const [selectedPlace, setSelectedPlace] = useState(null);
+
+  const handlePlaceSelected = (place) => {
+    setSelectedPlace(place);
+    console.log('Selected place:', place);
+    // You can extract specific details from the "place" object here
+  };
   return (
     <div>
       {/* About Us Section */}
@@ -52,7 +60,17 @@ const AboutUs = () => {
  
     </div>
     </div>
-
+    <div>
+      <h2>Enter Your Address</h2>
+      <AddressAutocomplete onPlaceSelected={handlePlaceSelected} />
+      {selectedPlace && (
+        <div>
+          <h3>Selected Address Details:</h3>
+          <p>{selectedPlace.formatted_address}</p>
+          {/* Add more details as needed */}
+        </div>
+      )}
+    </div>
 
 
 
