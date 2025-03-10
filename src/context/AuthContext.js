@@ -20,7 +20,7 @@ export const AuthProvider = ({ children }) => {
 
   const checkAuthStatus = async () => {
     try {
-      const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/user-info-superuser/`);
+      const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/user-info/`);
       console.log("User info response:", response.data);  // Log user info
 
       if (response.data.username) {
