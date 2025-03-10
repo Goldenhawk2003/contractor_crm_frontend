@@ -15,6 +15,11 @@ const Layout = () => {
     }
   }, [user]);
 
+  fetch('/api/user-info-superuser/')
+  .then(response => response.json())
+  .then(data => console.log(data))
+  .catch(error => console.error(error));
+
   const isSuperUser = user?.is_superuser || false;
 
   if (!authLoaded) {
