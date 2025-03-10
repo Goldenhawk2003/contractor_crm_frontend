@@ -10,10 +10,10 @@ const Layout = () => {
   // Log the user object and superuser check
   useEffect(() => {
     fetch('/api/user-info-superuser/')
-  .then(response => response.json())
-  .then(data => console.log(data))
-  .catch(error => console.error(error));
-  }, [data]);
+      .then(response => response.json())
+      .then(data => console.log(data))
+      .catch(error => console.error(error));
+  }, []);
 
   
 
