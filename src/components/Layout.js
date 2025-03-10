@@ -9,16 +9,13 @@ const Layout = () => {
 
   // Log the user object and superuser check
   useEffect(() => {
-    console.log("Current user:", user);
-    if (user) {
-      console.log("User is superuser:", user.is_superuser);
-    }
-  }, [user]);
-
-  fetch('/api/user-info-superuser/')
+    fetch('/api/user-info-superuser/')
   .then(response => response.json())
   .then(data => console.log(data))
   .catch(error => console.error(error));
+  }, [data]);
+
+  
 
   const isSuperUser = user?.is_superuser || false;
 
