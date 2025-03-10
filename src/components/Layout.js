@@ -7,7 +7,14 @@ import './Layout.css';
 const Layout = () => {
   const { isAuthenticated, authLoaded, user, logout } = useAuth();
 
-  
+  // Log the user object and superuser check
+  useEffect(() => {
+    console.log("Current user:", user);
+    if (user) {
+      console.log("User is superuser:", user.is_superuser);
+    }
+  }, [user]);
+
   
 
   const isSuperUser = user?.is_superuser || false;
