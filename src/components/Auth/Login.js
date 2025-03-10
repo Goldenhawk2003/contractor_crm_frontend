@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
 import './Login.css';
 
 const Login = () => {
@@ -9,7 +8,13 @@ const Login = () => {
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const navigate = useNavigate();
-    const { setIsAuthenticated, setUser } = useAuth();
+
+    const getCSRFToken = () => {
+        const cookie = document.cookie.split('; ').find(row => row.startsWith('csrftoken='));
+        return cookie ? cookie.split('=')[1] : null;
+    };
+ 
+    axios.defaults.headers.common['X-CSRFToken'] = getCSRFToken();
 
     const handleLogin = async (event) => {
         event.preventDefault();
@@ -21,27 +26,25 @@ const Login = () => {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                withCredentials: false,
+                withCredentials: false,  // No need for cookies when using token auth
             });
     
             const { access, refresh } = response.data;
+            // Save tokens (consider localStorage, context, or a state management library)
             localStorage.setItem('access_token', access);
             localStorage.setItem('refresh_token', refresh);
-            axios.defaults.headers.common['Authorization'] = `Bearer ${access}`;
-
-            // Update context state manually
-            setIsAuthenticated(true);
-            // Optionally, you might want to fetch user info:
-            const userResponse = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/user-info/`);
-            setUser(userResponse.data);
     
-            navigate('/user-profile');
+            // Set Axios default header for subsequent requests
+            axios.defaults.headers.common['Authorization'] = `Bearer ${access}`;
+    
+            navigate('/user-profile'); // Redirect after successful login
         } catch (err) {
             console.error('Login failed:', err.response ? err.response.data : err.message);
             setError('Login failed. Please try again.');
         }
     };
     
+
     return (
         <div className="log-container">
             <form onSubmit={handleLogin} className="contain">
