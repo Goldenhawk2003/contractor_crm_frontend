@@ -39,6 +39,18 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const login = async (credentials) => {
+    try {
+      const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/login/`, credentials);
+      // Save token, e.g.,
+      localStorage.setItem("access_token", response.data.access_token);
+      // Immediately update the state by calling checkAuthStatus or setting state directly:
+      await checkAuthStatus(); // Alternatively, setIsAuthenticated(true) and setUser(response.data.user) directly if returned
+    } catch (error) {
+      console.error("Login failed", error);
+    }
+  };
+
   const logout = async () => {
     try {
       localStorage.removeItem("access_token");
