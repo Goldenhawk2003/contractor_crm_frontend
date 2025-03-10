@@ -210,71 +210,7 @@ const Dashboard = () => {
   useEffect(() => {
     fetchQuestions();
   }, []);
-
-  // Fuse.js for search
-  const Fuse = require('fuse.js');
-  const fuse = new Fuse(tutorials, {
-    keys: ["title", "description", "contractor"],
-    threshold: 0.3,
-  });
-
-  const handleSearch = (event) => {
-    const value = event.target.value;
-    setSearchText(value);
-
-    if (value.length > 1) {
-      const results = fuse.search(value);
-      setSearchResults(results.map((result) => result.item));
-    } else {
-      setSearchResults([]);
-    }
-  };
-
-  const handleSelectResult = (tutorial) => {
-    navigate("/video-player", {
-      state: {
-        videoUrl: tutorial.video,
-        title: tutorial.title,
-        description: tutorial.description,
-        contractor: tutorial.contractor,
-        createdAt: tutorial.created_at,
-        videoId: tutorial.id,
-        tags: Array.isArray(tutorial.tags) ? tutorial.tags : JSON.parse(tutorial.tags || "[]"),
-      },
-    });
-    setSearchText("");
-    setSearchResults([]);
-  };
-
-  const normalizeTags = (tags) => {
-    if (!tags) return [];
-    if (Array.isArray(tags)) return tags;
-    try {
-      return JSON.parse(tags);
-    } catch (error) {
-      return [tags];
-    }
-  };
-
-  const handleKeyDown = (event) => {
-    if (event.key === 'Enter' && searchText.trim()) {
-      navigate('/find-contractor', { state: { query: searchText.trim() } });
-    }
-  };
-
-  const handleServiceClick = (service) => {
-    setSelectedTag(service);
-    navigate("/tutorials", { replace: true, state: { selectedTag: service } });
-  };
-
-  const filteredTutorials = selectedTag === "All"
-    ? tutorials
-    : tutorials.filter((tutorial) => {
-        const tags = Array.isArray(tutorial.tags)
-          ? tutorial.tags
-          : normalizeTags(tutorial.tags);
-        return tags.includes(selectedTag);
-      });
+ 
 
   return (
     <div className="dashboard">
