@@ -690,6 +690,7 @@ const ChatsTab = ({ userInfo, username }) => {
                   </p>
                 </div>
               ))}
+              <div ref={messagesEndRef} /> 
             </div>
             <div className="reply-section">
               <textarea
@@ -701,7 +702,7 @@ const ChatsTab = ({ userInfo, username }) => {
                 {sending ? "Sending..." : "Reply"}
               </button>
             </div>
-            <div ref={messagesEndRef} /> 
+            
           </>
         ) : (
           <p>Select a conversation to view messages.</p>
