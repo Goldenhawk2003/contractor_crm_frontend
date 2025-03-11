@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback,useRef } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import "./UserProfile.css";
@@ -510,11 +510,21 @@ const ChatsTab = ({ userInfo, username }) => {
   const [error, setError] = useState("");
   const [sending, setSending] = useState(false);
   const navigate = useNavigate();
+  const messagesEndRef = useRef(null); 
 // You can enhance this with a mobile-detection hook
   const totalUnreadCount = conversations.reduce(
     (total, conv) => total + (conv.unread_count || 0),
     0
   );
+  const scrollToBottom = () => {
+    if (messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);  
 
   useEffect(() => {
     axios
@@ -691,6 +701,7 @@ const ChatsTab = ({ userInfo, username }) => {
                 {sending ? "Sending..." : "Reply"}
               </button>
             </div>
+            <div ref={messagesEndRef} /> 
           </>
         ) : (
           <p>Select a conversation to view messages.</p>

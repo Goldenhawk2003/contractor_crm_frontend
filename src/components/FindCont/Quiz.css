@@ -67,6 +67,10 @@
   color: #1b3656;
 }
 
+.submit-btn{
+  margin-left: 4% !important;
+}
+
 /* Submit Button */
 .submit-button {
   width: 100%;

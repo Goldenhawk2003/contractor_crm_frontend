@@ -121,6 +121,11 @@ const Quiz = () => {
           needs.
         </p>
       </div>
+      {submitted && (
+        <p className="success-message">
+          Your responses have been submitted. Thank you!
+        </p>
+      )}
       <div key={currentQuestion.id} className="quiz-question-container">
         <div className="quiz-question">
           <h2>{currentQuestion.question}</h2>
@@ -177,11 +182,7 @@ const Quiz = () => {
           </button>
         )}
       </div>
-      {submitted && (
-        <p className="success-message">
-          Your responses have been submitted. Thank you!
-        </p>
-      )}
+     
     </div>
   );
 };
