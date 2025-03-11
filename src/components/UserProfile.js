@@ -688,9 +688,10 @@ const ChatsTab = ({ userInfo, username }) => {
                       hour12: true,
                     })}
                   </p>
+                  <div ref={messagesEndRef} /> 
                 </div>
               ))}
-              <div ref={messagesEndRef} /> 
+          
             </div>
             <div className="reply-section">
               <textarea
