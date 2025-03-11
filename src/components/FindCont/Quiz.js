@@ -67,26 +67,19 @@ const Quiz = () => {
 
   // Submit all responses using token-based authentication
  // Submit all responses using token-based authentication
-const handleSubmit = async () => {
-    // Optionally, check that every question has a response
-    for (let question of questions) {
-      if (!responses[question.id]) {
-        alert("Please answer all questions before submitting.");
-        return;
-      }
-    }
-  
-    setSubmitting(true);
-    setError(null);
-  
-    try {
-      // Build payload for all responses
+ const handleSubmit = async () => {
+  setSubmitting(true);
+  setError(null);
+
+  try {
+    for (const [questionId, answer] of Object.entries(responses)) {
       const payload = {
-        responses: responses, // you could structure this differently if needed
+        quiz_id: parseInt(questionId),  // Assuming question_id is same as quiz_id
+        answer: answer
       };
-  
-      console.log("Submitting payload:", payload);
-  
+
+      console.log("Submitting payload:", payload); // ✅ Debug check
+
       const response = await fetch(
         `${process.env.REACT_APP_BACKEND_URL}/api/quiz/submit/`,
         {
@@ -98,20 +91,21 @@ const handleSubmit = async () => {
           body: JSON.stringify(payload),
         }
       );
-  
+
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.error || "Failed to submit responses");
+        throw new Error(errorData.error || "Failed to submit response");
       }
-  
-      setSubmitted(true);
-      alert("Thank you! Your responses have been submitted.");
-    } catch (err) {
-      setError(err.message);
-    } finally {
-      setSubmitting(false);
     }
-  };
+
+    setSubmitted(true);
+    alert("Thank you! Your responses have been submitted.");
+  } catch (err) {
+    setError(err.message);
+  } finally {
+    setSubmitting(false);
+  }
+};
 
   if (loading) return <p className="loading-message">Loading questions...</p>;
   if (error) return <p className="error-message">{error}</p>;
