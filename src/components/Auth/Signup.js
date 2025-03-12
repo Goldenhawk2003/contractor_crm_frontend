@@ -216,7 +216,7 @@ function Signup() {
       <option value="Welder">Welder</option>
       <option value="Mason">Mason</option>
       <option value="HVAC Technician">HVAC Technician</option>
-      <option vlaue="Snow Removal">Snow Removal</option>
+      <option value="Snow Removal">Snow Removal</option>
     </select>
           <input
             type="number"
