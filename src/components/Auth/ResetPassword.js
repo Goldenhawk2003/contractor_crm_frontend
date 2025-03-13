@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 
 const ResetPassword = () => {
-  const { uid, token } = useParams();
+  const { uid, token } = useParams(); // Fetching from URL
   const navigate = useNavigate();
 
   const [password, setPassword] = useState('');
@@ -20,25 +20,28 @@ const ResetPassword = () => {
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ password }),
+          body: JSON.stringify({ new_password: password }), // FIXED: Match backend field
         }
       );
 
       const data = await response.json();
+
       if (response.ok) {
-        setMessage('Password reset successfully. Redirecting to login...');
+        setMessage('✅ Password reset successfully. Redirecting to login...');
         setTimeout(() => navigate('/login'), 2000);
       } else {
-        setError(data.error);
+        // Handle different error response formats
+        setError(data.error || data.detail || '❌ An error occurred. Please try again.');
       }
-    } catch {
-      setError('Failed to connect to server');
+    } catch (error) {
+      console.error('Reset error:', error);
+      setError('❌ Failed to connect to server');
     }
   };
 
   return (
     <div className="form-container">
-      <h2>Reset Password</h2>
+      <h2>🔑 Reset Password</h2>
       {error && <p className="error-message">{error}</p>}
       {message && <p className="success-message">{message}</p>}
       <form onSubmit={handleSubmit}>
@@ -46,7 +49,7 @@ const ResetPassword = () => {
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          placeholder="New password"
+          placeholder="Enter your new password"
           required
         />
         <button type="submit">Reset Password</button>
