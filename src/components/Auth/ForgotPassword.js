@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState('');
@@ -11,38 +12,32 @@ const ForgotPassword = () => {
     setMessage('');
 
     try {
-      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/forgot-password/`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email }),
+      const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/forgot-password/`, { email }, {
+        headers: { 'Content-Type': 'application/json' }
       });
 
-      const data = await response.json();
-      if (response.ok) {
-        setMessage(data.message);
-      } else {
-        setError(data.error);
-      }
-    } catch {
-      setError('Failed to connect to server');
+      setMessage(response.data.message);
+    } catch (err) {
+      console.error(err);
+      setError('Failed to send reset email. Please try again.');
     }
   };
 
   return (
-    <div className="form-container">
+    <div className="forgot-password-container">
       <h2>Forgot Password</h2>
-      {error && <p className="error-message">{error}</p>}
-      {message && <p className="success-message">{message}</p>}
       <form onSubmit={handleSubmit}>
         <input
           type="email"
+          placeholder="Enter your email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          placeholder="Enter your email"
           required
         />
         <button type="submit">Send Reset Link</button>
       </form>
+      {message && <p className="success-message">{message}</p>}
+      {error && <p className="error-message">{error}</p>}
     </div>
   );
 };
