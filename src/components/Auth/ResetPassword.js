@@ -19,8 +19,8 @@ const ResetPassword = () => {
         `${process.env.REACT_APP_BACKEND_URL}/api/reset-password/${uid}/${token}/`,
         {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ new_password: password }), // FIXED: Match backend field
+          headers: { 'Content-Type': 'application/json' }, // Only Content-Type
+          body: JSON.stringify({ new_password: password }),
         }
       );
 
