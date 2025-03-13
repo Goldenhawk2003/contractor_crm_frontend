@@ -13,7 +13,7 @@ const ForgotPassword = () => {
 
     try {
       const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/forgot-password/`, { email }, {
-        headers: { 'Content-Type': 'application/json' }
+        headers: { 'Content-Type': 'application/json', 'Authorization': '' }
       });
 
       setMessage(response.data.message);
