@@ -68,6 +68,10 @@ const Login = () => {
                     required
                 />
                 <button type="submit" className="sub">Login</button>
+                  {/* 🔑 Forgot Password Link */}
+    <div style={{ marginTop: '10px', textAlign: 'center' }}>
+        <Link to="/forgot-password" className="forgot-password-link">Forgot Password?</Link>
+    </div>
             </form>
             <div className="divider"></div>
             <div className="sign-up">

@@ -35,6 +35,8 @@ import UploadBlog from './components/Blogs/UploadBlog.js';
 import VideoPlayer from './components/Tutorials/VideoPlayer.js';
 import AboutUs from './components/AboutUs/AboutUs.js';
 import LocationAutocomplete from './components/APIStuff/AutoComplete.js';
+import ForgotPassword from './components/Auth/ForgotPassword.js';
+import ResetPassword from './components/Auth/ResetPassword.js';
 import axios from 'axios';
 
 function useCsrfToken() {
@@ -70,9 +72,15 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<Layout />}>
+
             <Route index element={<Home />} />
+
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/reset-password/:uid/:token" element={<ResetPassword />} />
+
+
             <Route path="/contact" element={<Contact />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/user-profile" element={<UserProfile />} />

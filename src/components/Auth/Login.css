@@ -113,6 +113,18 @@
     display: block;
 }
 
+
+.forgot-password-link {
+    color: #1b3656;
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+.forgot-password-link:hover {
+    text-decoration: underline;
+}
+
+
 /* Error Message */
 
 
