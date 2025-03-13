@@ -13,29 +13,27 @@ const ResetPassword = () => {
     e.preventDefault();
     setError('');
     setMessage('');
-
+  
     try {
       const response = await fetch(
         `${process.env.REACT_APP_BACKEND_URL}/api/reset-password/${uid}/${token}/`,
         {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' }, // Only Content-Type
-          body: JSON.stringify({ new_password: password }),
+          headers: { 'Content-Type': 'application/json' }, // ✅ Only content type, NO auth
+          body: JSON.stringify({ new_password: password }), // ✅ Make sure it's `new_password`
         }
       );
-
+  
       const data = await response.json();
-
+  
       if (response.ok) {
-        setMessage('✅ Password reset successfully. Redirecting to login...');
+        setMessage('Password reset successfully. Redirecting to login...');
         setTimeout(() => navigate('/login'), 2000);
       } else {
-        // Handle different error response formats
-        setError(data.error || data.detail || '❌ An error occurred. Please try again.');
+        setError(data.error || 'Invalid or expired link');
       }
-    } catch (error) {
-      console.error('Reset error:', error);
-      setError('❌ Failed to connect to server');
+    } catch (err) {
+      setError('Failed to connect to server');
     }
   };
 
