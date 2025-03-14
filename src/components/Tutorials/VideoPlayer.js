@@ -24,6 +24,8 @@ const VideoPlayer = () => {
     thumbnailUrl,     // Full Cloudinary URL for thumbnail (if any)
   } = location.state || {};
 
+  console.log(mediaUrl)
+
   const [searchText, setSearchText] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [tutorials, setTutorials] = useState([]);
