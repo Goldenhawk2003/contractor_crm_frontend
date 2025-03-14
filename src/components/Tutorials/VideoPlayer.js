@@ -24,7 +24,6 @@ const VideoPlayer = () => {
     thumbnailUrl,     // Full Cloudinary URL for thumbnail (if any)
   } = location.state || {};
 
-  console.log(mediaUrl)
 
   const [searchText, setSearchText] = useState("");
   const [searchResults, setSearchResults] = useState([]);
@@ -167,6 +166,9 @@ const VideoPlayer = () => {
       </video>
     );
   };
+  
+  console.log(mediaUrl)
+  console.log("Location state:", location.state);
 
   if (!mediaUrl) {
     return <h2 className="error-message">No video found!</h2>;
