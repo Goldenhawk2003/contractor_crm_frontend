@@ -1,48 +1,47 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
-import "./VideoPlayer.css"; // Add custom styles
+import "./VideoPlayer.css";
 import Fuse from "fuse.js";
 
-// Use the environment variable for the backend URL
 const BASE_URL = process.env.REACT_APP_BACKEND_URL;
 
 const VideoPlayer = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const videoUrl = location.state?.mediaUrl;
-  const title = location.state?.title;
-  const description = location.state?.description;
-  const contractor = location.state?.contractor;
-  const videoId = location.state?.videoId; // Current video ID
+
+  // Destructure state from location
+  const {
+    mediaUrl,          // Full Cloudinary URL for video or image
+    title,
+    description,
+    contractor,
+    videoId,
+    tags,
+    createdAt,
+    isImage,
+    thumbnailUrl,      // Full Cloudinary URL for thumbnail (if any)
+  } = location.state || {};
+
   const [selectedTag, setSelectedTag] = useState("All");
   const [suggestions, setSuggestions] = useState([]);
   const [searchText, setSearchText] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [tutorials, setTutorials] = useState([]);
-  const videoTags = location.state?.tags || [];
-  const createdAt = location.state?.createdAt || "";
-  const mediaUrl = location.state?.mediaUrl; // Supports both images and videos
-  const isImage = location.state?.isImage;
 
-  // Helper: Get token from localStorage and return headers
+  // Helper: Get auth headers
   const getAuthHeaders = () => {
     const token = localStorage.getItem("access_token");
     return token ? { Authorization: `Bearer ${token}` } : {};
   };
 
-  // 🔹 Fetch suggestions based on current video's tags
+  // Fetch suggestions based on current video's tags
   useEffect(() => {
-    if (!videoId || !videoTags.length) return;
-
-    console.log("🔄 Fetching new suggestions for Video ID:", videoId, "Tags:", videoTags);
+    if (!videoId || !tags || tags.length === 0) return;
 
     axios
       .get(`${BASE_URL}/api/tutorials/`, {
-        headers: {
-          "Content-Type": "application/json",
-          ...getAuthHeaders(),
-        },
+        headers: { "Content-Type": "application/json", ...getAuthHeaders() },
       })
       .then((response) => {
         const allTutorials = response.data;
@@ -56,7 +55,6 @@ const VideoPlayer = () => {
                 try {
                   tutorialTags = JSON.parse(tutorialTags);
                 } catch (error) {
-                  console.error("❌ Error parsing tutorial tags:", error);
                   tutorialTags = [];
                 }
               } else {
@@ -64,36 +62,31 @@ const VideoPlayer = () => {
               }
             }
             return tutorialTags.some((tag) =>
-              videoTags.some((vTag) => vTag.toLowerCase() === tag.toLowerCase())
+              tags.some((vTag) => vTag.toLowerCase() === tag.toLowerCase())
             );
           })
-          .slice(0, 4); // Limit to 4 suggestions
-
-        console.log("✅ Updated Suggestions:", filteredSuggestions);
+          .slice(0, 4);
         setSuggestions(filteredSuggestions);
       })
-      .catch((error) => console.error("❌ Error fetching tutorials:", error));
-  }, [videoId, videoTags]);
-
-  console.log("Current Video Tags:", videoTags);
+      .catch((error) => console.error("Error fetching tutorials:", error));
+  }, [videoId, tags]);
 
   const handleServiceClick = (service) => {
     navigate("/tutorials", { state: { selectedTag: service } });
   };
 
-  // 🔹 Handle suggestion click by navigating to the video-player route
+  // Handle suggestion click: use full Cloudinary URLs
   const handleSuggestionClick = (suggestion) => {
-    console.log("🎯 Clicking suggestion:", suggestion);
-    // Determine if the video URL is absolute or relative, and fix accordingly.
     const imageExtensions = ["jpg", "jpeg", "png", "gif"];
-    const fileExtension = suggestion.video ? suggestion.video.split(".").pop().toLowerCase() : "";
+    const fileExtension = suggestion.video_url
+      ? suggestion.video_url.split(".").pop().toLowerCase()
+      : "";
     const isImageSuggestion = imageExtensions.includes(fileExtension);
-    const fullMediaUrl =
-      suggestion.video?.startsWith("http") ? suggestion.video : `${BASE_URL}${suggestion.video}`;
 
     navigate("/video-player", {
       state: {
-        mediaUrl: fullMediaUrl,
+        mediaUrl: suggestion.video_url,
+        thumbnailUrl: suggestion.thumbnail_url,
         isImage: isImageSuggestion,
         title: suggestion.title,
         description: suggestion.description,
@@ -105,22 +98,17 @@ const VideoPlayer = () => {
           : JSON.parse(suggestion.tags || "[]"),
       },
     });
-
-    // Force a reload to ensure the video element updates (if necessary)
-    setTimeout(() => {
-      window.location.reload();
-    }, 100);
   };
 
   const sendtext = () => {
     if (!contractor) {
-      console.error("❌ Contractor username is missing!");
+      console.error("Contractor username is missing!");
       return;
     }
     navigate(`/start-conversation?username=${encodeURIComponent(contractor)}`);
   };
 
-  // Fuse.js setup for search functionality
+  // Fuse.js for search functionality
   const fuse = new Fuse(tutorials, {
     keys: ["title", "description", "contractor"],
     threshold: 0.3,
@@ -129,7 +117,6 @@ const VideoPlayer = () => {
   const handleSearch = (event) => {
     const value = event.target.value;
     setSearchText(value);
-
     if (value.length > 1) {
       const results = fuse.search(value);
       setSearchResults(results.map((result) => result.item));
@@ -141,13 +128,16 @@ const VideoPlayer = () => {
   const handleSelectResult = (tutorial) => {
     navigate("/video-player", {
       state: {
-        mediaUrl: tutorial.video,
+        mediaUrl: tutorial.video_url,
+        thumbnailUrl: tutorial.thumbnail_url,
         title: tutorial.title,
         description: tutorial.description,
-        contractor: tutorial.contractor,
+        contractor: tutorial.uploaded_by || "Unknown",
         createdAt: tutorial.created_at,
         videoId: tutorial.id,
-        tags: Array.isArray(tutorial.tags) ? tutorial.tags : JSON.parse(tutorial.tags || "[]"),
+        tags: Array.isArray(tutorial.tags)
+          ? tutorial.tags
+          : JSON.parse(tutorial.tags || "[]"),
       },
     });
     setSearchText("");
@@ -169,15 +159,16 @@ const VideoPlayer = () => {
 
   const services = ["All", "Interior", "Renovation", "Washroom", "Roofing", "Tiles", "Woodwork"];
 
-  console.log("📸 Media URL:", mediaUrl);
-  console.log("🖼️ Is Image?", isImage);
+  console.log("Media URL:", mediaUrl);
+  console.log("Is Image?", isImage);
 
-  if (!videoUrl) {
+  if (!mediaUrl) {
     return <h2 className="error-message">No video found!</h2>;
   }
 
   return (
     <div className="video-player-container">
+      {/* Search Bar */}
       <div className="search-bar-container">
         <input
           type="text"
@@ -194,7 +185,6 @@ const VideoPlayer = () => {
         >
           <i className="fas fa-search search-icon"></i>
         </button>
-
         {searchResults.length > 0 && (
           <div className="search-dropdown">
             {searchResults.map((tutorial) => (
@@ -204,14 +194,14 @@ const VideoPlayer = () => {
                 onClick={() => handleSelectResult(tutorial)}
               >
                 <img
-                  src={tutorial.thumbnail || "https://via.placeholder.com/80"}
+                  src={tutorial.thumbnail_url || "https://via.placeholder.com/80"}
                   alt={tutorial.title}
                   className="search-thumbnail"
                 />
                 <div>
                   <strong>{tutorial.title}</strong>
                   <p className="search-desc">
-                    {tutorial.contractor} | {tutorial.description.substring(0, 50)}...
+                    {tutorial.uploaded_by} | {tutorial.description.substring(0, 50)}...
                   </p>
                 </div>
               </div>
@@ -237,20 +227,18 @@ const VideoPlayer = () => {
         ← Back
       </button>
 
-      {/* Video & Info Side by Side */}
+      {/* Video & Info Section */}
       <div className="video-content">
         <div className="video-wrapper">
           {isImage ? (
             <img src={mediaUrl} alt={title} className="tutorial-image-display" />
           ) : (
             <video controls autoPlay className="video-player">
-              <source src={videoUrl} type="video/mp4" />
+              <source src={mediaUrl} type="video/mp4" />
               Your browser does not support the video tag.
             </video>
           )}
         </div>
-
-        {/* Info Section */}
         <div className="video-info">
           <h2 className="video-title">{title}</h2>
           <div className="date">
@@ -278,7 +266,7 @@ const VideoPlayer = () => {
                 onClick={() => handleSuggestionClick(suggestion)}
               >
                 <img
-                  src={suggestion.thumbnail || "https://via.placeholder.com/150"}
+                  src={suggestion.thumbnail_url || "https://via.placeholder.com/150"}
                   alt={suggestion.title}
                   className="suggestion-thumbnail"
                 />
