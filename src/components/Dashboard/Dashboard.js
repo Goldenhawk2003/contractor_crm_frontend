@@ -339,6 +339,7 @@ const Dashboard = () => {
                 <option value="text">Text Answer</option>
                 <option value="multiple_choice">Multiple Choice</option>
                 <option value="date">Date Picker</option> {/* NEW OPTION */}
+                <option value="text_with_image">Text Answer with Optional Image</option> 
               </select>
               {newQuestionType === "multiple_choice" && (
                 <input

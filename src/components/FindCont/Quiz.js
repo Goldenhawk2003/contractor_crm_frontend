@@ -74,23 +74,29 @@ const Quiz = () => {
   setError(null);
 
   try {
-    for (const [questionId, answer] of Object.entries(responses)) {
-      const payload = {
-        quiz_id: parseInt(questionId),  // Assuming question_id is same as quiz_id
-        answer: answer
-      };
+    for (const [questionId, answerObj] of Object.entries(responses)) {
+      const question = questions.find((q) => q.id === parseInt(questionId));
+      let formData = new FormData();
 
-      console.log("Submitting payload:", payload); // ✅ Debug check
+      formData.append("quiz_id", questionId);
+
+      if (question.question_type === "text_with_image") {
+        formData.append("answer", answerObj.text || "");
+        if (answerObj.image) {
+          formData.append("image", answerObj.image);
+        }
+      } else {
+        formData.append("answer", answerObj);
+      }
 
       const response = await fetch(
         `${process.env.REACT_APP_BACKEND_URL}/api/quiz/submit/`,
         {
           method: "POST",
           headers: {
-            "Content-Type": "application/json",
-            ...getAuthHeaders(),
+            ...getAuthHeaders(), // Assuming getAuthHeaders does NOT set 'Content-Type' (let FormData handle it)
           },
-          body: JSON.stringify(payload),
+          body: formData,
         }
       );
 
@@ -173,6 +179,33 @@ const Quiz = () => {
     placeholderText="Select a date and time"
     className="quiz-datepicker"
   />
+)}
+{currentQuestion.question_type === "text_with_image" && (
+  <div className="quiz-text-image">
+    <textarea
+      placeholder="Type your answer here..."
+      rows="4"
+      value={responses[currentQuestion.id]?.text || ""}
+      onChange={(e) =>
+        handleChange(currentQuestion.id, {
+          ...responses[currentQuestion.id],
+          text: e.target.value,
+        })
+      }
+      className="quiz-textarea"
+    />
+    <input
+      type="file"
+      accept="image/*"
+      onChange={(e) =>
+        handleChange(currentQuestion.id, {
+          ...responses[currentQuestion.id],
+          image: e.target.files[0],
+        })
+      }
+      className="quiz-file-upload"
+    />
+  </div>
 )}
         </div>
       </div>
