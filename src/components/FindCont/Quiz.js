@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./Quiz.css";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 // Helper: Get token-based auth headers
 const getAuthHeaders = () => {
@@ -162,6 +164,16 @@ const Quiz = () => {
                 </label>
               </div>
             ))}
+            {currentQuestion.question_type === "date" && (
+  <DatePicker
+    selected={responses[currentQuestion.id] || null}
+    onChange={(date) => handleChange(currentQuestion.id, date)}
+    showTimeSelect
+    dateFormat="Pp"
+    placeholderText="Select a date and time"
+    className="quiz-datepicker"
+  />
+)}
         </div>
       </div>
       <div className="quiz-navigation">
