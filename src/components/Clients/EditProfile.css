@@ -1,0 +1,29 @@
+.profile-form {
+    max-width: 400px;
+    margin: auto;
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .profile-form input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+  
+  .profile-form button {
+    width: 100%;
+    padding: 10px;
+    background-color: #1b3656;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .profile-form button:hover {
+    background-color: #091268;
+  }
