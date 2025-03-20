@@ -3,8 +3,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 15px 20px;
-  width: 100%;
+  padding: 15px 5px;
+  width: 10%;
 }
 
 /* LOGO */
@@ -30,24 +30,25 @@
   margin-right: 12%;
 }
 
-/* SIDEBAR MENU */
 .sidebar {
   position: fixed;
   top: 0;
-  right: -250px; /* Initially hidden */
+  right: -300px; /* Move it further off-screen */
   width: 250px;
   height: 100vh;
   background-color: white;
   box-shadow: -2px 0 10px rgba(0, 0, 0, 0.2);
-  transition: right 0.3s ease-in-out;
+  transition: transform 0.3s ease-in-out;
   display: flex;
   flex-direction: column;
   padding: 20px;
   z-index: 1002;
+  transform: translateX(100%); /* Completely moves it out of view */
 }
 
 /* Show sidebar when open */
 .sidebar.open {
+  transform: translateX(0);
   right: 0;
 }
 
