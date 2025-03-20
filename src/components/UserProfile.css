@@ -523,387 +523,166 @@ textarea.user-input {
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-
-@media (max-width: 768px) {
-  /* General Layout */
-
-  .user-profile,
-  .sidebar,
-  .card,
-  .profile-header,
-  .profile-content,
-  .profile-container,
-  .search-results,
-  .form-grid,
-  .contract-list {
-      width: 110%;
-      /* Optionally, you might want to reset margin/padding for proper alignment */
-      margin: 0 auto; /* Center the container if needed */
-      box-sizing: border-box;
-  }
-  .main-content{
-    width: 105%;
+/* === MOBILE STYLES === */
+@media screen and (max-width: 768px) {
+  
+  /* GENERAL STYLES */
+  html, body {
+    width: 100%;
+    overflow-x: hidden;
   }
 
+  /* USER PROFILE PAGE */
   .user-profile {
-      flex-direction: column;
-      min-height: auto;
+    flex-direction: column;
+    align-items: center;
   }
-  
-  /* Sidebar adjustments */
-  .sidebar {
-      width: 107%;
-      padding: 10px;
-      box-shadow: none;
-      align-items: flex-start;
-      align-self: center;
 
+  /* SIDEBAR - MOBILE MENU */
+  .sidebar {
+    width: 80%;
+    max-width: 280px;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: -100%;
+    transition: left 0.3s ease-in-out;
+    z-index: 1001;
+    display: flex;
   }
-  
-  .sidebar .logo {
-      font-size: 1.5rem;
-      margin-bottom: 10px;
-      text-align: left;
+
+  /* Show sidebar when open */
+  .sidebar.open {
+    left: 0;
   }
-  
-  .sidebar .logo span {
-      color: #dcbf79;
-  }
-  
+
+  /* Adjust sidebar items */
   .sidebar .menu {
-      flex-direction: column;
-      gap: 10px;
-      width: 100%;
-      align-self: center;
-      
+    gap: 10px;
   }
-  
+
   .sidebar .menu-item {
-      display: flex;
-      align-items: center;
-      padding: 10px;
-      padding-left: 10px;
-      border-radius: 5px;
-      border: 1.5px solid #f8f8f8;
-      color: white;
-      text-decoration: none;
-      font-size: 0.9rem;
-      transition: background-color 0.3s;
+    padding: 12px;
+    font-size: 16px;
   }
-  
-  .sidebar .menu-item:hover,
-  .sidebar .menu-item.active {
-      background-color: #ECF0FC;
-      color: #091268;
-  }
-  
-  .sidebar .menu-item i {
-      margin-right: 8px;
-      font-size: 1rem;
-  }
-  
-  /* Main Content adjustments */
+
+  /* MAIN CONTENT */
   .main-content {
-      padding: 10px;
+    width: 100%;
+    padding: 15px;
+    text-align: center;
   }
-  
-  .card {
-      background-color: white;
-      border-radius: 15px;
-      padding: 15px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      max-width: 100%;
-      margin: 10px auto;
-      text-align: center;
-  }
-  
-  .card img {
-      border-radius: 10px;
-      max-width: 100%;
-      height: auto;
-      margin-bottom: 15px;
-  }
-  
-  .card h2 {
-      font-size: 1.2rem;
-      margin: 8px 0;
-  }
-  
-  .card p {
-      font-size: 0.9rem;
-      color: #555;
-  }
-  
-  .card .stars {
-      display: flex;
-      justify-content: center;
-      gap: 3px;
-      margin: 8px 0;
-  }
-  
-  .card .stars i {
-      font-size: 1rem;
-  }
-  
-  .card .reviews {
-      font-size: 0.8rem;
-      color: #777;
-  }
-  
-  /* Buttons */
-  .user-button,
-  .user-button-send {
-      padding: 8px 16px;
-      font-size: 0.9rem;
-      margin-top: 2%;
-      text-align: center;
-  }
-  
-  .button-container-send {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 100%;
-      margin-top: 15px;
-  }
-  
-  .user-button:hover,
-  .user-button-send:hover {
-      background-color: #091268;
-      transform: translateY(-2px);
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
-  }
-  
-  /* Profile Section */
+
+  /* PROFILE HEADER */
   .profile-header {
-      width: 100%;
-      height: 120px;
-      background-size: cover;
-      border-radius: 12px;
-      background-color: #091268;
+    width: 100%;
+    height: 150px;
   }
-  
+
   .profile-container {
-      margin: 5% 5% 0 5%;
-      position: relative;
+    margin-left: 0;
+    text-align: center;
   }
-  
+
   .profile-username {
-      font-size: 28px;
-      font-weight: bold;
-      color: #1b3656;
-      margin-top: 5px;
+    font-size: 28px;
   }
-  
+
+  /* PROFILE IMAGE */
   .profile-image {
-      width: 80px;
-      height: 80px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 5px solid white;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      margin: 10px auto;
-      position: relative;
-      top: 0;
-      left: 0;
+    width: 100px;
+    height: 100px;
+    top: 200px;
+    left: 50%;
+    transform: translateX(-50%);
   }
-  
+
+  /* PROFILE INFO */
   .profile-info {
-      margin-top: 10px;
-      width: 90%;
+    text-align: center;
+    margin-top: 20px;
   }
-  
+
   .profile-description {
-      width: 100%;
-      margin: 10px 0;
-      font-size: 14px;
-      color: #555;
-      text-align: left;
+    width: 100%;
+    text-align: center;
   }
-  
-  .profile-blue {
-      background-color: #091268;
-      color: #f8f8f8;
-      text-align: center;
-      border-radius: 25px;
-      width: auto;
-      padding: 5%;
-      margin-right: 5%;
-      display: inline-block;
+
+  /* BUTTONS */
+  .user-button, .user-button-send {
+    width: 100%;
+    padding: 12px;
+    font-size: 1rem;
   }
-  
-  /* Search Results */
-  .search-results {
-      margin-top: 10px;
+
+  /* FORMS */
+  .user-input, textarea.user-input, .user-select {
+    width: 90%;
+    font-size: 16px;
   }
-  
-  .search-result-item-contracts {
-      padding: 6px 10px;
-      border: 1px solid #ECF0FC;
-      margin-bottom: 5px;
-      border-radius: 6px;
-      background-color: #ECF0FC;
-      color: black;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      font-size: 0.9rem;
-  }
-  
-  .search-result-item-contracts:hover,
-  .search-result-item-contracts.selected {
-      background-color: #091268;
-      color: #F8F8F8;
-  }
-  
-  .search-result-item:hover {
-      background-color: #ECF0FC;
-      color: #1B3656;
-  }
-  
-  /* Input Fields */
-  textarea.user-input,
-  .user-input[type="text"],
-  .user-select {
-      width: 90%;
-      padding: 10px;
-      margin: 8px 0;
-      border: 1px solid #ECF0FC;
-      border-radius: 16px;
-      font-size: 0.9rem;
-      color: #091268;
-      background-color: white;
-      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
-      transition: border-color 0.3s ease, box-shadow 0.3s ease;
-      display: block;
-      margin-left: auto;
-      margin-right: auto;
-  }
-  
-  textarea.user-input {
-      min-height: 80px;
-      resize: vertical;
-  }
-  
-  .user-input:focus {
-      border-color: #091268;
-      box-shadow: 0 0 6px rgba(9, 18, 104, 0.4);
-      outline: none;
-  }
-  
-  /* Tab Navigation Styling */
-  .tab {
-      padding: 8px 12px;
-      font-size: 0.9rem;
-      font-weight: bold;
-      text-align: center;
-      color: #F8F8F8;
-      background-color: #1B3656;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      margin-bottom: 8px;
-  }
-  
-  .tab.active {
-      background-color: #091268;
-      color: #ECF0FC;
-  }
-  
-  .tab:hover {
-      background-color: #ECF0FC;
-      color: #1B3656;
-  }
-  
-  .tab-content {
-      padding: 15px;
-      background-color: #F8F8F8;
-      border-radius: 10px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      font-size: 0.9rem;
-      color: #1B3656;
-      height: auto;
-  }
-  
-  /* Profile Content Section */
-  .profile-content {
-      flex: 1;
-      padding: 15px;
-      background: white;
-      border-top-right-radius: 12px;
-      border-bottom-right-radius: 12px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  /* Form adjustments */
-  .form-grid {
-      grid-template-columns: 1fr;
-      gap: 10px;
-      margin-bottom: 15px;
-  }
-  
-  .form-group {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-  }
-  
-  .form-group input {
-      padding: 10px;
-      border-radius: 20px;
-      border: none;
-      margin: 0;
-      width: 100%;
-  }
-  
-  .form-group label {
-      font-weight: bold;
-      font-size: 16px;
-      margin: 0;
-  }
-  
-  .form-group-full-width textarea {
-      height: 100px;
-      width: 110%;
-      resize: none;
-      border-radius: 20px;
-      border: none;
-  }
-  
-  /* Contract Tabs and Lists */
+
+  /* CONTRACT SECTIONS */
   .contract-tabs {
-      flex-direction: column;
-      gap: 5px;
-      margin-bottom: 15px;
+    flex-direction: column;
+    gap: 10px;
   }
-  
+
   .contract-tab {
-      background-color: #091268;
-      color: white;
-      padding: 8px 10px;
-      border: none;
-      border-radius: 15px;
-      font-size: 0.9rem;
-      cursor: pointer;
-      transition: background 0.3s;
+    width: 100%;
+    text-align: center;
   }
-  
-  .contract-tab:hover,
-  .contract-tab.active {
-      background-color: #1b3656;
-  }
-  
+
+  /* CONTRACT LIST */
   .contract-list {
-      background: #ecf0fc;
-      padding: 15px;
-      border-radius: 10px;
+    padding: 15px;
   }
-  
+
   .contract-item {
-      background: white;
-      padding: 10px;
-      border-radius: 8px;
-      margin-bottom: 8px;
-      box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
-      font-size: 0.9rem;
+    padding: 12px;
   }
+
+  /* FORMS & INPUTS */
+  .form-grid {
+    grid-template-columns: 1fr; /* Single column for better stacking */
+  }
+
+  .form-group input,
+  .form-group-full-width textarea {
+    width: 100%;
+    font-size: 16px;
+  }
+
+  /* NOTIFICATIONS BADGE */
+  .notification-badge {
+    font-size: 10px;
+    padding: 3px 6px;
+  }
+
+  /* TABS */
+  .tab {
+    font-size: 14px;
+    padding: 8px 10px;
+  }
+
+  /* RESPONSIVE STAR RATINGS */
+  .stars {
+    font-size: 16px;
+  }
+
+  /* TESTIMONIALS */
+  .testimonial-card {
+    width: 100%;
+  }
+
+  /* CONTRACTOR LIST */
+  .contractor-card {
+    width: 100%;
+    padding: 15px;
+  }
+
+  /* SHOW MORE BUTTON */
+  .show-more-button {
+    width: 100%;
+  }
+
 }
