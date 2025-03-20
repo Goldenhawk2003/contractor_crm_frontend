@@ -23,11 +23,13 @@
   background: transparent;
   color: white;
   border: none;
-  font-size: 24px;
+  font-size: 26px;  /* Slightly larger for better visibility */
   cursor: pointer;
   padding: 10px;
+  position: absolute;  /* Keeps it aligned properly */
+  top: 20px;  /* Adjust height */
+  right: 30px;  /* Move it closer to the edge */
   z-index: 1001;
-  margin-right: 12%;
 }
 
 .sidebar {
@@ -78,6 +80,7 @@
 
 .sidebar-item:hover {
   background-color: #f1f1f1;
+  width: 100%;
 }
 
 /* DARK OVERLAY */
