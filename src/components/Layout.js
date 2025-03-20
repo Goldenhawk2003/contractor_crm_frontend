@@ -6,7 +6,7 @@ import './Layout.css';
 
 const Layout = () => {
   const { isAuthenticated, authLoaded, user, logout } = useAuth();
-  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   useEffect(() => {
     console.log("Current user:", user);
@@ -38,27 +38,36 @@ const Layout = () => {
           <div className="right-nav">
             <button 
               className="hamburger-button"
-              onClick={() => setDropdownOpen(!dropdownOpen)}
+              onClick={() => setSidebarOpen(true)}
             >
               ☰
             </button>
-            {dropdownOpen && (
-              <div className="dropdown-menu">
-                {isSuperUser && <Link to="/dashboard" className="dropdown-item">Dashboard</Link>}
-                <Link to="/AboutUs" className="dropdown-item">About Us</Link>
-                <Link to="/Browse-contractors" className="dropdown-item">Services</Link>
-                <Link to="/contact" className="dropdown-item">Contact Us</Link>
-                <Link to="/user-profile" className="dropdown-item">User Profile</Link>
-                {!isAuthenticated ? (
-                  <Link to="/login" className="dropdown-item">Login</Link>
-                ) : (
-                  <button onClick={logout} className="dropdown-item">Logout</button>
-                )}
-              </div>
-            )}
           </div>
         </nav>
       </header>
+
+      {/* Sidebar */}
+      <div className={`sidebar ${sidebarOpen ? "open" : ""}`}>
+        <button className="close-button" onClick={() => setSidebarOpen(false)}>
+          ✖
+        </button>
+        <nav className="sidebar-menu">
+          {isSuperUser && <Link to="/dashboard" className="sidebar-item">Dashboard</Link>}
+          <Link to="/AboutUs" className="sidebar-item">About Us</Link>
+          <Link to="/Browse-contractors" className="sidebar-item">Services</Link>
+          <Link to="/contact" className="sidebar-item">Contact Us</Link>
+          <Link to="/user-profile" className="sidebar-item">User Profile</Link>
+          {!isAuthenticated ? (
+            <Link to="/login" className="sidebar-item">Login</Link>
+          ) : (
+            <button onClick={logout} className="sidebar-item">Logout</button>
+          )}
+        </nav>
+      </div>
+
+      {/* Dark overlay when sidebar is open */}
+      {sidebarOpen && <div className="overlay" onClick={() => setSidebarOpen(false)}></div>}
+
       <main className="layout-main">
         <Outlet />
       </main>
