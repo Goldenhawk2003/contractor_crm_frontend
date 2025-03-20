@@ -8,7 +8,6 @@ const Layout = () => {
   const { isAuthenticated, authLoaded, user, logout } = useAuth();
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
-  // Log the user object and superuser check
   useEffect(() => {
     console.log("Current user:", user);
     if (user) {
@@ -38,10 +37,10 @@ const Layout = () => {
           </div>
           <div className="right-nav">
             <button 
-              className="nav-button dropdown-toggle" 
+              className="nav-button hamburger-button"
               onClick={() => setDropdownOpen(!dropdownOpen)}
             >
-              Menu ▼
+              ☰
             </button>
             {dropdownOpen && (
               <div className="dropdown-menu">
