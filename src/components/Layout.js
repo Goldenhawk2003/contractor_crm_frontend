@@ -24,7 +24,7 @@ const Layout = () => {
   return (
     <div className="layout-container">
       <header className="layout-header">
-        <nav className="button-group">
+        <nav className="nav-container">
           <div className="left-nav">
             <Link to="/" className="logo-link">
               <img
@@ -37,7 +37,7 @@ const Layout = () => {
           </div>
           <div className="right-nav">
             <button 
-              className="nav-button hamburger-button"
+              className="hamburger-button"
               onClick={() => setDropdownOpen(!dropdownOpen)}
             >
               ☰
