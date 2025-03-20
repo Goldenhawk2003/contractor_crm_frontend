@@ -76,11 +76,12 @@
   color: black;
   font-size: 18px;
   transition: background 0.3s;
+  width: 100vw;
 }
 
 .sidebar-item:hover {
   background-color: #f1f1f1;
-  width: 100%;
+  width: 100vw;
 }
 
 /* DARK OVERLAY */
