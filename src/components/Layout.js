@@ -6,6 +6,7 @@ import './Layout.css';
 
 const Layout = () => {
   const { isAuthenticated, authLoaded, user, logout } = useAuth();
+  const [dropdownOpen, setDropdownOpen] = useState(false);
 
   // Log the user object and superuser check
   useEffect(() => {
@@ -14,8 +15,6 @@ const Layout = () => {
       console.log("User is superuser:", user.is_superuser);
     }
   }, [user]);
-
-  
 
   const isSuperUser = user?.is_superuser || false;
 
@@ -38,17 +37,25 @@ const Layout = () => {
             </Link>
           </div>
           <div className="right-nav">
-            {isSuperUser && (
-              <Link to="/dashboard" className="nav-button">Dashboard</Link>
-            )}
-            <Link to="/AboutUs" className="nav-button">About Us</Link>
-            <Link to="/Browse-contractors" className="nav-button">Services</Link>
-            <Link to="/contact" className="nav-button">Contact Us</Link>
-            <Link to="/user-profile" className="nav-button">User Profile</Link>
-            {!isAuthenticated ? (
-              <Link to="/login" className="nav-button">Login</Link>
-            ) : (
-              <button onClick={logout} className="nav-button">Logout</button>
+            <button 
+              className="nav-button dropdown-toggle" 
+              onClick={() => setDropdownOpen(!dropdownOpen)}
+            >
+              Menu ▼
+            </button>
+            {dropdownOpen && (
+              <div className="dropdown-menu">
+                {isSuperUser && <Link to="/dashboard" className="dropdown-item">Dashboard</Link>}
+                <Link to="/AboutUs" className="dropdown-item">About Us</Link>
+                <Link to="/Browse-contractors" className="dropdown-item">Services</Link>
+                <Link to="/contact" className="dropdown-item">Contact Us</Link>
+                <Link to="/user-profile" className="dropdown-item">User Profile</Link>
+                {!isAuthenticated ? (
+                  <Link to="/login" className="dropdown-item">Login</Link>
+                ) : (
+                  <button onClick={logout} className="dropdown-item">Logout</button>
+                )}
+              </div>
             )}
           </div>
         </nav>
