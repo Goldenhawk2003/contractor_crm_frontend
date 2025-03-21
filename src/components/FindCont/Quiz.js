@@ -131,7 +131,7 @@ const Quiz = () => {
       </div>
       {submitted && (
         <p className="success-message">
-          Your responses have been submitted. Thank you!
+          Your responses have been submitted! We will contact in the next 24 hours to connect you with one of our specialists
         </p>
       )}
       <div key={currentQuestion.id} className="quiz-question-container">
@@ -194,8 +194,9 @@ const Quiz = () => {
       }
       className="quiz-textarea"
     />
+    <p>Upload an image (optional)</p>
     <input
-      type="image"
+      type="file"
       accept="image/*"
       onChange={(e) =>
         handleChange(currentQuestion.id, {
