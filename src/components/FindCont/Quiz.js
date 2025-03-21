@@ -51,7 +51,10 @@ const Quiz = () => {
   const handleChange = (questionId, value) => {
     setResponses((prevResponses) => ({
       ...prevResponses,
-      [questionId]: value,
+      [questionId]: {
+        ...(prevResponses[questionId] || {}), // Preserve existing responses
+        ...value,
+      },
     }));
   };
 
@@ -198,14 +201,15 @@ const Quiz = () => {
     <input
       type="file"
       accept="image/*"
-      onChange={(e) =>
+      onChange={(e) => {
+      if (e.target.files.length > 0) {
         handleChange(currentQuestion.id, {
           ...responses[currentQuestion.id],
-          image: e.target.files[0],
-        })
+          image: e.target.files[0],  // Ensure the file is stored
+        });
       }
-      className="quiz-file-upload"
-    />
+    }}
+/>
   </div>
 )}
         </div>

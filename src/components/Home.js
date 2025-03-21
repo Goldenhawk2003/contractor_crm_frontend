@@ -90,7 +90,7 @@ const Home = () => {
     navigate('/find-contractor', { state: { query: serviceName } });
   };
   const quizButton = () => {
-    navigate('/tutorials');
+    navigate('/quiz');
   }
   const requestButton = () => {
     navigate('/ServiceRequest');
