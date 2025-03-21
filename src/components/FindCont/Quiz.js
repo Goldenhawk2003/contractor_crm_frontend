@@ -80,26 +80,22 @@ const Quiz = () => {
 
       formData.append("quiz_id", questionId);
 
-      if (question.question_type === "text") {
-        formData.append("answer", answerObj);
-      } else if (question.question_type === "multiple_choice") {
-        formData.append("selected_choice", answerObj);
-      } else if (question.question_type === "date") {
-        formData.append("answer_date", new Date(answerObj).toISOString());
-      } else if (question.question_type === "text_with_image") {
+      if (question.question_type === "text_with_image") {
         formData.append("answer", answerObj.text || "");
         if (answerObj.image) {
           formData.append("image", answerObj.image);
         }
+      } else {
+        formData.append("answer", answerObj);
       }
-      for (let pair of formData.entries()) {
-        console.log(pair[0] + ": ", pair[1]);
-      }
+
       const response = await fetch(
         `${process.env.REACT_APP_BACKEND_URL}/api/quiz/submit/`,
         {
           method: "POST",
-          headers: getAuthHeaders(), // No Content-Type here
+          headers: {
+            ...getAuthHeaders(), // Assuming getAuthHeaders does NOT set 'Content-Type' (let FormData handle it)
+          },
           body: formData,
         }
       );
@@ -118,6 +114,7 @@ const Quiz = () => {
     setSubmitting(false);
   }
 };
+
   if (loading) return <p className="loading-message">Loading questions...</p>;
   if (error) return <p className="error-message">{error}</p>;
 
@@ -134,7 +131,7 @@ const Quiz = () => {
       </div>
       {submitted && (
         <p className="success-message">
-          Your responses have been submitted! We will contact in the next 24 hours to connect you with one of our specialists Thank you!
+          Your responses have been submitted. Thank you!
         </p>
       )}
       <div key={currentQuestion.id} className="quiz-question-container">
@@ -197,19 +194,17 @@ const Quiz = () => {
       }
       className="quiz-textarea"
     />
-    <p>Upload an image (optional)</p>
     <input
-  type="file"
-  accept="image/*"
-  onChange={(e) => {
-    if (e.target.files.length > 0) {
-      handleChange(currentQuestion.id, {
-        ...responses[currentQuestion.id],
-        image: e.target.files[0],  // Ensure the file is stored
-      });
-    }
-  }}
-/>
+      type="file"
+      accept="image/*"
+      onChange={(e) =>
+        handleChange(currentQuestion.id, {
+          ...responses[currentQuestion.id],
+          image: e.target.files[0],
+        })
+      }
+      className="quiz-file-upload"
+    />
   </div>
 )}
         </div>
