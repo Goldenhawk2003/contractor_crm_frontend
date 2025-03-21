@@ -51,10 +51,7 @@ const Quiz = () => {
   const handleChange = (questionId, value) => {
     setResponses((prevResponses) => ({
       ...prevResponses,
-      [questionId]: {
-        ...(prevResponses[questionId] || {}), // Preserve existing responses
-        ...value,
-      },
+      [questionId]: value,
     }));
   };
 
@@ -134,7 +131,7 @@ const Quiz = () => {
       </div>
       {submitted && (
         <p className="success-message">
-          Your responses have been submitted! We will contact in the next 24 hours to connect you with one of our specialists
+          Your responses have been submitted! We will contact in the next 24 hours to connect you with one of our specialists Thank you!
         </p>
       )}
       <div key={currentQuestion.id} className="quiz-question-container">
@@ -199,16 +196,16 @@ const Quiz = () => {
     />
     <p>Upload an image (optional)</p>
     <input
-      type="file"
-      accept="image/*"
-      onChange={(e) => {
-      if (e.target.files.length > 0) {
-        handleChange(currentQuestion.id, {
-          ...responses[currentQuestion.id],
-          image: e.target.files[0],  // Ensure the file is stored
-        });
-      }
-    }}
+  type="file"
+  accept="image/*"
+  onChange={(e) => {
+    if (e.target.files.length > 0) {
+      handleChange(currentQuestion.id, {
+        ...responses[currentQuestion.id],
+        image: e.target.files[0],  // Ensure the file is stored
+      });
+    }
+  }}
 />
   </div>
 )}
