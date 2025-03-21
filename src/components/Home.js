@@ -136,7 +136,7 @@ const Home = () => {
       Our quiz is designed to get the stress of looking for a contractor off your plate.
     </p>
     <button type="submit" className="trust-button" onClick={quizButton}>
-      How-To Guide
+      Take Our Quiz
     </button>
     
   </div>
