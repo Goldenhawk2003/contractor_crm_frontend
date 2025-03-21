@@ -79,19 +79,25 @@ const Quiz = () => {
       let formData = new FormData();
 
       formData.append("quiz_id", questionId);
-      formData.append("answer", answerObj.text || "");
 
-      if (answerObj.image) {
-        formData.append("image", answerObj.image);
+      if (question.question_type === "text") {
+        formData.append("answer", answerObj);
+      } else if (question.question_type === "multiple_choice") {
+        formData.append("selected_choice", answerObj);
+      } else if (question.question_type === "date") {
+        formData.append("answer_date", new Date(answerObj).toISOString());
+      } else if (question.question_type === "text_with_image") {
+        formData.append("answer", answerObj.text || "");
+        if (answerObj.image) {
+          formData.append("image", answerObj.image);
+        }
       }
-
-      console.log("Submitting FormData:", formData);  // ✅ Debugging
 
       const response = await fetch(
         `${process.env.REACT_APP_BACKEND_URL}/api/quiz/submit/`,
         {
           method: "POST",
-          headers: getAuthHeaders(),  // ✅ No need for 'Content-Type'
+          headers: getAuthHeaders(), // No Content-Type here
           body: formData,
         }
       );
@@ -110,7 +116,6 @@ const Quiz = () => {
     setSubmitting(false);
   }
 };
-
   if (loading) return <p className="loading-message">Loading questions...</p>;
   if (error) return <p className="error-message">{error}</p>;
 
