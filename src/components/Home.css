@@ -722,180 +722,259 @@ background-color: #ECF0FC;
   display: block;
   background-color:transparent;
 }
-@media screen and (max-width: 768px) {
 
+/* === GENERAL MOBILE STYLES === */
+@media screen and (max-width: 768px) {
+  
+  /* General Page Adjustments */
   html, body {
     width: 100%;
-    overflow-x: hidden;
+    overflow-x: hidden; /* Prevent horizontal scrolling */
   }
 
-  /* HERO */
+  /* HEADER */
+  .nav-container {
+    padding: 10px 10px;
+    width: 100%;
+  }
+
+  .nav-logo {
+    height: 35px; /* Smaller logo */
+  }
+
+  .hamburger-button {
+    font-size: 28px;
+    top: 10px;
+    right: 15px;
+    padding: 5px;
+  }
+
+  /* SIDEBAR MENU */
+  .sidebar {
+    width: 80%;
+    max-width: 280px;
+  }
+
+  .sidebar-item {
+    font-size: 18px;
+    padding: 15px;
+  }
+
+  /* HERO SECTION */
   .hero-section {
-    height: auto;
-    padding: 15% 5% 10%;
-    text-align: center;
+    height: 60vh;
+    padding-top: 10%;
+    text-align: center; /* Center align on mobile */
   }
 
   .Hero-header {
-    font-size: 2.4rem;
+    font-size: 2.4rem; /* Smaller heading */
     text-align: center;
-    padding: 0;
-    line-height: 1.3;
+    padding: 0 5%;
   }
 
-  /* TRUST */
+  /* TRUST SECTION */
   .trust {
-    flex-direction: column;
-    padding: 10% 5%;
+    flex-direction: column; /* Stack elements vertically */
     text-align: center;
-    gap: 20px;
+    padding: 5%;
   }
 
   .trust-header {
-    font-size: 2rem;
-    padding: 0;
+    font-size: 2.5rem;
+    padding-left: 0;
+    width: 100%;
+    text-align: center;
   }
 
   .trust-p {
     width: 100%;
-    font-size: 1rem;
+    text-align: center;
+    padding-left: 0;
   }
 
   .trust-button {
-    width: 100%;
-    margin: 20px auto 0;
-  }
-
-  .contractor_img {
-    width: 100%;
-    max-width: 350px;
+    width: 80%;
     margin: 0 auto;
   }
 
-  /* SERVICES */
+  .contractor_img {
+    width: 80%;
+    margin: 20px auto;
+  }
+
+  /* SERVICES SECTION */
   .services-section {
-    padding: 10% 5%;
-    background: linear-gradient(to bottom, #f8f8f8 70%, #1B3656 30%);
+    padding: 5%;
   }
 
   .service-header {
-    font-size: 2rem;
-    width: 100%;
+    font-size: 2.5rem;
+    width: 90%;
   }
 
   .search-bar-container {
-    flex-direction: column;
-    width: 100%;
-    gap: 12px;
+    flex-direction: column; /* Stack search bar & button */
+    gap: 10px;
   }
 
-  .search-bar,
+  .search-bar {
+    width: 100%;
+    padding: 15px;
+  }
+
   .search-button {
-    width: 100%;
+    width: 10%;
+    padding: 8px;
   }
 
+  /* CONTRACTOR CHOICES */
   .Contractor-choices {
     flex-direction: column;
     width: 100%;
-    gap: 20px;
   }
 
-  .Contractor-choices a {
+  .Contractor-choices a, .ContractorExplore a {
     width: 100%;
-    height: auto;
-    aspect-ratio: unset;
-  }
-
-  /* WE OFFER */
-  .we-offer-header {
+    height: auto; /* Allow images to resize properly */
+    max-width: 400px; /* Prevent them from getting too large */
+    aspect-ratio: 4 / 3; /* Maintain a balanced width-to-height ratio */
+    background-color: #ECF0FC;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
     position: relative;
-    margin: 0 auto 20px;
-    font-size: 2rem;
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
-
-  .services-container {
-    grid-template-columns: 1fr;
-    padding: 0 5%;
-    gap: 25px;
-  }
-
-  /* MATCH */
-  .match-header {
-    font-size: 2rem;
+  
+  .Contractor-choices img, .ContractorExplore img {
     width: 100%;
-    padding: 0 5%;
+    height: auto; /* Ensures images are not overly stretched */
+    max-height: 250px; /* Prevents excessive stretching */
+    object-fit: cover; /* Crops the image while keeping aspect ratio */
+    display: block;
+    border-radius: 10px;
+  }
+
+  /* MATCH SECTION */
+  .match-header {
+    font-size: 2.3rem;
+    width: 80%;
+    text-align: center;
   }
 
   .contractor-list {
     flex-direction: column;
     align-items: center;
     padding: 0;
-    gap: 20px;
   }
 
   .contractor-card {
     width: 90%;
-    padding: 15px;
   }
 
-  /* TESTIMONIALS */
+  /* TESTIMONIALS SECTION */
   .testimonials-section {
     flex-direction: column;
-    padding: 10% 5%;
-    gap: 30px;
-  }
-
-  .testimonials-header {
-    font-size: 2rem;
-    width: 100%;
+    align-items: center;
     text-align: center;
   }
 
+  .testimonials-header {
+    width: 100%;
+    text-align: center;
+    font-size: 2.5rem;
+    padding: 0;
+  }
+
   .testimonials-container {
+    max-width: 100%;
     justify-content: center;
+    align-items: center;
+    align-content: center;
   }
 
   .testimonial-card {
     width: 90%;
-    margin: 0 auto;
+    margin: 10px auto;
   }
 
-  /* EXPLORE */
+  /* EXPLORE SECTION */
   .Explore-header {
-    font-size: 2rem;
-    padding: 0;
+    font-size: 2.5rem;
     text-align: center;
+    padding: 0;
   }
 
   .ContractorExplore {
     flex-direction: column;
     width: 100%;
-    gap: 20px;
   }
 
   .ContractorExplore a {
-    width: 100%;
+    width: 90%;
     height: auto;
   }
 
-  /* PROCESS */
-  .our-header {
-    font-size: 2rem;
+  /* PROCESS SECTION */
+  .our-process {
+    padding: 5%;
     text-align: center;
-    padding: 0;
+  }
+
+  .our-header {
+    font-size: 2.5rem;
+    padding-left: 0;
   }
 
   .process-p {
-    font-size: 1rem;
     width: 100%;
-    padding: 0;
+    text-align: center;
+    padding-left: 0;
+  }
+
+    /* SERVICES */
+  .services-section {
+      padding: 10% 5%;
+      background: linear-gradient(to bottom, #f8f8f8 70%, #1B3656 30%);
+    }
+  
+  .service-header {
+      font-size: 2rem;
+      width: 100%;
+    }
+  
+  .search-bar-container {
+      flex-direction: column;
+      width: 100%;
+      gap: 12px;
+    }
+  
+  .search-bar {
+      width: 100%;
+    }
+  
+  .Contractor-choices {
+      flex-direction: column;
+      width: 100%;
+      gap: 20px;
+    }
+  
+  .Contractor-choices a {
+      width: 100%;
+      height: auto;
+      aspect-ratio: unset;
+    }
+  .process-p{
     text-align: center;
   }
+ 
+  
 
   /* FOOTER */
   footer {
     text-align: center;
-    padding: 10% 5%;
   }
 }
