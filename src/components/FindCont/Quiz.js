@@ -79,23 +79,19 @@ const Quiz = () => {
       let formData = new FormData();
 
       formData.append("quiz_id", questionId);
+      formData.append("answer", answerObj.text || "");
 
-      if (question.question_type === "text_with_image") {
-        formData.append("answer", answerObj.text || "");
-        if (answerObj.image) {
-          formData.append("image", answerObj.image);
-        }
-      } else {
-        formData.append("answer", answerObj);
+      if (answerObj.image) {
+        formData.append("image", answerObj.image);
       }
+
+      console.log("Submitting FormData:", formData);  // ✅ Debugging
 
       const response = await fetch(
         `${process.env.REACT_APP_BACKEND_URL}/api/quiz/submit/`,
         {
           method: "POST",
-          headers: {
-            ...getAuthHeaders(), // Assuming getAuthHeaders does NOT set 'Content-Type' (let FormData handle it)
-          },
+          headers: getAuthHeaders(),  // ✅ No need for 'Content-Type'
           body: formData,
         }
       );
