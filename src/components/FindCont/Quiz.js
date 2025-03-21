@@ -71,51 +71,47 @@ const Quiz = () => {
   const handleSubmit = async () => {
     setSubmitting(true);
     setError(null);
-
+  
     try {
       for (const [questionId, answerObj] of Object.entries(responses)) {
-        const question = questions.find(
-          (q) => q.id === parseInt(questionId, 10)
-        );
+        const question = questions.find(q => q.id === parseInt(questionId, 10));
         let formData = new FormData();
-
-        // Append the question id (adjust key name if needed)
+  
         formData.append("quiz_id", questionId);
-
-        // Handle different question types
+  
         if (question.question_type === "text_with_image") {
-          // Append text answer and image file if provided
-          formData.append("text", answerObj.text || "");
+          formData.append("text", answerObj.text || ""); // ✅ Ensure text is appended
           if (answerObj.image && answerObj.image instanceof File) {
-            formData.append("image", answerObj.image);
+            formData.append("image", answerObj.image);  // ✅ Ensure file is appended
           }
         } else if (question.question_type === "image") {
-          // Direct image upload from a file input
           if (answerObj instanceof File) {
             formData.append("image", answerObj);
           }
         } else {
-          // For text, multiple_choice, or date types
           formData.append("answer", answerObj);
         }
-
+  
+        // 🔍 Log FormData contents before sending
+        console.log("📤 Submitting FormData:", [...formData.entries()]);
+  
         const response = await fetch(
           `${process.env.REACT_APP_BACKEND_URL}/api/quiz/submit/`,
           {
             method: "POST",
             headers: {
-              ...getAuthHeaders(), // Do not set 'Content-Type' with FormData!
+              ...getAuthHeaders(), // Do NOT set 'Content-Type' with FormData!
             },
             body: formData,
           }
         );
-
+  
         if (!response.ok) {
           const errorData = await response.json();
           throw new Error(errorData.error || "Failed to submit response");
         }
       }
-
+  
       setSubmitted(true);
       alert("Thank you! Your responses have been submitted.");
     } catch (err) {
