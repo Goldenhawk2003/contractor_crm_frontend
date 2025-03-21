@@ -722,212 +722,180 @@ background-color: #ECF0FC;
   display: block;
   background-color:transparent;
 }
-
-/* === GENERAL MOBILE STYLES === */
 @media screen and (max-width: 768px) {
-  
-  /* General Page Adjustments */
+
   html, body {
     width: 100%;
-    overflow-x: hidden; /* Prevent horizontal scrolling */
+    overflow-x: hidden;
   }
 
-  /* HEADER */
-  .nav-container {
-    padding: 10px 10px;
-    width: 100%;
-  }
-
-  .nav-logo {
-    height: 35px; /* Smaller logo */
-  }
-
-  .hamburger-button {
-    font-size: 28px;
-    top: 10px;
-    right: 15px;
-    padding: 5px;
-  }
-
-  /* SIDEBAR MENU */
-  .sidebar {
-    width: 80%;
-    max-width: 280px;
-  }
-
-  .sidebar-item {
-    font-size: 18px;
-    padding: 15px;
-  }
-
-  /* HERO SECTION */
+  /* HERO */
   .hero-section {
-    height: 60vh;
-    padding-top: 10%;
-    text-align: center; /* Center align on mobile */
+    height: auto;
+    padding: 15% 5% 10%;
+    text-align: center;
   }
 
   .Hero-header {
-    font-size: 2.4rem; /* Smaller heading */
+    font-size: 2.4rem;
     text-align: center;
-    padding: 0 5%;
+    padding: 0;
+    line-height: 1.3;
   }
 
-  /* TRUST SECTION */
+  /* TRUST */
   .trust {
-    flex-direction: column; /* Stack elements vertically */
+    flex-direction: column;
+    padding: 10% 5%;
     text-align: center;
-    padding: 5%;
+    gap: 20px;
   }
 
   .trust-header {
-    font-size: 2.5rem;
-    padding-left: 0;
-    width: 100%;
-    text-align: center;
+    font-size: 2rem;
+    padding: 0;
   }
 
   .trust-p {
     width: 100%;
-    text-align: center;
-    padding-left: 0;
+    font-size: 1rem;
   }
 
   .trust-button {
-    width: 80%;
-    margin: 0 auto;
+    width: 100%;
+    margin: 20px auto 0;
   }
 
   .contractor_img {
-    width: 80%;
-    margin: 20px auto;
+    width: 100%;
+    max-width: 350px;
+    margin: 0 auto;
   }
 
-  /* SERVICES SECTION */
+  /* SERVICES */
   .services-section {
-    padding: 5%;
+    padding: 10% 5%;
+    background: linear-gradient(to bottom, #f8f8f8 70%, #1B3656 30%);
   }
 
   .service-header {
-    font-size: 2.5rem;
-    width: 90%;
+    font-size: 2rem;
+    width: 100%;
   }
 
   .search-bar-container {
-    flex-direction: column; /* Stack search bar & button */
-    gap: 10px;
-  }
-
-  .search-bar {
+    flex-direction: column;
     width: 100%;
-    padding: 15px;
+    gap: 12px;
   }
 
+  .search-bar,
   .search-button {
     width: 100%;
-    padding: 15px;
   }
 
-  /* CONTRACTOR CHOICES */
   .Contractor-choices {
     flex-direction: column;
     width: 100%;
+    gap: 20px;
   }
 
   .Contractor-choices a {
-    width: 90%;
+    width: 100%;
     height: auto;
     aspect-ratio: unset;
   }
 
-  /* MATCH SECTION */
-  .match-header {
-    font-size: 2.3rem;
-    width: 80%;
+  /* WE OFFER */
+  .we-offer-header {
+    position: relative;
+    margin: 0 auto 20px;
+    font-size: 2rem;
     text-align: center;
+  }
+
+  .services-container {
+    grid-template-columns: 1fr;
+    padding: 0 5%;
+    gap: 25px;
+  }
+
+  /* MATCH */
+  .match-header {
+    font-size: 2rem;
+    width: 100%;
+    padding: 0 5%;
   }
 
   .contractor-list {
     flex-direction: column;
     align-items: center;
     padding: 0;
+    gap: 20px;
   }
 
   .contractor-card {
     width: 90%;
+    padding: 15px;
   }
 
-  /* TESTIMONIALS SECTION */
+  /* TESTIMONIALS */
   .testimonials-section {
     flex-direction: column;
-    align-items: center;
-    text-align: center;
+    padding: 10% 5%;
+    gap: 30px;
   }
 
   .testimonials-header {
+    font-size: 2rem;
     width: 100%;
     text-align: center;
-    font-size: 2.5rem;
-    padding: 0;
   }
 
   .testimonials-container {
-    max-width: 100%;
     justify-content: center;
   }
 
   .testimonial-card {
     width: 90%;
-    margin: 10px auto;
+    margin: 0 auto;
   }
 
-  /* EXPLORE SECTION */
+  /* EXPLORE */
   .Explore-header {
-    font-size: 2.5rem;
-    text-align: center;
+    font-size: 2rem;
     padding: 0;
+    text-align: center;
   }
 
   .ContractorExplore {
     flex-direction: column;
     width: 100%;
+    gap: 20px;
   }
 
   .ContractorExplore a {
-    width: 90%;
+    width: 100%;
     height: auto;
   }
 
-  /* PROCESS SECTION */
-  .our-process {
-    padding: 5%;
-    text-align: center;
-  }
-
+  /* PROCESS */
   .our-header {
-    font-size: 2.5rem;
-    padding-left: 0;
+    font-size: 2rem;
+    text-align: center;
+    padding: 0;
   }
 
   .process-p {
+    font-size: 1rem;
     width: 100%;
-    text-align: center;
-    padding-left: 0;
-  }
-
-  /* SERVICES GRID */
-  .services-container {
-    grid-template-columns: repeat(2, 1fr); /* Two columns instead of four */
-    gap: 20px;
-    padding: 5%;
-  }
-
-  .service {
+    padding: 0;
     text-align: center;
   }
 
   /* FOOTER */
   footer {
     text-align: center;
+    padding: 10% 5%;
   }
 }
