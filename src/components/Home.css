@@ -803,16 +803,6 @@ background-color: #ECF0FC;
     margin: 20px auto;
   }
 
-  /* SERVICES SECTION */
-  .services-section {
-    padding: 5%;
-  }
-
-  .service-header {
-    font-size: 2.5rem;
-    width: 90%;
-  }
-
   .search-bar-container {
     flex-direction: column; /* Stack search bar & button */
     gap: 10px;

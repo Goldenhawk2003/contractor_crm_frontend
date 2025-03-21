@@ -195,7 +195,7 @@ const Quiz = () => {
       className="quiz-textarea"
     />
     <input
-      type="file"
+      type="image"
       accept="image/*"
       onChange={(e) =>
         handleChange(currentQuestion.id, {
