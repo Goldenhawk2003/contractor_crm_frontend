@@ -92,7 +92,9 @@ const Quiz = () => {
           formData.append("image", answerObj.image);
         }
       }
-
+      for (let pair of formData.entries()) {
+        console.log(pair[0] + ": ", pair[1]);
+      }
       const response = await fetch(
         `${process.env.REACT_APP_BACKEND_URL}/api/quiz/submit/`,
         {
