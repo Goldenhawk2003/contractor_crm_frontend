@@ -68,54 +68,62 @@ const Quiz = () => {
   };
 
   // Submit all responses using token-based authentication
- // Submit all responses using token-based authentication
- const handleSubmit = async () => {
-  setSubmitting(true);
-  setError(null);
+  const handleSubmit = async () => {
+    setSubmitting(true);
+    setError(null);
 
-  try {
-    for (const [questionId, answerObj] of Object.entries(responses)) {
-      const question = questions.find((q) => q.id === parseInt(questionId));
-      let formData = new FormData();
+    try {
+      for (const [questionId, answerObj] of Object.entries(responses)) {
+        const question = questions.find(
+          (q) => q.id === parseInt(questionId, 10)
+        );
+        let formData = new FormData();
 
-      formData.append("quiz_id", questionId);
+        // Append the question id (adjust key name if needed)
+        formData.append("quiz_id", questionId);
 
-      if (question.question_type === "image") {
-        if (answerObj instanceof File) {
-          formData.append("image", answerObj);
+        // Handle different question types
+        if (question.question_type === "text_with_image") {
+          // Append text answer and image file if provided
+          formData.append("text", answerObj.text || "");
+          if (answerObj.image && answerObj.image instanceof File) {
+            formData.append("image", answerObj.image);
+          }
+        } else if (question.question_type === "image") {
+          // Direct image upload from a file input
+          if (answerObj instanceof File) {
+            formData.append("image", answerObj);
+          }
+        } else {
+          // For text, multiple_choice, or date types
+          formData.append("answer", answerObj);
         }
-        if (answerObj.image) {
-          formData.append("image", answerObj.image);
+
+        const response = await fetch(
+          `${process.env.REACT_APP_BACKEND_URL}/api/quiz/submit/`,
+          {
+            method: "POST",
+            headers: {
+              ...getAuthHeaders(), // Do not set 'Content-Type' with FormData!
+            },
+            body: formData,
+          }
+        );
+
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.error || "Failed to submit response");
         }
-      } else {
-        formData.append("answer", answerObj);
       }
 
-      const response = await fetch(
-        `${process.env.REACT_APP_BACKEND_URL}/api/quiz/submit/`,
-        {
-          method: "POST",
-          headers: {
-            ...getAuthHeaders(), // Assuming getAuthHeaders does NOT set 'Content-Type' (let FormData handle it)
-          },
-          body: formData,
-        }
-      );
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || "Failed to submit response");
-      }
+      setSubmitted(true);
+      alert("Thank you! Your responses have been submitted.");
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setSubmitting(false);
     }
-
-    setSubmitted(true);
-    alert("Thank you! Your responses have been submitted.");
-  } catch (err) {
-    setError(err.message);
-  } finally {
-    setSubmitting(false);
-  }
-};
+  };
 
   if (loading) return <p className="loading-message">Loading questions...</p>;
   if (error) return <p className="error-message">{error}</p>;
@@ -139,7 +147,9 @@ const Quiz = () => {
       <div key={currentQuestion.id} className="quiz-question-container">
         <div className="quiz-question">
           <h2>{currentQuestion.question}</h2>
-          {currentQuestion.description && <p>{currentQuestion.description}</p>}
+          {currentQuestion.description && (
+            <p>{currentQuestion.description}</p>
+          )}
         </div>
         <div className="quiz-options">
           {currentQuestion.question_type === "text" && (
@@ -172,56 +182,56 @@ const Quiz = () => {
                 </label>
               </div>
             ))}
-            {currentQuestion.question_type === "date" && (
-  <DatePicker
-    selected={responses[currentQuestion.id] || null}
-    onChange={(date) => handleChange(currentQuestion.id, date)}
-    showTimeSelect
-    dateFormat="Pp"
-    placeholderText="Select a date and time"
-    className="quiz-datepicker"
-  />
-)}
-{currentQuestion.question_type === "text_with_image" && (
-  <div className="quiz-text-image">
-    <textarea
-      placeholder="Type your answer here..."
-      rows="4"
-      value={responses[currentQuestion.id]?.text || ""}
-      onChange={(e) =>
-        handleChange(currentQuestion.id, {
-          ...responses[currentQuestion.id],
-          text: e.target.value,
-        })
-      }
-      className="quiz-textarea"
-    />
-    <input
-      type="file"
-      accept="image/*"
-      onChange={(e) =>
-        handleChange(currentQuestion.id, {
-          ...responses[currentQuestion.id],
-          image: e.target.files[0],
-        })
-      }
-      className="quiz-file-upload"
-    />
-  </div>
-)}
-{currentQuestion.question_type === "image" && (
-  <div className="quiz-image-upload">
-    <p>Upload an image</p>
-    <input
-      type="file"
-      accept="image/*"
-      onChange={(e) =>
-        handleChange(currentQuestion.id, e.target.files[0])
-      }
-      className="quiz-file-upload"
-    />
-  </div>
-)}
+          {currentQuestion.question_type === "date" && (
+            <DatePicker
+              selected={responses[currentQuestion.id] || null}
+              onChange={(date) => handleChange(currentQuestion.id, date)}
+              showTimeSelect
+              dateFormat="Pp"
+              placeholderText="Select a date and time"
+              className="quiz-datepicker"
+            />
+          )}
+          {currentQuestion.question_type === "text_with_image" && (
+            <div className="quiz-text-image">
+              <textarea
+                placeholder="Type your answer here..."
+                rows="4"
+                value={responses[currentQuestion.id]?.text || ""}
+                onChange={(e) =>
+                  handleChange(currentQuestion.id, {
+                    ...(responses[currentQuestion.id] || {}),
+                    text: e.target.value,
+                  })
+                }
+                className="quiz-textarea"
+              />
+              <input
+                type="file"
+                accept="image/*"
+                onChange={(e) =>
+                  handleChange(currentQuestion.id, {
+                    ...(responses[currentQuestion.id] || {}),
+                    image: e.target.files[0],
+                  })
+                }
+                className="quiz-file-upload"
+              />
+            </div>
+          )}
+          {currentQuestion.question_type === "image" && (
+            <div className="quiz-image-upload">
+              <p>Upload an image</p>
+              <input
+                type="file"
+                accept="image/*"
+                onChange={(e) =>
+                  handleChange(currentQuestion.id, e.target.files[0])
+                }
+                className="quiz-file-upload"
+              />
+            </div>
+          )}
         </div>
       </div>
       <div className="quiz-navigation">
@@ -237,12 +247,15 @@ const Quiz = () => {
             Next
           </button>
         ) : (
-          <button onClick={handleSubmit} disabled={submitting} className="submit-btn">
+          <button
+            onClick={handleSubmit}
+            disabled={submitting}
+            className="submit-btn"
+          >
             {submitting ? "Submitting..." : "Submit"}
           </button>
         )}
       </div>
-     
     </div>
   );
 };
