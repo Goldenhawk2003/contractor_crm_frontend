@@ -53,6 +53,7 @@ const Layout = () => {
         </button>
         <nav className="sidebar-layout-menu">
           {isSuperUser && <Link to="/dashboard" className="sidebar-layout-item">Dashboard</Link>}
+          <Link to="/" className="sidebar-layout-item">Home</Link>
           <Link to="/AboutUs" className="sidebar-layout-item">About Us</Link>
           <Link to="/Browse-contractors" className="sidebar-layout-item">Services</Link>
           <Link to="/contact" className="sidebar-layout-item">Contact Us</Link>
