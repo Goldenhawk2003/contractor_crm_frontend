@@ -76,47 +76,26 @@ const Quiz = () => {
   try {
     for (const [questionId, answerObj] of Object.entries(responses)) {
       const question = questions.find((q) => q.id === parseInt(questionId));
-      const formData = new FormData();
+      let formData = new FormData();
 
       formData.append("quiz_id", questionId);
 
       if (question.question_type === "text_with_image") {
-        // If the user didn't answer at all, answerObj might be undefined
-        const text = answerObj?.text || "";
-        const image = answerObj?.image;
-
-        formData.append("answer", text);
-
-        if (image instanceof File) {
-          formData.append("image", image);
-          console.log("✅ Image attached:", image.name);
-        } else {
-          console.warn("⚠️ No valid image file found for question", questionId);
+        formData.append("answer", answerObj.text || "");
+        if (answerObj.image) {
+          formData.append("image", answerObj.image);
         }
-
-      } else if (question.question_type === "date") {
-        if (answerObj) {
-          formData.append("answer_date", new Date(answerObj).toISOString());
-        }
-
-      } else if (question.question_type === "multiple_choice") {
-        formData.append("selected_choice", answerObj || "");
-
       } else {
-        // Generic text input
-        formData.append("answer", answerObj || "");
-      }
-
-      // Debug: Show what's being sent
-      for (let [key, value] of formData.entries()) {
-        console.log(`[${key}] ->`, value);
+        formData.append("answer", answerObj);
       }
 
       const response = await fetch(
         `${process.env.REACT_APP_BACKEND_URL}/api/quiz/submit/`,
         {
           method: "POST",
-          headers: getAuthHeaders(), // Do NOT set Content-Type here
+          headers: {
+            ...getAuthHeaders(), // Assuming getAuthHeaders does NOT set 'Content-Type' (let FormData handle it)
+          },
           body: formData,
         }
       );
@@ -130,7 +109,6 @@ const Quiz = () => {
     setSubmitted(true);
     alert("Thank you! Your responses have been submitted.");
   } catch (err) {
-    console.error("❌ Submit error:", err);
     setError(err.message);
   } finally {
     setSubmitting(false);
