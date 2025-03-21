@@ -80,8 +80,10 @@ const Quiz = () => {
 
       formData.append("quiz_id", questionId);
 
-      if (question.question_type === "text_with_image") {
-        formData.append("answer", answerObj.text || "");
+      if (question.question_type === "image") {
+        if (answerObj instanceof File) {
+          formData.append("image", answerObj);
+        }
         if (answerObj.image) {
           formData.append("image", answerObj.image);
         }
@@ -202,6 +204,19 @@ const Quiz = () => {
           ...responses[currentQuestion.id],
           image: e.target.files[0],
         })
+      }
+      className="quiz-file-upload"
+    />
+  </div>
+)}
+{currentQuestion.question_type === "image" && (
+  <div className="quiz-image-upload">
+    <p>Upload an image</p>
+    <input
+      type="file"
+      accept="image/*"
+      onChange={(e) =>
+        handleChange(currentQuestion.id, e.target.files[0])
       }
       className="quiz-file-upload"
     />
