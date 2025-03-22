@@ -140,8 +140,8 @@ const ContractorProfile = () => {
     <div className="cont-contractor-profile">
       <div className="cont-profile-header">
         <div className="cont-profile-left">
-        {logoUrl && (
-    <img src={logoUrl} alt="Contractor Logo" className="cont-logo-img" />
+           {logoUrl && (
+    <img src={logoUrl} alt="Contractor Logo" className="cont-profile-img" />
   )}
         </div>
 
