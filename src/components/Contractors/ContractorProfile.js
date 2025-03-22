@@ -106,9 +106,7 @@ const ContractorProfile = () => {
   if (errorMessage) return <p className="error-message">{errorMessage}</p>;
   if (!contractor) return <p>Loading contractor details...</p>;
 
-  const logoUrl = contractor.logo?.startsWith("http")
-    ? contractor.logo
-    : `${process.env.REACT_APP_BACKEND_URL}${contractor.logo}`;
+  const logoUrl = contractor.logo_url;
 
   const handleChatNow = () => {
     Navigate(`/start-conversation?username=${contractor.username}`);
@@ -142,7 +140,9 @@ const ContractorProfile = () => {
     <div className="cont-contractor-profile">
       <div className="cont-profile-header">
         <div className="cont-profile-left">
-          <img src={logoUrl} alt="Contractor Logo" className="cont-profile-img" />
+        {logoUrl && (
+    <img src={logoUrl} alt="Contractor Logo" className="cont-logo-img" />
+  )}
         </div>
 
         <div className="cont-profile-right">
