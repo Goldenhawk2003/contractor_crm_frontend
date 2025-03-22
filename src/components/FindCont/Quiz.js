@@ -78,20 +78,20 @@ const Quiz = () => {
         let formData = new FormData();
   
         formData.append("quiz_id", questionId);
-  
         if (question.question_type === "text_with_image") {
-          formData.append("quiz_id", questionId);
-          formData.append("answer", answerObj.text || "");
-          if (answerObj.image instanceof File) {
-            formData.append("answer_image", answerObj.image);
+          formData.append("quiz", questionId); // Pass the quiz ID with key "quiz"
+          formData.append("answer", answerObj.text || ""); // Must be "answer"
+          if (answerObj.image && answerObj.image instanceof File) {
+            formData.append("answer_image", answerObj.image); // Must be "answer_image"
           }
         } else if (question.question_type === "image") {
+          formData.append("quiz", questionId);
           if (answerObj instanceof File) {
             formData.append("answer_image", answerObj);
           }
-        } else if (question.question_type === "date") {
-          formData.append("answer", answerObj?.toString() || "");
         } else {
+          // For text, multiple choice, date, etc.
+          formData.append("quiz", questionId);
           formData.append("answer", answerObj || "");
         }
   
