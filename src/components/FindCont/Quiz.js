@@ -78,24 +78,23 @@ const Quiz = () => {
         let formData = new FormData();
   
         formData.append("quiz_id", questionId);
-        formData.append("answer", answerObj.text || ""); // ✅ send as "answer"
-        if (answerObj.image && answerObj.image instanceof File) {
-            formData.append("answer_image", answerObj.image); // ✅ exact match
-          }
+  
         if (question.question_type === "text_with_image") {
-          formData.append("text", answerObj.text || ""); // ✅ Ensure text is appended
-          if (answerObj.image && answerObj.image instanceof File) {
-            formData.append("image", answerObj.image);  // ✅ Ensure file is appended
+          // ✅ Proper text and image fields
+          formData.append("text", answerObj?.text || "");
+          if (answerObj?.image instanceof File) {
+            formData.append("answer_image", answerObj.image);
           }
         } else if (question.question_type === "image") {
           if (answerObj instanceof File) {
-            formData.append("image", answerObj);
+            formData.append("answer_image", answerObj);
           }
+        } else if (question.question_type === "date") {
+          formData.append("answer", answerObj?.toString() || "");
         } else {
-          formData.append("answer", answerObj);
+          formData.append("answer", answerObj || "");
         }
   
-        // 🔍 Log FormData contents before sending
         console.log("📤 Submitting FormData:", [...formData.entries()]);
   
         const response = await fetch(
@@ -103,7 +102,7 @@ const Quiz = () => {
           {
             method: "POST",
             headers: {
-              ...getAuthHeaders(), // Do NOT set 'Content-Type' with FormData!
+              ...getAuthHeaders(),
             },
             body: formData,
           }
