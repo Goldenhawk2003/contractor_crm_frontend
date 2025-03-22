@@ -78,7 +78,10 @@ const Quiz = () => {
         let formData = new FormData();
   
         formData.append("quiz_id", questionId);
-  
+        formData.append("answer", answerObj.text || ""); // ✅ send as "answer"
+        if (answerObj.image && answerObj.image instanceof File) {
+            formData.append("answer_image", answerObj.image); // ✅ exact match
+          }
         if (question.question_type === "text_with_image") {
           formData.append("text", answerObj.text || ""); // ✅ Ensure text is appended
           if (answerObj.image && answerObj.image instanceof File) {
