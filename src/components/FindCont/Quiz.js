@@ -80,9 +80,10 @@ const Quiz = () => {
         formData.append("quiz_id", questionId);
   
         if (question.question_type === "text_with_image") {
-          formData.append("answer", answerObj?.text || ""); // ✅ Save as 'answer'
-          if (answerObj?.image instanceof File) {
-            formData.append("answer_image", answerObj.image); // ✅ Save as 'answer_image'
+          formData.append("quiz_id", questionId);
+          formData.append("answer", answerObj.text || "");
+          if (answerObj.image instanceof File) {
+            formData.append("answer_image", answerObj.image);
           }
         } else if (question.question_type === "image") {
           if (answerObj instanceof File) {
