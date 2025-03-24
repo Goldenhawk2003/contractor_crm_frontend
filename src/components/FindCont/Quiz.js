@@ -75,23 +75,29 @@ const Quiz = () => {
     try {
       for (const [questionId, answerObj] of Object.entries(responses)) {
         const question = questions.find(q => q.id === parseInt(questionId, 10));
-        let formData = new FormData();
+        const formData = new FormData();
   
-        formData.append("quiz_id", questionId);
+        const parsedId = parseInt(questionId, 10);
+        formData.append("quiz", parsedId); // must be an integer
+  
         if (question.question_type === "text_with_image") {
-          formData.append("quiz", questionId); // Pass the quiz ID with key "quiz"
-          formData.append("answer", answerObj.text || ""); // Must be "answer"
+          formData.append("answer", answerObj.text || "");
           if (answerObj.image && answerObj.image instanceof File) {
-            formData.append("answer_image", answerObj.image); // Must be "answer_image"
+            formData.append("answer_image", answerObj.image);
           }
         } else if (question.question_type === "image") {
-          formData.append("quiz", questionId);
           if (answerObj instanceof File) {
             formData.append("answer_image", answerObj);
           }
+          // No answer field for pure image question
+        } else if (question.question_type === "date") {
+          if (answerObj instanceof Date) {
+            formData.append("answer", answerObj.toISOString());
+          } else {
+            formData.append("answer", "");
+          }
         } else {
-          // For text, multiple choice, date, etc.
-          formData.append("quiz", questionId);
+          // text or multiple choice
           formData.append("answer", answerObj || "");
         }
   
