@@ -1,33 +1,17 @@
-import "./Quiz.css";
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
-const QuizComponent = () => {
-  const [questions, setQuestions] = useState([
-    {
-      id: 1,
-      text: "What's your name?",
-      question_type: "text",
-    },
-    {
-      id: 2,
-      text: "Upload an image and explain it",
-      question_type: "text_image",
-    },
-    {
-      id: 3,
-      text: "Pick a date and time",
-      question_type: "datetime",
-    },
-    {
-      id: 4,
-      text: "What's your favorite color?",
-      question_type: "mcq",
-      options: ["Red", "Blue", "Green", "Yellow"],
-    },
-  ]);
+const BASE_URL = 'https://ecc-backend-31b43c38f51f.herokuapp.com';
 
+const QuizComponent = () => {
+  const [questions, setQuestions] = useState([]);
   const [answers, setAnswers] = useState({});
+
+  useEffect(() => {
+    axios.get(`${BASE_URL}/api/questions/`)
+      .then((res) => setQuestions(res.data))
+      .catch((err) => console.error('Error loading questions:', err));
+  }, []);
 
   const handleChange = (questionId, field, value) => {
     setAnswers((prev) => ({
@@ -40,26 +24,27 @@ const QuizComponent = () => {
     }));
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     const formData = new FormData();
 
-    Object.entries(answers).forEach(([key, value], idx) => {
-      const { image_answer, ...textData } = value;
-      formData.append('answers', JSON.stringify(textData));
+    Object.entries(answers).forEach(([id, data], idx) => {
+      const { image_answer, ...rest } = data;
+      formData.append('answers', JSON.stringify(rest));
       if (image_answer) {
         formData.append(`image_answer_${idx}`, image_answer);
       }
     });
 
     try {
-      const response = await axios.post('/api/submit-answers/', formData, {
+      const token = localStorage.getItem('token');
+      await axios.post(`${BASE_URL}/api/submit-answers/`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
-          Authorization: `Bearer ${localStorage.getItem('token')}`,
+          Authorization: `Bearer ${token}`,
         },
       });
-      alert('Submitted successfully!');
-      console.log(response.data);
+      alert('Quiz submitted!');
     } catch (err) {
       console.error('Error submitting:', err);
       alert('Submission failed.');
@@ -68,11 +53,11 @@ const QuizComponent = () => {
 
   return (
     <div className="quiz-container">
-      <h2>Quiz</h2>
-      <form onSubmit={(e) => { e.preventDefault(); handleSubmit(); }}>
+      <h2>Answer the Quiz</h2>
+      <form onSubmit={handleSubmit}>
         {questions.map((q) => (
           <div key={q.id} className="question-block">
-            <label>{q.text}</label>
+            <label><strong>{q.text}</strong></label>
 
             {q.question_type === 'text' && (
               <input
@@ -127,8 +112,7 @@ const QuizComponent = () => {
             )}
           </div>
         ))}
-
-        <button type="submit">Submit Quiz</button>
+        <button type="submit">Submit</button>
       </form>
     </div>
   );
