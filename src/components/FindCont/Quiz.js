@@ -115,8 +115,9 @@ const Quiz = () => {
         );
   
         if (!response.ok) {
-          const errorData = await response.json();
-          throw new Error(errorData.error || "Failed to submit response");
+          const text = await response.text();
+          console.error("Server Error Response:", text);
+          throw new Error(`Submission failed: ${response.status} ${response.statusText}`);
         }
       }
   
