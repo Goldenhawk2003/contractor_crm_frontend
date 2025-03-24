@@ -1,268 +1,137 @@
-import React, { useState, useEffect } from "react";
 import "./Quiz.css";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
+import React, { useState } from 'react';
+import axios from 'axios';
 
-// Helper: Get token-based auth headers
-const getAuthHeaders = () => {
-  const token = localStorage.getItem("access_token");
-  return token ? { Authorization: `Bearer ${token}` } : {};
-};
+const QuizComponent = () => {
+  const [questions, setQuestions] = useState([
+    {
+      id: 1,
+      text: "What's your name?",
+      question_type: "text",
+    },
+    {
+      id: 2,
+      text: "Upload an image and explain it",
+      question_type: "text_image",
+    },
+    {
+      id: 3,
+      text: "Pick a date and time",
+      question_type: "datetime",
+    },
+    {
+      id: 4,
+      text: "What's your favorite color?",
+      question_type: "mcq",
+      options: ["Red", "Blue", "Green", "Yellow"],
+    },
+  ]);
 
-const Quiz = () => {
-  const [questions, setQuestions] = useState([]);
-  const [responses, setResponses] = useState({});
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [submitting, setSubmitting] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [answers, setAnswers] = useState({});
 
-  // Fetch quiz questions using the environment variable and token headers
-  useEffect(() => {
-    const fetchQuestions = async () => {
-      try {
-        const response = await fetch(
-          `${process.env.REACT_APP_BACKEND_URL}/api/quiz/questions/`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              ...getAuthHeaders(),
-            },
-          }
-        );
-        if (!response.ok) {
-          throw new Error("Failed to fetch questions");
-        }
-        const data = await response.json();
-        setQuestions(data.questions);
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchQuestions();
-  }, []);
-
-  // Handle response changes for each question
-  const handleChange = (questionId, value) => {
-    setResponses((prevResponses) => ({
-      ...prevResponses,
-      [questionId]: value,
+  const handleChange = (questionId, field, value) => {
+    setAnswers((prev) => ({
+      ...prev,
+      [questionId]: {
+        ...prev[questionId],
+        [field]: value,
+        question: questionId,
+      },
     }));
   };
 
-  const handleNext = () => {
-    if (currentQuestionIndex < questions.length - 1) {
-      setCurrentQuestionIndex(currentQuestionIndex + 1);
-    }
-  };
-
-  const handlePrevious = () => {
-    if (currentQuestionIndex > 0) {
-      setCurrentQuestionIndex(currentQuestionIndex - 1);
-    }
-  };
-
-  // Submit all responses using token-based authentication
   const handleSubmit = async () => {
-    setSubmitting(true);
-    setError(null);
-  
-    try {
-      for (const [questionId, answerObj] of Object.entries(responses)) {
-        const question = questions.find(q => q.id === parseInt(questionId, 10));
-        const formData = new FormData();
-  
-        const parsedId = parseInt(questionId, 10);
-        formData.append("quiz", parsedId); // must be an integer
-  
-        if (question.question_type === "text_with_image") {
-          formData.append("answer", answerObj.text || "");
-          if (answerObj.image && answerObj.image instanceof File) {
-            formData.append("answer_image", answerObj.image);
-          }
-        } else if (question.question_type === "image") {
-          if (answerObj instanceof File) {
-            formData.append("answer_image", answerObj);
-          }
-          // No answer field for pure image question
-        } else if (question.question_type === "date") {
-          if (answerObj instanceof Date) {
-            formData.append("answer", answerObj.toISOString());
-          } else {
-            formData.append("answer", "");
-          }
-        } else {
-          // text or multiple choice
-          formData.append("answer", answerObj || "");
-        }
-  
-        console.log("📤 Submitting FormData:", [...formData.entries()]);
-  
-        const response = await fetch(
-          `${process.env.REACT_APP_BACKEND_URL}/api/quiz/submit/`,
-          {
-            method: "POST",
-            headers: {
-              ...getAuthHeaders(),
-            },
-            body: formData,
-          }
-        );
-  
-        if (!response.ok) {
-          const text = await response.text();
-          console.error("Server Error Response:", text);
-          throw new Error(`Submission failed: ${response.status} ${response.statusText}`);
-        }
+    const formData = new FormData();
+
+    Object.entries(answers).forEach(([key, value], idx) => {
+      const { image_answer, ...textData } = value;
+      formData.append('answers', JSON.stringify(textData));
+      if (image_answer) {
+        formData.append(`image_answer_${idx}`, image_answer);
       }
-  
-      setSubmitted(true);
-      alert("Thank you! Your responses have been submitted.");
+    });
+
+    try {
+      const response = await axios.post('/api/submit-answers/', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      });
+      alert('Submitted successfully!');
+      console.log(response.data);
     } catch (err) {
-      setError(err.message);
-    } finally {
-      setSubmitting(false);
+      console.error('Error submitting:', err);
+      alert('Submission failed.');
     }
   };
-
-  if (loading) return <p className="loading-message">Loading questions...</p>;
-  if (error) return <p className="error-message">{error}</p>;
-
-  const currentQuestion = questions[currentQuestionIndex];
 
   return (
     <div className="quiz-container">
-      <div className="quiz-header">
-        <h1>Help Us Help You</h1>
-        <p>
-          Our custom quiz is designed to help you find the best match for your
-          needs.
-        </p>
-      </div>
-      {submitted && (
-        <p className="success-message">
-          Your responses have been submitted. Thank you!
-        </p>
-      )}
-      <div key={currentQuestion.id} className="quiz-question-container">
-        <div className="quiz-question">
-          <h2>{currentQuestion.question}</h2>
-          {currentQuestion.description && (
-            <p>{currentQuestion.description}</p>
-          )}
-        </div>
-        <div className="quiz-options">
-          {currentQuestion.question_type === "text" && (
-            <textarea
-              placeholder="Type your answer here..."
-              rows="4"
-              value={responses[currentQuestion.id] || ""}
-              onChange={(e) =>
-                handleChange(currentQuestion.id, e.target.value)
-              }
-              className="quiz-textarea"
-            />
-          )}
-          {currentQuestion.question_type === "multiple_choice" &&
-            currentQuestion.choices &&
-            currentQuestion.choices.map((choice, index) => (
-              <div key={index} className="quiz-choice">
+      <h2>Quiz</h2>
+      <form onSubmit={(e) => { e.preventDefault(); handleSubmit(); }}>
+        {questions.map((q) => (
+          <div key={q.id} className="question-block">
+            <label>{q.text}</label>
+
+            {q.question_type === 'text' && (
+              <input
+                type="text"
+                onChange={(e) =>
+                  handleChange(q.id, 'text_answer', e.target.value)
+                }
+              />
+            )}
+
+            {q.question_type === 'text_image' && (
+              <>
                 <input
-                  type="radio"
-                  id={`choice-${index}-${currentQuestion.id}`}
-                  name={`question-${currentQuestion.id}`}
-                  value={choice}
-                  checked={responses[currentQuestion.id] === choice}
+                  type="text"
+                  placeholder="Your answer"
                   onChange={(e) =>
-                    handleChange(currentQuestion.id, e.target.value)
+                    handleChange(q.id, 'text_answer', e.target.value)
                   }
                 />
-                <label htmlFor={`choice-${index}-${currentQuestion.id}`}>
-                  {choice}
-                </label>
-              </div>
-            ))}
-          {currentQuestion.question_type === "date" && (
-            <DatePicker
-              selected={responses[currentQuestion.id] || null}
-              onChange={(date) => handleChange(currentQuestion.id, date)}
-              showTimeSelect
-              dateFormat="Pp"
-              placeholderText="Select a date and time"
-              className="quiz-datepicker"
-            />
-          )}
-          {currentQuestion.question_type === "text_with_image" && (
-            <div className="quiz-text-image">
-              <textarea
-                placeholder="Type your answer here..."
-                rows="4"
-                value={responses[currentQuestion.id]?.text || ""}
-                onChange={(e) =>
-                  handleChange(currentQuestion.id, {
-                    ...(responses[currentQuestion.id] || {}),
-                    text: e.target.value,
-                  })
-                }
-                className="quiz-textarea"
-              />
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={(e) =>
+                    handleChange(q.id, 'image_answer', e.target.files[0])
+                  }
+                />
+              </>
+            )}
+
+            {q.question_type === 'datetime' && (
               <input
-                type="file"
-                accept="image/*"
+                type="datetime-local"
                 onChange={(e) =>
-                  handleChange(currentQuestion.id, {
-                    ...(responses[currentQuestion.id] || {}),
-                    image: e.target.files[0],
-                  })
+                  handleChange(q.id, 'text_answer', e.target.value)
                 }
-                className="quiz-file-upload"
               />
-            </div>
-          )}
-          {currentQuestion.question_type === "image" && (
-            <div className="quiz-image-upload">
-              <p>Upload an image</p>
-              <input
-                type="file"
-                accept="image/*"
+            )}
+
+            {q.question_type === 'mcq' && (
+              <select
                 onChange={(e) =>
-                  handleChange(currentQuestion.id, e.target.files[0])
+                  handleChange(q.id, 'text_answer', e.target.value)
                 }
-                className="quiz-file-upload"
-              />
-            </div>
-          )}
-        </div>
-      </div>
-      <div className="quiz-navigation">
-        <button
-          onClick={handlePrevious}
-          disabled={currentQuestionIndex === 0}
-          className="submit-btn"
-        >
-          Previous
-        </button>
-        {currentQuestionIndex < questions.length - 1 ? (
-          <button onClick={handleNext} className="submit-btn">
-            Next
-          </button>
-        ) : (
-          <button
-            onClick={handleSubmit}
-            disabled={submitting}
-            className="submit-btn"
-          >
-            {submitting ? "Submitting..." : "Submit"}
-          </button>
-        )}
-      </div>
+              >
+                <option value="">-- Select an option --</option>
+                {q.options.map((opt, idx) => (
+                  <option key={idx} value={opt}>
+                    {opt}
+                  </option>
+                ))}
+              </select>
+            )}
+          </div>
+        ))}
+
+        <button type="submit">Submit Quiz</button>
+      </form>
     </div>
   );
 };
 
-export default Quiz;
+export default QuizComponent;
