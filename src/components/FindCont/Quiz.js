@@ -18,11 +18,11 @@ const Quiz = () => {
   const [submitted, setSubmitted] = useState(false);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
 
-  // Fetch quiz questions using token
+  // Fetch quiz questions using the environment variable and token headers
   useEffect(() => {
     const fetchQuestions = async () => {
       try {
-        const res = await fetch(
+        const response = await fetch(
           `${process.env.REACT_APP_BACKEND_URL}/api/quiz/questions/`,
           {
             method: "GET",
@@ -32,10 +32,10 @@ const Quiz = () => {
             },
           }
         );
-        if (!res.ok) {
+        if (!response.ok) {
           throw new Error("Failed to fetch questions");
         }
-        const data = await res.json();
+        const data = await response.json();
         setQuestions(data.questions);
       } catch (err) {
         setError(err.message);
@@ -43,12 +43,16 @@ const Quiz = () => {
         setLoading(false);
       }
     };
+
     fetchQuestions();
   }, []);
 
-  // Handle changes for each question
+  // Handle response changes for each question
   const handleChange = (questionId, value) => {
-    setResponses((prev) => ({ ...prev, [questionId]: value }));
+    setResponses((prevResponses) => ({
+      ...prevResponses,
+      [questionId]: value,
+    }));
   };
 
   const handleNext = () => {
@@ -63,56 +67,53 @@ const Quiz = () => {
     }
   };
 
-  // Submit all responses
+  // Submit all responses using token-based authentication
   const handleSubmit = async () => {
     setSubmitting(true);
     setError(null);
-
+  
     try {
-      // Loop each question response
       for (const [questionId, answerObj] of Object.entries(responses)) {
-        // Find question type from your questions array
-        const question = questions.find((q) => q.id === parseInt(questionId, 10));
-        if (!question) continue;
-
-        // Build FormData
-        const formData = new FormData();
-        formData.append("quiz", questionId); // The field name "quiz" matches your FormResponseSerializer
-
-        // Distinguish question types
+        const question = questions.find(q => q.id === parseInt(questionId, 10));
+        let formData = new FormData();
+  
+        formData.append("quiz_id", questionId);
         if (question.question_type === "text_with_image") {
-          // text + image
-          if (answerObj.text) {
-            formData.append("answer", answerObj.text);
-          }
+          formData.append("quiz", questionId); // Pass the quiz ID with key "quiz"
+          formData.append("answer", answerObj.text || ""); // Must be "answer"
           if (answerObj.image && answerObj.image instanceof File) {
-            formData.append("answer_image", answerObj.image); 
+            formData.append("answer_image", answerObj.image); // Must be "answer_image"
           }
         } else if (question.question_type === "image") {
-          // image only
+          formData.append("quiz", questionId);
           if (answerObj instanceof File) {
             formData.append("answer_image", answerObj);
           }
         } else {
-          // text, multiple_choice, date, etc.
+          // For text, multiple choice, date, etc.
+          formData.append("quiz", questionId);
           formData.append("answer", answerObj || "");
         }
-
-        // Submit to your quiz submit endpoint
+  
+        console.log("📤 Submitting FormData:", [...formData.entries()]);
+  
         const response = await fetch(
           `${process.env.REACT_APP_BACKEND_URL}/api/quiz/submit/`,
           {
             method: "POST",
-            headers: { ...getAuthHeaders() }, // No 'Content-Type' => let browser handle multipart
+            headers: {
+              ...getAuthHeaders(),
+            },
             body: formData,
           }
         );
+  
         if (!response.ok) {
           const errorData = await response.json();
           throw new Error(errorData.error || "Failed to submit response");
         }
       }
-      // All done
+  
       setSubmitted(true);
       alert("Thank you! Your responses have been submitted.");
     } catch (err) {
@@ -131,27 +132,35 @@ const Quiz = () => {
     <div className="quiz-container">
       <div className="quiz-header">
         <h1>Help Us Help You</h1>
-        <p>Our custom quiz helps match your needs precisely.</p>
+        <p>
+          Our custom quiz is designed to help you find the best match for your
+          needs.
+        </p>
       </div>
-      {submitted && <p className="success-message">Responses submitted. Thanks!</p>}
-
+      {submitted && (
+        <p className="success-message">
+          Your responses have been submitted. Thank you!
+        </p>
+      )}
       <div key={currentQuestion.id} className="quiz-question-container">
         <div className="quiz-question">
           <h2>{currentQuestion.question}</h2>
-          {currentQuestion.description && <p>{currentQuestion.description}</p>}
+          {currentQuestion.description && (
+            <p>{currentQuestion.description}</p>
+          )}
         </div>
         <div className="quiz-options">
-          {/* text */}
           {currentQuestion.question_type === "text" && (
             <textarea
               placeholder="Type your answer here..."
               rows="4"
               value={responses[currentQuestion.id] || ""}
-              onChange={(e) => handleChange(currentQuestion.id, e.target.value)}
+              onChange={(e) =>
+                handleChange(currentQuestion.id, e.target.value)
+              }
               className="quiz-textarea"
             />
           )}
-          {/* multiple_choice */}
           {currentQuestion.question_type === "multiple_choice" &&
             currentQuestion.choices &&
             currentQuestion.choices.map((choice, index) => (
@@ -162,24 +171,25 @@ const Quiz = () => {
                   name={`question-${currentQuestion.id}`}
                   value={choice}
                   checked={responses[currentQuestion.id] === choice}
-                  onChange={(e) => handleChange(currentQuestion.id, e.target.value)}
+                  onChange={(e) =>
+                    handleChange(currentQuestion.id, e.target.value)
+                  }
                 />
-                <label htmlFor={`choice-${index}-${currentQuestion.id}`}>{choice}</label>
+                <label htmlFor={`choice-${index}-${currentQuestion.id}`}>
+                  {choice}
+                </label>
               </div>
             ))}
-
-          {/* date (with time) */}
           {currentQuestion.question_type === "date" && (
             <DatePicker
               selected={responses[currentQuestion.id] || null}
               onChange={(date) => handleChange(currentQuestion.id, date)}
               showTimeSelect
               dateFormat="Pp"
-              placeholderText="Select date/time"
+              placeholderText="Select a date and time"
               className="quiz-datepicker"
             />
           )}
-          {/* text_with_image */}
           {currentQuestion.question_type === "text_with_image" && (
             <div className="quiz-text-image">
               <textarea
@@ -207,23 +217,27 @@ const Quiz = () => {
               />
             </div>
           )}
-          {/* image only */}
           {currentQuestion.question_type === "image" && (
             <div className="quiz-image-upload">
               <p>Upload an image</p>
               <input
                 type="file"
                 accept="image/*"
-                onChange={(e) => handleChange(currentQuestion.id, e.target.files[0])}
+                onChange={(e) =>
+                  handleChange(currentQuestion.id, e.target.files[0])
+                }
                 className="quiz-file-upload"
               />
             </div>
           )}
         </div>
       </div>
-
       <div className="quiz-navigation">
-        <button onClick={handlePrevious} disabled={currentQuestionIndex === 0} className="submit-btn">
+        <button
+          onClick={handlePrevious}
+          disabled={currentQuestionIndex === 0}
+          className="submit-btn"
+        >
           Previous
         </button>
         {currentQuestionIndex < questions.length - 1 ? (
@@ -231,7 +245,11 @@ const Quiz = () => {
             Next
           </button>
         ) : (
-          <button onClick={handleSubmit} disabled={submitting} className="submit-btn">
+          <button
+            onClick={handleSubmit}
+            disabled={submitting}
+            className="submit-btn"
+          >
             {submitting ? "Submitting..." : "Submit"}
           </button>
         )}
