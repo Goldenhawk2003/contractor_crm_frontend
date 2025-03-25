@@ -148,27 +148,25 @@ const TutorialList = () => {
 
   const handleSelectResult = (tutorial) => {
     const imageExtensions = ["jpg", "jpeg", "png", "gif"];
-    const fileExtension = tutorial.video ? tutorial.video.split(".").pop().toLowerCase() : "";
-    const isImageTutorial = imageExtensions.includes(fileExtension);
+    const isImageTutorial = tutorial.image_url && !tutorial.video_url;
     
-    // Use full URL: if it doesn't start with http, prepend BASE_URL
-    const fullMediaUrl = tutorial.video?.startsWith("http")
-      ? tutorial.video
-      : `${BASE_URL}${tutorial.video}`;
-
-    console.log("📤 Navigating with Media URL:", fullMediaUrl, "📸 Is Image?", isImageTutorial);
-    navigate("/video-player", {
-      state: {
-        mediaUrl: tutorial.video_url,
-        isImage: isImageTutorial,
-        title: tutorial.title,
-        description: tutorial.description,
-        contractor: tutorial.uploaded_by || "Unknown",
-        createdAt: tutorial.created_at,
-        videoId: tutorial.id,
-        tags: Array.isArray(tutorial.tags) ? tutorial.tags : JSON.parse(tutorial.tags || "[]"),
-      },
-    });
+    const tags = Array.isArray(tutorial.tags)
+      ? tutorial.tags
+      : normalizeTags(tutorial.tags);
+  
+      navigate("/video-player", {
+        state: {
+          mediaUrl: isImageTutorial ? tutorial.image_url : tutorial.video_url,
+          isImage: isImageTutorial,
+          title: tutorial.title,
+          description: tutorial.description,
+          contractor: tutorial.uploaded_by || "Unknown",
+          createdAt: tutorial.created_at,
+          videoId: tutorial.id,
+          tags: Array.isArray(tutorial.tags) ? tutorial.tags : normalizeTags(tutorial.tags),
+          thumbnailUrl: tutorial.thumbnail_url,
+        },
+      });
     setSearchText("");
     setSearchResults([]);
   };
@@ -251,7 +249,7 @@ const TutorialList = () => {
                   onClick={() => handleSelectResult(tutorial)}
                 >
                   <img
-                    src={tutorial.thumbnail_url || "https://via.placeholder.com/80"}
+                    src={tutorial.thumbnail_url || "/images/IMG_2583.PNG"}
                     alt={tutorial.title}
                     className="search-thumbnail"
                   />
@@ -294,7 +292,7 @@ const TutorialList = () => {
         {filteredTutorials.map((tutorial) => (
           <div key={tutorial.id} className="tutorial-card">
             <img
-  src={tutorial.thumbnail_url || tutorial.image_url || tutorial.video_url || "https://via.placeholder.com/150"}
+  src={tutorial.thumbnail_url || tutorial.image_url || tutorial.video_url || "/images/IMG_2583.PNG"}
   alt="Tutorial Preview"
               className="tutorial-thumbnail"
               onClick={() => handleOpenTutorial(tutorial)}
