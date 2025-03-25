@@ -67,10 +67,12 @@ const EditProfile = () => {
     }
   
     axios
-      .put(`${process.env.REACT_APP_BACKEND_URL}/api/profile/update/`, formData, {
-        withCredentials: true,
-        headers: { 'Content-Type': 'multipart/form-data' },
-      })
+  .put(`${process.env.REACT_APP_BACKEND_URL}/api/profile/update/`, formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+      Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+    },
+  })
       .then(() => {
         setSuccessMsg("Profile updated successfully!");
         navigate('/dashboard');
