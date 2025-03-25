@@ -26,8 +26,16 @@ const QuizComponent = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+  
+    const token = localStorage.getItem('access_token'); // ✅ Correct token key
+  
+    if (!token) {
+      alert('You must be logged in to submit the quiz.');
+      return;
+    }
+  
     const formData = new FormData();
-
+  
     Object.entries(answers).forEach(([id, data], idx) => {
       const { image_answer, ...rest } = data;
       formData.append('answers', JSON.stringify(rest));
@@ -35,19 +43,19 @@ const QuizComponent = () => {
         formData.append(`image_answer_${idx}`, image_answer);
       }
     });
-
+  
     try {
-      const token = localStorage.getItem('token');
       await axios.post(`${BASE_URL}/api/submit-answers/`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
           Authorization: `Bearer ${token}`,
         },
+        withCredentials: true, // Optional: include if backend expects it
       });
       alert('Quiz submitted!');
     } catch (err) {
-      console.error('Error submitting:', err);
-      alert('Submission failed.');
+      console.error('❌ Error submitting:', err);
+      alert('Submission failed. See console for details.');
     }
   };
 
