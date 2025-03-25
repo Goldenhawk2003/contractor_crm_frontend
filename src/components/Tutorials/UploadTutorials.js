@@ -25,6 +25,7 @@ const UploadTutorial = () => {
   const [message, setMessage] = useState("");
   const [selectedTags, setSelectedTags] = useState([]); // Use an array for multiple tags
 
+
   const services = ["Interior", "Renovation", "Washroom", "Roofing", "Tiles", "Woodwork"];
 
   // Handle File Upload
@@ -43,26 +44,33 @@ const UploadTutorial = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     if (!title || !description || !file) {
       setMessage("Please fill out all fields and upload an image or video.");
       return;
     }
-
+  
+    const fileType = file.type;
+  
     const formData = new FormData();
     formData.append("title", title);
     formData.append("description", description);
-    formData.append("video", file);
+  
+    if (fileType.startsWith("image/")) {
+      formData.append("image", file);
+    } else if (fileType.startsWith("video/")) {
+      formData.append("video", file);
+    } else {
+      setMessage("Unsupported file type. Please upload an image or video.");
+      return;
+    }
+  
     if (thumbnail) {
       formData.append("thumbnail", thumbnail);
     }
-    formData.append("tags", JSON.stringify(selectedTags)); // Send tags as JSON
-
-    console.log("Form Data:");
-    for (let [key, value] of formData.entries()) {
-      console.log(key, value);
-    }
-
+  
+    formData.append("tags", JSON.stringify(selectedTags));
+    
     setUploading(true);
 
     try {
