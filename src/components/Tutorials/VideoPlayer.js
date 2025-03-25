@@ -36,6 +36,16 @@ const VideoPlayer = () => {
     return token ? { Authorization: `Bearer ${token}` } : {};
   };
 
+  const normalizeTags = (tags) => {
+    if (!tags) return [];
+    if (Array.isArray(tags)) return tags;
+    try {
+      return JSON.parse(tags);
+    } catch {
+      return [tags];
+    }
+  };
+  
   // Fetch tutorials for search and suggestions
   useEffect(() => {
     axios
