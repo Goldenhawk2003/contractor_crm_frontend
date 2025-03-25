@@ -109,37 +109,25 @@ const TutorialList = () => {
 
   const handleOpenTutorial = (tutorial) => {
     const imageExtensions = ["jpg", "jpeg", "png", "gif"];
-    const fileExtension = tutorial.video_url ? tutorial.video_url.split(".").pop().toLowerCase() : "";
-    const isImageTutorial = imageExtensions.includes(fileExtension);
-  
+    const isImageTutorial = tutorial.image_url && !tutorial.video_url;
+    
     const tags = Array.isArray(tutorial.tags)
       ? tutorial.tags
       : normalizeTags(tutorial.tags);
   
-    if (isImageTutorial) {
-      setSelectedTutorial({
-        video: tutorial.video_url,
-        title: tutorial.title,
-        description: tutorial.description,
-        contractor: tutorial.uploaded_by || "Unknown",
-        date: tutorial.created_at,
-        tags: tags,
-        isImage: true, // Include this flag for conditional rendering
-      });
-    } else {
       navigate("/video-player", {
         state: {
-          mediaUrl: tutorial.video_url,
-          isImage: false,
+          mediaUrl: isImageTutorial ? tutorial.image_url : tutorial.video_url,
+          isImage: isImageTutorial,
           title: tutorial.title,
           description: tutorial.description,
           contractor: tutorial.uploaded_by || "Unknown",
           createdAt: tutorial.created_at,
           videoId: tutorial.id,
-          tags: tags,
+          tags: Array.isArray(tutorial.tags) ? tutorial.tags : normalizeTags(tutorial.tags),
+          thumbnailUrl: tutorial.thumbnail_url,
         },
       });
-    }
   };
 
   const handleUpload = () => {
@@ -306,8 +294,8 @@ const TutorialList = () => {
         {filteredTutorials.map((tutorial) => (
           <div key={tutorial.id} className="tutorial-card">
             <img
-              src={tutorial.thumbnail_url || tutorial.video_url}
-              alt="Tutorial Preview"
+  src={tutorial.thumbnail_url || tutorial.image_url || tutorial.video_url || "https://via.placeholder.com/150"}
+  alt="Tutorial Preview"
               className="tutorial-thumbnail"
               onClick={() => handleOpenTutorial(tutorial)}
               onError={(e) => console.error("Image failed to load:", e.target.src)}

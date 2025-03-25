@@ -101,4 +101,33 @@
   .success-message {
     color: green;
   }
+  .error-border {
+    border: 2px solid red !important;
+  }
   
+  .error-message {
+    color: red;
+    font-size: 0.9rem;
+    margin-top: 5px;
+  }
+
+  .upload-tag {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  
+  .upload-tag {
+    padding: 8px 12px;
+    border-radius: 15px;
+    border: 1px solid #1b3656;
+    background: white;
+    color: #1b3656;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  
+  .upload-tag.active {
+    background: #1b3656;
+    color: white;
+  }
