@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import './Quiz.css';
 
 const BASE_URL = 'https://ecc-backend-31b43c38f51f.herokuapp.com';
 
