@@ -127,37 +127,3 @@
 
 /* Error Message */
 
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .log-container {
-        flex-direction: column;
-        padding: 20px;
-        width: 110%;
-    }
-
-    .contain, .sign-up {
-        max-width: 100%;
-    }
-
-    .divider {
-        display: none;
-    }
-
-    .log-header {
-        font-size: 1.5rem;
-    }
-
-    .sub {
-        font-size: 0.9rem;
-    }
-    .sign-up {
-        background-color: #ecf0fc;
-        flex: 1;
-        width: 100%;
-        text-align: center;
-        margin: 10px;
-       
-        border-radius: 10px;
-    }
-}

@@ -84,25 +84,6 @@ label {
 }
 
 
-/* Responsive Design */
-@media (max-width: 768px) {
-  .cont {
-      padding: 30px;
-      width: 100%;
-  }
-
-  .inp {
-      font-size: 0.9rem;
-  }
-
-  .sbmit {
-      font-size: 1rem;
-  }
-
-  label {
-      font-size: 0.9rem;
-  }
-}
 
 
 /* Style the select dropdown */
@@ -143,10 +124,3 @@ label {
   border-color: #dcbf79; /* Gold color */
 }
 
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .jobtype {
-    font-size: 14px;
-    padding: 8px;
-  }
-}
