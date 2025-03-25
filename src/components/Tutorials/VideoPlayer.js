@@ -91,43 +91,51 @@ const VideoPlayer = () => {
   };
 
   const handleSelectResult = (tutorial) => {
-    navigate("/video-player", {
-      state: {
-        mediaUrl: tutorial.video_url,
-        thumbnailUrl: tutorial.thumbnail_url,
-        isImage: tutorial.isImage, // or determine via file extension if needed
-        title: tutorial.title,
-        description: tutorial.description,
-        contractor: tutorial.uploaded_by || "Unknown",
-        createdAt: tutorial.created_at,
-        videoId: tutorial.id,
-        tags:
-          typeof tutorial.tags === "string"
-            ? JSON.parse(tutorial.tags || "[]")
-            : tutorial.tags,
-      },
-    });
+    const imageExtensions = ["jpg", "jpeg", "png", "gif"];
+    const isImageTutorial = tutorial.image_url && !tutorial.video_url;
+    
+    const tags = Array.isArray(tutorial.tags)
+      ? tutorial.tags
+      : normalizeTags(tutorial.tags);
+  
+      navigate("/video-player", {
+        state: {
+          mediaUrl: isImageTutorial ? tutorial.image_url : tutorial.video_url,
+          isImage: isImageTutorial,
+          title: tutorial.title,
+          description: tutorial.description,
+          contractor: tutorial.uploaded_by || "Unknown",
+          createdAt: tutorial.created_at,
+          videoId: tutorial.id,
+          tags: Array.isArray(tutorial.tags) ? tutorial.tags : normalizeTags(tutorial.tags),
+          thumbnailUrl: tutorial.thumbnail_url,
+        },
+      });
     setSearchText("");
     setSearchResults([]);
   };
 
   const handleSuggestionClick = (suggestion) => {
-    navigate("/video-player", {
-      state: {
-        mediaUrl: suggestion.video_url,
-        thumbnailUrl: suggestion.thumbnail_url,
-        isImage: suggestion.isImage,
-        title: suggestion.title,
-        description: suggestion.description,
-        contractor: suggestion.uploaded_by || "Unknown",
-        createdAt: suggestion.created_at,
-        videoId: suggestion.id,
-        tags:
-          typeof suggestion.tags === "string"
-            ? JSON.parse(suggestion.tags || "[]")
-            : suggestion.tags,
-      },
-    });
+    const imageExtensions = ["jpg", "jpeg", "png", "gif"];
+    const isImageTutorial = tutorial.image_url && !tutorial.video_url;
+    
+    const tags = Array.isArray(tutorial.tags)
+      ? tutorial.tags
+      : normalizeTags(tutorial.tags);
+  
+      navigate("/video-player", {
+        state: {
+          mediaUrl: isImageTutorial ? tutorial.image_url : tutorial.video_url,
+          isImage: isImageTutorial,
+          title: tutorial.title,
+          description: tutorial.description,
+          contractor: tutorial.uploaded_by || "Unknown",
+          createdAt: tutorial.created_at,
+          videoId: tutorial.id,
+          tags: Array.isArray(tutorial.tags) ? tutorial.tags : normalizeTags(tutorial.tags),
+          thumbnailUrl: tutorial.thumbnail_url,
+        },
+      });
   };
 
   const formattedDate = createdAt
