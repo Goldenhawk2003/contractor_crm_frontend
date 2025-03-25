@@ -8,6 +8,7 @@ const EditProfile = () => {
   const [loading, setLoading] = useState(false);
   const [successMsg, setSuccessMsg] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
+  const [originalData, setOriginalData] = useState({});
   const [profileData, setProfileData] = useState({
     name: '',
     email: '',
@@ -23,15 +24,19 @@ const EditProfile = () => {
       })
       .then((response) => {
         const { name, email, phone, address, profile_picture } = response.data;
-        setProfileData({
+        const cleanData = {
           name: name || "",
           email: email || "",
           phone: phone || "",
           address: address || "",
           profile_picture: profile_picture || null,
-        });
+        };
+        setProfileData(cleanData);
+        setOriginalData(cleanData); // Save original snapshot
       })
-      .catch((error) => console.error("Error fetching profile:", error));
+      .catch((error) => {
+        console.error("Error fetching profile:", error);
+      });
   }, []);
 
   const handleChange = (e) => {
@@ -52,7 +57,13 @@ const EditProfile = () => {
     const formData = new FormData();
   
     for (const key in profileData) {
-      formData.append(key, profileData[key]);
+      if (
+        key === "profile_picture" && profileData[key] !== null
+      ) {
+        formData.append(key, profileData[key]);
+      } else if (profileData[key] !== originalData[key]) {
+        formData.append(key, profileData[key]);
+      }
     }
   
     axios
@@ -79,21 +90,6 @@ const EditProfile = () => {
         <input type="email" name="email" value={profileData.email} onChange={handleChange} placeholder="Email" required />
         <input type="tel" name="phone" value={profileData.phone} onChange={handleChange} placeholder="Phone" />
         <input type="text" name="address" value={profileData.address} onChange={handleChange} placeholder="Address" />
-        <input type="file" name="profile_picture" onChange={handleFileChange} accept="image/*" />
-        {profileData.profile_picture && typeof profileData.profile_picture === "object" && (
-        <img
-          src={URL.createObjectURL(profileData.profile_picture)}
-          alt="Preview"
-          className="profile-preview"
-        />
-      )}
-      {profileData.profile_picture && typeof profileData.profile_picture === "string" && (
-        <img
-          src={profileData.profile_picture}
-          alt="Current"
-          className="profile-preview"
-        />
-      )}
         <button type="submit">Save Changes</button>
         {loading && <p className="loading">Updating profile...</p>}
 {successMsg && <p className="success-message">{successMsg}</p>}
