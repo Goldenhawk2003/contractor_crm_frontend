@@ -407,8 +407,8 @@ const ClientContracts = () => {
   const [receivedContracts, setReceivedContracts] = useState([]);
   const [signError, setSignError] = useState("");
   const [signSuccess, setSignSuccess] = useState("");
-  const [showFullContent, setShowFullContent] = useState(false);
-  const maxLength = 100;
+  const [expandedContracts, setExpandedContracts] = useState([]);
+  const maxLength = 120;
 
   useEffect(() => {
     axios
@@ -422,9 +422,30 @@ const ClientContracts = () => {
       .catch(() => {});
   }, []);
 
-  const toggleShowMore = useCallback(() => {
-    setShowFullContent((prev) => !prev);
-  }, []);
+  const toggleExpand = (contractId) => {
+    setExpandedContracts((prev) =>
+      prev.includes(contractId)
+        ? prev.filter((id) => id !== contractId)
+        : [...prev, contractId]
+    );
+  };
+
+  const parseContractContent = (content) => {
+    const sections = content.split(/\n(?=📅|💰|📄)/g);
+    return sections.map((section, i) => {
+      const lines = section.trim().split("\n");
+      const title = lines[0];
+      const body = lines.slice(1);
+      return (
+        <div key={i} className="contract-parsed-section">
+          <h4>{title}</h4>
+          {body.map((line, idx) => (
+            <p key={idx}>{line}</p>
+          ))}
+        </div>
+      );
+    });
+  };
 
   const signContract = useCallback(async (contractId) => {
     setSignError("");
@@ -433,10 +454,12 @@ const ClientContracts = () => {
       await axios.post(
         `${process.env.REACT_APP_BACKEND_URL}/api/sign-contract/`,
         { contract_id: contractId },
-        { headers: {
-          "Content-Type": "application/json",
-          ...getAuthHeaders(),
-        }, }
+        {
+          headers: {
+            "Content-Type": "application/json",
+            ...getAuthHeaders(),
+          },
+        }
       );
       setSignSuccess("Contract signed successfully!");
       setReceivedContracts((prev) =>
@@ -457,51 +480,53 @@ const ClientContracts = () => {
       {signError && <p className="error-message">{signError}</p>}
       {signSuccess && <p className="success-message">{signSuccess}</p>}
       <ul>
-        {receivedContracts.map((contract) => (
-          <li key={contract.id}>
-            <p>
-              <strong>Title:</strong> {contract.title}
-            </p>
-            <div>
-              <p>
-                <strong>Content:</strong>{" "}
-                {showFullContent
-                  ? contract.content
-                  : contract.content.slice(0, maxLength) +
-                    (contract.content.length > maxLength ? "..." : "")}
-              </p>
-              {contract.content.length > maxLength && (
-                <button onClick={toggleShowMore} className="show-more-button">
-                  {showFullContent ? "Show Less" : "Show More"}
-                </button>
-              )}
-            </div>
-            <p>
-              <strong>Status:</strong>{" "}
-              {contract.is_signed ? "Signed" : "Pending"}
-            </p>
-            <div className="button-container">
-              {!contract.is_signed && (
-                <button
-                  onClick={() => signContract(contract.id)}
-                  className="user-button"
-                >
-                  Sign
-                </button>
-              )}
-              {contract.is_signed && (
-                <>
-                  <p className="signed">Contract signed!</p>
-                  <p>
-                    <Link to="/payment" className="user-button">
-                      Pay Now
-                    </Link>
-                  </p>
-                </>
-              )}
-            </div>
-          </li>
-        ))}
+        {receivedContracts.map((contract) => {
+          const isExpanded = expandedContracts.includes(contract.id);
+          const shouldTruncate = contract.content.length > maxLength && !isExpanded;
+          const displayedContent = shouldTruncate
+            ? contract.content.slice(0, maxLength) + "..."
+            : contract.content;
+
+          return (
+            <li key={contract.id}>
+              <p><strong>Title:</strong> {contract.title}</p>
+
+              <div>
+                <strong>Content:</strong>
+                <div className="parsed-contract">
+                  {parseContractContent(displayedContent)}
+                </div>
+                {contract.content.length > maxLength && (
+                  <button onClick={() => toggleExpand(contract.id)} className="show-more-button">
+                    {isExpanded ? "Show Less" : "Show More"}
+                  </button>
+                )}
+              </div>
+
+              <p><strong>Status:</strong> {contract.is_signed ? "Signed" : "Pending"}</p>
+
+              <div className="button-container">
+                {!contract.is_signed ? (
+                  <button
+                    onClick={() => signContract(contract.id)}
+                    className="user-button"
+                  >
+                    Sign
+                  </button>
+                ) : (
+                  <>
+                    <p className="signed">Contract signed!</p>
+                    <p>
+                      <Link to="/payment" className="user-button">
+                        Pay Now
+                      </Link>
+                    </p>
+                  </>
+                )}
+              </div>
+            </li>
+          );
+        })}
       </ul>
     </div>
   );

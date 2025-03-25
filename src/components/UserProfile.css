@@ -522,3 +522,18 @@ textarea.user-input {
   margin-bottom: 10px;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
 }
+
+.contract-parsed-section {
+  margin-bottom: 1rem;
+}
+
+.contract-parsed-section h4 {
+  margin-bottom: 0.4rem;
+  font-size: 1.1rem;
+  color: #1b3656;
+}
+
+.contract-parsed-section p {
+  margin-left: 1rem;
+  font-size: 0.95rem;
+}
