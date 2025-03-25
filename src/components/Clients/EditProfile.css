@@ -27,3 +27,25 @@
   .profile-form button:hover {
     background-color: #091268;
   }
+
+  .profile-preview {
+    max-width: 120px;
+    height: auto;
+    margin-top: 10px;
+    border-radius: 8px;
+  }
+
+  .loading {
+    color: #1b3656;
+    font-weight: 500;
+  }
+  
+  .success-message {
+    color: green;
+    font-weight: 600;
+  }
+  
+  .error-message {
+    color: red;
+    font-weight: 600;
+  }
