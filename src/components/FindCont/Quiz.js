@@ -40,7 +40,7 @@ const QuizComponent = () => {
       const { image_answer, ...rest } = data;
       formData.append('answers', JSON.stringify(rest));
       if (image_answer) {
-        formData.append('image_answer', image_answer);
+        formData.append(`image_answer_${idx}`, image_answer);
       }
     });
   
