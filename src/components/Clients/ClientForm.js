@@ -76,10 +76,9 @@ const EditProfile = () => {
         navigate('/dashboard');
       })
       .catch((error) => {
-        console.error('Error updating profile:', error);
-        setErrorMsg("Something went wrong. Please try again.");
-      })
-      .finally(() => setLoading(false));
+        console.error("Error updating profile:", error.response || error);
+        setErrorMsg(error.response?.data?.detail || "Something went wrong. Please try again.");
+      });
   };
 
   return (
