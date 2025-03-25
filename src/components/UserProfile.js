@@ -188,14 +188,32 @@ const ProfessionalContracts = () => {
       setSendError("Please fill in all fields and select a user.");
       return;
     }
-    setSendError("");
-    setSendSuccess("");
+  
+    const startDate = document.getElementById("start-date")?.value || "Not specified";
+    const endDate = document.getElementById("end-date")?.value || "Not specified";
+    const price = document.getElementById("price")?.value || "Not specified";
+    const cycle = document.getElementById("cycle")?.value || "Not specified";
+  
+    const fullContent = `
+  📅 Project Dates:
+  Start: ${startDate}
+  End: ${endDate}
+  
+  💰 Pricing:
+  Amount: ${price}
+  Payment Cycle: ${cycle}
+  
+  📄 Terms:
+  ${newContractContent}
+    `;
+  
+    const payload = {
+      user_id: selectedUser.id,
+      title: newContractTitle,
+      contractContent: fullContent.trim(),
+    };
+  
     try {
-      const payload = {
-        user_id: selectedUser.id,
-        title: newContractTitle,
-        contractContent: newContractContent,
-      };
       await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/send-contract/`, payload, {
         headers: {
           "Content-Type": "application/json",
@@ -292,13 +310,13 @@ const ProfessionalContracts = () => {
             </div>
             <div className="form-group">
               <label>Project Start & End Date:</label>
-              <input type="date" />
-              <input type="date" />
+              <input id="start-date" type="date" />
+              <input id="end-date" type="date" />
             </div>
             <div className="form-group">
               <label>Pricing:</label>
-              <input type="text" placeholder="$" />
-              <input type="text" placeholder="Payment Cycle" />
+              <input id="price" type="text" placeholder="$" />
+<input id="cycle" type="text" placeholder="Payment Cycle" />
             </div>
           </div>
           <label>Contract Title</label>
