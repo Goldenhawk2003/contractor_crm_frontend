@@ -112,19 +112,34 @@ const TutorialList = () => {
     const fileExtension = tutorial.video_url ? tutorial.video_url.split(".").pop().toLowerCase() : "";
     const isImageTutorial = imageExtensions.includes(fileExtension);
   
-    console.log("📤 Navigating with Media URL:", tutorial.video_url, "📸 Is Image?", isImageTutorial);
-    navigate("/video-player", {
-      state: {
-        mediaUrl: tutorial.video_url,
-        isImage: isImageTutorial,
+    const tags = Array.isArray(tutorial.tags)
+      ? tutorial.tags
+      : normalizeTags(tutorial.tags);
+  
+    if (isImageTutorial) {
+      setSelectedTutorial({
+        video: tutorial.video_url,
         title: tutorial.title,
         description: tutorial.description,
         contractor: tutorial.uploaded_by || "Unknown",
-        createdAt: tutorial.created_at,
-        videoId: tutorial.id,
-        tags: Array.isArray(tutorial.tags) ? tutorial.tags : JSON.parse(tutorial.tags || "[]"),
-      },
-    });
+        date: tutorial.created_at,
+        tags: tags,
+        isImage: true, // Include this flag for conditional rendering
+      });
+    } else {
+      navigate("/video-player", {
+        state: {
+          mediaUrl: tutorial.video_url,
+          isImage: false,
+          title: tutorial.title,
+          description: tutorial.description,
+          contractor: tutorial.uploaded_by || "Unknown",
+          createdAt: tutorial.created_at,
+          videoId: tutorial.id,
+          tags: tags,
+        },
+      });
+    }
   };
 
   const handleUpload = () => {
@@ -156,7 +171,7 @@ const TutorialList = () => {
     console.log("📤 Navigating with Media URL:", fullMediaUrl, "📸 Is Image?", isImageTutorial);
     navigate("/video-player", {
       state: {
-        mediaUrl: fullMediaUrl,
+        mediaUrl: tutorial.video_url,
         isImage: isImageTutorial,
         title: tutorial.title,
         description: tutorial.description,
@@ -305,7 +320,7 @@ const TutorialList = () => {
       {/* Modal for Videos */}
       {selectedTutorial && !isImage && (
         <div className="tutorial-display-card">
-          <video controls className="tutorial-video">
+          <video controls autoPlay={false} className="tutorial-video">
             <source src={selectedTutorial.video} type="video/mp4" />
             Your browser does not support the video tag.
           </video>
