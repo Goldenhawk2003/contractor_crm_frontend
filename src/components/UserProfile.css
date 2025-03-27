@@ -1,66 +1,73 @@
 /* General layout */
 .user-profile {
   display: flex;
+  flex-direction: column; /* Stacked layout */
   min-height: 100vh;
-  background-color: #f8f8f8;
-  font-family: Arial, sans-serif;
 }
+
 
 /* Sidebar */
 .sidebar {
-  width: 250px;
-  background-color: #1B3656;
+
+  background-color: #091268;
   color: white;
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
   align-items: center;
-  padding: 20px;
-  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  padding: 12px 24px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+
 }
 
-.sidebar .logo {
-  font-size: 1.8rem;
-  font-weight: bold;
-  margin-bottom: 20px;
-  text-align: center;
-}
-
-.sidebar .logo span {
-  color: #dcbf79; /* Gold accent */
-}
-
-.sidebar .menu {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  width: 100%;
-}
-
-.sidebar .menu-item {
+.logo {
   display: flex;
   align-items: center;
-  padding-top: 8%;
-  padding-bottom: 8%;
-  padding-left: 6%;
-  border-radius: 5px;
+}
+
+.logo img {
+  height: 40px;
+}
+
+.menu {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  padding: 10px 16px;
+  border-radius: 20px;
+  background-color: #6b90ff;
   border: 1.5px solid #f8f8f8;
   color: white;
   text-decoration: none;
   font-size: 1rem;
-  transition: background-color 0.3s;
+  transition: background-color 0.3s ease;
 }
 
-.sidebar .menu-item:hover,
-.sidebar .menu-item.active {
-  background-color: #ECF0FC;
-  color: #091268; /* Green hover */
+.menu-item:hover,
+.menu-item.active {
+  background-color: #ecf0fc;
+  color: #091268;
 }
 
-.sidebar .menu-item i {
-  margin-right: 10px;
-  font-size: 1.2rem;
+.menu-item i {
+  margin-right: 8px;
 }
 
+.notification-badge {
+  margin-left: 6px;
+  background-color: red;
+  color: white;
+  padding: 0 6px;
+  border-radius: 10px;
+  font-size: 0.75rem;
+}
 /* Main content */
 .main-content {
   flex: 1;
@@ -281,12 +288,13 @@ textarea.user-input {
 /* Tab Content */
 .tab-content {
   padding: 20px;
-  background-color: #F8F8F8; /* White */
+  background-color: #ECF0FC; /* White */
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
   font-size: 1rem;
   color: #1B3656; /* Dark Blue */
   height: 100vh;
+
 }
 /* Profile Section */
 .profile-content {
@@ -309,9 +317,9 @@ textarea.user-input {
   background-color: #091268;
 }
 .profile-container{
-  float: left;
-  margin-left: 2%;
+
   margin-top: 2%;
+  text-align: left;
 }
 .profile-username{
   font-size: 35px;
@@ -536,4 +544,45 @@ textarea.user-input {
 .contract-parsed-section p {
   margin-left: 1rem;
   font-size: 0.95rem;
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    flex-direction: column;
+    align-items: center;
+    padding: 16px 12px;
+    gap: 1rem;
+ 
+    margin-left: 0;
+  }
+
+  .logo h1 {
+    font-size: 1.25rem;
+    text-align: center;
+  }
+
+  .menu {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+    width: 100%;
+  }
+
+  .menu-item {
+    padding: 8px 12px;
+    font-size: 0.9rem;
+    border-radius: 16px;
+    white-space: nowrap;
+  }
+
+  .menu-item i {
+    font-size: 1rem;
+    margin-right: 6px;
+  }
+
+  .notification-badge {
+    font-size: 0.7rem;
+    padding: 0 5px;
+    margin-left: 4px;
+  }
 }

@@ -48,10 +48,16 @@
 
 /* Tags */
 .player-tags {
-  display: flex;
-  justify-content: center;
+
   gap: 10px;
   margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.5rem; /* ✅ Removes gap between tags */
+  margin-top: 20px; /* ✅ Ensures spacing between search and tags */
+  margin-left: 8%;
+
 }
 
 .player-tag {
@@ -66,7 +72,7 @@
 }
 
 .player-tag:hover, .player-tag.active {
-  background: #091268;
+  background: #6b90ff;
   color: white;
 }
 
@@ -194,4 +200,77 @@
   text-align: center;
   margin-top: 8px;
   color: #1b3656; /* Blue shade to match your theme */
+}
+
+@media (max-width: 768px) {
+  .video-content {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    gap: 1.25rem;
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: #fff;
+  }
+  
+  .video-wrapper {
+    width: 100%;
+    aspect-ratio: 1 / 1; /* Keeps it square like Instagram */
+    overflow: hidden;
+    border-radius: 12px;
+    background-color: #eee;
+  }
+  
+  .video-wrapper img,
+  .video-wrapper video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 12px;
+  }
+  
+  .video-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .video-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #091268;
+  }
+  
+  .video-date {
+    font-size: 0.85rem;
+    color: #888;
+  }
+  
+  .contractor-info {
+    font-size: 1rem;
+    color: #333;
+  }
+  
+  .video-description {
+    font-size: 1rem;
+    color: #444;
+    line-height: 1.5;
+  }
+  
+  .submit-btn {
+    margin-top: 0.75rem;
+    padding: 12px 20px;
+    font-size: 1rem;
+    font-weight: 500;
+    background-color: #6b90ff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  
+  .submit-btn:hover {
+    background-color: #233399;
+  }
 }

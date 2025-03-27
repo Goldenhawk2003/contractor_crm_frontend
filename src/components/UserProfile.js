@@ -10,10 +10,12 @@ const getAuthHeaders = () => {
 };
 
 // ------------------- Sidebar Component -------------------
-const Sidebar = ({ activeTab, unreadMessages, setActiveTab }) => {
+const Sidebar = ({ activeTab, unreadMessages, setActiveTab, userInfo }) => {
 
   const [isMobile, setIsMobile] = useState(false);
   const navigate = useNavigate();
+
+  
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth <= 950);
@@ -24,12 +26,8 @@ const Sidebar = ({ activeTab, unreadMessages, setActiveTab }) => {
   return (
     <div className="sidebar">
       <div className="logo">
-        <img
-          src={`/images/EC_Primary_White.png`}
-          alt="Logo"
-          className="nav-logo"
-          height="50px"
-        />
+       
+      <h1>Welcome Back {userInfo?.username || "..."}</h1>
       </div>
       <div className="menu">
         <Link
@@ -809,6 +807,7 @@ const UserProfile = () => {
         activeTab={activeTab}
         unreadMessages={unreadMessages}
         setActiveTab={setActiveTab}
+        userInfo={userInfo}
       />
       <div className="main-content">
         {activeTab === "home" && <HomeTab userInfo={userInfo} />}

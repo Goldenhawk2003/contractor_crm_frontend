@@ -197,13 +197,13 @@ const VideoPlayer = () => {
       <div className="search-bar-container">
         <input
           type="text"
-          className="search-bar"
+          className="search-bar-tutorial"
           placeholder="Search tutorials..."
           value={searchText}
           onChange={handleSearch}
         />
         <button
-          className="search-button"
+          className="search-button-tutorial"
           onClick={() => searchText && handleSelectResult(searchResults[0])}
           disabled={!searchText.trim()}
         >
@@ -289,7 +289,7 @@ const VideoPlayer = () => {
                   alt={suggestion.title}
                   className="suggestion-thumbnail"
                 />
-                <h4 className="suggestion-title">{suggestion.title}</h4>
+              
               </div>
             ))
           ) : (
