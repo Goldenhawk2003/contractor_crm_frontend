@@ -17,8 +17,6 @@
   margin-bottom: 0;
   padding-top: 10%;
 
-
-  
 }
 .tutorial-intro-container{
   display: flex;
@@ -375,7 +373,7 @@
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 0.2; /* ✅ Removes gap between tags */
+  gap: 0.5rem; /* ✅ Removes gap between tags */
   margin-top: 20px; /* ✅ Ensures spacing between search and tags */
   margin-left: 8%;
   background-color: #FFFF;
@@ -384,4 +382,44 @@
 
 .image-modal, .tutorial-display-card{
   background-color: #FFFF;
+}
+
+
+
+@media (max-width: 768px) {
+
+.search-bar-container{
+  width: 90%;
+}
+
+.tutorial-heading{
+  font-size: 3.5rem;
+}
+.tutorial-intro{
+  font-size: 1.5rem;
+  width: 80%;
+}
+.tag{
+  font-size: 0.7rem;
+  width: 30%;
+}
+}
+@media (max-width: 768px) {
+  .tutorial-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Medium devices: 3 columns */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .tutorial-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Desktop: 4+ columns */
+@media (min-width: 1025px) {
+  .tutorial-grid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
 }
