@@ -3,7 +3,7 @@
     align-items: center; /* Aligns text and image */
     justify-content: space-between; /* Keeps text left and image right */
     padding: 20px;
-    background-color: #ECF0FC;
+    background-color: #6b90ff;
   }
   
   .text-content {
@@ -136,6 +136,13 @@
     padding-top: 4%;
 
   }
+.mission-container{
+  background-color: #FFFF !important;
+}
+
+.mission-container-icons{
+  background-color: #6b90ff;
+}
 
 
   .mission-image{
@@ -163,4 +170,70 @@
   .overlay-button:hover {
     background-color: white;
     color: black;
+  }
+
+
+  .mission-container-first{
+    background-color: #6b90ff !important;
+    display: block;
+    align-items: center;
+    justify-content: center;
+    text-align: left;
+    color: #ffff;
+
+  }
+  .mission-container-first p,  .mission-container-first h1, .mission-container-first h2{
+    color: #ffff;
+    padding-left: 15%;
+ 
+  }
+
+.our-mission-first{
+  border: 2px solid transparent;
+  background-color: #6b90ff !important;
+}
+  .mission-container-first p,  .mission-container-first h1{
+    font-weight: 100;
+  }
+  .mission-container-first h1{
+    padding-top: 5%;
+  }
+  .mission-container-first h2{
+    padding-top: 2%;
+    font-weight: 200;
+    font-size: 3rem;
+    width: 40%;
+  }
+  .mission-container-first p{
+    padding-bottom: 5%;
+    font-size: 1.5rem;
+    width: 33%;
+  }
+  .mission-image-first {
+    height: 500px;              /* or any fixed height */
+    width: 70%;                /* stretches full width of container */
+    object-fit:fill;          /* maintains aspect ratio & crops if needed */
+    display: block;
+    margin: 0 auto;
+    border-radius: 10px;
+  }
+
+  @media (max-width: 768px) {
+  .impact-card {
+    width: 50%;
+  }
+  .impact-content{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .story-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
   }

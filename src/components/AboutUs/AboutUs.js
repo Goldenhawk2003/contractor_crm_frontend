@@ -1,21 +1,22 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./AboutUs.css";
-import AddressAutocomplete from "../APIStuff/AutoComplete";
+import GooglePlacesInput from "../APIStuff/AutoComplete";
 
 const AboutUs = () => {
   const [selectedPlace, setSelectedPlace] = useState(null);
 
-  const handlePlaceSelected = (place) => {
-    setSelectedPlace(place);
+  const handleAddressSelected = (place) => {
     console.log('Selected place:', place);
-    // You can extract specific details from the "place" object here
   };
   return (
     <div>
       {/* About Us Section */}
-      <div className="our-mission">
-      <div className="mission-container">
-       <img src="/images/5163DC0D-2DD9-4D70-87C3-DE31114A455F.jpeg" className="mission-image" alt="About Us" />
+      <div className="our-mission-first">
+      <div className="mission-container-first">
+        <h1>About Us</h1>
+       <img src="/images/image.png" className="mission-image-first" alt="About Us" />
+        <h2>Leading the Way in Trust and Community.</h2>
+        <p>we believe what's good for community is good for contractors.</p>
        </div>
       </div>
 
@@ -50,7 +51,7 @@ const AboutUs = () => {
 </div>
 
 <div className="our-mission">
-  <div className="mission-container">
+  <div className="mission-container-icons">
    <img src="/images/Our-Story-icons-01.png" alt="Our Mission" className="mission-image" />
     </div>
 </div>
@@ -62,7 +63,7 @@ const AboutUs = () => {
     </div>
     <div>
       <h2>Enter Your Address</h2>
-      <AddressAutocomplete onPlaceSelected={handlePlaceSelected} />
+      <GooglePlacesInput onPlaceSelected={setSelectedPlace} />
       {selectedPlace && (
         <div>
           <h3>Selected Address Details:</h3>

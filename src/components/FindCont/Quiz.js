@@ -69,8 +69,30 @@ const QuizComponent = () => {
 
   const currentQuestion = questions[currentIndex];
 
+  useEffect(() => {
+    if (!window.google || !questions.length) return;
+  
+    const currentQuestion = questions[currentIndex];
+    if (currentQuestion?.question_type !== 'location') return;
+  
+    const input = document.getElementById('location-autocomplete');
+    if (!input) return;
+  
+    const autocomplete = new window.google.maps.places.Autocomplete(input, {
+      types: ['geocode'],
+      componentRestrictions: { country: 'ca' }, // Optional: restrict to CA
+    });
+  
+    autocomplete.addListener('place_changed', () => {
+      const place = autocomplete.getPlace();
+      const formatted = place.formatted_address;
+      handleChange(currentQuestion.id, 'text_answer', formatted);
+    });
+  }, [questions, currentIndex]);
+
   return (
     <div className="quiz-container">
+      <h1>Help Us, Help You!</h1>
       <h2>Answer the Quiz</h2>
       {questions.length > 0 && (
   <div className="quiz-progress" style={{ marginBottom: "1rem" }}>
@@ -157,8 +179,28 @@ const QuizComponent = () => {
                 ))}
               </select>
             )}
+            {currentQuestion.question_type === 'location' && (
+  <input
+    id="location-autocomplete"
+    type="text"
+    placeholder="Enter location"
+    value={answers[currentQuestion.id]?.text_answer || ''}
+    onChange={(e) =>
+      handleChange(currentQuestion.id, 'text_answer', e.target.value)
+    }
+    style={{
+      padding: '10px',
+      fontSize: '16px',
+      border: '1px solid #ccc',
+      borderRadius: '6px',
+      width: '100%',
+      maxWidth: '400px'
+    }}
+  />
+)}
           </div>
         )}
+
 
         <div className="quiz-nav-buttons" style={{ marginTop: '1rem' }}>
           {currentIndex > 0 && (

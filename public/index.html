@@ -15,16 +15,19 @@
   frame-src 'self' https://js.stripe.com;
 ">
   <title>Exclusive Trade Network</title>
+  <script
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCNep1GCyb94J8bGIw_w77Dy_4YL_-GO2k&libraries=places&v=weekly"
+  defer
+></script>
+
+<!-- Google Maps Extended Web Component Library -->
+
 </head>
 <style nonce="randomString">
 </style>
 <body>
   <div id="root"></div>
-  <script
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCxw_-ONPeuSgdWJY7cW1U5spfgFnK_kPw&libraries=places"
-    async
-    defer>
-  </script>
+
   <script>
     const getCSRFToken = () => {
     const csrfCookie = document.cookie

@@ -1,23 +1,19 @@
 import React, { useEffect, useRef } from 'react';
 
-const AddressAutocomplete = ({ onPlaceSelected }) => {
+const GooglePlacesInput = ({ onPlaceSelected }) => {
   const inputRef = useRef(null);
 
   useEffect(() => {
-    // Ensure that the Google API is loaded
     if (!window.google) {
-      console.error('Google Maps JavaScript API library is not loaded!');
+      console.error('Google Maps API is not loaded.');
       return;
     }
 
-    // Initialize the Autocomplete object
     const autocomplete = new window.google.maps.places.Autocomplete(inputRef.current, {
-      types: ['address'], // Restrict the suggestions to addresses
-      // Optionally, you can add componentRestrictions, e.g.,
-      // componentRestrictions: { country: "us" },
+      types: ['geocode'], // You can change to ['address'] or other types
+      componentRestrictions: { country: 'ca' },
     });
 
-    // Listen for when the user selects an address
     autocomplete.addListener('place_changed', () => {
       const place = autocomplete.getPlace();
       if (onPlaceSelected) {
@@ -27,12 +23,22 @@ const AddressAutocomplete = ({ onPlaceSelected }) => {
   }, [onPlaceSelected]);
 
   return (
-    <input 
-      type="text" 
-      ref={inputRef} 
-      placeholder="Enter your address" 
+    <input
+      type="text"
+      ref={inputRef}
+      placeholder="Enter your address"
+      style={{
+        width: '100%',
+        maxWidth: '400px',
+        padding: '12px',
+        borderRadius: '6px',
+        border: '1px solid #ccc',
+        fontSize: '16px',
+        display: 'block',
+        marginTop: '1rem'
+      }}
     />
   );
 };
 
-export default AddressAutocomplete;
+export default GooglePlacesInput;
