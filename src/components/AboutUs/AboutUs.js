@@ -64,13 +64,9 @@ const AboutUs = () => {
     <div>
       <h2>Enter Your Address</h2>
       <GooglePlacesInput onPlaceSelected={setSelectedPlace} />
-      {selectedPlace && (
-        <div>
-          <h3>Selected Address Details:</h3>
-          <p>{selectedPlace.formatted_address}</p>
-          {/* Add more details as needed */}
-        </div>
-      )}
+      
+      
+     
     </div>
 
 
