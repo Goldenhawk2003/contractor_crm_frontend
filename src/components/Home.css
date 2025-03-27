@@ -109,7 +109,7 @@ body.transparent-navbar-page .button-group {
   gap: 20px; /* Space between text and image */
   width: 100%;
   height: 100%;
-  background-color: #ECF0FC ;
+  background-color: #6b90ff;
   padding-bottom: 4%;
   padding-top: 4%;
   margin: 0;
@@ -123,10 +123,15 @@ body.transparent-navbar-page .button-group {
 
 .trust-header {
   font-size: 3.2rem;
-  color:  #091268;
-  padding-left: 10%;
+  color:  #FFFF;
   font-weight: 200;
   width: 80%;
+  text-align: center;
+  align-self: center;
+}
+.highlight{
+  color: #091268;
+  font-weight: 800;
 }
 
 .trust-p {
@@ -139,21 +144,21 @@ body.transparent-navbar-page .button-group {
   
 }
 
-.trust-button {
+.trust-button-quiz {
   padding: 15px 20px;
   font-size: 1rem;
-  color: black;
-  background-color: transparent;
-  border: 1px black solid;
+  color: #091268;
+  background-color: #ECF0FC;
+  border: 1px #091268 solid;
   border-radius: 20px;
   cursor: pointer;
   transition: background-color 0.3s;
   width: 20%;
-  align-self: left;
+  align-self: center;
   text-decoration: none;
   font-weight: normal;
   margin-top: 3%;
-  margin-left: 10%;
+
 }
 
 .trust-button:hover {
@@ -189,18 +194,18 @@ body.transparent-navbar-page .button-group {
   align-items: stretch; /* Ensure children span the full width */
   justify-content: flex-start;
   height: 100%;
-  background: linear-gradient(to bottom, #f8f8f8 70%, #1B3656 30%);
+  background: linear-gradient(to bottom, #f8f8f8 70%, #6b90ff 30%);
 
 
 }
  
 .service-header{
   padding-top: 7%;
-  font-size: 3.2rem;
+  font-size: 2.8rem;
   color: #091268;
   text-align: center;
   font-weight: 200;
-  width: 40%;
+  width: 50%;
   margin: 0 auto;
 }
 .search-bar-container {
@@ -213,32 +218,34 @@ body.transparent-navbar-page .button-group {
   max-width: 800px; /* Limit the maximum width of the search bar container */
 }
 
-.search-bar {
+.search-bar-home {
   flex: 1; /* Allow the search bar to take available space */
   padding: 12px;
   border: none; /* Remove border */
-  border-radius: 50px; /* Fully rounded search bar */
+  border-radius: 0; /* Fully rounded search bar */
   font-size: 1rem;
-  max-width: 600px; /* Limit the width of the search bar */
+  max-width: 100%; /* Limit the width of the search bar */
   background-color: #ECF0FC; /* White background */
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for the search bar */
   outline: none; /* Remove outline on focus */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
-.search-button {
-  background-color: #091268; /* Deep blue */
+.search-button-home {
+  background-color: #6b90ff; /* Deep blue */
   border: none;
-  border-radius: 50px; /* Rounded rectangle button */
-  padding: 12px 40px; /* Adjusted padding for a more elongated look */
+  border-top-right-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+  padding: 12px ; /* Adjusted padding for a more elongated look */
   font-size: 1rem;
   cursor: pointer;
   color: #fff; /* White text */
   transition: transform 0.3s, box-shadow 0.3s;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  align-items: left;
+  justify-content: left;
   box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+  margin-left: -10px; /* Slight overlap with the search bar */
 }
 
 .search-button:hover {
@@ -375,7 +382,7 @@ body.transparent-navbar-page .button-group {
   flex-direction: column;
   align-items: stretch; /* Ensure children span the full width */
   justify-content: flex-start;
-  background-color: #1B3656; /* Deep blue background */
+  background-color: #6b90ff; /* Deep blue background */
   color: #ffffff; /* White text for the container */
   font-family: 'Open Sauce One', Arial, sans-serif; /* Custom font */
 /* White border at the top */
@@ -394,7 +401,7 @@ body.transparent-navbar-page .button-group {
   padding-right: 1.8%;
   padding-left: 1.8%;
    /* Space below the header */
-  background-color: #1B3656;
+  background-color: #6b90ff;
 }
 
 /* Services Grid Container */
@@ -415,13 +422,13 @@ body.transparent-navbar-page .button-group {
   text-align: left;
   display: flex;
   flex-direction: column; /* ✅ Stack elements vertically */
-  align-items: center; /* ✅ Center align the icon and title */
-  text-align: center; 
+  align-items: left; /* ✅ Center align the icon and title */
+ 
 }
 
 .service-header-box {
   display: flex;
-  align-items: center; /* ✅ Keep the icon and title on the same row */
+  align-items: left; /* ✅ Keep the icon and title on the same row */
   gap: 10px; /* ✅ Space between icon and title */
 }
 
@@ -446,6 +453,8 @@ body.transparent-navbar-page .button-group {
   font-size: 1.5rem;
   font-weight: bold;
   margin-bottom: 10px; /* Space below the title */
+  text-align: left;
+  align-self: left;
 }
 
 /* Service Description */
@@ -453,6 +462,8 @@ body.transparent-navbar-page .button-group {
   font-size: 0.8rem;
   line-height: 1.6; /* Increase line spacing for readability */
   text-align: left;
+  font-weight: 100;
+  width: 75%;
 
 }
 /* End of our services */
@@ -468,7 +479,7 @@ body.transparent-navbar-page .button-group {
 .our-process {
   background-color: #f8f8f8;
   width: 100%;
-  padding-top: 10%;
+  padding-top: 8%;
   padding-bottom: 10%;
   color: #091268;
 }
@@ -479,10 +490,18 @@ body.transparent-navbar-page .button-group {
 }
 
 .our-header {
-  font-size: 2.8rem;
+  font-size: 3.2rem;
   color: #091268;
   font-weight: 200;
-  padding-left: 5%;
+  padding-left: 12%;
+}
+.process-img{
+
+  width: 8%;
+  padding-left: 15%;
+  align-self: center;
+
+
 }
 /* End of Process */
 
@@ -499,7 +518,7 @@ body.transparent-navbar-page .button-group {
   flex-direction: column;
   align-items: stretch; /* Ensure children span the full width */
   justify-content: flex-start;
-  background-color: #1B3656;
+  background-color: #091268;
   text-align: center;
   padding-left: 6%;
   padding-right: 4%;
@@ -669,12 +688,14 @@ body.transparent-navbar-page .button-group {
 .Explore{
 padding-top: 3%;
 padding-bottom: 4%;
-background-color: #ECF0FC;
+background-color: #6b90ff;
+align-items: center;
+align-content: center;
 }
 
 .Explore-header{
   font-size: 3.2rem;
-  color: #091268;
+  color: #FFFF;
   font-weight: 200;
   padding-left: 5%;
   text-align: center;
@@ -722,4 +743,24 @@ background-color: #ECF0FC;
   display: block;
   background-color:transparent;
 }
-
+.inspo-button-wrapper {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+.inspo-button-home{
+  padding: 15px 20px;
+  font-size: 1rem;
+  color: #091268;
+  background-color: #ECF0FC;
+  border: 1px #091268 solid;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  width: 20%;
+  align-self: center;
+  text-decoration: none;
+  font-weight: normal;
+  margin-top: 3%;
+  align-items: center;
+}

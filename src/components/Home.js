@@ -101,6 +101,9 @@ const Home = () => {
   const blogButton = () => {
     navigate('/Blogs');
   }
+  const tutButton = () => {
+    navigate('/Tutorials');
+  }
   useEffect(() => {
     // Add a class to the body for this specific page
     document.body.classList.add("specific-page");
@@ -131,16 +134,16 @@ const Home = () => {
 
   <div className="trust">
   <div className="trust-content">
-    <h1 className="trust-header">Trustworthy People, With Reliable Solutions.</h1>
-    <p className="trust-p">
-      Our quiz is designed to get the stress of looking for a contractor off your plate.
-    </p>
-    <button type="submit" className="trust-button" onClick={quizButton}>
+  <h1 className="trust-header">
+  Take our <span className="highlight">1 minute</span> quiz to find your Perfect Contractor
+</h1>
+    
+    <button type="submit" className="trust-button-quiz" onClick={quizButton}>
       Take Our Quiz
     </button>
     
   </div>
-  <img src="/images/home-page/Mission-block-image.png" alt="Happy Contractors" className="contractor_img" />
+ 
 </div>
 
   <div className='services-section'>
@@ -151,14 +154,14 @@ const Home = () => {
   <div className="search-bar-container">
       <input
         type="text"
-        className="search-bar"
+        className="search-bar-home"
         placeholder="Search services: Plumbing, renovations, snow removal"
         value={searchText}
         onChange={handleSearch}
         onKeyDown={handleKeyDown}
       />
       <button
-        className="search-button"
+        className="search-button-home"
         onClick={handleSearchButtonClick}
         aria-label="Search"
         disabled={!searchText.trim()}
@@ -216,7 +219,7 @@ const Home = () => {
 
     <div className="service">
       <div className="service-header-box">
-      <div className="service-icon">1</div>
+      
       <h3 className="service-title">Discover</h3>
       </div>
       <p className="service-description">
@@ -226,7 +229,6 @@ const Home = () => {
     
     <div className="service">
     <div className="service-header-box">
-      <div className="service-icon">2</div>
       <h3 className="service-title">Quiz</h3>
       </div>
       <p className="service-description">
@@ -235,7 +237,7 @@ const Home = () => {
     </div>
     <div className="service">
     <div className="service-header-box">
-      <div className="service-icon">3</div>
+ 
       <h3 className="service-title">Chat</h3>
       </div>
       <p className="service-description">
@@ -244,7 +246,7 @@ const Home = () => {
     </div>
     <div className="service">
     <div className="service-header-box">
-      <div className="service-icon">4</div>
+
       <h3 className="service-title">Contracts</h3>
       </div>
       <p className="service-description">
@@ -257,7 +259,11 @@ const Home = () => {
       
       <div className='our-process'> 
         <h2 className='our-header'>Why Choose Us?</h2>
-        <p className='process-p'>ECC is founded on the core principle of honest work by honest people. Our team is committed to sourcing dependable and high quality contractors for homeowners and businesses in the Durham Region. At ECC we do more than just connect people with services, we build lasting partnerships grounded in trust, mutual respect, and shared values.</p>
+        <img src="images/icons/Our-Story-icons-02.png" alt="Our Process" className='process-img' />
+        <img src="images/icons/Our-Story-icons-04.png" alt="Our Process" className='process-img' />
+        <img src="images/icons/Our-Story-icons-03.png" alt="Our Process" className='process-img' />
+        <img src="images/icons/Our-Story-icons-05.png" alt="Our Process" className='process-img' />
+
       </div>
 
 
@@ -438,7 +444,7 @@ const Home = () => {
 </div>
 
 <div className='Explore'>
-    <h1 className='Explore-header'>Explore</h1>
+    <h1 className='Explore-header'>Need Some Inspo?</h1>
     <div className="ContractorExplore">
    
       <Link to="/Browse-Contractors" className="contractorExplore-button">
@@ -453,8 +459,13 @@ const Home = () => {
       <Link to="/quiz" className="contractorExplore-button">
         <img src="/images/home-page/BBD9171C-4B5D-4C9C-89DA-D681E64F7966.jpeg" alt="Electrical Services" />
       </Link>
-      
+     
 </div>
+<div className="inspo-button-wrapper">
+    <button type="submit" className="inspo-button-home" onClick={tutButton}>
+      Browse All
+    </button>
+  </div>
   </div>
     </div>
   );
