@@ -32,12 +32,13 @@ body.transparent-navbar-page .button-group { /* Makes the navbar transparent */
   }
   
   .contact-p {
-    font-size: 1.2rem;
-    color: #555;
+    font-size: 2.4rem;
+    color: white;
     text-align: center;
     margin: 0 auto;
     width: 60%;
     line-height: 1.6;
+    padding-bottom: 4%;
   }
   
   .contact {
@@ -51,11 +52,13 @@ body.transparent-navbar-page .button-group { /* Makes the navbar transparent */
   .contact-form {
     background-color: #f8f8f8;
     padding: 40px;
-    border-radius: 15px;
+    border-bottom-right-radius: 15px;
+    border-bottom-left-radius: 15px;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-    width: 60%;
-    max-width: 800px; /* Ensure it doesn't grow too large */
+    width: 50%;
+  /* Ensure it doesn't grow too large */
     margin: 0 auto; /* Center the form */
+    text-align: center;
   }
   
   .contact-form div {
@@ -66,7 +69,7 @@ body.transparent-navbar-page .button-group { /* Makes the navbar transparent */
   .contact-form input,
   .contact-form select,
   .contact-form textarea {
-    width: 96%;
+    width: 100%;
     padding: 15px;
     font-size: 1rem;
     border: 1px solid #ccc;
@@ -87,22 +90,43 @@ body.transparent-navbar-page .button-group { /* Makes the navbar transparent */
     padding: 15px 40px;
     font-size: 1.2rem;
     font-weight: bold;
-    background-color: #091268;
     color: #fff;
     border: none;
-    border-radius: 50px;
+    border-radius: 5px;
     cursor: pointer;
     transition: transform 0.3s ease, background-color 0.3s ease;
-    width: 100%;
+    align-items: center;
+    align-self: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto; 
+    margin-top: 2%;
   }
   
   .contact-form button:hover {
     transform: translateY(-3px);
     background-color: #1b3656;
   }
+
+  .contact-p-container{
+    background-color: #6b90ff;
+    width: 55.4%;
+    padding-top: 5%;
+    display: flex;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;;
+    text-align: center;
+    justify-content: center; /* horizontal centering */
+    align-items: center;     /* vertical centering */
+    text-align: center;
+    margin: 0 auto;       
+  }
   
-  .contact-form textarea {
+  .contact-form textarea,
+  .contact-form input {
     resize: none;
+    width: 95%!important;
   }
   
   .success-message {
@@ -145,12 +169,72 @@ body.transparent-navbar-page .button-group { /* Makes the navbar transparent */
     appearance: none; /* Standard property to remove default styles */
     -webkit-appearance: none; /* For Safari/Chrome */
     -moz-appearance: none; 
-    max-width: 40em;
   position: relative;
-  width: 100%;
   align-self: center;
   background-color:  #f8f8f8 !important;
   border-radius: 0;
   cursor: pointer;
 
+}
+
+.contact-us-button{
+  background-color: #6b90ff;
+  width: 50% ;
+ 
+}
+
+
+@media (max-width: 768px) {
+  .contact-header {
+    font-size: 2rem;
+    margin-top: 30px;
+  }
+
+  .contact-p-container {
+    width: 90%;
+    padding: 6% 4%;
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .contact-p {
+    font-size: 1.2rem;
+    width: 100%;
+    padding-bottom: 5%;
+  }
+
+  .contact-form {
+    width: 90%;
+    padding: 20px;
+  }
+
+  .contact-form div {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .contact-form input,
+  .contact-form textarea,
+  .contact-form select {
+    font-size: 1rem;
+    padding: 12px;
+  }
+
+  .contact-form button {
+    font-size: 1rem;
+    padding: 12px 24px;
+    width: 100%;
+    margin-top: 1rem;
+  }
+
+  .contact-us-button {
+    width: 100%;
+    font-size: 1rem;
+  }
+
+  .dropdown {
+    font-size: 1rem;
+    padding: 12px;
+    width: 100%;
+  }
 }

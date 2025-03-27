@@ -55,7 +55,9 @@ const Contact = () => {
     return (
         <div>
             <h1 className="contact-header">Contact Us</h1>
-            <p className='contact-p'>Need assistance? Our team is here to help. Please fill out the form below, and we will be in contact with you as soon as we can.</p>
+            <div className="contact-p-container">
+            <p className='contact-p'>Need assistance? Our team is here to help.</p>
+            </div>
             <div className="contact">
                 {successMessage && <p className="success-message">{successMessage}</p>}
                 {errorMessage && <p className="error-message">{errorMessage}</p>}
@@ -102,7 +104,7 @@ const Contact = () => {
                         placeholder="Description"
                         required
                     ></textarea>
-                    <button type="submit">Submit</button>
+                    <button className='contact-us-button' type="submit">Submit</button>
                 </form>
             </div>
         </div>

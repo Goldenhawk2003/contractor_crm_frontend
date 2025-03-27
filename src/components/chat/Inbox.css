@@ -1,8 +1,8 @@
 
 /* Inbox Container */
 .inbox-container {
-  width: 100%;
-  margin-left: 5%;
+ 
+ 
   padding: 1rem;
   background-color: #ffffff;
   border-radius: 10px;
@@ -110,21 +110,3 @@
 }
 
 /* Responsive Design */
-@media (max-width: 600px) {
-  .inbox-container {
-    padding: 1rem;
-  }
-
-  .inbox-header {
-    font-size: 1.5rem;
-  }
-
-  .conversation-item {
-    padding: 0.5rem 0.75rem;
-  }
-
-  .create-message-btn {
-    font-size: 0.9rem;
-    padding: 0.5rem 1rem;
-  }
-}
