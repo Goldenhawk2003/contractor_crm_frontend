@@ -113,7 +113,9 @@ const Home = () => {
   const tutButton = () => {
     navigate('/Tutorials');
   }
-
+  const aboutUsButton = () => {
+    navigate('/AboutUs');
+  }
 
 //photo carousel
 const images = [
@@ -489,6 +491,24 @@ const doubledImages = images.concat(images);
     </button>
   </div>
   </div>
+
+  <div className='About-us-home'>
+  <div className="About-us-content">
+    <img src="/images/home-page/About-Us-Page-06.png" className='About-us-home-img' />
+    
+    <div className="About-us-text-container">
+      <h1 className='About-us-header'>Meet Your Advocates</h1>
+      <p className='About-us-text'>
+        At <strong>Exclusive Trade Network</strong>, we put your needs first, and we’re driven by our community. Read more, and say hello!
+      </p>
+      <button type="submit" className="About-us-button-home" onClick={aboutUsButton}>
+        About Us
+      </button>
+    </div>
+  </div>
+</div>
+
+
     </div>
   );
 };

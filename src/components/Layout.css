@@ -21,9 +21,9 @@
 /* HAMBURGER BUTTON */
 .hamburger-button {
   background: transparent;
-  color: black;
+  color: #ECF0FC;
   border: none;
-  font-size: 26px;  /* Slightly larger for better visibility */
+  font-size: 50px;  /* Slightly larger for better visibility */
   cursor: pointer;
   padding: 10px;
   position: absolute;  /* Keeps it aligned properly */

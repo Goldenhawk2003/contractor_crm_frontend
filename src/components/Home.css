@@ -105,20 +105,20 @@ body.transparent-navbar-page .button-group {
 .trust {
   display: flex; /* Arrange items in a row */
   align-items: center; /* Align all items to the same vertical height */
-  justify-content: space-between; /* Space between text and image */
-  gap: 20px; /* Space between text and image */
+  justify-content:center; /* Space between text and image */ /* Space between text and image */
   width: 100%;
   height: 100%;
   background-color: #6b90ff;
   padding-bottom: 4%;
   padding-top: 4%;
-  margin: 0;
-
+ 
 }
 
 .trust-content {
   display: flex;
   flex-direction: column; /* Stack header, paragraph, and button */
+  align-items: center;
+  align-content: center;
 }
 
 .trust-header {
@@ -777,7 +777,7 @@ align-content: center;
 .scroll-carousel-track {
   display: flex;
   width: fit-content;
-  animation: scroll-left 40s linear infinite;
+  animation: scroll-left 50s linear infinite;
 }
 
 .scroll-carousel-image {
@@ -797,4 +797,59 @@ align-content: center;
   100% {
     transform: translateX(-50%);
   }
+}
+
+
+
+.About-us-home {
+  background-color: #FFFF;
+  padding: 5%;
+}
+
+.About-us-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap; /* makes it responsive */
+}
+
+.About-us-home-img {
+  width: 40%;
+  height: auto;
+  object-fit: cover;
+  background-color: transparent;
+}
+
+.About-us-text-container {
+  width: 50%;
+  
+}
+
+.About-us-header {
+  font-size: 3.4rem;
+  color: #001A72;
+  margin-bottom: 1rem;
+  font-weight: 200;
+  width: 60%;
+}
+.About-us-text{
+  font-size: 1.4rem;
+  color: #091268;
+  font-weight: 200;
+  width: 90%;
+}
+
+.About-us-button-home {
+  padding: 15px 20px;
+  font-size: 1.4rem;
+  color: #091268;
+  background-color: #ECF0FC;
+  border: 2px #091268 solid;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  width: fit-content;
+  font-weight: normal;
+  margin-top: 40%;
+  
 }
