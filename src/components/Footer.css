@@ -35,32 +35,3 @@
   }
 
 
-  @media (max-width: 768px) {
-    .footer {
-        padding: 15px; /* Reduced padding for compact spacing */
-        text-align: center;
-        width: 110%; /* Slightly wider for better fit */
-    }
-  
-    .connect {
-        font-size: 16px; /* Slightly smaller font for better readability */
-        margin-bottom: 5px;
-    }
-  
-    /* Social Media Icons */
-    .social-links {
-        margin-top: 8px;
-        display: flex;
-        justify-content: center;
-        gap: 15px; /* Adjust spacing between icons */
-    }
-  
-    .social-icon {
-        font-size: 22px; /* Slightly reduced for better fit */
-        margin: 0 8px;
-    }
-  
-    .sunni {
-        font-size: 9px; /* Make it a bit more readable but compact */
-    }
-  }
