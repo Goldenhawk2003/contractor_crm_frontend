@@ -13,19 +13,19 @@
 .contain {
     flex: 1;
     max-width: 40%;
-    background-color: #ecf0fc; /* Greyish background */
-    border-radius: 10px;
+    background-color: #6b90ff; /* Greyish background */
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
     padding: 40px 30px;
     text-align: center;
-    margin: 10px;
     height: 50%;
 }
 
 .log-header {
     font-size: 2rem;
     font-weight: 600;
-    color: #091268; /* Light blue */
+    color: #FFFF; /* Light blue */
     margin-bottom: 20px;
 }
 
@@ -49,7 +49,7 @@
 
 .sub {
     width: 30%;
-    background-color: #091268;
+    background-color: rgb(194, 168, 106);
     color: #f8f8f8;
     font-size: 1rem;
     font-weight: bold;
@@ -68,20 +68,22 @@
 
 /* Right Section (Sign-Up) */
 .sign-up {
-    background-color: #ecf0fc;
+    background-color: #6b90ff;
     flex: 1;
     max-width: 40%;
     text-align: center;
-    margin: 10px;
-    height: 335px;
-    border-radius: 10px;
+
+    height: 100%;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    padding: 53px 40px;
 }
 
 .sign-up .log-header {
     font-size: 2rem;
     font-weight: 600;
-    color: #091268;
-    margin-bottom: 20px;
+    color: #FFFF;
+    margin-bottom: 100px;
     padding-top: 10%;
 }
 
@@ -90,7 +92,7 @@
     padding: 12px 30px;
     font-size: 1rem;
     font-weight: bold;
-    background-color: #091268;
+    background-color: rgb(194, 168, 106);
     color: #f8f8f8;
     border-radius: 8px;
     text-decoration: none;
@@ -106,10 +108,10 @@
 
 /* Divider */
 .divider {
-    height: 80%;
-    width: 2px;
-    background-color: #d1d1d1; /* Light grey */
-    margin: 0 20px;
+    height: 100px;
+
+    background-color: red; /* Light grey */
+  border: 2px solid white;
     display: block;
 }
 
@@ -127,3 +129,59 @@
 
 /* Error Message */
 
+@media (max-width: 768px) {
+    .log-container {
+      flex-direction: column;
+      padding: 10px;
+    }
+  
+    .contain,
+    .sign-up {
+      max-width: 90%;
+      width: 90%;
+      border-radius: 10px;
+      height: auto;
+      padding: 30px 20px;
+      margin-bottom: 20px;
+    }
+  
+    .log-header {
+      font-size: 1.6rem;
+    }
+  
+    .log {
+      width: 90%;
+      font-size: 0.95rem;
+    }
+  
+    .sub {
+      width: 90%;
+      padding: 12px;
+      font-size: 1rem;
+    }
+  
+    .sign-up {
+      padding: 30px 20px;
+    }
+  
+    .sign-up .log-header {
+      font-size: 1.6rem;
+      margin-bottom: 40px;
+      padding-top: 0;
+    }
+  
+    .sign-up .sub {
+      width: 90%;
+      padding: 12px;
+    }
+  
+    .divider {
+      display: none;
+    }
+  
+    .forgot-password-link {
+      font-size: 0.85rem;
+      margin-top: 10px;
+      display: inline-block;
+    }
+  }

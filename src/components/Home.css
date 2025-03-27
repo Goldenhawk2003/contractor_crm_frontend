@@ -50,7 +50,7 @@ body.specific-page {
 }
 
 body.transparent-navbar-page .button-group {
-  background-color: transparent !important; /* Makes the navbar transparent */
+  background-color: transparent!important; /* Makes the navbar transparent */
   box-shadow: none; /* Removes shadow if desired */
 }
 

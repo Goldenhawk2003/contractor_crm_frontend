@@ -1,3 +1,7 @@
+.layout-container{
+  background-color: #6b90ff;
+}
+
 /* HEADER STYLES */
 .nav-container {
   display: flex;
@@ -6,31 +10,34 @@
   padding: 15px 5px;
   width: 10%;
 
+
 }
 
 /* LOGO */
 .left-nav {
   display: flex;
   align-items: center;
+
 }
 
 .nav-logo {
   height: 50px;
   width: auto;
+  
 }
 
 /* HAMBURGER BUTTON */
 .hamburger-button {
   background: transparent;
-  color: #ECF0FC;
+  color: #FFFF;
   border: none;
   font-size: 50px;  /* Slightly larger for better visibility */
   cursor: pointer;
-  padding: 10px;
   position: absolute;  /* Keeps it aligned properly */
   top: 20px;  /* Adjust height */
   right: 30px;  /* Move it closer to the edge */
   z-index: 1001;
+  
 }
 
 .sidebar-layout {
@@ -47,6 +54,7 @@
   padding: 20px;
   z-index: 1002;
   transform: translateX(100%); /* Completely moves it out of view */
+  background-color: #6b90ff;
 }
 
 /* Show sidebar when open */
@@ -59,9 +67,10 @@
 .close-button {
   background: none;
   border: none;
-  font-size: 24px;
+  font-size: 15px;
   cursor: pointer;
   align-self: flex-end;
+  font-weight: 100;
 }
 
 /* SIDEBAR MENU ITEMS */
@@ -74,7 +83,7 @@
 .sidebar-layout-item {
   padding: 15px;
   text-decoration: none;
-  color: black;
+  color: #FFFF;
   font-size: 18px;
   transition: background 0.3s;
  
