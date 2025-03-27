@@ -219,20 +219,19 @@ const TutorialList = () => {
         <h1 className="tutorial-heading">Get Inspired</h1>
         <div className="tutorial-intro-container">
           <p className="tutorial-intro">
-            Check our Elite Contractor's work from the community 
-          </p>
+            Check our Elite Contractor's work from the community.</p>
         </div>
         <div className="search-bar-container">
           <input
             type="text"
-            className="search-bar"
+            className="search-bar-tutorial"
             placeholder="Search tutorials..."
             value={searchText}
             onChange={handleSearch}
             onKeyDown={handleKeyDown}
           />
           <button
-            className="search-button"
+            className="search-button-tutorial"
             onClick={() => searchText && handleSelectResult(searchResults[0])}
             aria-label="Search"
             disabled={!searchText.trim()}
@@ -292,13 +291,13 @@ const TutorialList = () => {
         {filteredTutorials.map((tutorial) => (
           <div key={tutorial.id} className="tutorial-card">
             <img
-  src={tutorial.thumbnail_url || tutorial.image_url || tutorial.video_url || "/images/IMG_2583.PNG"}
+  src={tutorial.thumbnail_url || tutorial.image_url  || "/images/IMG_2583.PNG"}
   alt="Tutorial Preview"
               className="tutorial-thumbnail"
               onClick={() => handleOpenTutorial(tutorial)}
               onError={(e) => console.error("Image failed to load:", e.target.src)}
             />
-            <h3 className="tutorial-title">{tutorial.title}</h3>
+           
           </div>
         ))}
       </div>

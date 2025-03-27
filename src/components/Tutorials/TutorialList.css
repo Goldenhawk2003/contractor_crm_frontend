@@ -3,35 +3,37 @@
 .tutorial-container {
   width: 100vw;
   margin: 0 auto;
-
+  background-color: #FFFF;
 
 
 }
 
 /* Heading */
 .tutorial-heading {
-  font-size: 3.2rem;
+  font-size: 5rem;
   font-weight: 200;
-  color: black;
+  color: #091268;
   text-align: center;
   margin-bottom: 0;
   padding-top: 10%;
 
+
   
 }
 .tutorial-intro-container{
+  display: flex;
   justify-content: center;
   align-items: center;
   align-content: center;
   text-align: center;
-  margin: 0 auto;
-  padding: 0;
+  align-self: center;
+
 
 
 }
 
 .tutorial-header{
-  background: linear-gradient(to bottom, #ECF0FC 90%, white 10%);
+  background: linear-gradient(to bottom, #ECF0FC 92%, #FFFF 8%);
   padding-top: 0;
   margin-top: 0;
 /* Makes sure the section is tall enough */
@@ -42,8 +44,12 @@
 
 }
 .tutorial-intro{
- font-size: 1.2rem;
+ font-size: 2rem;
  font-weight: 900;
+ width: 65%;
+ text-align: center;
+
+
 }
 /* Pinterest-Style Grid */
 .tutorial-grid {
@@ -52,15 +58,29 @@
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 20px;
   align-items: stretch; /* Ensures all items take the same height */
-  margin-bottom: 8%;
+
   margin-right: 4%;
   margin-left: 4%;
+  background-color: #FFFF!important;
+  padding-bottom: 5%;
 }
+
+.tutorial-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  padding: 2rem;
+}
+
+
+
+
 
 /* Tutorial Card */
 .tutorial-card {
   width: 100%;
-  height: 250px; /* Adjust as needed */
+  height: 100%;
+  min-height: 350px; /* Adjust as needed */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -70,9 +90,9 @@
   border-radius: 10px;
 }
 .tutorial-card img {
-  margin-top: 4%;
-  width: 95%;
-  height: 150px; /* Keep images same height */
+
+  width: 100%;
+  height: 100%; /* Keep images same height */
   object-fit: cover; /* Prevent stretching */
   border-radius: 5px;
 }
@@ -89,7 +109,7 @@
 }
 /* Upload Button */
 .upload-button-gate {
-  background-color: #1b3656 !important;
+  background-color: #6b90ff !important;
   color: white !important;
   padding: 10px;
   font-size: 1rem;
@@ -224,7 +244,7 @@
 }
 
 .tags button:hover{
-  background-color: #091268;
+  background-color: #6b90ff;
   color: white;
 }
 
@@ -240,10 +260,35 @@
 
 }
 
-.search-bar{
-  background-color: white !important;
+.search-bar-tutorial {
+  flex: 1; /* Allow the search bar to take available space */
+  padding: 12px;
+  border: none; /* Remove border */
+  border-radius: 8px; /* Fully rounded search bar */
+  font-size: 1rem;
+  max-width: 100%; /* Limit the width of the search bar */
+  background-color: #FFFF; /* White background */
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for the search bar */
+  outline: none; /* Remove outline on focus */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
-
+.search-button-tutorial {
+  background-color: #6b90ff; /* Deep blue */
+  border: none;
+  border-top-right-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+  padding: 12px ; /* Adjusted padding for a more elongated look */
+  font-size: 1rem;
+  cursor: pointer;
+  color: #fff; /* White text */
+  transition: transform 0.3s, box-shadow 0.3s;
+  display: flex;
+  align-items: left;
+  justify-content: center;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+  margin-left: -12px; /* Slight overlap with the search bar */
+  width: 15%;
+}
 /*  Search Results Dropdown */
 .search-dropdown {
   position: absolute;
@@ -333,4 +378,10 @@
   gap: 0.2; /* ✅ Removes gap between tags */
   margin-top: 20px; /* ✅ Ensures spacing between search and tags */
   margin-left: 8%;
+  background-color: #FFFF;
+
+}
+
+.image-modal, .tutorial-display-card{
+  background-color: #FFFF;
 }
