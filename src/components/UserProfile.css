@@ -586,3 +586,70 @@ textarea.user-input {
     margin-left: 4px;
   }
 }
+
+.button-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.2rem;
+  margin-top: 1.5rem;
+  text-align: center;
+}
+
+.user-button {
+  background-color: #6b90ff;
+  color: white;
+  padding: 12px 24px;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  text-decoration: none;
+}
+
+.user-button:hover,
+.cont-submit-rating-btn:hover {
+  background-color: #091268;
+}
+
+.signed {
+  font-size: 1rem;
+  color: green;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.cont-rating-input {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.rating-heading {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #091268;
+}
+
+.cont-stars {
+  font-size: 1.5rem;
+  color: #FFD700;
+}
+
+.cont-submit-rating-btn {
+  background-color: #ecf0fc;
+  color: #091268;
+  padding: 10px 20px;
+  border: 1.5px solid #091268;
+  border-radius: 20px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.payment-btn {
+  background-color: #1b3656;
+}

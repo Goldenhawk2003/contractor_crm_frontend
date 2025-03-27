@@ -402,11 +402,16 @@ const ProfessionalContracts = () => {
 
 // ------------------- ClientContracts Component -------------------
 const ClientContracts = () => {
+  
   const [receivedContracts, setReceivedContracts] = useState([]);
   const [signError, setSignError] = useState("");
   const [signSuccess, setSignSuccess] = useState("");
   const [expandedContracts, setExpandedContracts] = useState([]);
   const maxLength = 120;
+  const [rating, setRating] = useState(0);
+  const [hoveredRating, setHoveredRating] = useState(0);
+  const [successMessage, setSuccessMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
     axios
@@ -426,6 +431,48 @@ const ClientContracts = () => {
         ? prev.filter((id) => id !== contractId)
         : [...prev, contractId]
     );
+  };
+  const handleRateContractor = async (contractorId) => {
+    if (rating <= 0 || rating > 5) {
+      alert("Please provide a rating between 1 and 5.");
+      return;
+    }
+  
+    try {
+      const response = await axios.post(
+        `${process.env.REACT_APP_BACKEND_URL}/api/contractors/${contractorId}/rate/`,
+        { rating },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            ...getAuthHeaders(),
+          },
+        }
+      );
+      setSuccessMessage(response.data.message || "Rating submitted successfully.");
+      setErrorMessage("");
+    } catch (error) {
+      console.error('Error rating contractor:', error);
+      setErrorMessage("Failed to submit rating. Please try again.");
+    }
+  };
+
+  const renderStars = (ratingValue) => {
+    const stars = [];
+    for (let i = 1; i <= 5; i++) {
+      stars.push(
+        <span
+          key={i}
+          className={`star ${i <= (hoveredRating || ratingValue) ? "filled" : ""}`}
+          onClick={() => setRating(i)}
+          onMouseEnter={() => setHoveredRating(i)}
+          onMouseLeave={() => setHoveredRating(0)}
+        >
+          ★
+        </span>
+      );
+    }
+    return stars;
   };
 
   const parseContractContent = (content) => {
@@ -471,7 +518,7 @@ const ClientContracts = () => {
       setSignError("Failed to sign contract. Please try again.");
     }
   }, []);
-
+  console.log("Contract:", receivedContracts);
   return (
     <div className="received-contracts">
       <h2>Received Contracts</h2>
@@ -504,24 +551,36 @@ const ClientContracts = () => {
               <p><strong>Status:</strong> {contract.is_signed ? "Signed" : "Pending"}</p>
 
               <div className="button-container">
-                {!contract.is_signed ? (
-                  <button
-                    onClick={() => signContract(contract.id)}
-                    className="user-button"
-                  >
-                    Sign
-                  </button>
-                ) : (
-                  <>
-                    <p className="signed">Contract signed!</p>
-                    <p>
-                      <Link to="/payment" className="user-button">
-                        Pay Now
-                      </Link>
-                    </p>
-                  </>
-                )}
-              </div>
+  {!contract.is_signed ? (
+    <button
+      onClick={() => signContract(contract.id)}
+      className="user-button"
+    >
+      Sign Contract
+    </button>
+  ) : (
+    <>
+      <p className="signed">✅ Contract signed!</p>
+
+      <div className="cont-rating-input">
+        <h3 className="rating-heading">Rate This Contractor</h3>
+        <div className="cont-stars">{renderStars(rating)}</div>
+        <button
+  onClick={() => handleRateContractor(contract.contractor_id)}
+  className="cont-submit-rating-btn"
+>
+          Submit Rating
+        </button>
+        {successMessage && <p className="success-message">{successMessage}</p>}
+        {errorMessage && <p className="error-message">{errorMessage}</p>}
+      </div>
+
+      <Link to="/payment" className="user-button payment-btn">
+        💳 Pay Now
+      </Link>
+    </>
+  )}
+</div>
             </li>
           );
         })}

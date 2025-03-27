@@ -204,11 +204,7 @@ const ContractorProfile = () => {
 
    
 
-      <div className="cont-rating-input">
-        <h3>Rate this Contractor</h3>
-        <div className="cont-stars">{renderStars(rating)}</div>
-        <button onClick={handleRateContractor} className="cont-submit-rating-btn">Submit Rating</button>
-      </div>
+ 
 
       {successMessage && <p className="success-message">{successMessage}</p>}
       {errorMessage && <p className="error-message">{errorMessage}</p>}
