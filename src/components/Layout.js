@@ -28,7 +28,7 @@ const Layout = () => {
           <div className="left-nav">
             <Link to="/" className="logo-link">
               <img
-                src={`${process.env.PUBLIC_URL}/images/EC_Primary_White.png`}
+                src={`${process.env.PUBLIC_URL}/images/logos/26EFE61E-E17F-4F73-8586-A5346B7E5A51.png`}
                 alt="Logo"
                 className="nav-logo"
                 height="50px"
