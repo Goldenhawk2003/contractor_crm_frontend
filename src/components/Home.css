@@ -40,7 +40,7 @@ html, body {
 
 body.specific-page {
 
-  background-image: url("../../public/images/home-page/Image-alone.png");/* Replace with your image path */
+  background-image: url(../../public/images/wallpapers/C398DBF7-64A2-49F3-ACE6-012BAE965578.png);/* Replace with your image path */
   background-size: cover; /* Ensure the image covers the entire section */
   background-position:center; /* Center the image */
   background-repeat: no-repeat;
@@ -59,7 +59,7 @@ body.transparent-navbar-page .button-group {
   width: 100vw; /* Stretch the image to the full width of the screen */
   height: 80vh; /* Set the height to cover the full viewport */
   position: relative;
-  padding-top: 4%;
+  margin-top: 2%;
    /* Ensure text color contrasts with the image */
 }
 
@@ -108,7 +108,7 @@ body.transparent-navbar-page .button-group {
   justify-content:center; /* Space between text and image */ /* Space between text and image */
   width: 100%;
   height: 100%;
-  background-color: #6b90ff;
+  background-image: url(../../public/images/wallpapers/C398DBF7-64A2-49F3-ACE6-012BAE965578.png);
   padding-bottom: 4%;
   padding-top: 4%;
  

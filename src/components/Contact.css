@@ -22,6 +22,9 @@ body.transparent-navbar-page .button-group { /* Makes the navbar transparent */
     box-shadow: none; /* Removes shadow if desired */
   }
 
+  .contact-us-page{
+    background-image: url(../../public/images/wallpapers/513263E5-0004-4894-94EB-ED2B77EAAF15.png);
+  }
 /* General Styles */
 .contact-header {
     font-size: 2.8rem;

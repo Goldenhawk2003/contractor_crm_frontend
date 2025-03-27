@@ -6,7 +6,8 @@
     align-items: center;
     min-height: 100vh;
     padding: 20px;
-    background-color: #f8f8f8; /* Soft white */
+ /* Soft white */
+    background-image: url(../../../public/images/wallpapers/7E50895C-580B-454A-AC9C-11F322021F3F.png);
 }
 
 /* Left Section (Login Form) */

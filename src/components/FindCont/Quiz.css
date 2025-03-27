@@ -26,9 +26,10 @@
   align-items: center;
   justify-content: flex-start;
   padding: 2rem 1rem;
-  background-color: #f4f8ff;
+
   background-repeat: repeat;
   background-size: contain;
+  background-image: url(../../../public/images/wallpapers/513263E5-0004-4894-94EB-ED2B77EAAF15.png);
 }
 
 .quiz-hero {

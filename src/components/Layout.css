@@ -1,14 +1,21 @@
 .layout-container{
-  background-color: #6b90ff;
+  background-color: transparent;
 }
 
+.layout-header{
+  background-color: transparent;
+}
 /* HEADER STYLES */
 .nav-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 15px 5px;
+background-color: transparent;
   width: 10%;
+  margin-left: 5%;
+  padding-top: 2%;
+
+  
 
 
 }
@@ -17,6 +24,7 @@
 .left-nav {
   display: flex;
   align-items: center;
+  background-color: transparent;
 
 }
 
