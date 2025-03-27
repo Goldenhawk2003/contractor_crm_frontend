@@ -1,4 +1,4 @@
-import React, { useState , useEffect} from 'react';
+import React, { useState , useEffect,useRef} from 'react';
 import { Link, Outlet } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import './Home.css';
@@ -10,6 +10,8 @@ const Home = () => {
   const [filteredServices, setFilteredServices] = useState([]);
   const navigate = useNavigate();
   const [contractors, setContractors] = useState([]); // State for contractors
+
+
   
   useEffect(() => {
     const fetchContractors = async () => {
@@ -49,6 +51,10 @@ const Home = () => {
     }
     return stars;
   };
+
+
+
+  // Search Button
   const services = [
     { id: 1, name: 'Plumbing' },
     { id: 2, name: 'Renovations' },
@@ -86,6 +92,9 @@ const Home = () => {
     }
   };
 
+
+
+  // Different navigation buttons
   const handleServiceClick = (serviceName) => {
     navigate('/find-contractor', { state: { query: serviceName } });
   };
@@ -104,6 +113,28 @@ const Home = () => {
   const tutButton = () => {
     navigate('/Tutorials');
   }
+
+
+//photo carousel
+const images = [
+  '/images/stock-house/0B4D9E08-F91D-433E-AC46-40F32C86F1CD_1_105_c.jpeg',
+  '/images/stock-house/3C8E5964-8DED-40EF-A128-73CE20780B07_1_105_c.jpeg',
+  '/images/stock-house/3D6C2DF2-C348-49DD-889D-2C7E8A82C405_1_105_c.jpeg',
+  '/images/stock-house/5E385793-743C-4A38-9FBB-49D4DC4BF074.jpeg',
+  '/images/stock-house/006A48FE-63D7-4D02-B8FA-3ACC8A1D18F1_1_105_c.jpeg',
+  '/images/stock-house/6C46E0A3-AD1F-4596-8439-DE56C7DA50D6_1_105_c.jpeg',
+  '/images/stock-house/37C55748-E702-4732-AF44-B4396C95B0AA_1_105_c.jpeg',
+  '/images/stock-house/534C7222-DE85-457B-87D6-98D200781608_1_105_c.jpeg',
+  '/images/stock-house/47213244-E864-42C5-93FE-FAEE5D627772_1_105_c.jpeg',
+  '/images/stock-house/AAEF9AB0-80B1-42D3-989B-03986C13A471_1_105_c.jpeg'
+];
+const doubledImages = images.concat(images);
+
+
+   
+
+
+
   useEffect(() => {
     // Add a class to the body for this specific page
     document.body.classList.add("specific-page");
@@ -445,22 +476,13 @@ const Home = () => {
 
 <div className='Explore'>
     <h1 className='Explore-header'>Need Some Inspo?</h1>
-    <div className="ContractorExplore">
-   
-      <Link to="/Browse-Contractors" className="contractorExplore-button">
-        <img src="/images/home-page/8C648314-99F1-4F0B-84CE-F88CED65C767.jpeg" alt="Plumbing Services" />
-      </Link>
-      <Link to="/Tutorials" className="contractorExplore-button">
-        <img src="/images/home-page/914C6975-B3FD-468A-AB42-1446DBF23AE1.jpeg" alt="Renovation Services" />
-      </Link>
-      <Link to="blogs" className="contractorExplore-button">
-        <img src="/images/home-page/5008674F-7D14-4363-AA72-5A541F001C79.jpeg" alt="Electrical Services" />
-      </Link>
-      <Link to="/quiz" className="contractorExplore-button">
-        <img src="/images/home-page/BBD9171C-4B5D-4C9C-89DA-D681E64F7966.jpeg" alt="Electrical Services" />
-      </Link>
-     
-</div>
+    <div className="scroll-carousel-wrapper">
+      <div className="scroll-carousel-track">
+        {doubledImages.map((src, i) => (
+          <img key={i} src={src} alt={`carousel-${i}`} className="scroll-carousel-image" />
+        ))}
+      </div>
+    </div>
 <div className="inspo-button-wrapper">
     <button type="submit" className="inspo-button-home" onClick={tutButton}>
       Browse All
