@@ -866,7 +866,7 @@ align-content: center;
 }
 
 
-@media (max-width: 768px) {
+@media (max-width: 850px) {
 
 
   .services-container {
@@ -987,8 +987,10 @@ align-content: center;
 }
 
   .contractor-choice-button{
-    height: 20vh!important;
     background-color: transparent !important;
+    height: 14vh !important;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
   }
 
   .contractor-choice-button img:hover {
@@ -996,7 +998,7 @@ align-content: center;
   }
   .Contractor-choices {
     display: flex;
-    width: 80%;
+    width: 95%;
     height: 100%;
     justify-content: center;
     margin-top: 0;
@@ -1006,7 +1008,7 @@ align-content: center;
   
  
   .Contractor-choices img {
-    width: 80%;
+    width: 100%;
     height: 15vh;
     object-fit:fill;
     display: block;
