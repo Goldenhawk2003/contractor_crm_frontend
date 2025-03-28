@@ -440,7 +440,7 @@ const ClientContracts = () => {
   
     try {
       const response = await axios.post(
-        `${process.env.REACT_APP_BACKEND_URL}/contractors/${contractorId}/rate/`,
+        `${process.env.REACT_APP_BACKEND_URL}/api/contractors/${contractorId}/rate/`,
         { rating },
         {
           headers: {
