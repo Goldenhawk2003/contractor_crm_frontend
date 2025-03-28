@@ -9,7 +9,7 @@ const AboutUs = () => {
     console.log('Selected place:', place);
   };
   return (
-    <div>
+    <div className="about-us-page">
       {/* About Us Section */}
       <div className="our-mission-first">
       <div className="mission-container-first">

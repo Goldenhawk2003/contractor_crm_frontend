@@ -1,3 +1,5 @@
+
+
 .about-us-container {
     display: flex;
     align-items: center; /* Aligns text and image */
@@ -210,7 +212,7 @@
     width: 33%;
   }
   .mission-image-first {
-    height: 500px;              /* or any fixed height */
+    height: 700px;              /* or any fixed height */
     width: 70%;                /* stretches full width of container */
     object-fit:fill;          /* maintains aspect ratio & crops if needed */
     display: block;
@@ -234,6 +236,28 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+  }
+  .mission-image-first {
+    height: 200px;              /* or any fixed height */
+    width: 70%;                /* stretches full width of container */
+    object-fit:fill;          /* maintains aspect ratio & crops if needed */
+    display: block;
+    margin: 0 auto;
+    border-radius: 10px;
+  }
+  .mission-container-first h2{
+    padding-top: 2%;
+    font-weight: 200;
+    font-size: 2rem;
+    width: 90%;
+    margin-left: -2% !important;
+  }
+
+  .mission-container-first p{
+    padding-bottom: 5%;
+    font-size: 1rem;
+    width: 65%;
+    padding-left: 20%;
   }
   
   }

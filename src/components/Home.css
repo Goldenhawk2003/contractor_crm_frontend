@@ -59,7 +59,11 @@ body.transparent-navbar-page .button-group {
   width: 100vw; /* Stretch the image to the full width of the screen */
   height: 80vh; /* Set the height to cover the full viewport */
   position: relative;
-  margin-top: 2%;
+  background-image: url(../../public/images/wallpapers/C398DBF7-64A2-49F3-ACE6-012BAE965578.png);/* Replace with your image path */
+  display: flex;
+  align-items: center; /* vertically center */
+ /* spacing between header and image */
+  justify-content: space-between;
    /* Ensure text color contrasts with the image */
 }
 
@@ -88,8 +92,17 @@ body.transparent-navbar-page .button-group {
   color: #F8F8F8;
   margin-bottom: 20px;
   text-align: left;
-  padding-left: 4.3%;
+margin-left: 5% !important;
   font-weight: 200;
+  width: 30%;
+}
+.Hero-img{
+  width: 50%;
+  height: 90vh;
+  object-fit: cover;
+  z-index: 100;
+  display: none;
+/* Darken the image */
 }
 /* End of Hero */
 
@@ -936,7 +949,7 @@ align-content: center;
 
   .testimonial-card {
     flex: 1 1 100%;
-    max-width: 90%;
+    max-width: 70%;
   }
 .trust-header{
   font-size: 2.2rem;
@@ -975,7 +988,7 @@ align-content: center;
 
   .contractor-choice-button{
     height: 20vh!important;
- 
+    background-color: transparent !important;
   }
 
   .contractor-choice-button img:hover {
@@ -983,7 +996,7 @@ align-content: center;
   }
   .Contractor-choices {
     display: flex;
-    width: 95%;
+    width: 80%;
     height: 100%;
     justify-content: center;
     margin-top: 0;
@@ -993,8 +1006,8 @@ align-content: center;
   
  
   .Contractor-choices img {
-    width: 100%;
-    height: 20vh;
+    width: 80%;
+    height: 15vh;
     object-fit:fill;
     display: block;
   }
@@ -1003,5 +1016,39 @@ align-content: center;
     font-size: 2.8rem;
     width: 95%;
     padding-left: 4%;
+  }
+
+  .hero-section {
+    flex-direction: column;
+    height: auto;
+    justify-content: flex-start;
+
+   
+
+
+
+    
+  }
+
+  .Hero-header {
+    width: 90%;
+    font-size: 1.8rem;
+    text-align: left !important;
+
+    margin-top: 12% !important;
+margin-bottom: -65px !important;
+ 
+
+  }
+
+  .Hero-img {
+    width: 100%;
+    height: 90vh;
+    object-fit: cover;
+    margin-top: 0;
+    display: block;
+
+  
+
   }
 }

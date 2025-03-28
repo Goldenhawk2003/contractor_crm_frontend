@@ -161,8 +161,11 @@ const doubledImages = images.concat(images);
   return (
     <div className="home-container">
       <div className="hero-section">
-    <h1 className='Hero-header'>Your Trusted Partners</h1>
-    <h1 className='Hero-header'>at Elite Craft.</h1>
+     
+    <h1 className='Hero-header'>Your Exclusive Trade Network</h1>
+
+    <img src="/images/A6AE51BF-1840-4D5B-BA26-E8C4DF7DA0EB.png" alt="Hero Image" className='Hero-img' />
+   
   </div>
 
   <div className="trust">
