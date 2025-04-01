@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import './Login.css';
-import GoogleLoginButton from './components/GoogleLoginButton';
+import GoogleLoginButton from './GoogleLogin'; 
 
 const Login = () => {
     const [username, setUsername] = useState('');
