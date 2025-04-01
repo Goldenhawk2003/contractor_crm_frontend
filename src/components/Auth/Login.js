@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import './Login.css';
-import GoogleLoginButton from './GoogleLogin'; // Adjust the import path as necessary
 
 const Login = () => {
     const [username, setUsername] = useState('');
@@ -78,7 +77,7 @@ const Login = () => {
             <div className="sign-up">
                 <h2 className="log-header">New to Elite Craft?</h2>
                 <Link to="/signup" className="sub">Sign Up</Link>
-                <GoogleLoginButton />
+           
             </div>
         </div>
     );
