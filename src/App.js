@@ -63,14 +63,7 @@ function useCsrfToken() {
   }, []);
 }
 
-ReactDOM.render(
-  <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
-  </GoogleOAuthProvider>,
-  document.getElementById('root')
-);
+
 
 
 
