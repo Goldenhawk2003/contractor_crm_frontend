@@ -120,9 +120,7 @@ const HomeTab = ({ userInfo }) => {
             />
           )}
           <div className="profile-info">
-            <button className="submit-btn" onClick={editProfile}>
-              Edit Profile
-            </button>
+           
           </div>
           <div className="profile-container">
             <p className="profile-username">{userInfo.username}</p>
