@@ -39,7 +39,7 @@ import ForgotPassword from './components/Auth/ForgotPassword.js';
 import ResetPassword from './components/Auth/ResetPassword.js';
 import axios from 'axios';
 import EditProfilePage from './components/EditProfile.js';
-
+import GoogleLoginButton from './components/Auth/GoogleLogin.js';
 function useCsrfToken() {
   useEffect(() => {
     const fetchCsrfToken = async () => {
@@ -131,6 +131,7 @@ function App() {
 
 
             <Route path="/AutoComplete" element={<LocationAutocomplete />} />  
+            <Route path="/googlelogin" element={<GoogleLoginButton />} />
 
           </Route>
         </Routes>
