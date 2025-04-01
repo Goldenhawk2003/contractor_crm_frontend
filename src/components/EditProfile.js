@@ -15,8 +15,7 @@ function UpdateUserForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const token = localStorage.getItem('access_token');  // Changed from 'authToken'
-
+    const token = localStorage.getItem('access_token');
     if (!token) {
         setMessage('User not authenticated. Please log in.');
         return;
@@ -34,11 +33,13 @@ function UpdateUserForm() {
 
         if (response.ok) {
             const data = await response.json();
-            setMessage('User updated successfully!');
+            setMessage(`User updated successfully! Name: ${data.first_name} ${data.last_name}`);
             console.log('Success:', data);
         } else if (response.status === 401) {
             setMessage('Unauthorized: Please log in again.');
             localStorage.removeItem('access_token'); // Clear the token if unauthorized
+        } else if (response.status === 405) {
+            setMessage('Method Not Allowed: Please check the request method.');
         } else {
             const errorData = await response.json();
             setMessage(`Error: ${errorData.detail || 'Update failed'}`);
