@@ -150,14 +150,28 @@ const QuizComponent = () => {
                 </>
               )}
 
-              {currentQuestion.question_type === 'datetime' && (
-                <input
-                  type="datetime-local"
-                  className="quiz-input"
-                  value={answers[currentQuestion.id]?.text_answer || ''}
-                  onChange={(e) => handleChange(currentQuestion.id, 'text_answer', e.target.value)}
-                />
-              )}
+{currentQuestion.question_type === 'datetime' && (
+  <div className="quiz-input-group">
+    <label>Select Date/Time:</label>
+    <input
+      type="datetime-local"
+      className="quiz-input"
+      value={answers[currentQuestion.id]?.text_answer || ''}
+      onChange={(e) => handleChange(currentQuestion.id, 'text_answer', e.target.value)}
+    />
+    <label>Or Choose an Option:</label>
+    <select
+      className="quiz-input"
+      value={answers[currentQuestion.id]?.text_answer || ''}
+      onChange={(e) => handleChange(currentQuestion.id, 'text_answer', e.target.value)}
+    >
+      <option value="">Select</option>
+      <option value="ASAP">ASAP</option>
+      <option value="Next Week">Next Week</option>
+      <option value="Whenever">Whenever</option>
+    </select>
+  </div>
+)}
 
               {currentQuestion.question_type === 'mcq' && (
                 <div className="quiz-mcq">
