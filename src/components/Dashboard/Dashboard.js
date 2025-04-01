@@ -68,79 +68,73 @@ const Dashboard = () => {
   };
 
   // Fetch quiz questions data
-// Fetch quiz questions data
-const fetchQuestions = async () => {
-  try {
-    const response = await fetch(`${BASE_URL}/quiz/questions/`, {
-      method: 'GET',
-      headers: { 
-        'Content-Type': 'application/json',
-        ...getAuthHeaders(),
-      },
-    });
+  const fetchQuestions = async () => {
+    try {
+      const response = await fetch(`${BASE_URL}/quiz/questions/`, {
+        method: 'GET',
+        headers: { 
+          'Content-Type': 'application/json',
+          ...getAuthHeaders(),
+        },
+      });
 
-    if (!response.ok) {
-      throw new Error('Failed to fetch questions.');
+      if (!response.ok) {
+        throw new Error('Failed to fetch questions.');
+      }
+
+      const data = await response.json();
+      setQuestions(data.questions);
+    } catch (error) {
+      setQuizError('Error loading quiz questions.');
+    }
+  };
+
+  const addQuestion = async () => {
+    if (!newQuestion.trim()) {
+      alert("Question text cannot be empty.");
+      return;
     }
 
-    const data = await response.json();
-    // Properly parse choices if they are returned as a JSON string
-    const formattedQuestions = data.questions.map((q) => ({
-      ...q,
-      choices: typeof q.choices === 'string' ? JSON.parse(q.choices) : q.choices,
-    }));
-    setQuestions(formattedQuestions);
-  } catch (error) {
-    setQuizError('Error loading quiz questions.');
-  }
-};
+    if (newQuestionType === "multiple_choice" && !newChoices.trim()) {
+      alert("Choices cannot be empty for multiple-choice questions.");
+      return;
+    }
 
-const addQuestion = async () => {
-  if (!newQuestion.trim()) {
-    alert("Question text cannot be empty.");
-    return;
-  }
+    try {
+      const response = await fetch(`${BASE_URL}/quiz/add-question/`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          ...getAuthHeaders(),
+        },
+        body: JSON.stringify({
+          question: newQuestion,
+          description: newDescription,
+          question_type: newQuestionType,
+          choices: newQuestionType === "multiple_choice" ? newChoices.split(',') : null,
+        }),
+      });
 
-  if (newQuestionType === "multiple_choice" && !newChoices.trim()) {
-    alert("Choices cannot be empty for multiple-choice questions.");
-    return;
-  }
+      if (!response.ok) {
+        throw new Error('Failed to add question.');
+      }
 
-  try {
-    const response = await fetch(`${BASE_URL}/quiz/add-question/`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        ...getAuthHeaders(),
-      },
-      body: JSON.stringify({
+      const data = await response.json();
+      setQuestions([...questions, {
+        id: data.id,
         question: newQuestion,
         description: newDescription,
         question_type: newQuestionType,
-        choices: newQuestionType === "multiple_choice" ? JSON.stringify(newChoices.split(',')) : null,
-      }),
-    });
-
-    if (!response.ok) {
-      throw new Error('Failed to add question.');
+        choices: newQuestionType === "multiple_choice" ? newChoices.split(',') : null,
+      }]);
+      setNewQuestion('');
+      setNewDescription('');
+      setNewQuestionType('text');
+      setNewChoices('');
+    } catch (error) {
+      alert('Error adding question. Please try again.');
     }
-
-    const data = await response.json();
-    setQuestions([...questions, {
-      id: data.id,
-      question: newQuestion,
-      description: newDescription,
-      question_type: newQuestionType,
-      choices: newQuestionType === "multiple_choice" ? newChoices.split(',') : null,
-    }]);
-    setNewQuestion('');
-    setNewDescription('');
-    setNewQuestionType('text');
-    setNewChoices('');
-  } catch (error) {
-    alert('Error adding question. Please try again.');
-  }
-};
+  };
 
   const deleteQuestion = async (questionId) => {
     if (!window.confirm('Are you sure you want to delete this question?')) return;
@@ -304,32 +298,27 @@ const addQuestion = async () => {
             <h2>Quiz Answers</h2>
             {formError && <p className="error-message">{formError}</p>}
             {formResponses.length > 0 ? (
-  <ul className="form-responses-list">
-    {formResponses.map((group, index) => (
-      <li key={index} className="form-response-group">
-        <h3>Client: {group.client}</h3>
-        <ul>
-          {group.responses.map((response, respIndex) => (
-            <li key={respIndex} className="form-response-item">
-              <p><strong>Question:</strong> {response.quiz_question}</p>
-              {response.answer && <p><strong>Answer:</strong> {response.answer}</p>}
-              {response.selected_choice && <p><strong>Selected Choice:</strong> {response.selected_choice}</p>}
-              {response.contractor_suggestion && (
-                <p><strong>Contractor Suggestion:</strong> {response.contractor_suggestion}</p>
-              )}
-              {response.image_answer && (
-                <img src={response.image_answer} alt="Answer" className="answer-image" />
-              )}
-              <p><strong>Submitted At:</strong> {response.created_at}</p>
-            </li>
-          ))}
-        </ul>
-      </li>
-    ))}
-  </ul>
-) : (
-  <p>No form responses available.</p>
-)}
+              <ul className="form-responses-list">
+                {formResponses.map((group, index) => (
+                  <li key={index} className="form-response-group">
+                    <h3>Client: {group.client}</h3>
+                    <ul>
+                      {group.responses.map((response, respIndex) => (
+                        <li key={respIndex} className="form-response-item">
+                          <p><strong>Question:</strong> {response.quiz_question}</p>
+                          {response.answer && <p><strong>Answer:</strong> {response.answer}</p>}
+                          {response.selected_choice && <p><strong>Selected Choice:</strong> {response.selected_choice}</p>}
+                          {response.contractor_suggestion && <p><strong>Contractor Suggestion:</strong> {response.contractor_suggestion}</p>}
+                          <p><strong>Submitted At:</strong> {response.created_at}</p>
+                        </li>
+                      ))}
+                    </ul>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p>No form responses available.</p>
+            )}
           </section>
 
           {/* Quiz Management */}
@@ -366,20 +355,20 @@ const addQuestion = async () => {
               </button>
             </div>
             <ul className="question-list">
-  {questions.map((question) => (
-    <li key={question.id} className="question-item">
-      <p><strong>Question:</strong> {question.question}</p>
-      {question.description && <p><strong>Description:</strong> {question.description}</p>}
-      <p><strong>Type:</strong> {question.question_type}</p>
-      {question.question_type === "multiple_choice" && Array.isArray(question.choices) && (
-        <p><strong>Choices:</strong> {question.choices.join(', ')}</p>
-      )}
-      <button onClick={() => deleteQuestion(question.id)} className="delete-btn">
-        Delete
-      </button>
-    </li>
-  ))}
-</ul>
+              {questions.map((question) => (
+                <li key={question.id} className="question-item">
+                  <p><strong>Question:</strong> {question.question}</p>
+                  {question.description && <p><strong>Description:</strong> {question.description}</p>}
+                  <p><strong>Type:</strong> {question.question_type}</p>
+                  {question.question_type === "multiple_choice" && (
+                    <p><strong>Choices:</strong> {question.choices.join(', ')}</p>
+                  )}
+                  <button onClick={() => deleteQuestion(question.id)} className="delete-btn">
+                    Delete
+                  </button>
+                </li>
+              ))}
+            </ul>
           </section>
         </div>
       )}
