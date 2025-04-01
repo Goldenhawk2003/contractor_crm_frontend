@@ -98,9 +98,9 @@ const HomeTab = ({ userInfo }) => {
 
   const editProfile = useCallback(() => {
     if (userInfo?.type === "client") {
-      navigate("/clients/edit/:id");
+      navigate("/edit-profile");
     } else {
-      navigate("/contractors/edit/:id");
+      navigate("/edit-profile");
     }
   }, [navigate, userInfo]);
 
