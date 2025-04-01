@@ -15,7 +15,7 @@ function UpdateUserForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const token = localStorage.getItem('authToken');
+    const token = localStorage.getItem('access_token');  // Changed from 'authToken'
 
     if (!token) {
         setMessage('User not authenticated. Please log in.');
@@ -23,7 +23,7 @@ function UpdateUserForm() {
     }
 
     try {
-        const response = await fetch('https://ecc-backend-31b43c38f51f.herokuapp.com/update-user/', {
+        const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/update-user/`, {
             method: 'PUT',
             headers: {
                 'Authorization': `Bearer ${token}`,
@@ -38,6 +38,7 @@ function UpdateUserForm() {
             console.log('Success:', data);
         } else if (response.status === 401) {
             setMessage('Unauthorized: Please log in again.');
+            localStorage.removeItem('access_token'); // Clear the token if unauthorized
         } else {
             const errorData = await response.json();
             setMessage(`Error: ${errorData.detail || 'Update failed'}`);
@@ -48,7 +49,6 @@ function UpdateUserForm() {
         console.error('Network error:', error);
     }
 };
-
   return (
     <div className="flex justify-center items-center h-screen bg-gray-100">
       <form className="bg-white p-6 rounded-lg shadow-md" onSubmit={handleSubmit}>
