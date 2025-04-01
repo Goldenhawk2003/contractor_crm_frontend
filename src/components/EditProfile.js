@@ -1,73 +1,80 @@
 import React, { useState } from 'react';
 
-function UpdateProfile({ userType }) {
-  const [formData, setFormData] = useState({});
-
+function UpdateUserForm() {
+  const [formData, setFormData] = useState({
+    first_name: '',
+    last_name: '',
+    phone_number: ''
+  });
+  const [message, setMessage] = useState('');
+  
   const handleChange = (e) => {
-    const { name, value, files } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: files ? files[0] : value,
-    }));
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const data = new FormData();
-    Object.keys(formData).forEach((key) => {
-      if (formData[key]) data.append(key, formData[key]);
-    });
-  
+
     try {
-      const response = await fetch('/api/profile/update/', {
-        method: 'PATCH',
+      const response = await fetch('https://ecc-backend-31b43c38f51f.herokuapp.com/update-user/', {
+        method: 'PUT',
         headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}`,
+          'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
+          'Content-Type': 'application/json'
         },
-        body: data,
+        body: JSON.stringify(formData)
       });
-      const result = await response.json();
-      console.log('Update Response:', result);  // Check the response here
+
       if (response.ok) {
-        alert('Profile updated successfully!');
+        const data = await response.json();
+        setMessage('User updated successfully!');
+        console.log('Success:', data);
       } else {
-        alert('Update failed: ' + result.error);
+        const errorData = await response.json();
+        setMessage(`Error: ${errorData.detail || 'Update failed'}`);
+        console.error('Error:', errorData);
       }
     } catch (error) {
-      console.error('Update failed:', error);
+      setMessage('Network error');
+      console.error('Network error:', error);
     }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input type="text" name="username" placeholder="Username" onChange={handleChange} />
-      <input type="email" name="email" placeholder="Email" onChange={handleChange} />
-      <input type="text" name="first_name" placeholder="First Name" onChange={handleChange} />
-      <input type="text" name="last_name" placeholder="Last Name" onChange={handleChange} />
-
-      {userType === 'client' && (
-        <>
-          <input type="text" name="phone_number" placeholder="Phone Number" onChange={handleChange} />
-          <input type="text" name="address" placeholder="Address" onChange={handleChange} />
-          <input type="text" name="company_name" placeholder="Company Name" onChange={handleChange} />
-        </>
-      )}
-
-      {userType === 'professional' && (
-        <>
-          <input type="text" name="job_type" placeholder="Job Type" onChange={handleChange} />
-          <input type="number" name="experience_years" placeholder="Experience Years" onChange={handleChange} />
-          <input type="number" name="hourly_rate" placeholder="Hourly Rate" onChange={handleChange} />
-          <input type="text" name="location" placeholder="Location" onChange={handleChange} />
-          <textarea name="profile_description" placeholder="Profile Description" onChange={handleChange}></textarea>
-          <input type="file" name="picture" onChange={handleChange} />
-          <input type="file" name="logo" onChange={handleChange} />
-        </>
-      )}
-
-      <button type="submit">Update Profile</button>
-    </form>
+    <div className="flex justify-center items-center h-screen bg-gray-100">
+      <form className="bg-white p-6 rounded-lg shadow-md" onSubmit={handleSubmit}>
+        <h2 className="text-xl font-bold mb-4">Update User Information</h2>
+        <input
+          type="text"
+          name="first_name"
+          placeholder="First Name"
+          value={formData.first_name}
+          onChange={handleChange}
+          className="border p-2 mb-2 w-full rounded"
+        />
+        <input
+          type="text"
+          name="last_name"
+          placeholder="Last Name"
+          value={formData.last_name}
+          onChange={handleChange}
+          className="border p-2 mb-2 w-full rounded"
+        />
+        <input
+          type="text"
+          name="phone_number"
+          placeholder="Phone Number"
+          value={formData.phone_number}
+          onChange={handleChange}
+          className="border p-2 mb-4 w-full rounded"
+        />
+        <button type="submit" className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">
+          Update
+        </button>
+        {message && <p className="mt-4 text-red-500">{message}</p>}
+      </form>
+    </div>
   );
 }
 
-export default UpdateProfile;
+export default UpdateUserForm;
