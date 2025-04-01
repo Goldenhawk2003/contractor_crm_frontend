@@ -47,8 +47,7 @@ const EditProfilePage = () => {
         <div className="p-4 max-w-xl mx-auto">
             <h2 className="text-xl font-semibold mb-4">Edit Profile</h2>
             {message && <p className="mb-2">{message}</p>}
-            <Card>
-                <CardContent>
+            <section>
                     {Object.keys(profileData).map((key) => (
                         <div key={key} className="mb-3">
                             <label className="block text-sm font-medium">{key}</label>
@@ -60,9 +59,8 @@ const EditProfilePage = () => {
                             />
                         </div>
                     ))}
-                    <Button onClick={handleSubmit} className="mt-4">Save Changes</Button>
-                </CardContent>
-            </Card>
+                    <Button onClick={handleSubmit} className="mt-4">Save Changes</Button>   
+            </section>
         </div>
     );
 };
