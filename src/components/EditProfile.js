@@ -17,7 +17,7 @@ function UpdateProfile({ userType }) {
     Object.keys(formData).forEach((key) => {
       if (formData[key]) data.append(key, formData[key]);
     });
-
+  
     try {
       const response = await fetch('/api/profile/update/', {
         method: 'PATCH',
@@ -27,10 +27,14 @@ function UpdateProfile({ userType }) {
         body: data,
       });
       const result = await response.json();
-      alert('Profile updated successfully!');
-      console.log(result);
+      console.log('Update Response:', result);  // Check the response here
+      if (response.ok) {
+        alert('Profile updated successfully!');
+      } else {
+        alert('Update failed: ' + result.error);
+      }
     } catch (error) {
-      console.error('Update failed', error);
+      console.error('Update failed:', error);
     }
   };
 
@@ -49,7 +53,7 @@ function UpdateProfile({ userType }) {
         </>
       )}
 
-      {userType === 'contractor' && (
+      {userType === 'professional' && (
         <>
           <input type="text" name="job_type" placeholder="Job Type" onChange={handleChange} />
           <input type="number" name="experience_years" placeholder="Experience Years" onChange={handleChange} />
