@@ -1,5 +1,6 @@
+// GoogleLogin.js
 import React from 'react';
-import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
+import { GoogleLogin } from '@react-oauth/google';
 
 function GoogleLoginButton() {
   const handleSuccess = async (response) => {
@@ -27,14 +28,12 @@ function GoogleLoginButton() {
   };
 
   return (
-    <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}>
-      <div className="flex justify-center items-center mt-4">
-        <GoogleLogin
-          onSuccess={handleSuccess}
-          onError={() => console.error('Login Failed')}
-        />
-      </div>
-    </GoogleOAuthProvider>
+    <div style={{ marginTop: '10px', textAlign: 'center' }}>
+      <GoogleLogin
+        onSuccess={handleSuccess}
+        onError={() => console.error('Google Login Failed')}
+      />
+    </div>
   );
 }
 
