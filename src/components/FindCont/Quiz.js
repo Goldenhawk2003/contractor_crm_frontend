@@ -9,13 +9,6 @@ const QuizComponent = () => {
   const [questions, setQuestions] = useState([]);
   const [answers, setAnswers] = useState({});
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-useEffect(() => {
-  // Check login status from localStorage
-  const token = localStorage.getItem('access_token');
-  setIsLoggedIn(!!token);  // Set to true if token exists, false otherwise
-}, []);
 
   useEffect(() => {
     axios.get(`${BASE_URL}/api/questions/`)
@@ -209,18 +202,7 @@ useEffect(() => {
               )}
             </div>
           )}
-          {!isLoggedIn && currentQuestion.question_type === 'conditional' && (
-  <div className="quiz-input-group">
-    <label>{currentQuestion.text}</label>
-    <input
-      type="text"
-      className="quiz-input"
-      value={answers[currentQuestion.id]?.text_answer || ''}
-      onChange={(e) => handleChange(currentQuestion.id, 'text_answer', e.target.value)}
-      placeholder="Your response"
-    />
-  </div>
-)}
+          
 
           <div className="quiz-nav-buttons">
             {currentIndex > 0 && (
