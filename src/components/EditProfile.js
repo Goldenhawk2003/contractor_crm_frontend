@@ -1,66 +1,81 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 
 const EditProfilePage = () => {
-    const [profileData, setProfileData] = useState({});
-    const [isLoading, setIsLoading] = useState(true);
-    const [message, setMessage] = useState(null);
+    const [formData, setFormData] = useState({
+        username: '',
+        email: '',
+        location: '',
+        profession: '',
+        logo: null,
+        job_type: '',
+        experience_years: '',
+        rating: '',
+        profile_description: '',
+        hourly_rate: '',
+        picture: null,
+        phone_number: '',
+        address: '',
+        company_name: '',
+    });
 
-    useEffect(() => {
-        axios.get('/api/profile/', {
-            headers: {
-                Authorization: `Bearer ${localStorage.getItem('token')}`,
-            },
-        })
-        .then((response) => {
-            setProfileData(response.data);
-            setIsLoading(false);
-        })
-        .catch((error) => {
-            setMessage('Failed to load profile data.');
-            setIsLoading(false);
-        });
-    }, []);
-
-    const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        setProfileData({ ...profileData, [name]: value });
+    const handleChange = (e) => {
+        const { name, value, files } = e.target;
+        setFormData((prev) => ({
+            ...prev,
+            [name]: files ? files[0] : value,
+        }));
     };
 
-    const handleSubmit = () => {
-        axios.put('/api/profile/', profileData, {
-            headers: {
-                Authorization: `Bearer ${localStorage.getItem('token')}`,
+    const handleSubmit = async () => {
+        const config = {
+            headers: { 
+                'Content-Type': 'multipart/form-data', 
+                Authorization: `Bearer ${localStorage.getItem('token')}` 
             },
-        })
-        .then((response) => {
-            setMessage('Profile updated successfully!');
-        })
-        .catch((error) => {
-            setMessage('Failed to update profile.');
+        };
+        const form = new FormData();
+        Object.keys(formData).forEach((key) => {
+            if (formData[key]) form.append(key, formData[key]);
         });
+        try {
+            await axios.put('/api/edit_profile', form, config);
+            alert('Profile updated successfully!');
+        } catch (error) {
+            console.error(error);
+            alert('Error updating profile');
+        }
     };
-
-    if (isLoading) return <p>Loading...</p>;
 
     return (
-        <div className="p-4 max-w-xl mx-auto">
-            <h2 className="text-xl font-semibold mb-4">Edit Profile</h2>
-            {message && <p className="mb-2">{message}</p>}
-            <section>
-                    {Object.keys(profileData).map((key) => (
-                        <div key={key} className="mb-3">
-                            <label className="block text-sm font-medium">{key}</label>
-                            <Input
-                                name={key}
-                                value={profileData[key] || ''}
-                                onChange={handleInputChange}
-                                className="w-full"
-                            />
-                        </div>
-                    ))}
-                    <Button onClick={handleSubmit} className="mt-4">Save Changes</Button>   
-            </section>
+        <div style={{ maxWidth: '400px', margin: '20px auto', padding: '20px', border: '1px solid #ccc', borderRadius: '8px' }}>
+            <h2>Edit Profile</h2>
+            {['username', 'email', 'location', 'profession', 'job_type', 'experience_years', 'rating', 'profile_description', 'hourly_rate', 'phone_number', 'address', 'company_name'].map((field) => (
+                <div key={field} style={{ marginBottom: '10px' }}>
+                    <label>{field.replace('_', ' ').toUpperCase()}</label>
+                    <input
+                        type="text"
+                        name={field}
+                        value={formData[field]}
+                        onChange={handleChange}
+                        style={{ width: '100%', padding: '8px', margin: '5px 0', borderRadius: '4px', border: '1px solid #ddd' }}
+                    />
+                </div>
+            ))}
+            {['logo', 'picture'].map((field) => (
+                <div key={field} style={{ marginBottom: '10px' }}>
+                    <label>{field.toUpperCase()}</label>
+                    <input
+                        type="file"
+                        name={field}
+                        onChange={handleChange}
+                        style={{ width: '100%', padding: '8px', margin: '5px 0', borderRadius: '4px', border: '1px solid #ddd' }}
+                    />
+                </div>
+            ))}
+            <button onClick={handleSubmit} style={{ width: '100%', padding: '10px', backgroundColor: '#007bff', color: '#fff', border: 'none', borderRadius: '4px' }}>
+                Save Changes
+            </button>
         </div>
     );
 };
