@@ -38,6 +38,7 @@ import LocationAutocomplete from './components/APIStuff/AutoComplete.js';
 import ForgotPassword from './components/Auth/ForgotPassword.js';
 import ResetPassword from './components/Auth/ResetPassword.js';
 import axios from 'axios';
+import EditProfilePage from './components/EditProfile.js';
 
 function useCsrfToken() {
   useEffect(() => {
@@ -83,7 +84,12 @@ function App() {
 
             <Route path="/contact" element={<Contact />} />
             <Route path="/dashboard" element={<Dashboard />} />
+
+
             <Route path="/user-profile" element={<UserProfile />} />
+            <Route path="/edit-profile" element={<EditProfilePage />} />
+
+
             <Route path="/ServiceRequest" element={<ServiceRequest />} />
             <Route path="/find-contractor" element={<FindCont />} />
             <Route path="/Quiz" element={<Quiz />} />
