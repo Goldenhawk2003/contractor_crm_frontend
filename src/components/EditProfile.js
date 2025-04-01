@@ -15,30 +15,39 @@ function UpdateUserForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    try {
-      const response = await fetch('https://ecc-backend-31b43c38f51f.herokuapp.com/update-user/', {
-        method: 'PUT',
-        headers: {
-          'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(formData)
-      });
+    const token = localStorage.getItem('authToken');
 
-      if (response.ok) {
-        const data = await response.json();
-        setMessage('User updated successfully!');
-        console.log('Success:', data);
-      } else {
-        const errorData = await response.json();
-        setMessage(`Error: ${errorData.detail || 'Update failed'}`);
-        console.error('Error:', errorData);
-      }
-    } catch (error) {
-      setMessage('Network error');
-      console.error('Network error:', error);
+    if (!token) {
+        setMessage('User not authenticated. Please log in.');
+        return;
     }
-  };
+
+    try {
+        const response = await fetch('https://ecc-backend-31b43c38f51f.herokuapp.com/update-user/', {
+            method: 'PUT',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData)
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            setMessage('User updated successfully!');
+            console.log('Success:', data);
+        } else if (response.status === 401) {
+            setMessage('Unauthorized: Please log in again.');
+        } else {
+            const errorData = await response.json();
+            setMessage(`Error: ${errorData.detail || 'Update failed'}`);
+            console.error('Error:', errorData);
+        }
+    } catch (error) {
+        setMessage('Network error');
+        console.error('Network error:', error);
+    }
+};
 
   return (
     <div className="flex justify-center items-center h-screen bg-gray-100">
