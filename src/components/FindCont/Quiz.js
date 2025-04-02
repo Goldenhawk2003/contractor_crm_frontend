@@ -54,40 +54,42 @@ const QuizComponent = () => {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-  
-    const formData = new FormData();
-    Object.entries(answers).forEach(([id, data], idx) => {
-      const { image_answer, ...rest } = data;
-      formData.append('answers', JSON.stringify(rest));
-      if (image_answer) {
-        formData.append(`image_answer_${idx}`, image_answer);
-      }
+  e.preventDefault();
+
+  // Combine guest info into one text_answer if the user is not logged in
+  if (!isLoggedIn) {
+    const combinedGuestInfo = `Name: ${guestInfo.name}, Email: ${guestInfo.email}, Phone: ${guestInfo.phone}`;
+    setAnswers((prev) => ({
+      ...prev,
+      guest_info: { text_answer: combinedGuestInfo, question: 'guest_info' },
+    }));
+  }
+
+  const formData = new FormData();
+  Object.entries(answers).forEach(([id, data], idx) => {
+    const { image_answer, ...rest } = data;
+    formData.append('answers', JSON.stringify(rest));
+    if (image_answer) {
+      formData.append(`image_answer_${idx}`, image_answer);
+    }
+  });
+
+  try {
+    await axios.post(`${BASE_URL}/api/submit-answers/`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        ...(localStorage.getItem('access_token') && {
+          Authorization: `Bearer ${localStorage.getItem('access_token')}`,
+        }),
+      },
+      withCredentials: true,
     });
-  
-    // Include guest information if not logged in
-    if (!isLoggedIn) {
-      formData.append('guest_name', guestInfo.name);
-      formData.append('guest_email', guestInfo.email);
-      formData.append('guest_phone', guestInfo.phone);
-    }
-  
-    try {
-      await axios.post(`${BASE_URL}/api/submit-answers/`, formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-          ...(localStorage.getItem('access_token') && {
-            Authorization: `Bearer ${localStorage.getItem('access_token')}`,
-          }),
-        },
-        withCredentials: true,
-      });
-      alert('Quiz submitted!');
-    } catch (err) {
-      console.error('❌ Error submitting:', err);
-      alert('Submission failed. See console for details.');
-    }
-  };
+    alert('Quiz submitted!');
+  } catch (err) {
+    console.error('❌ Error submitting:', err);
+    alert('Submission failed. See console for details.');
+  }
+};
 
   const currentQuestion = questions[currentIndex];
 
@@ -246,34 +248,34 @@ const QuizComponent = () => {
                   Submit
                 </button>
               )}
-           {!isLoggedIn && (
-  <div className="guest-info">
-    <label className="question-label">
-      <strong>Tell us a bit about yourself:</strong>
-    </label>
-    <input
-      type="text"
-      placeholder="Your Name"
-      className="quiz-input"
-      value={guestInfo.name}
-      onChange={(e) => handleGuestChange('name', e.target.value)}
-    />
-    <input
-      type="email"
-      placeholder="Your Email"
-      className="quiz-input"
-      value={guestInfo.email}
-      onChange={(e) => handleGuestChange('email', e.target.value)}
-    />
-    <input
-      type="tel"
-      placeholder="Your Phone Number"
-      className="quiz-input"
-      value={guestInfo.phone}
-      onChange={(e) => handleGuestChange('phone', e.target.value)}
-    />
-  </div>
-)}
+            {!isLoggedIn && (
+    <div className="guest-info">
+      <label className="question-label">
+        <strong>Tell us a bit about yourself:</strong>
+      </label>
+      <input
+        type="text"
+        placeholder="Your Name"
+        className="quiz-input"
+        value={answers['guest_name'] || ''}
+        onChange={(e) => handleChange('guest_name', 'text_answer', e.target.value)}
+      />
+      <input
+        type="email"
+        placeholder="Your Email"
+        className="quiz-input"
+        value={answers['guest_email'] || ''}
+        onChange={(e) => handleChange('guest_email', 'text_answer', e.target.value)}
+      />
+      <input
+        type="tel"
+        placeholder="Your Phone Number"
+        className="quiz-input"
+        value={answers['guest_phone'] || ''}
+        onChange={(e) => handleChange('guest_phone', 'text_answer', e.target.value)}
+      />
+    </div>
+  )}
           </div>
         </form>
       </div>
