@@ -10,6 +10,7 @@ const QuizComponent = () => {
   const [answers, setAnswers] = useState({});
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [guestInfo, setGuestInfo] = useState({ name: '', email: '', phone: '' });
 
   useEffect(() => {
     const token = localStorage.getItem('access_token');
@@ -28,6 +29,13 @@ const QuizComponent = () => {
       .then((res) => setQuestions(res.data))
       .catch((err) => console.error('Error loading questions:', err));
   }, []);
+
+  const handleGuestChange = (field, value) => {
+    setGuestInfo((prev) => ({
+      ...prev,
+      [field]: value,
+    }));
+  };
 
   const handleChange = (questionId, field, value) => {
     if (field === 'image_answer' && value && value.size > MAX_FILE_SIZE_MB * 1024 * 1024) {
@@ -48,14 +56,9 @@ const QuizComponent = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
   
-    // Combine guest inputs into a single text_answer if the user is not logged in
+    // Combine guest info into one text_answer if the user is not logged in
     if (!isLoggedIn) {
-      const guestName = answers['guest_name']?.text_answer || '';
-      const guestEmail = answers['guest_email']?.text_answer || '';
-      const guestPhone = answers['guest_phone']?.text_answer || '';
-      const combinedGuestInfo = `Name: ${guestName}, Email: ${guestEmail}, Phone: ${guestPhone}`;
-  
-      // Store the combined guest info as one text answer
+      const combinedGuestInfo = `Name: ${guestInfo.name}, Email: ${guestInfo.email}, Phone: ${guestInfo.phone}`;
       setAnswers((prev) => ({
         ...prev,
         guest_info: { text_answer: combinedGuestInfo, question: 'guest_info' },
@@ -245,34 +248,34 @@ const QuizComponent = () => {
                   Submit
                 </button>
               )}
-            {!isLoggedIn && (
-    <div className="guest-info">
-      <label className="question-label">
-        <strong>Tell us a bit about yourself:</strong>
-      </label>
-      <input
-        type="text"
-        placeholder="Your Name"
-        className="quiz-input"
-        value={answers['guest_name'] || ''}
-        onChange={(e) => handleChange('guest_name', 'text_answer', e.target.value)}
-      />
-      <input
-        type="email"
-        placeholder="Your Email"
-        className="quiz-input"
-        value={answers['guest_email'] || ''}
-        onChange={(e) => handleChange('guest_email', 'text_answer', e.target.value)}
-      />
-      <input
-        type="tel"
-        placeholder="Your Phone Number"
-        className="quiz-input"
-        value={answers['guest_phone'] || ''}
-        onChange={(e) => handleChange('guest_phone', 'text_answer', e.target.value)}
-      />
-    </div>
-  )}
+           {!isLoggedIn && (
+  <div className="guest-info">
+    <label className="question-label">
+      <strong>Tell us a bit about yourself:</strong>
+    </label>
+    <input
+      type="text"
+      placeholder="Your Name"
+      className="quiz-input"
+      value={guestInfo.name}
+      onChange={(e) => handleGuestChange('name', e.target.value)}
+    />
+    <input
+      type="email"
+      placeholder="Your Email"
+      className="quiz-input"
+      value={guestInfo.email}
+      onChange={(e) => handleGuestChange('email', e.target.value)}
+    />
+    <input
+      type="tel"
+      placeholder="Your Phone Number"
+      className="quiz-input"
+      value={guestInfo.phone}
+      onChange={(e) => handleGuestChange('phone', e.target.value)}
+    />
+  </div>
+)}
           </div>
         </form>
       </div>
