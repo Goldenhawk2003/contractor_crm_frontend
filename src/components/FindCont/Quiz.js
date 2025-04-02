@@ -12,14 +12,9 @@ const QuizComponent = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    const token = localStorage.getItem('access_token');
-    axios.get(`${BASE_URL}/api/questions/`, {
-      headers: {
-        ...(token && { Authorization: `Bearer ${token}` }),
-      },
-    })
-    .then((res) => setQuestions(res.data))
-    .catch((err) => console.error('Error loading questions:', err));
+    axios.get(`${BASE_URL}/api/questions/`)
+      .then((res) => setQuestions(res.data))
+      .catch((err) => console.error('Error loading questions:', err));
   }, []);
 
   const handleChange = (questionId, field, value) => {
