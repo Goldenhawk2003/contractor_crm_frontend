@@ -10,7 +10,6 @@ const QuizComponent = () => {
   const [answers, setAnswers] = useState({});
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [guestInfo, setGuestInfo] = useState({ name: '', email: '', phone: '' });
 
   useEffect(() => {
     const token = localStorage.getItem('access_token');
@@ -26,23 +25,9 @@ const QuizComponent = () => {
     }
   
     axios.get(`${BASE_URL}/api/questions/`, { headers })
-      .then((res) => {
-        let fetchedQuestions = res.data;
-        // Add a guest info question at the beginning if not logged in
-        if (!isLoggedIn) {
-          fetchedQuestions = [
-            {
-              id: 'guest_info',
-              text: 'Tell us a bit about yourself:',
-              question_type: 'guest_info',
-            },
-            ...fetchedQuestions,
-          ];
-        }
-        setQuestions(fetchedQuestions);
-      })
+      .then((res) => setQuestions(res.data))
       .catch((err) => console.error('Error loading questions:', err));
-  }, [isLoggedIn]);
+  }, []);
 
   const handleChange = (questionId, field, value) => {
     if (field === 'image_answer' && value && value.size > MAX_FILE_SIZE_MB * 1024 * 1024) {
@@ -61,42 +46,37 @@ const QuizComponent = () => {
   };
 
   const handleSubmit = async (e) => {
-  e.preventDefault();
-
-  // Combine guest info into one text_answer if the user is not logged in
-  if (!isLoggedIn) {
-    const combinedGuestInfo = `Name: ${guestInfo.name}, Email: ${guestInfo.email}, Phone: ${guestInfo.phone}`;
-    setAnswers((prev) => ({
-      ...prev,
-      guest_info: { text_answer: combinedGuestInfo, question: 'guest_info' },
-    }));
-  }
-
-  const formData = new FormData();
-  Object.entries(answers).forEach(([id, data], idx) => {
-    const { image_answer, ...rest } = data;
-    formData.append('answers', JSON.stringify(rest));
-    if (image_answer) {
-      formData.append(`image_answer_${idx}`, image_answer);
-    }
-  });
-
-  try {
-    await axios.post(`${BASE_URL}/api/submit-answers/`, formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-        ...(localStorage.getItem('access_token') && {
-          Authorization: `Bearer ${localStorage.getItem('access_token')}`,
-        }),
-      },
-      withCredentials: true,
+    e.preventDefault();
+  
+    const formData = new FormData();
+    Object.entries(answers).forEach(([id, data], idx) => {
+      const { image_answer, ...rest } = data;
+      formData.append('answers', JSON.stringify(rest));
+      if (image_answer) {
+        formData.append(`image_answer_${idx}`, image_answer);
+      }
     });
-    alert('Quiz submitted!');
-  } catch (err) {
-    console.error('❌ Error submitting:', err);
-    alert('Submission failed. See console for details.');
-  }
-};
+  
+    // Retrieve the token from local storage
+    const token = localStorage.getItem('access_token');
+    const headers = { 'Content-Type': 'multipart/form-data' };
+  
+    // Only add the Authorization header if the token exists and is not empty
+    if (token) {
+      headers['Authorization'] = `Bearer ${token}`;
+    }
+  
+    try {
+      await axios.post(`${BASE_URL}/api/submit-answers/`, formData, {
+        headers,
+        withCredentials: true,
+      });
+      alert('Quiz submitted!');
+    } catch (err) {
+      console.error('❌ Error submitting:', err);
+      alert('Submission failed. See console for details.');
+    }
+  };
 
   const currentQuestion = questions[currentIndex];
 
@@ -185,105 +165,104 @@ const QuizComponent = () => {
                 </>
               )}
 
-              {currentQuestion.question_type === 'datetime' && (
-                <div className="quiz-input-group">
-                  <label>Select Date/Time:</label>
-                  <input
-                    type="datetime-local"
-                    className="quiz-input"
-                    value={answers[currentQuestion.id]?.text_answer || ''}
-                    onChange={(e) => handleChange(currentQuestion.id, 'text_answer', e.target.value)}
-                    />
-                    <label>Or Choose an Option:</label>
-                    <select
-                      className="quiz-input"
-                      value={answers[currentQuestion.id]?.text_answer || ''}
-                      onChange={(e) => handleChange(currentQuestion.id, 'text_answer', e.target.value)}
-                    >
-                      <option value="">Select</option>
-                      <option value="ASAP">ASAP</option>
-                      <option value="Next Week">Next Week</option>
-                      <option value="Whenever">Whenever</option>
-                    </select>
-                  </div>
-                )}
+{currentQuestion.question_type === 'datetime' && (
+  <div className="quiz-input-group">
+    <label>Select Date/Time:</label>
+    <input
+      type="datetime-local"
+      className="quiz-input"
+      value={answers[currentQuestion.id]?.text_answer || ''}
+      onChange={(e) => handleChange(currentQuestion.id, 'text_answer', e.target.value)}
+    />
+    <label>Or Choose an Option:</label>
+    <select
+      className="quiz-input"
+      value={answers[currentQuestion.id]?.text_answer || ''}
+      onChange={(e) => handleChange(currentQuestion.id, 'text_answer', e.target.value)}
+    >
+      <option value="">Select</option>
+      <option value="ASAP">ASAP</option>
+      <option value="Next Week">Next Week</option>
+      <option value="Whenever">Whenever</option>
+    </select>
+  </div>
+)}
 
-                {currentQuestion.question_type === 'mcq' && (
-                  <div className="quiz-mcq">
-                    {currentQuestion.options.map((opt, idx) => (
-                      <label key={idx} className="quiz-option">
-                        <input
-                          type="radio"
-                          name={`question-${currentQuestion.id}`}
-                          value={opt}
-                          checked={answers[currentQuestion.id]?.text_answer === opt}
-                          onChange={(e) => handleChange(currentQuestion.id, 'text_answer', e.target.value)}
-                        />
-                        {opt}
-                      </label>
-                    ))}
-                  </div>
-                )}
+              {currentQuestion.question_type === 'mcq' && (
+                <div className="quiz-mcq">
+                  {currentQuestion.options.map((opt, idx) => (
+                    <label key={idx} className="quiz-option">
+                      <input
+                        type="radio"
+                        name={`question-${currentQuestion.id}`}
+                        value={opt}
+                        checked={answers[currentQuestion.id]?.text_answer === opt}
+                        onChange={(e) => handleChange(currentQuestion.id, 'text_answer', e.target.value)}
+                      />
+                      {opt}
+                    </label>
+                  ))}
+                </div>
+              )}
 
-                {currentQuestion.question_type === 'location' && (
-                  <input
-                    id="location-autocomplete"
-                    type="text"
-                    placeholder="Enter location"
-                    className="quiz-input"
-                    value={answers[currentQuestion.id]?.text_answer || ''}
-                    onChange={(e) => handleChange(currentQuestion.id, 'text_answer', e.target.value)}
-                  />
-                )}
-              </div>
+              {currentQuestion.question_type === 'location' && (
+                <input
+                  id="location-autocomplete"
+                  type="text"
+                  placeholder="Enter location"
+                  className="quiz-input"
+                  value={answers[currentQuestion.id]?.text_answer || ''}
+                  onChange={(e) => handleChange(currentQuestion.id, 'text_answer', e.target.value)}
+                />
+              )}
+            </div>
+          )}
+          
+
+          <div className="quiz-nav-buttons">
+            {currentIndex > 0 && (
+              <button type="button" className="quiz-button" onClick={() => setCurrentIndex((prev) => prev - 1)}>
+                Previous
+              </button>
             )}
-             {currentQuestion.question_type == 'guest' && !isLoggedIn && (
-    <div className="guest-info">
-      <label className="question-label">
-        <strong>Tell us a bit about yourself:</strong>
-      </label>
-      <input
-        type="text"
-        placeholder="Your Name"
-        className="quiz-input"
-        value={answers['guest_name'] || ''}
-        onChange={(e) => handleChange('guest_name', 'text_answer', e.target.value)}
-      />
-      <input
-        type="email"
-        placeholder="Your Email"
-        className="quiz-input"
-        value={answers['guest_email'] || ''}
-        onChange={(e) => handleChange('guest_email', 'text_answer', e.target.value)}
-      />
-      <input
-        type="tel"
-        placeholder="Your Phone Number"
-        className="quiz-input"
-        value={answers['guest_phone'] || ''}
-        onChange={(e) => handleChange('guest_phone', 'text_answer', e.target.value)}
-      />
-    </div>
-  )}
-            
-
-            <div className="quiz-nav-buttons">
-              {currentIndex > 0 && (
-                <button type="button" className="quiz-button" onClick={() => setCurrentIndex((prev) => prev - 1)}>
-                  Previous
-                </button>
-              )}
-              {currentIndex < questions.length - 1 && (
-                <button type="button" className="quiz-button" onClick={() => setCurrentIndex((prev) => prev + 1)}>
-                  Next
-                </button>
-              )}
-              {currentIndex === questions.length - 1 && (
-                <button type="submit" className="quiz-button submit">
-                  Submit
-                </button>
-              )}
-           
+            {currentIndex < questions.length - 1 && (
+              <button type="button" className="quiz-button" onClick={() => setCurrentIndex((prev) => prev + 1)}>
+                Next
+              </button>
+            )}
+            {currentIndex === questions.length - 1 && (
+              <button type="submit" className="quiz-button submit">
+                Submit
+              </button>
+            )}
+           {currentQuestion && currentQuestion.question_type === 'guest' && !isLoggedIn && (
+  <div className="guest-info">
+    <label className="question-label">
+      <strong>Tell us a bit about yourself:</strong>
+    </label>
+    <input
+      type="text"
+      placeholder="Your Name"
+      className="quiz-input"
+      value={answers['guest_name'] || ''}
+      onChange={(e) => handleChange('guest_name', 'text_answer', e.target.value)}
+    />
+    <input
+      type="email"
+      placeholder="Your Email"
+      className="quiz-input"
+      value={answers['guest_email'] || ''}
+      onChange={(e) => handleChange('guest_email', 'text_answer', e.target.value)}
+    />
+    <input
+      type="tel"
+      placeholder="Your Phone Number"
+      className="quiz-input"
+      value={answers['guest_phone'] || ''}
+      onChange={(e) => handleChange('guest_phone', 'text_answer', e.target.value)}
+    />
+  </div>
+)}
           </div>
         </form>
       </div>
