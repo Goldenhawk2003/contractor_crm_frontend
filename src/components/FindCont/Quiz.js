@@ -9,10 +9,17 @@ const QuizComponent = () => {
   const [questions, setQuestions] = useState([]);
   const [answers, setAnswers] = useState({});
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
 
   useEffect(() => {
-    axios.get(`${BASE_URL}/api/questions/`)
+    const token = localStorage.getItem('access_token');
+    const headers = {};
+  
+    if (token) {
+      headers['Authorization'] = `Bearer ${token}`;
+    }
+  
+    axios.get(`${BASE_URL}/api/questions/`, { headers })
       .then((res) => setQuestions(res.data))
       .catch((err) => console.error('Error loading questions:', err));
   }, []);
@@ -45,15 +52,18 @@ const QuizComponent = () => {
       }
     });
   
+    // Retrieve the token from local storage
+    const token = localStorage.getItem('access_token');
+    const headers = { 'Content-Type': 'multipart/form-data' };
+  
+    // Only add the Authorization header if the token exists and is not empty
+    if (token) {
+      headers['Authorization'] = `Bearer ${token}`;
+    }
+  
     try {
       await axios.post(`${BASE_URL}/api/submit-answers/`, formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-          // Include token only if the user is logged in
-          ...(localStorage.getItem('access_token') && {
-            Authorization: `Bearer ${localStorage.getItem('access_token')}`,
-          }),
-        },
+        headers,
         withCredentials: true,
       });
       alert('Quiz submitted!');
@@ -91,11 +101,7 @@ const QuizComponent = () => {
       <div className="quiz-hero">
         <h1 className='quiz-page-header'>Help Us, Help You!</h1>
         <p className='quiz-page-subheader'>Our custom quiz is designed to help match you with the best results for your needs.</p>
-        {!isLoggedIn && (
-        <p className="login-reminder">
-          You are not logged in. Your answers will be submitted anonymously.
-        </p>
-      )}
+       
       </div>
       {currentQuestion && (
   <div className="question-block-outer" key={currentQuestion.id}>
