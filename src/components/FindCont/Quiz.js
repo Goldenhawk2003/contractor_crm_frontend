@@ -56,15 +56,6 @@ const QuizComponent = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
   
-    // Combine guest info into one text_answer if the user is not logged in
-    if (!isLoggedIn) {
-      const combinedGuestInfo = `Name: ${guestInfo.name}, Email: ${guestInfo.email}, Phone: ${guestInfo.phone}`;
-      setAnswers((prev) => ({
-        ...prev,
-        guest_info: { text_answer: combinedGuestInfo, question: 'guest_info' },
-      }));
-    }
-  
     const formData = new FormData();
     Object.entries(answers).forEach(([id, data], idx) => {
       const { image_answer, ...rest } = data;
@@ -73,6 +64,13 @@ const QuizComponent = () => {
         formData.append(`image_answer_${idx}`, image_answer);
       }
     });
+  
+    // Include guest information if not logged in
+    if (!isLoggedIn) {
+      formData.append('guest_name', guestInfo.name);
+      formData.append('guest_email', guestInfo.email);
+      formData.append('guest_phone', guestInfo.phone);
+    }
   
     try {
       await axios.post(`${BASE_URL}/api/submit-answers/`, formData, {
