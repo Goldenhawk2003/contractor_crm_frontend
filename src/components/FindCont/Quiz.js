@@ -237,7 +237,7 @@ const QuizComponent = () => {
                 )}
               </div>
             )}
-             {currentQuestion.question_type == 'guest' & !isLoggedIn && (
+             {currentQuestion.question_type == 'guest' && !isLoggedIn && (
     <div className="guest-info">
       <label className="question-label">
         <strong>Tell us a bit about yourself:</strong>
