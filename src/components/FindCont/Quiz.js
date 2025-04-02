@@ -11,9 +11,14 @@ const QuizComponent = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
-    axios.get(`${BASE_URL}/api/questions/`)
-      .then((res) => setQuestions(res.data))
-      .catch((err) => console.error('Error loading questions:', err));
+    const token = localStorage.getItem('access_token');
+    axios.get(`${BASE_URL}/api/questions/`, {
+      headers: {
+        ...(token && { Authorization: `Bearer ${token}` }),
+      },
+    })
+    .then((res) => setQuestions(res.data))
+    .catch((err) => console.error('Error loading questions:', err));
   }, []);
 
   const handleChange = (questionId, field, value) => {
@@ -34,12 +39,7 @@ const QuizComponent = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const token = localStorage.getItem('access_token');
-    if (!token) {
-      alert('You must be logged in to submit the quiz.');
-      return;
-    }
-
+  
     const formData = new FormData();
     Object.entries(answers).forEach(([id, data], idx) => {
       const { image_answer, ...rest } = data;
@@ -48,12 +48,15 @@ const QuizComponent = () => {
         formData.append(`image_answer_${idx}`, image_answer);
       }
     });
-
+  
     try {
       await axios.post(`${BASE_URL}/api/submit-answers/`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
-          Authorization: `Bearer ${token}`,
+          // Include token only if the user is logged in
+          ...(localStorage.getItem('access_token') && {
+            Authorization: `Bearer ${localStorage.getItem('access_token')}`,
+          }),
         },
         withCredentials: true,
       });
@@ -92,6 +95,11 @@ const QuizComponent = () => {
       <div className="quiz-hero">
         <h1 className='quiz-page-header'>Help Us, Help You!</h1>
         <p className='quiz-page-subheader'>Our custom quiz is designed to help match you with the best results for your needs.</p>
+        {!isLoggedIn && (
+        <p className="login-reminder">
+          You are not logged in. Your answers will be submitted anonymously.
+        </p>
+      )}
       </div>
       {currentQuestion && (
   <div className="question-block-outer" key={currentQuestion.id}>
