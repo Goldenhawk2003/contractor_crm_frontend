@@ -26,16 +26,23 @@ const QuizComponent = () => {
     }
   
     axios.get(`${BASE_URL}/api/questions/`, { headers })
-      .then((res) => setQuestions(res.data))
+      .then((res) => {
+        let fetchedQuestions = res.data;
+        // Add a guest info question at the beginning if not logged in
+        if (!isLoggedIn) {
+          fetchedQuestions = [
+            {
+              id: 'guest_info',
+              text: 'Tell us a bit about yourself:',
+              question_type: 'guest_info',
+            },
+            ...fetchedQuestions,
+          ];
+        }
+        setQuestions(fetchedQuestions);
+      })
       .catch((err) => console.error('Error loading questions:', err));
-  }, []);
-
-  const handleGuestChange = (field, value) => {
-    setGuestInfo((prev) => ({
-      ...prev,
-      [field]: value,
-    }));
-  };
+  }, [isLoggedIn]);
 
   const handleChange = (questionId, field, value) => {
     if (field === 'image_answer' && value && value.size > MAX_FILE_SIZE_MB * 1024 * 1024) {
@@ -230,25 +237,7 @@ const QuizComponent = () => {
                 )}
               </div>
             )}
-            
-
-            <div className="quiz-nav-buttons">
-              {currentIndex > 0 && (
-                <button type="button" className="quiz-button" onClick={() => setCurrentIndex((prev) => prev - 1)}>
-                  Previous
-                </button>
-              )}
-              {currentIndex < questions.length - 1 && (
-                <button type="button" className="quiz-button" onClick={() => setCurrentIndex((prev) => prev + 1)}>
-                  Next
-                </button>
-              )}
-              {currentIndex === questions.length - 1 && (
-                <button type="submit" className="quiz-button submit">
-                  Submit
-                </button>
-              )}
-            {!isLoggedIn && (
+             {!isLoggedIn && (
     <div className="guest-info">
       <label className="question-label">
         <strong>Tell us a bit about yourself:</strong>
@@ -276,6 +265,25 @@ const QuizComponent = () => {
       />
     </div>
   )}
+            
+
+            <div className="quiz-nav-buttons">
+              {currentIndex > 0 && (
+                <button type="button" className="quiz-button" onClick={() => setCurrentIndex((prev) => prev - 1)}>
+                  Previous
+                </button>
+              )}
+              {currentIndex < questions.length - 1 && (
+                <button type="button" className="quiz-button" onClick={() => setCurrentIndex((prev) => prev + 1)}>
+                  Next
+                </button>
+              )}
+              {currentIndex === questions.length - 1 && (
+                <button type="submit" className="quiz-button submit">
+                  Submit
+                </button>
+              )}
+           
           </div>
         </form>
       </div>
