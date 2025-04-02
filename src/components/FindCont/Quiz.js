@@ -34,7 +34,7 @@ const QuizComponent = () => {
       alert(`File too large. Max allowed is ${MAX_FILE_SIZE_MB}MB`);
       return;
     }
-
+ 
     setAnswers((prev) => ({
       ...prev,
       [questionId]: {
@@ -43,6 +43,28 @@ const QuizComponent = () => {
         question: questionId,
       },
     }));
+  };
+  const handleChangeGuest = (questionId, field, value) => {
+    setAnswers((prev) => {
+      const updated = {
+        ...prev,
+        [questionId]: {
+          ...prev[questionId],
+          [field]: value,
+          question: questionId,
+        },
+      };
+  
+      // Combine name, email, and phone into a single text answer
+      if (questionId === 'guest_info') {
+        const name = updated[questionId].name || '';
+        const email = updated[questionId].email || '';
+        const phone = updated[questionId].phone || '';
+        updated[questionId].text_answer = `Name: ${name}, Email: ${email}, Phone: ${phone}`;
+      }
+  
+      return updated;
+    });
   };
 
   const handleSubmit = async (e) => {
@@ -217,6 +239,34 @@ const QuizComponent = () => {
               )}
             </div>
           )}
+             {currentQuestion && currentQuestion.question_type === 'guest' && !isLoggedIn && (
+  <div className="guest-info">
+    <label className="question-label">
+      <strong>Tell us a bit about yourself:</strong>
+    </label>
+    <input
+      type="text"
+      placeholder="Your Name"
+      className="quiz-input"
+      value={answers[currentQuestion.id]?.name || ''}
+      onChange={(e) => handleChangeGuest(currentQuestion.id, 'name', e.target.value)}
+    />
+    <input
+      type="email"
+      placeholder="Your Email"
+      className="quiz-input"
+      value={answers[currentQuestion.id]?.email || ''}
+      onChange={(e) => handleChangeGuest(currentQuestion.id, 'email', e.target.value)}
+    />
+    <input
+      type="tel"
+      placeholder="Your Phone Number"
+      className="quiz-input"
+      value={answers[currentQuestion.id]?.phone || ''}
+      onChange={(e) => handleChangeGuest(currentQuestion.id, 'phone', e.target.value)}
+    />
+  </div>
+)}
           
 
           <div className="quiz-nav-buttons">
@@ -235,34 +285,7 @@ const QuizComponent = () => {
                 Submit
               </button>
             )}
-           {currentQuestion && currentQuestion.question_type === 'guest' && !isLoggedIn && (
-  <div className="guest-info">
-    <label className="question-label">
-      <strong>Tell us a bit about yourself:</strong>
-    </label>
-    <input
-      type="text"
-      placeholder="Your Name"
-      className="quiz-input"
-      value={answers[currentQuestion.id]?.text_answer || ''}
-      onChange={(e) => handleChange(currentQuestion.id, 'text_answer', e.target.value)}
-    />
-    <input
-      type="email"
-      placeholder="Your Email"
-      className="quiz-input"
-      value={answers[currentQuestion.id]?.text_answer || ''}
-      onChange={(e) => handleChange(currentQuestion.id, 'text_answer', e.target.value)}
-    />
-    <input
-      type="tel"
-      placeholder="Your Phone Number"
-      className="quiz-input"
-      value={answers[currentQuestion.id]?.text_answer || ''}
-      onChange={(e) => handleChange(currentQuestion.id, 'text_answer', e.target.value)}
-    />
-  </div>
-)}
+        
           </div>
         </form>
       </div>
