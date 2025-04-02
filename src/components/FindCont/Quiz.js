@@ -46,24 +46,25 @@ const QuizComponent = () => {
   };
   const handleChangeGuest = (questionId, field, value) => {
     setAnswers((prev) => {
-      const updated = {
+      // Get the existing guest info if available, otherwise set empty strings
+      const existingGuestInfo = prev[questionId] || {};
+      const name = field === 'name' ? value : existingGuestInfo.name || '';
+      const email = field === 'email' ? value : existingGuestInfo.email || '';
+      const phone = field === 'phone' ? value : existingGuestInfo.phone || '';
+  
+      // Create the combined text answer
+      const combinedText = `Name: ${name}, Email: ${email}, Phone: ${phone}`;
+  
+      // Update the state with the new combined answer
+      return {
         ...prev,
         [questionId]: {
-          ...prev[questionId],
+          ...existingGuestInfo,
           [field]: value,
           question: questionId,
+          text_answer: combinedText,
         },
       };
-  
-      // Combine name, email, and phone into a single text answer
-      if (questionId === 'guest_info') {
-        const name = updated[questionId].name || '';
-        const email = updated[questionId].email || '';
-        const phone = updated[questionId].phone || '';
-        updated[questionId].text_answer = `Name: ${name}, Email: ${email}, Phone: ${phone}`;
-      }
-  
-      return updated;
     });
   };
 
@@ -239,7 +240,9 @@ const QuizComponent = () => {
               )}
             </div>
           )}
-             {currentQuestion && currentQuestion.question_type === 'guest' && !isLoggedIn && (
+
+          
+{currentQuestion && currentQuestion.question_type === 'guest' && !isLoggedIn && (
   <div className="guest-info">
     <label className="question-label">
       <strong>Tell us a bit about yourself:</strong>
