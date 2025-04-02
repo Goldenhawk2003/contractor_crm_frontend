@@ -244,22 +244,22 @@ const QuizComponent = () => {
       type="text"
       placeholder="Your Name"
       className="quiz-input"
-      value={answers['guest_name'] || ''}
-      onChange={(e) => handleChange('guest_name', 'text_answer', e.target.value)}
+      value={answers[currentQuestion.id]?.text_answer || ''}
+      onChange={(e) => handleChange(currentQuestion.id, 'text_answer', e.target.value)}
     />
     <input
       type="email"
       placeholder="Your Email"
       className="quiz-input"
-      value={answers['guest_email'] || ''}
-      onChange={(e) => handleChange('guest_email', 'text_answer', e.target.value)}
+      value={answers[currentQuestion.id]?.text_answer || ''}
+      onChange={(e) => handleChange(currentQuestion.id, 'text_answer', e.target.value)}
     />
     <input
       type="tel"
       placeholder="Your Phone Number"
       className="quiz-input"
-      value={answers['guest_phone'] || ''}
-      onChange={(e) => handleChange('guest_phone', 'text_answer', e.target.value)}
+      value={answers[currentQuestion.id]?.text_answer || ''}
+      onChange={(e) => handleChange(currentQuestion.id, 'text_answer', e.target.value)}
     />
   </div>
 )}
