@@ -9,7 +9,12 @@ const QuizComponent = () => {
   const [questions, setQuestions] = useState([]);
   const [answers, setAnswers] = useState({});
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
+  useEffect(() => {
+    const token = localStorage.getItem('access_token');
+    setIsLoggedIn(!!token);
+  }, []);
 
   useEffect(() => {
     const token = localStorage.getItem('access_token');
@@ -230,6 +235,32 @@ const QuizComponent = () => {
                 Submit
               </button>
             )}
+            {!isLoggedIn && (
+  <div className="guest-info">
+    <h3>Tell us a bit about yourself:</h3>
+    <input
+      type="text"
+      placeholder="Your Name"
+      className="quiz-input"
+      value={answers.guestName || ''}
+      onChange={(e) => handleChange('guest', 'guestName', e.target.value)}
+    />
+    <input
+      type="text"
+      placeholder="Your Email"
+      className="quiz-input"
+      value={answers.guestEmail || ''}
+      onChange={(e) => handleChange('guest', 'guestEmail', e.target.value)}
+    />
+    <input
+      type="text"
+      placeholder="Your Phone Number"
+      className="quiz-input"
+      value={answers.guestPhone || ''}
+      onChange={(e) => handleChange('guest', 'guestPhone', e.target.value)}
+    />
+  </div>
+)}
           </div>
         </form>
       </div>
