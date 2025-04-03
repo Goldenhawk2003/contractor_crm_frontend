@@ -60,6 +60,9 @@ body.transparent-navbar-page .button-group {
   height: 80vh; /* Set the height to cover the full viewport */
   position: relative;
   background-image: url(../../public/images/wallpapers/C398DBF7-64A2-49F3-ACE6-012BAE965578.png);/* Replace with your image path */
+  background-size: fill;
+  background-position: center;
+  background-repeat: no-repeat;
   display: flex;
   align-items: center; /* vertically center */
  /* spacing between header and image */
@@ -494,8 +497,9 @@ margin-left: 5% !important;
   padding-bottom: 10%;
   color: #091268;
 }
-.process-p{
-  max-width: 40%;
+
+.our-process-p{
+
   padding-left: 5%;
   font-weight: 100;
 }
@@ -949,8 +953,9 @@ align-content: center;
   .testimonial-card {
     flex: 1 1 calc(45% - 10px); /* Two columns with appropriate spacing */
     max-width: 100%; /* Ensure it doesn't exceed container width */
-    min-width: 90%; /* Prevent overflow */
-    min-height: 90% !important;
+    min-width: 96%; /* Prevent overflow */
+    max-height: 80% !important;
+
 
     margin: 0;
     border-radius: 10px;

@@ -16,7 +16,7 @@ const AboutUs = () => {
         <h1>About Us</h1>
        <img src="/images/image.png" className="mission-image-first" alt="About Us" />
         <h2>Leading the Way in Trust and Community.</h2>
-        <p>we believe what's good for community is good for contractors.</p>
+        <p>We believe that great service starts with a strong, connected and inspired community.</p>
        </div>
       </div>
 
@@ -38,13 +38,23 @@ const AboutUs = () => {
 
       <div className="our-story">
   <div className="story-container">
-    <h2 className="story-title">Our Story</h2>
+    <h2 className="story-title">Our Founder's Story</h2>
     <div className="story-text-container">
       <p className="story-text">
-        Elite Craft Contractors was built on the commitment to delivering honest, high-quality work to clients who value integrity and trust. As a homeowner in the Durham Region, it is an ongoing problem to find respectable and qualified contractors.
-      </p>
-      <p className="story-text">
-        ECC was created to comfort and inspire home and business owners while connecting with professionals who maintain loyalty to Durham Region’s community.
+      “In the early 1950’s, my family immigrated from Italy to Canada hoping to create a better future for the generations that followed. My grandparents started working in farming, mining, and factories prior to entering the construction and real estate industry in Durham Region in the late 60’s. My grandfather always said “Canada is the best country in the world,” emphasizing the opportunities it provided for work and starting a family. Following in his footsteps, my father continued in construction and real estate, carrying on the values of hard work, motivation, and a deep appreciation for Canada. </p>
+<p className="story-text">
+Although we are grateful for what Canada has to offer, one ongoing challenge that my family has faced for decades is finding reliable and gifted contractors. Time and time again we’ve encountered contractors who misrepresent their skills and capabilities, leading to consistent uncertainty and frustration. 
+</p>
+
+<p className="story-text">
+I started this company to support and inspire home and business owners. My goal is to connect customers with trusted professionals who maintain loyalty to Durham Region’s community. It is my turn to continue sharing my family's passion for construction and helping the people in my community. I am proud to continue the values that have been the foundation of our families success for generations.”
+</p>
+<p className="story-text"> 
+-Vincent Bavaro
+</p>
+<p className="story-text">
+Owner and Founder of Exclusive Trade Network
+
       </p>
     </div>
   </div>

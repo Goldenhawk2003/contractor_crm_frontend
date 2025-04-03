@@ -220,6 +220,59 @@
     border-radius: 10px;
   }
 
+
+
+
+  .our-process-about {
+    text-align: center;
+    padding: 20px;
+    display: row;
+}
+
+.process-icons-about {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-top: 20px;
+}
+
+.process-item-about {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.process-link-about {
+    text-decoration: none;
+    color: inherit;
+}
+
+.process-img-about {
+    width: 100px;
+    height: auto;
+    margin-bottom: 8px;
+    transition: transform 0.2s ease;
+}
+
+.process-img-about:hover {
+    transform: scale(1.1);
+}
+
+.icon-title-about {
+    margin-top: 5px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-align: center;
+}
+
+
+
+
+
+
+
+
+
   @media (max-width: 768px) {
   .impact-card {
     width: 50%;

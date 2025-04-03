@@ -171,7 +171,7 @@ const doubledImages = images.concat(images);
   <div className="trust">
   <div className="trust-content">
   <h1 className="trust-header">
-  Take our <span className="highlight">1 minute</span> quiz to find your Perfect Contractor
+  Take our <span className="highlight">1 minute</span> questionnaire to find your Perfect Contractor
 </h1>
     
     <button type="submit" className="trust-button-quiz" onClick={quizButton}>
@@ -224,7 +224,7 @@ const doubledImages = images.concat(images);
     )}
 
     <div className='services-box'>
-      <h3 className='service-h3'>Discover With Elite</h3>
+      <h3 className='service-h3'>Discover With Exclusive Trade</h3>
       <p className='service-p'><button type="submit" className="service-p" onClick={BrowseButton}> View All </button></p>
       </div>
      
@@ -259,7 +259,7 @@ const doubledImages = images.concat(images);
       <h3 className="service-title">Discover</h3>
       </div>
       <p className="service-description">
-        Using our categories, search up different services you are looking for. Our skilled contractors will pop up, and you can decide to chat with them!
+Explore our service categories, discover top trades and connect with Exclusive Trade Contractors today!
       </p>
     </div>
     
@@ -268,7 +268,7 @@ const doubledImages = images.concat(images);
       <h3 className="service-title">Quiz</h3>
       </div>
       <p className="service-description">
-        Can’t find what you’re looking for? Take our advanced quiz to find results tailored to your needs.
+      Let’s find your match–Our questionnaire helps you get results with confidence.
       </p>
     </div>
     <div className="service">
@@ -277,7 +277,7 @@ const doubledImages = images.concat(images);
       <h3 className="service-title">Chat</h3>
       </div>
       <p className="service-description">
-        Look through our contractors and chat with them to learn more!
+      Chat directly with Exclusive Trade Contractors. Ask questions, share your vision, and get the support you need.
       </p>
     </div>
     <div className="service">
@@ -286,7 +286,7 @@ const doubledImages = images.concat(images);
       <h3 className="service-title">Contracts</h3>
       </div>
       <p className="service-description">
-        Lock in your contracts with your service provider directly on our site. We ensure protection and privacy and deliver with solutions.
+      Lock in your contracts directly on our site with full privacy and built-in protection.
       </p>
     </div>
   </div>
@@ -299,6 +299,8 @@ const doubledImages = images.concat(images);
         <img src="images/icons/Our-Story-icons-04.png" alt="Our Process" className='process-img' />
         <img src="images/icons/Our-Story-icons-03.png" alt="Our Process" className='process-img' />
         <img src="images/icons/Our-Story-icons-05.png" alt="Our Process" className='process-img' />
+        <p className='our-process-p'>Exclusive Trade Network (ETN) was built on the commitment to delivering honest, high-quality work to clients who value integrity and trust. As a homeowner in the Durham Region, it is an ongoing problem to find respectable and qualified contractors.
+        </p>
 
       </div>
 
