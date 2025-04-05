@@ -443,7 +443,11 @@ textarea.user-input {
   padding: 20px;
   border-radius: 10px;
 }
-
+.form-title-new{
+  font-weight: 200;
+  font-size: 1.7rem;
+  margin-bottom: 10px;
+}
 .form-title {
   font-weight: bold;
   font-size: 18px;

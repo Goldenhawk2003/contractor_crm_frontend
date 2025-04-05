@@ -135,11 +135,16 @@ margin-left: 5% !important;
   flex-direction: column; /* Stack header, paragraph, and button */
   align-items: center;
   align-content: center;
+  background-color: #ECF0FC;
+  width: 65%;
+  padding-bottom: 2.5%;
+  padding-top: 2.5%;
+  border-radius: 40px;
 }
 
 .trust-header {
   font-size: 3.2rem;
-  color:  #FFFF;
+  color:   #6b90ff;
   font-weight: 200;
   width: 80%;
   text-align: center;
@@ -147,7 +152,7 @@ margin-left: 5% !important;
 }
 .highlight{
   color: #091268;
-  font-weight: 800;
+  font-weight: 200;
 }
 
 .trust-p {
@@ -211,6 +216,7 @@ margin-left: 5% !important;
   justify-content: flex-start;
   height: 100%;
   background: linear-gradient(to bottom, #f8f8f8 70%, #6b90ff 30%);
+  padding-bottom: 4%;
 
 
 }
@@ -322,7 +328,7 @@ margin-left: 5% !important;
   color:#091268;
   font-weight: 200;
   padding-left: 23%;
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   width: 100%;
 }
 .service-p{
@@ -351,8 +357,7 @@ margin-left: 5% !important;
 
 .Contractor-choices {
   display: flex;
-  width: 55%;
-  height: 100%;
+  width: 800px;
   gap: 25px;
   margin: 20px auto;
   justify-content: center;
@@ -361,7 +366,7 @@ margin-left: 5% !important;
 
 .Contractor-choices a {
   display: block;
-  width: 100vw;
+  width: 800px;
   aspect-ratio: 1; /* Keeps them square */
   background-color: #ECF0FC;
   border-radius: 10px;
@@ -401,7 +406,8 @@ margin-left: 5% !important;
   font-family: 'Open Sauce One', Arial, sans-serif; /* Custom font */
 /* White border at the top */
   padding-bottom: 8%;
-  padding-top: 5%;
+  padding-top: 8%;
+  border-top: 1px solid #ffffff; /* White border */
 }
 
 /* Header Style */
@@ -423,7 +429,7 @@ margin-left: 5% !important;
   display: grid;
   grid-template-columns: repeat(4, 1fr); /* Four equal columns */
   gap: 40px; /* Spacing between items */
-  border: solid #f8f8f8;
+
   border-radius: 40px;
   padding-top: 5%;
   padding-left: 2%;
@@ -437,6 +443,7 @@ margin-left: 5% !important;
   display: flex;
   flex-direction: column; /* ✅ Stack elements vertically */
   align-items: left; /* ✅ Center align the icon and title */
+  margin-left: 16.8%;
  
 }
 
@@ -473,11 +480,11 @@ margin-left: 5% !important;
 
 /* Service Description */
 .service-description {
-  font-size: 0.8rem;
+  font-size: 1rem;
   line-height: 1.6; /* Increase line spacing for readability */
   text-align: left;
   font-weight: 100;
-  width: 75%;
+  width: 80%;
 
 }
 /* End of our services */
@@ -493,30 +500,73 @@ margin-left: 5% !important;
 .our-process {
   background-color: #f8f8f8;
   width: 100%;
-  padding-top: 8%;
-  padding-bottom: 10%;
+  padding-top: 4%;
+  padding-bottom: 4%;
   color: #091268;
 }
 
+.our-process-box{
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+ 
+
+}
 .our-process-p{
 
-  padding-left: 5%;
+
   font-weight: 100;
+  text-align: left;
+  width: 90%;
+  padding-left: 4%;
+
+
+
+  
 }
 
+.our-process-text{
+  font-size: 1.2rem;
+  color: #091268;
+  font-weight: 200;
+  padding-left: 4%;
+  text-align: left;
+  width: 100%;
+  padding-bottom: 14%;
+}
 .our-header {
   font-size: 3.2rem;
   color: #091268;
   font-weight: 200;
-  padding-left: 12%;
+  padding-left: 6.5%;
+  
 }
 .process-img{
 
-  width: 8%;
-  padding-left: 15%;
+  width: 40%;
+  margin-left: 5%;
+  border-radius: 50px;
+  margin-bottom: 5%;
+
+
+}
+.trust-button-services{
+  padding: 15px 20px;
+  font-size: 1rem;
+  color: #091268;
+  background-color: #ECF0FC;
+  border: 1px #091268 solid;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  width: 40%;
   align-self: center;
-
-
+  text-decoration: none;
+  font-weight: normal;
+  margin-top: 3%;
+  margin-left: 4%;
 }
 /* End of Process */
 
@@ -533,7 +583,7 @@ margin-left: 5% !important;
   flex-direction: column;
   align-items: stretch; /* Ensure children span the full width */
   justify-content: flex-start;
-  background-color: #091268;
+  background-color: #ECF0FC;
   text-align: center;
   padding-left: 6%;
   padding-right: 4%;
@@ -543,7 +593,7 @@ margin-left: 5% !important;
 
 .match-header {
   font-size: 2.5rem;
-  color: #f8f8f8;
+  color: #091268;
   margin-bottom: 20px;
   width: 35%;
   margin: 0 auto;
@@ -639,10 +689,14 @@ margin-left: 5% !important;
   text-align: left; /* Ensure text in the header stays left-aligned */
   font-size: 3rem;
   color: #091268;
-  font-weight: 800; 
+
   width: 25%;
   padding-top: 6%;
   padding-right: 2%;
+  font-weight: 200;
+
+}
+.testimonials-header h2{
   font-weight: 200;
 
 }
@@ -703,14 +757,14 @@ margin-left: 5% !important;
 .Explore{
 padding-top: 3%;
 padding-bottom: 4%;
-background-color: #6b90ff;
+background-color: #ECF0FC;
 align-items: center;
 align-content: center;
 }
 
 .Explore-header{
   font-size: 3.2rem;
-  color: #FFFF;
+  color: #091268;
   font-weight: 200;
   padding-left: 5%;
   text-align: center;
@@ -850,7 +904,7 @@ align-content: center;
 .About-us-text{
   font-size: 1.4rem;
   color: #091268;
-  font-weight: 200;
+  font-weight: 100;
   width: 90%;
 }
 
@@ -866,6 +920,8 @@ align-content: center;
   width: fit-content;
   font-weight: normal;
   margin-top: 40%;
+  width: 45%;
+  height: 40%;
   
 }
 
@@ -1026,6 +1082,8 @@ align-content: center;
     height: 14vh !important;
     aspect-ratio: 1 / 1;
     overflow: hidden;
+    
+    
   }
 
   .contractor-choice-button img:hover {
@@ -1033,7 +1091,9 @@ align-content: center;
   }
   .contractor-choice-button img{
     size: 40rem;
+  
   }
+
   .Contractor-choices {
     display: flex;
     width: 75%;

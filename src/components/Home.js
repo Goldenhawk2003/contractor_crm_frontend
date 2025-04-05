@@ -175,7 +175,7 @@ const doubledImages = images.concat(images);
 </h1>
     
     <button type="submit" className="trust-button-quiz" onClick={quizButton}>
-      Take Our Quiz
+     Find My Match Now!
     </button>
     
   </div>
@@ -224,7 +224,7 @@ const doubledImages = images.concat(images);
     )}
 
     <div className='services-box'>
-      <h3 className='service-h3'>Discover With Exclusive Trade</h3>
+      <h3 className='service-h3'>Discover With ETN</h3>
       <p className='service-p'><button type="submit" className="service-p" onClick={BrowseButton}> View All </button></p>
       </div>
      
@@ -249,7 +249,7 @@ const doubledImages = images.concat(images);
   </div>
 
   <div className="we-offer">
-  <h2 className="we-offer-header">Our Services.</h2>
+  <h2 className="we-offer-header">Our Services</h2>
   <div className="services-container">
 
 
@@ -295,12 +295,17 @@ Explore our service categories, discover top trades and connect with Exclusive T
       
       <div className='our-process'> 
         <h2 className='our-header'>Why Choose Us?</h2>
-        <img src="images/icons/Our-Story-icons-02.png" alt="Our Process" className='process-img' />
-        <img src="images/icons/Our-Story-icons-04.png" alt="Our Process" className='process-img' />
-        <img src="images/icons/Our-Story-icons-03.png" alt="Our Process" className='process-img' />
-        <img src="images/icons/Our-Story-icons-05.png" alt="Our Process" className='process-img' />
+        <div className='our-process-box'>
+        <img className='process-img' src="/images/home-page/diversity-collaboration-laughing-and-architect-te-2023-11-27-04-49-54-utc.jpeg" />
+        <div className='our-process-text'>
         <p className='our-process-p'>Exclusive Trade Network (ETN) was built on the commitment to delivering honest, high-quality work to clients who value integrity and trust. As a homeowner in the Durham Region, it is an ongoing problem to find respectable and qualified contractors.
         </p>
+        <p className='our-process-p'>ETN was created to comfort and inspire home and business owners while connecting with professionals who maintain loyalty to Durham Region’s community as well as the GTA. 
+        </p>
+        <button type='submit' className='trust-button-services' onClick={requestButton}>Request a Service</button>
+        </div>
+        </div>
+
 
       </div>
 
@@ -504,7 +509,7 @@ Explore our service categories, discover top trades and connect with Exclusive T
     <div className="About-us-text-container">
       <h1 className='About-us-header'>Meet Your Advocates</h1>
       <p className='About-us-text'>
-        At <strong>Exclusive Trade Network</strong>, we put your needs first, and we’re driven by our community. Read more, and say hello!
+        At Exclusive Trade Network, we put your needs first, and we’re driven by our community. Read more, and say hello!
       </p>
       <button type="submit" className="About-us-button-home" onClick={aboutUsButton}>
         About Us

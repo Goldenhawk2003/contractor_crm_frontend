@@ -267,7 +267,7 @@ const ProfessionalContracts = () => {
         <div className="contract-form-container">
           {sendSuccess && <p className="success-message">{sendSuccess}</p>}
           {sendError && <p className="error-message">{sendError}</p>}
-          <h3 className="form-title">New Contract</h3>
+          <h3 className="form-title-new">New Contract</h3>
           <p className="contract-date">
             <strong>Date:</strong> {new Date().toLocaleDateString()}
           </p>

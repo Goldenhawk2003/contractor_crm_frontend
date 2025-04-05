@@ -24,6 +24,10 @@ body.transparent-navbar-page .button-group { /* Makes the navbar transparent */
 
   .contact-us-page{
     background-image: url(../../public/images/wallpapers/513263E5-0004-4894-94EB-ED2B77EAAF15.png);
+    z-index: 1;
+    background-color: #ECF0FC;
+    padding-top: 10%;
+    padding-bottom: 10%;
   }
 /* General Styles */
 .contact-header {
@@ -39,11 +43,16 @@ body.transparent-navbar-page .button-group { /* Makes the navbar transparent */
     color: white;
     text-align: center;
     margin: 0 auto;
-    width: 60%;
-    line-height: 1.6;
-    padding-bottom: 4%;
-  }
+    width: 80%;
+    line-height: 1;
   
+  }
+  .contact-p-box{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding-bottom: 3.5%;
+  }
   .contact {
     display: flex;
     flex-direction: column;

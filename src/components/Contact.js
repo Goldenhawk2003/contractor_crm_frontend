@@ -54,9 +54,12 @@ const Contact = () => {
 
     return (
         <div className='contact-us-page'>
-            <h1 className="contact-header">Contact Us</h1>
+          
             <div className="contact-p-container">
-            <p className='contact-p'>Need assistance? Our team is here to help.</p>
+                <div className='contact-p-box'>
+            <p className='contact-p'>Need assistance? </p>
+            <p className='contact-p'>Our team is here to help.</p>
+            </div>
             </div>
             <div className="contact">
                 {successMessage && <p className="success-message">{successMessage}</p>}
