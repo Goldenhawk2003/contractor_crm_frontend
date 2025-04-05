@@ -76,7 +76,7 @@ const Login = () => {
             <div className="divider"></div>
             <div className="sign-up">
                 <h2 className="log-header">New to Elite Craft?</h2>
-                <Link to="/signup" className="sub">Sign Up</Link>
+                <Link to="/signup" className="sub-link">Sign Up</Link>
            
             </div>
         </div>

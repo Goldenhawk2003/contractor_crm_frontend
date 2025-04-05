@@ -104,7 +104,10 @@ function Signup() {
   };
 
   return (
+    <div className='signup-page'>
+    <h1 className='sign-up-header'>Welcome to ETN</h1>
     <form onSubmit={handleSubmit} className="cont">
+
       {error && <p style={{ color: 'red' }}>{error}</p>}
       
       <input
@@ -162,17 +165,16 @@ function Signup() {
         className='inp'
       />
 
-      <input
-        type="text"
+      <LocationAutocomplete
         name="location"
         value={formData.location}
         onChange={handleChange}
-        placeholder="City Name"
+        placeholder="Location"
         required
         className='inp'
       />
 
-      
+      <div className='role'>
       <label>
         <input
           type="radio"
@@ -182,7 +184,7 @@ function Signup() {
           onChange={handleChange}
           className='radio'
         />
-        Client
+    I am a Homeowner
       </label>
       <label>
         <input
@@ -193,8 +195,9 @@ function Signup() {
           onChange={handleChange}
           className='radio'
         />
-        Professional
+      I am a Contractor
       </label>
+      </div>
       
       {formData.role === 'professional' && (
         <>
@@ -219,7 +222,7 @@ function Signup() {
       <option value="Snow Removal">Snow Removal</option>
     </select>
           <input
-            type="number"
+            type="text"
             name="hourly_rate"
             value={formData.hourly_rate}
             onChange={handleChange}
@@ -240,6 +243,7 @@ function Signup() {
       
       <button className='sbmit' type="submit">Sign Up</button>
     </form>
+    </div>
   );
 }
 

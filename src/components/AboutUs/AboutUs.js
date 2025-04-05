@@ -13,10 +13,12 @@ const AboutUs = () => {
       {/* About Us Section */}
       <div className="our-mission-first">
       <div className="mission-container-first">
+        <div className="mission-image-container">
         <h1>About Us</h1>
-       <img src="/images/image.png" className="mission-image-first" alt="About Us" />
         <h2>Leading the Way in Trust and Community.</h2>
         <p>We believe that great service starts with a strong, connected and inspired community.</p>
+        </div> 
+        <img src="/images/image.png" className="mission-image-first" alt="About Us" />
        </div>
       </div>
 
@@ -49,10 +51,10 @@ Although we are grateful for what Canada has to offer, one ongoing challenge tha
 <p className="story-text">
 I started this company to support and inspire home and business owners. My goal is to connect customers with trusted professionals who maintain loyalty to Durham Region’s community. It is my turn to continue sharing my family's passion for construction and helping the people in my community. I am proud to continue the values that have been the foundation of our families success for generations.”
 </p>
-<p className="story-text"> 
+<p className="story-text-author"> 
 -Vincent Bavaro
 </p>
-<p className="story-text">
+<p className="story-text-author">
 Owner and Founder of Exclusive Trade Network
 
       </p>
@@ -62,7 +64,7 @@ Owner and Founder of Exclusive Trade Network
 
 <div className="our-mission">
   <div className="mission-container-icons">
-   <img src="/images/Our-Story-icons-01.png" alt="Our Mission" className="mission-image" />
+   <img src="images/85FDFD72-9A40-4C42-AD9B-B343806A64C4.png" alt="Our Mission" className="mission-image" />
     </div>
 </div>
 <div className="our-mission">

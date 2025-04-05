@@ -52,6 +52,7 @@ body.transparent-navbar-page .button-group { /* Makes the navbar transparent */
     flex-direction: column;
     width: 100%;
     padding-bottom: 3.5%;
+    
   }
   .contact {
     display: flex;
@@ -126,8 +127,8 @@ body.transparent-navbar-page .button-group { /* Makes the navbar transparent */
     width: 55.4%;
     padding-top: 5%;
     display: flex;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;;
     text-align: center;
     justify-content: center; /* horizontal centering */
     align-items: center;     /* vertical centering */

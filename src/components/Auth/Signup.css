@@ -108,7 +108,10 @@ label {
   padding: 10px;
   cursor: pointer;
 }
-
+.role{
+  padding-top: 2%;
+  padding-bottom: 2%;
+}
 /* Highlight selected dropdown */
 .jobtype:focus {
   appearance: none; /* Remove default styles */
@@ -124,3 +127,9 @@ label {
   border-color: #dcbf79; /* Gold color */
 }
 
+.sign-up-header{
+  font-size: 3rem;
+  font-weight: 200;
+  color: #FFFF; /* Light blue */
+  text-align: center;
+}

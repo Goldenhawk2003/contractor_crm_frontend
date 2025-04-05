@@ -56,7 +56,7 @@
   .impact-container {
     width: 80%;
     margin-left: 8%;
-    background-color: #ECF0FC;
+
     
   }
   
@@ -68,7 +68,7 @@
     align-items: left;
     justify-content: left;
     margin-left: 2%;
-    background-color: white;
+ 
     
   }
   
@@ -79,9 +79,11 @@
     justify-content: space-between;
     border: 2px solid #091268;
     border-radius: 10px;
-    padding: 20px;
-
+    background-color: #ECF0FC;
     padding-top: 6%;
+    padding-bottom: 2%;
+
+
   }
   
   .impact-card {
@@ -93,6 +95,7 @@
     font-size: 3rem;
     font-weight: bold;
     color: #091268;
+    margin-left: 2%;
   }
   
   .impact-text {
@@ -101,6 +104,7 @@
     font-weight: 100;
     padding-top: 2%;
     width: 80%;
+    margin-left: 14%;
  
   }
   
@@ -137,7 +141,20 @@
     padding-left: 15%; /* Adds spacing between title and text */
     font-weight: 100;
     width: 80%;
-    padding-top: 4%;
+    padding-top: 2%;
+    padding-bottom: 2%;
+
+  }
+  .story-text-author{
+    flex: 2;
+    font-size: 1.2rem;
+    color: #091268;
+    text-align: left;
+    line-height: 0.6;
+    padding-left: 15%; /* Adds spacing between title and text */
+    font-weight: 100;
+    width: 80%;
+
 
   }
 .mission-container{
@@ -179,7 +196,7 @@
 
   .mission-container-first{
     background-color: #6b90ff !important;
-    display: block;
+    display: flex;
     align-items: center;
     justify-content: center;
     text-align: left;
@@ -200,29 +217,38 @@
     font-weight: 100;
   }
   .mission-container-first h1{
-    padding-top: 5%;
+
+font-weight: 200;
+    font-size: 2.8rem;
+    width: 90%;
   }
   .mission-container-first h2{
     padding-top: 2%;
     font-weight: 200;
-    font-size: 3rem;
-    width: 40%;
+    font-size: 2.8rem;
+    width: 100%;
   }
   .mission-container-first p{
     padding-bottom: 5%;
     font-size: 1.5rem;
-    width: 33%;
+    width: 100%;
   }
   .mission-image-first {
-    height: 700px;              /* or any fixed height */
-    width: 70%;                /* stretches full width of container */
+    height: 550px;              /* or any fixed height */
+    width: 60%;                /* stretches full width of container */
     object-fit:fill;          /* maintains aspect ratio & crops if needed */
     display: block;
     margin: 0 auto;
     border-radius: 10px;
+    margin-right: 5%;
+    margin-bottom: 5%;
+    margin-top: 5%;
   }
 
-
+.mission-image-container{
+  padding-bottom: 12%;
+  padding-right: 10%;
+}
 
 
   .our-process-about {
