@@ -40,7 +40,7 @@ html, body {
 
 body.specific-page {
 
-  background-image: url(../../public/images/wallpapers/C398DBF7-64A2-49F3-ACE6-012BAE965578.png);/* Replace with your image path */
+/* Replace with your image path */
   background-size: cover; /* Ensure the image covers the entire section */
   background-position:center; /* Center the image */
   background-repeat: no-repeat;
@@ -1035,7 +1035,52 @@ align-content: center;
 
 
 
+  .trust {
+    padding-top: 8%;
+    padding-bottom: 8%;
+    background-size: cover;
+    background-position: center;
+  }
 
+  .trust-content {
+    width: 80%;
+    padding: 5%;
+    border-radius: 20px;
+  }
+
+  .trust-header {
+    font-size: 2rem;
+    width: 100%;
+    padding: 0;
+    text-align: center;
+  }
+
+  .highlight {
+    font-size: 1.5rem;
+  }
+
+  .trust-p {
+    font-size: 1rem;
+    width: 90%;
+    padding-left: 0;
+    text-align: center;
+  }
+
+  .trust-button-quiz {
+    padding: 12px 16px;
+    font-size: 0.9rem;
+    width: 70%;
+    margin: 3% auto;
+    text-align: center;
+  }
+
+  .trust-button:hover {
+    transform: scale(1.02);
+    text-decoration: underline;
+    text-decoration-color: #091268;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 2px;
+  }
   
 .trust-header{
   font-size: 1.5rem;
@@ -1146,5 +1191,50 @@ margin-bottom: -65px !important;
   }
   .About-us-header{
     font-size: 2rem;
+  }
+
+  .our-process {
+    padding-top: 8%;
+    padding-bottom: 8%;
+  }
+
+  .our-process-box {
+    flex-direction: column;
+    padding: 0 5%;
+  }
+
+  .process-img {
+    width: 80%;
+    margin: 0 auto;
+    margin-bottom: 4%;
+    border-radius: 20px;
+  }
+
+  .our-process-text {
+    font-size: 1rem;
+    width: 100%;
+    padding: 0;
+    text-align: center;
+  }
+
+  .our-process-p {
+    font-weight: 100;
+    text-align: center;
+    padding: 0 5%;
+  }
+
+  .our-header {
+    font-size: 2rem;
+    text-align: center;
+    padding-left: 0;
+  }
+
+  .trust-button-services {
+    padding: 12px 16px;
+    font-size: 0.9rem;
+    width: 60%;
+    margin: 2% auto;
+    text-align: center;
+    margin-left: 0;
   }
 }

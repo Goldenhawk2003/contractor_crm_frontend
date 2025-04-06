@@ -208,6 +208,8 @@ body.transparent-navbar-page .button-group { /* Makes the navbar transparent */
     padding: 6% 4%;
     flex-direction: column;
     text-align: center;
+    margin-top: 20%;
+    
   }
 
   .contact-p {
@@ -219,6 +221,7 @@ body.transparent-navbar-page .button-group { /* Makes the navbar transparent */
   .contact-form {
     width: 90%;
     padding: 20px;
+    margin-bottom: 30%;
   }
 
   .contact-form div {
