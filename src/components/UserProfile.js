@@ -103,11 +103,60 @@ const HomeTab = ({ userInfo }) => {
       navigate("/edit-profile");
     }
   }, [navigate, userInfo]);
+    const [formData, setFormData] = useState({
+      first_name: '',
+      last_name: '',
+      phone_number: ''
+    });
+    const [message, setMessage] = useState('');
+    
+    const handleChange = (e) => {
+      setFormData({ ...formData, [e.target.name]: e.target.value });
+    };
+  
+    const handleSubmit = async (e) => {
+      e.preventDefault();
+  
+      const token = localStorage.getItem('access_token');
+      if (!token) {
+          setMessage('User not authenticated. Please log in.');
+          return;
+      }
+  
+      try {
+          const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/update-user/`, {
+              method: 'PUT',
+              headers: {
+                  'Authorization': `Bearer ${token}`,
+                  'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(formData)
+          });
+  
+          if (response.ok) {
+              const data = await response.json();
+              setMessage(`User updated successfully! Name: ${data.first_name} ${data.last_name}`);
+              console.log('Success:', data);
+          } else if (response.status === 401) {
+              setMessage('Unauthorized: Please log in again.');
+              localStorage.removeItem('access_token'); // Clear the token if unauthorized
+          } else if (response.status === 405) {
+              setMessage('Method Not Allowed: Please check the request method.');
+          } else {
+              const errorData = await response.json();
+              setMessage(`Error: ${errorData.detail || 'Update failed'}`);
+              console.error('Error:', errorData);
+          }
+      } catch (error) {
+          setMessage('Network error');
+          console.error('Network error:', error);
+      }
+  };
 
   return (
     <div className="tab-content">
       {userInfo ? (
-        <div>
+        <div className="profile">
           {userInfo.logo && (
             <img
               src={
@@ -119,21 +168,51 @@ const HomeTab = ({ userInfo }) => {
               className="profile-image"
             />
           )}
-          <div className="profile-info">
-            <button className="submit-btn" onClick={editProfile}>
-              Edit Profile
-            </button>
-          </div>
           <div className="profile-container">
             <p className="profile-username">{userInfo.username}</p>
             {userInfo.type === "professional" && (
               <>
+              <div className="profile-blue-box">
                 <p className="profile-blue">{userInfo.type}</p>
                 <p className="profile-blue">{userInfo.location}</p>
-                <StarRating ratingValue={userInfo.rating} />
+                </div>
+                <StarRating ratingValue={userInfo.rating} className="star-rating" />
               </>
             )}
           </div>
+          <div className="edit-profile-user">
+      <form className="edite-profile-form-user" onSubmit={handleSubmit}>
+        <h2 className="edit-profile-header">Update User Information</h2>
+        <input
+          type="text"
+          name="first_name"
+          placeholder="First Name"
+          value={formData.first_name}
+          onChange={handleChange}
+          className="edit-profile-input"
+        />
+        <input
+          type="text"
+          name="last_name"
+          placeholder="Last Name"
+          value={formData.last_name}
+          onChange={handleChange}
+          className="edit-profile-input"
+        />
+        <input
+          type="text"
+          name="phone_number"
+          placeholder="Phone Number"
+          value={formData.phone_number}
+          onChange={handleChange}
+          className="edit-profile-input"
+        />
+        <button type="submit" className="edit-profile-button">
+          Update
+        </button>
+        {message && <p className="mt-4 text-red-500">{message}</p>}
+      </form>
+    </div>
           <div className="profile-description">
             <p>{userInfo.description}</p>
           </div>
@@ -239,6 +318,7 @@ const ProfessionalContracts = () => {
         .catch(() => setError("Failed to fetch sent contracts."));
     }
   }, [contractTab]);
+  
 
   return (
     <div>
@@ -267,7 +347,7 @@ const ProfessionalContracts = () => {
         <div className="contract-form-container">
           {sendSuccess && <p className="success-message">{sendSuccess}</p>}
           {sendError && <p className="error-message">{sendError}</p>}
-          <h3 className="form-title-new">New Contract</h3>
+          <h3 className="form-title">New Contract</h3>
           <p className="contract-date">
             <strong>Date:</strong> {new Date().toLocaleDateString()}
           </p>
@@ -534,6 +614,7 @@ const ClientContracts = () => {
 
           return (
             <li key={contract.id}>
+              <div className="contract-client-test">
               <p><strong>Title:</strong> {contract.title}</p>
 
               <div>
@@ -549,6 +630,7 @@ const ClientContracts = () => {
               </div>
 
               <p><strong>Status:</strong> {contract.is_signed ? "Signed" : "Pending"}</p>
+              
 
               <div className="button-container">
   {!contract.is_signed ? (
@@ -580,6 +662,7 @@ const ClientContracts = () => {
       </Link>
     </>
   )}
+</div>
 </div>
             </li>
           );

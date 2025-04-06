@@ -195,11 +195,13 @@
   color: #f8f8f8;
   text-align: center;
   border-radius: 25px;
-
-  width: 10%;
-  padding: 6%;
+  padding: 8%;
   display: inline;
-  margin-right: 5%;
+  margin-right: 2.5%;
+
+}
+.profile-blue-box{
+  margin-bottom: 2%;
 }
 /* Search Results Styling */
 .search-results {
@@ -316,11 +318,17 @@ textarea.user-input {
   z-index: -1;
   background-color: #091268;
 }
-.profile-container{
 
-  margin-top: 2%;
+.profile-container{
+display: flex;
+flex-direction: column;
+  margin-top: 10%;
   text-align: left;
+
+  align-items: flex-start;
 }
+
+
 .profile-username{
   font-size: 35px;
   font-weight: bold;
@@ -336,8 +344,6 @@ textarea.user-input {
   border: 5px solid white;
   z-index: 1;
   position: absolute;
-  top: 300px;
-  left: 320px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
@@ -348,7 +354,10 @@ textarea.user-input {
   gap: 15px;
   float: left;
 }
-
+.profile{
+  display: flex;
+  flex-direction: column;
+}
 .user-info h2 {
   font-size: 22px;
   font-weight: bold;
@@ -537,6 +546,7 @@ textarea.user-input {
 
 .contract-parsed-section {
   margin-bottom: 1rem;
+  display: flex;
 }
 
 .contract-parsed-section h4 {
@@ -638,6 +648,7 @@ textarea.user-input {
   color: #091268;
 }
 
+
 .cont-stars {
   font-size: 1.5rem;
   color: #FFD700;
@@ -656,4 +667,80 @@ textarea.user-input {
 
 .payment-btn {
   background-color: #1b3656;
+}
+
+.edit-profile-user {
+  display: flex;
+  justify-content: left;
+  align-items: left;
+}
+
+.edite-profile-form-user {
+
+
+  width: 100%;
+  max-width: 400px;
+}
+
+.edit-profile-header {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.edit-profile-input {
+  width: 100%;
+  padding: 0.75rem;
+  margin-bottom: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 0.375rem;
+  background-color: #f3f4f6;
+  transition: border-color 0.2s, background-color 0.2s;
+}
+
+.edit-profile-input:focus {
+  border-color: #6b90ff;
+  background-color: #ffffff;
+  outline: none;
+}
+
+.edit-profile-button {
+  background-color: #6b90ff;
+  color: #ffffff;
+  padding: 0.75rem 1rem;
+  border: none;
+  border-radius: 0.375rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  width: 50%;;
+}
+
+.edit-profile-button:hover {
+  background-color: #2563eb;
+}
+
+
+.contract-client-test{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  background-color: #ecf0fc;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 100%;
+
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center; 
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #091268;
+  border: 1px solid #091268;
+  transition: all 0.3s ease;  
+  
 }
