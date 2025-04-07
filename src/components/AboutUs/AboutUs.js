@@ -64,7 +64,7 @@ Owner and Founder of Exclusive Trade Network
 
 <div className="our-mission">
   <div className="mission-container-icons">
-   <img src="images/85FDFD72-9A40-4C42-AD9B-B343806A64C4.png" alt="Our Mission" className="mission-image" />
+   <img src="/images/EDD820D9-7A2F-478B-9592-00482217ACA8.png" alt="Our Mission" className="mission-image" />
     </div>
 </div>
 <div className="our-mission">
