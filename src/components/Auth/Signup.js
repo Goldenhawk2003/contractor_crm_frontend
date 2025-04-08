@@ -168,8 +168,8 @@ function Signup() {
         className='inp'
       />
 
-<LocationAutocomplete
-  name="location"
+<input
+ id="location-autocomplete"
   value={formData.location}
   onChange={(e) => setFormData({ ...formData, location: e.target.value })}
   placeholder="Enter location"
