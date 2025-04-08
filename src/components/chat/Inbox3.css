@@ -232,3 +232,45 @@
   border-radius: 5px;
   cursor: pointer;
 }
+.search-bar-3 {
+  width: 90%;
+
+  padding: 10px;
+
+  border: 1px solid #ddd;
+  border-radius: 20px;
+  outline: none;
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+.search-bar-3:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.search-button-3 {
+  padding: 10px 20px;
+
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 2%;
+
+}
+
+.search-button-3:hover {
+  background-color: #0056b3;
+}
+
+.search-button-3:disabled {
+  background-color: #6c757d;
+  cursor: not-allowed;
+}
+
+.search-button-3:disabled:hover {
+  background-color: #6c757d;
+}

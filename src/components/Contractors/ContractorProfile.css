@@ -1,12 +1,21 @@
 
-
-.cont-contractor-profile {
+.cont-profile-container{
+  background-image: url(../../../public/images/wallpapers/513263E5-0004-4894-94EB-ED2B77EAAF15.png);
   background-color: #ECF0FC;
+  height: 100vh;
+  margin: auto;
+  border: 1px solid transparent;
+  padding-bottom: 30% ;
+}
+.cont-contractor-profile {
+  background-color: #FFFF;
   padding: 40px;
   border-radius: 10px;
   max-width: 900px;
   margin: auto;
   box-sizing: border-box;
+  margin-bottom: 30% ;
+  margin-top: 4%;
 }
 
 .cont-profile-header {

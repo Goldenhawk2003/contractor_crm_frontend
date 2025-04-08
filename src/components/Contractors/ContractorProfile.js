@@ -137,6 +137,7 @@ const ContractorProfile = () => {
   };
 
   return (
+    <div className="cont-profile-container">
     <div className="cont-contractor-profile">
       <div className="cont-profile-header">
         <div className="cont-profile-left">
@@ -208,6 +209,7 @@ const ContractorProfile = () => {
 
       {successMessage && <p className="success-message">{successMessage}</p>}
       {errorMessage && <p className="error-message">{errorMessage}</p>}
+    </div>
     </div>
   );
 };

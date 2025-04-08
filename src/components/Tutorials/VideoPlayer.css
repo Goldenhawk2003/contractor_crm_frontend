@@ -5,11 +5,11 @@
 }
 /* Video Player Container */
 .video-player-container {
-  padding-top: 10%;
+  padding-top: 6.3%;
   width: 100vw;
   padding-left: none;
   margin: auto;
-  background: linear-gradient(to top, #ECF0FC 92%, #FFFF 15%);
+  background: linear-gradient(to top, #ECF0FC 90%, #FFFF 10%);
 
 
 }
@@ -19,7 +19,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 20px;
+  padding-bottom: 20px;
   position: relative;
 }
 
@@ -58,7 +58,7 @@
   flex-wrap: wrap;
   gap: 0.5rem; /* ✅ Removes gap between tags */
   margin-top: 20px; /* ✅ Ensures spacing between search and tags */
-  margin-left: 8%;
+
 
 }
 
