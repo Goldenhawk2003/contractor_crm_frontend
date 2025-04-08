@@ -5,9 +5,11 @@
 }
 /* Video Player Container */
 .video-player-container {
+  padding-top: 10%;
   width: 100vw;
   padding-left: none;
   margin: auto;
+  background: linear-gradient(to top, #ECF0FC 92%, #FFFF 15%);
 
 
 }

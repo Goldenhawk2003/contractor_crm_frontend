@@ -15,8 +15,11 @@ const AboutUs = () => {
       <div className="mission-container-first">
         <div className="mission-image-container">
         <h1>About Us</h1>
+
+       
         <h2>Leading the Way in Trust and Community.</h2>
         <p>We believe that great service starts with a strong, connected and inspired community.</p>
+
         </div> 
         <img src="/images/image.png" className="mission-image-first" alt="About Us" />
        </div>

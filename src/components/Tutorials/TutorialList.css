@@ -10,12 +10,12 @@
 
 /* Heading */
 .tutorial-heading {
-  font-size: 5rem;
+  font-size: 3rem;
   font-weight: 200;
   color: #091268;
   text-align: center;
   margin-bottom: 0;
-  padding-top: 10%;
+  padding-top: 4dvh;
 
 }
 .tutorial-intro-container{
@@ -31,7 +31,7 @@
 }
 
 .tutorial-header{
-  background: linear-gradient(to bottom, #ECF0FC 92%, #FFFF 8%);
+  background: linear-gradient(to bottom, #ECF0FC 90%, #FFFF 10%);
   padding-top: 0;
   margin-top: 0;
 /* Makes sure the section is tall enough */
@@ -42,7 +42,7 @@
 
 }
 .tutorial-intro{
- font-size: 2rem;
+ font-size: 1.8rem;
  font-weight: 900;
  width: 65%;
  text-align: center;
