@@ -17,6 +17,7 @@ function Signup() {
   });
 
   const [error, setError] = useState('');
+  const [locationInput, setLocationInput] = useState(''); // Temporary state for typing
 
   useEffect(() => {
     if (!window.google) return;
@@ -33,16 +34,21 @@ function Signup() {
       const place = autocomplete.getPlace();
       const formattedAddress = place.formatted_address;
       setFormData((prev) => ({ ...prev, location: formattedAddress }));
+      setLocationInput(formattedAddress); // Update the input value after selection
     });
   }, []);
 
   const handleChange = (e) => {
+    setError('');
     if (e.target.name === 'logo') {
       setFormData({ ...formData, logo: e.target.files[0] });
+    } else if (e.target.name === 'location') {
+      setLocationInput(e.target.value); // Set the temporary state for display
     } else {
       setFormData({ ...formData, [e.target.name]: e.target.value });
     }
   };
+
 
   const validateForm = () => {
     const { username, email, password, confirmPassword, hourly_rate, role, logo } = formData;
@@ -182,12 +188,13 @@ function Signup() {
         className='inp'
       />
 
-      <input
+<input
           id="location-autocomplete"
           type="text"
+          name="location"
           placeholder="Enter location"
           className="inp"
-          value={formData.location}
+          value={locationInput} // Use the temporary state here
           onChange={handleChange}
         />
 
