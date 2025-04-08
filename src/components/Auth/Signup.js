@@ -19,12 +19,29 @@ function Signup() {
 
   const [error, setError] = useState('');
 
+  useEffect(() => {
+    if (!window.google) return;
+
+    const input = document.getElementById('location-autocomplete');
+    if (!input) return;
+
+    const autocomplete = new window.google.maps.places.Autocomplete(input, {
+      types: ['geocode'],
+      componentRestrictions: { country: 'ca' },
+    });
+
+    autocomplete.addListener('place_changed', () => {
+      const place = autocomplete.getPlace();
+      const formattedAddress = place.formatted_address;
+      setFormData((prev) => ({ ...prev, location: formattedAddress }));
+    });
+  }, []);
+
   const handleChange = (e) => {
-    const { name, value, files } = e.target;
-    if (name === 'logo') {
-      setFormData({ ...formData, logo: files[0] });
+    if (e.target.name === 'logo') {
+      setFormData({ ...formData, logo: e.target.files[0] });
     } else {
-      setFormData({ ...formData, [name]: value });
+      setFormData({ ...formData, [e.target.name]: e.target.value });
     }
   };
 
@@ -105,25 +122,6 @@ function Signup() {
     }
   };
 
-  const input = document.getElementById('location-autocomplete');
-  if (!input) return;
-
-  // Initialize the new PlaceAutocompleteElement
-  const autocomplete = new window.google.maps.places.Autocomplete({
-    inputElement: input,
-    fields: ['formatted_address'],
-    componentRestrictions: { country: 'ca' },
-  });
-
-  autocomplete.addListener('place_changed', () => {
-    const place = autocomplete.getPlace();
-    const formatted = place.formatted_address || place.name;
-    setFormData((prevData) => ({
-      ...prevData,
-      location: formatted,
-    }));
-  });
-
   return (
     <div className='signup-page'>
     <h1 className='sign-up-header'>Welcome to ETN</h1>
@@ -186,14 +184,14 @@ function Signup() {
         className='inp'
       />
 
-<input
-  id="location-autocomplete"
-  type="text"
-  placeholder="Enter location"
-  className="inp"
-  value={formData.location}
-  onChange={(e) => setFormData({ ...formData, location: e.target.value })}
-/>
+      <input
+          id="location-autocomplete"
+          type="text"
+          placeholder="Enter location"
+          className="inp"
+          value={formData.location}
+          onChange={handleChange}
+        />
 
       <div className='role'>
       <label>
