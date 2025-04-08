@@ -20,12 +20,11 @@ function Signup() {
   const [error, setError] = useState('');
 
   const handleChange = (e) => {
-    if (e.target.name === 'logo') {
-      setFormData({ ...formData, logo: e.target.files[0] });
-    } else if (e.target.name === 'location') {
-      setFormData({ ...formData, location: e.target.value });
+    const { name, value, files } = e.target;
+    if (name === 'logo') {
+      setFormData({ ...formData, logo: files[0] });
     } else {
-      setFormData({ ...formData, [e.target.name]: e.target.value });
+      setFormData({ ...formData, [name]: value });
     }
   };
 
@@ -169,12 +168,12 @@ function Signup() {
       />
 
 <input
- id="location-autocomplete"
+  id="location-autocomplete"
+  type="text"
+  placeholder="Enter location"
+  className="inp"
   value={formData.location}
   onChange={(e) => setFormData({ ...formData, location: e.target.value })}
-  placeholder="Enter location"
-  required
-  className='inp'
 />
 
       <div className='role'>
