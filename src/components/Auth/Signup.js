@@ -28,7 +28,7 @@ function Signup() {
       setFormData({ ...formData, [e.target.name]: e.target.value });
     }
   };
-  console.log("Selected Location: ", formData.location);
+
 
   const validateForm = () => {
     const { username, email, password, confirmPassword, hourly_rate, role, logo } = formData;
@@ -171,7 +171,10 @@ function Signup() {
 <LocationAutocomplete
   name="location"
   value={formData.location}
-  onChange={(value) => setFormData({ ...formData, location: value.target ? value.target.value : value })}
+  onChange={(value) => {
+    console.log("Raw Location Value: ", value);
+    setFormData({ ...formData, location: value });
+  }}
   placeholder="Location"
   required
   className='inp'
