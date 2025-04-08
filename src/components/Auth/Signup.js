@@ -109,7 +109,7 @@ function Signup() {
   if (!input) return;
 
   // Initialize the new PlaceAutocompleteElement
-  const autocomplete = new window.google.maps.places.PlaceAutocompleteElement({
+  const autocomplete = new window.google.maps.places.Autocomplete({
     inputElement: input,
     fields: ['formatted_address'],
     componentRestrictions: { country: 'ca' },
