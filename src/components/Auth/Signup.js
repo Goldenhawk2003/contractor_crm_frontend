@@ -105,6 +105,25 @@ function Signup() {
     }
   };
 
+  const input = document.getElementById('location-autocomplete');
+  if (!input) return;
+
+  // Initialize the new PlaceAutocompleteElement
+  const autocomplete = new window.google.maps.places.PlaceAutocompleteElement({
+    inputElement: input,
+    fields: ['formatted_address'],
+    componentRestrictions: { country: 'ca' },
+  });
+
+  autocomplete.addListener('place_changed', () => {
+    const place = autocomplete.getPlace();
+    const formatted = place.formatted_address || place.name;
+    setFormData((prevData) => ({
+      ...prevData,
+      location: formatted,
+    }));
+  });
+
   return (
     <div className='signup-page'>
     <h1 className='sign-up-header'>Welcome to ETN</h1>

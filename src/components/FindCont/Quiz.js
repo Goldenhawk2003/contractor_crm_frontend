@@ -112,7 +112,7 @@ const QuizComponent = () => {
     const input = document.getElementById('location-autocomplete');
     if (!input) return;
 
-    const autocomplete = new window.google.maps.places.Autocomplete(input, {
+    const autocomplete = new window.google.maps.places.AutocompleteElement(input, {
       types: ['geocode'],
       componentRestrictions: { country: 'ca' },
     });
