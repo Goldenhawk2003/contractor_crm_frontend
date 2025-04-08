@@ -202,36 +202,47 @@
     text-align: left;
     color: #ffff;
 
+
   }
   .mission-container-first p,  .mission-container-first h1, .mission-container-first h2{
     color: #ffff;
-    padding-left: 15%;
+
  
   }
 
 .our-mission-first{
   border: 2px solid transparent;
   background-color: #6b90ff !important;
+
+  
 }
   .mission-container-first p,  .mission-container-first h1{
     font-weight: 100;
   }
   .mission-container-first h1{
+  
 
-font-weight: 200;
+    font-weight: 200;
     font-size: 2.8rem;
     width: 90%;
+
+    margin-top: 8%;
   }
   .mission-container-first h2{
-    padding-top: 2%;
+    padding-top: 30%;
     font-weight: 200;
     font-size: 2.8rem;
     width: 100%;
+    align-self: flex-end;
+
+
+ 
   }
   .mission-container-first p{
-    padding-bottom: 5%;
     font-size: 1.5rem;
     width: 100%;
+    align-self: flex-end;
+  
   }
   .mission-image-first {
     height: 550px;              /* or any fixed height */
@@ -246,8 +257,13 @@ font-weight: 200;
   }
 
 .mission-image-container{
-  padding-bottom: 12%;
-  padding-right: 10%;
+  height: 100%;
+  padding-right: 6%;
+  padding-left: 2%;
+  display: flex;
+  flex-direction: column;
+
+
 }
 
 
@@ -327,7 +343,7 @@ font-weight: 200;
     }
   
     .mission-container-first {
-      padding: 5%;
+      
       text-align: center;
       width: 100%;
       display: flex;

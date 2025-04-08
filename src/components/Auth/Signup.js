@@ -21,7 +21,9 @@ function Signup() {
 
   const handleChange = (e) => {
     if (e.target.name === 'logo') {
-      setFormData({ ...formData, logo: e.target.files[0] }); // Handle file upload
+      setFormData({ ...formData, logo: e.target.files[0] });
+    } else if (e.target.name === 'location') {
+      setFormData({ ...formData, location: e.target.value });
     } else {
       setFormData({ ...formData, [e.target.name]: e.target.value });
     }
@@ -165,14 +167,14 @@ function Signup() {
         className='inp'
       />
 
-      <LocationAutocomplete
-        name="location"
-        value={formData.location}
-        onChange={handleChange}
-        placeholder="Location"
-        required
-        className='inp'
-      />
+<LocationAutocomplete
+  name="location"
+  value={formData.location}
+  onChange={(value) => setFormData({ ...formData, location: value })}
+  placeholder="Location"
+  required
+  className='inp'
+/>
 
       <div className='role'>
       <label>
