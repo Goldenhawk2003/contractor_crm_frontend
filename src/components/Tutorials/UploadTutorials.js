@@ -109,8 +109,10 @@ const UploadTutorial = () => {
 
     setUploading(false);
   };
+  
 
   return (
+    <div className="upload-tutorial">
     <div className="upload-container">
       <h2 className="upload-heading">Upload a Tutorial</h2>
 
@@ -199,6 +201,7 @@ const UploadTutorial = () => {
           {uploading ? "Uploading..." : "Upload"}
         </button>
       </form>
+    </div>
     </div>
   );
 };

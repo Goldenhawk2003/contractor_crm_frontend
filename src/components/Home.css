@@ -49,10 +49,7 @@ body.specific-page {
 
 }
 
-body.transparent-navbar-page .button-group {
-  background-color: transparent!important; /* Makes the navbar transparent */
-  box-shadow: none; /* Removes shadow if desired */
-}
+
 
 /* Beginning of hero */
 .hero-section {
@@ -1220,7 +1217,8 @@ margin-bottom: -65px !important;
   .our-process-p {
     font-weight: 100;
     text-align: center;
-    padding: 0 5%;
+    padding-left: 15%;
+   
   }
 
   .our-header {

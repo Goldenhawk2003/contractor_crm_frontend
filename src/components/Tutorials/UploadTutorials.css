@@ -1,18 +1,26 @@
+.upload-tutorial{
+  background-color: #ECF0FC;
+  height: 100vh;
+  padding-top: 5%;
+  background-image: url(../../../public/images/wallpapers/513263E5-0004-4894-94EB-ED2B77EAAF15.png);
+}
+
+
 /* Container */
 .upload-container {
-    max-width: 600px;
+    width: 50%;
     margin: 50px auto;
     padding: 20px;
-    background-color: transparent;
-   ;
+ 
+    background: linear-gradient(to top, #ffffff 80%,#6b90ff 20%);
     border-radius: 10px;
   }
   
   /* Heading */
   .upload-heading {
-    font-size: 1.8rem;
-    font-weight: bold;
-    color: #1b3656; /* Dark Blue */
+    font-size: 2rem;
+    font-weight: 200;
+    color: #FFFF; /* Dark Blue */
     text-align: center;
     margin-bottom: 20px;
   }
@@ -22,6 +30,7 @@
     display: flex;
     flex-direction: column;
     gap: 15px;
+    margin-top: 10%;
   }
   
   /* Labels */
@@ -33,7 +42,7 @@
   /* Inputs & Textarea */
   .upload-input,
   .upload-textarea {
-    width: 100%;
+    width: 80%;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
@@ -73,6 +82,8 @@
     border-radius: 5px;
     cursor: pointer;
     transition: all 0.3s ease-in-out;
+    width: 50%;
+    align-self: center;
   }
   
   .upload-button:hover {

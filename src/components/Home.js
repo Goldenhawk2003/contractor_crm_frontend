@@ -239,9 +239,13 @@ const doubledImages = images.concat(images);
       <Link to="/find-contractor?type=Electrical" className="contractor-choice-button">
         <img src="/images/home-page/Services-section-card3.png" alt="Electrical Services" />
       </Link>
-      <Link to="/find-contractor?type=Electrical" className="contractor-choice-button">
-        <img src="/images/home-page/Services-section-card4.png" alt="Electrical Services" />
-      </Link>
+      <Link 
+  to="/quiz" 
+  className="contractor-choice-button"
+  state={{ prefillAnswer: "Electrical Services", questionType: "text_image", questionIndex: 1 }}  // Second question (index 1)
+>
+  <img src="/images/home-page/Services-section-card4.png" alt="Electrical Services" />
+</Link>
       
     </div>
 

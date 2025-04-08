@@ -7,10 +7,7 @@ import Fuse from 'fuse.js';
 // Use the backend URL from an environment variable
 const BASE_URL = process.env.REACT_APP_BACKEND_URL;
 
-const getAuthHeaders = () => {
-  const token = localStorage.getItem("access_token");
-  return token ? { Authorization: `Bearer ${token}` } : {};
-};
+
 
 const TutorialList = () => {
   const [searchText, setSearchText] = useState("");
@@ -27,67 +24,31 @@ const TutorialList = () => {
 
   const mediaUrl = location.state?.videoUrl; // This should hold the correct media URL
   const isImage = location.state?.isImage || false;
-
+  
   useEffect(() => {
-    axios.get(`${BASE_URL}/api/tutorials/`, {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => {
+    const fetchTutorials = async () => {
+      try {
+        const token = localStorage.getItem("access_token");
+        const headers = {
+          "Content-Type": "application/json",
+          ...(token ? { Authorization: `Bearer ${token}` } : {}),  // Only add if token exists
+        };
+  
+        const response = await axios.get(`${BASE_URL}/api/tutorials/`, { headers });
         setTutorials(response.data);
         setLoading(false);
-
-        // Fetch like counts for all tutorials
-        const fetchLikes = async () => {
-          let likesData = {};
-          for (let tutorial of response.data) {
-            try {
-              const likeResponse = await axios.get(`${BASE_URL}/api/tutorials/${tutorial.id}/like/`, {
-                headers: {
-                  "Content-Type": "application/json",
-                  ...getAuthHeaders(),
-                },
-              });
-              likesData[tutorial.id] = likeResponse.data.likes; // Store real like count
-            } catch (error) {
-              console.error("Error fetching like count:", error);
-              likesData[tutorial.id] = 0; // Default to 0 if error occurs
-            }
-          }
-          setLikes(likesData);
-        };
-
-        fetchLikes();
-      })
-      .catch((error) => {
+      } catch (error) {
+        console.error("Error fetching tutorials:", error);
         setError(error.message);
         setLoading(false);
-      });
+      }
+    };
+  
+    fetchTutorials();
   }, []);
 
-  // Handle like button click
-  const handleLike = async (id) => {
-    try {
-      const response = await axios.post(
-        `${BASE_URL}/api/tutorials/${id}/like/`,
-        {},
-        {
-          headers: {
-            "Content-Type": "application/json",
-            ...getAuthHeaders(),
-          },
-        }
-      );
+  
 
-      setLikes((prevLikes) => ({
-        ...prevLikes,
-        [id]: response.data.likes, // Ensure it updates correctly
-      }));
-    } catch (error) {
-      console.error("Error liking tutorial:", error);
-    }
-  };
 
   const services = [
     "All",
@@ -212,6 +173,7 @@ const TutorialList = () => {
       });
 
   return (
+   
     <div className="tutorial-container">
       <div className="tutorial-header">
         <h1 className="tutorial-heading">Get Inspired</h1>
@@ -339,6 +301,7 @@ const TutorialList = () => {
         </div>
       )}
     </div>
+  
   );
 };
 

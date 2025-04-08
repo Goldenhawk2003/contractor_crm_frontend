@@ -131,31 +131,66 @@
     padding-left: 4%;
     white-space: nowrap;
   }
+  .flashcard-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background-color: #ECF0FC;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    height: 70vh;
+  }
   
-  .story-text {
-    flex: 2;
-    font-size: 1.2rem;
-    color: #091268;
-    text-align: left;
-    line-height: 1.5;
-    padding-left: 15%; /* Adds spacing between title and text */
-    font-weight: 100;
-    width: 80%;
-    padding-top: 2%;
-    padding-bottom: 2%;
+  .flashcard {
+    background-color: #6b90ff;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 10px;
+    text-align: center;
+    transition: transform 0.4s ease, opacity 0.4s ease;
+    opacity: 0.9;
+    width: 50%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  .flashcard-title{
+    font-size: 2.5rem;
+    font-weight: 200;
+    color: #6b90ff;
+    margin-bottom: 10px;
+  }
+  
+  .flashcard-text {
+    font-size: 1.5rem;
+    color: #FFFF;
 
   }
-  .story-text-author{
-    flex: 2;
-    font-size: 1.2rem;
-    color: #091268;
-    text-align: left;
-    line-height: 1;
-    padding-left: 15%; /* Adds spacing between title and text */
-    font-weight: 100;
-    width: 80%;
-
-
+  
+  .flashcard-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+  }
+  
+  .flashcard-buttons button {
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .flashcard-buttons button:hover {
+    background-color: #0056b3;
+  }
+  
+  .flashcard-buttons button:focus {
+    outline: none;
+    background-color: #004080;
   }
 .mission-container{
   background-color: #FFFF !important;

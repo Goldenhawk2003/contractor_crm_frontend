@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 import './Quiz.css';
 
@@ -10,6 +11,9 @@ const QuizComponent = () => {
   const [answers, setAnswers] = useState({});
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const location = useLocation(); 
+  const [hasPrefill, setHasPrefill] = useState(false);
+  const [prefillData, setPrefillData] = useState({});
 
   useEffect(() => {
     const token = localStorage.getItem('access_token');
@@ -17,17 +21,29 @@ const QuizComponent = () => {
   }, []);
 
   useEffect(() => {
-    const token = localStorage.getItem('access_token');
-    const headers = {};
-  
-    if (token) {
-      headers['Authorization'] = `Bearer ${token}`;
-    }
-  
-    axios.get(`${BASE_URL}/api/questions/`, { headers })
+    axios.get(`${BASE_URL}/api/questions/`)
       .then((res) => setQuestions(res.data))
       .catch((err) => console.error('Error loading questions:', err));
   }, []);
+
+  useEffect(() => {
+    if (questions.length > 0 && location.state?.prefillAnswer && location.state?.questionType === 'text_image') {
+      const questionId = questions[location.state.questionIndex]?.id;
+      if (questionId) {
+        setAnswers((prev) => ({
+          ...prev,
+          [questionId]: {
+            ...prev[questionId],  // Preserve existing data
+            extra_info: location.state.prefillAnswer,  // Only set extra_info
+            question: questionId,
+          },
+        }));
+        setHasPrefill(true);  // Set the prefill flag
+      }
+    }
+  }, [questions, location.state]);
+
+
 
   const handleChange = (questionId, field, value) => {
     if (field === 'image_answer' && value && value.size > MAX_FILE_SIZE_MB * 1024 * 1024) {
@@ -70,11 +86,22 @@ const QuizComponent = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+    
     const formData = new FormData();
+    
     Object.entries(answers).forEach(([id, data], idx) => {
-      const { image_answer, ...rest } = data;
-      formData.append('answers', JSON.stringify(rest));
+      const { image_answer, text_answer, extra_info, ...rest } = data;
+      let combinedAnswer = text_answer || "";
+      
+      // Combine user input and prefill if both exist
+      if (extra_info) {
+        combinedAnswer = `${text_answer || ""} - ${extra_info}`;
+      }
+  
+      // Append the combined answer to the formData
+      formData.append('answers', JSON.stringify({ ...rest, text_answer: combinedAnswer }));
+  
+      // Append image if it exists
       if (image_answer) {
         formData.append(`image_answer_${idx}`, image_answer);
       }
@@ -83,8 +110,8 @@ const QuizComponent = () => {
     // Retrieve the token from local storage
     const token = localStorage.getItem('access_token');
     const headers = { 'Content-Type': 'multipart/form-data' };
-  
-    // Only add the Authorization header if the token exists and is not empty
+    
+    // Add the Authorization header if the token exists
     if (token) {
       headers['Authorization'] = `Bearer ${token}`;
     }
@@ -170,23 +197,33 @@ const QuizComponent = () => {
                 />
               )}
 
-              {currentQuestion.question_type === 'text_image' && (
-                <>
-                  <input
-                    type="text"
-                    placeholder="Your answer"
-                    className="quiz-input"
-                    value={answers[currentQuestion.id]?.text_answer || ''}
-                    onChange={(e) => handleChange(currentQuestion.id, 'text_answer', e.target.value)}
-                  />
-                  <input
-                    type="file"
-                    accept="image/*"
-                    className="quiz-file"
-                    onChange={(e) => handleChange(currentQuestion.id, 'image_answer', e.target.files[0])}
-                  />
-                </>
-              )}
+{currentQuestion.question_type === 'text_image' && (
+  <>
+    <input
+      type="text"
+      placeholder="Your answer"
+      className="quiz-input"
+      value={answers[currentQuestion.id]?.text_answer || ''}
+      onChange={(e) => handleChange(currentQuestion.id, 'text_answer', e.target.value)}
+    />
+    <input
+      type="file"
+      accept="image/*"
+      className="quiz-file"
+      onChange={(e) => handleChange(currentQuestion.id, 'image_answer', e.target.files[0])}
+    />
+    {hasPrefill && currentQuestion.id === questions[location.state?.questionIndex]?.id && (
+      <input
+        type="text"
+        placeholder="Additional info (prefilled)"
+        className="quiz-input"
+        value={answers[currentQuestion.id]?.extra_info || ''}
+        onChange={(e) => handleChange(currentQuestion.id, 'extra_info', e.target.value)}
+      />
+    )}
+  </>
+)}
+
 
 {currentQuestion.question_type === 'datetime' && (
   <div className="quiz-input-group">
