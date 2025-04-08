@@ -37,14 +37,14 @@ function Signup() {
     });
   }, []);
 
+
   const handleChange = (e) => {
     if (e.target.name === 'logo') {
-      setFormData({ ...formData, logo: e.target.files[0] });
+      setFormData({ ...formData, logo: e.target.files[0] }); // Handle file upload
     } else {
       setFormData({ ...formData, [e.target.name]: e.target.value });
     }
   };
-
 
   const validateForm = () => {
     const { username, email, password, confirmPassword, hourly_rate, role, logo } = formData;
@@ -184,7 +184,8 @@ function Signup() {
         className='inp'
       />
 
-      <input
+     
+<input
           id="location-autocomplete"
           type="text"
           placeholder="Enter location"
@@ -192,6 +193,7 @@ function Signup() {
           value={formData.location}
           onChange={handleChange}
         />
+
 
       <div className='role'>
       <label>
