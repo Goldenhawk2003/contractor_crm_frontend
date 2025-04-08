@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import LocationAutocomplete from '../APIStuff/AutoComplete';
+import React, { useState, useEffect  } from 'react';
 import './Signup.css';
 
 function Signup() {
