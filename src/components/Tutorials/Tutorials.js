@@ -29,13 +29,11 @@ const TutorialList = () => {
   const isImage = location.state?.isImage || false;
 
   useEffect(() => {
-    axios
-      .get(`${BASE_URL}/api/tutorials/`, {
-        headers: {
-          "Content-Type": "application/json",
-          ...getAuthHeaders(),
-        },
-      })
+    axios.get(`${BASE_URL}/api/tutorials/`, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
       .then((response) => {
         setTutorials(response.data);
         setLoading(false);
