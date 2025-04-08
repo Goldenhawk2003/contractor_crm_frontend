@@ -171,11 +171,8 @@ function Signup() {
 <LocationAutocomplete
   name="location"
   value={formData.location}
-  onChange={(value) => {
-    console.log("Raw Location Value: ", value);
-    setFormData({ ...formData, location: value });
-  }}
-  placeholder="Location"
+  onChange={(e) => setFormData({ ...formData, location: e.target.value })}
+  placeholder="Enter location"
   required
   className='inp'
 />
