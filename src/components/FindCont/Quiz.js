@@ -6,6 +6,13 @@ import './Quiz.css';
 const BASE_URL = 'https://ecc-backend-31b43c38f51f.herokuapp.com';
 const MAX_FILE_SIZE_MB = 10;
 
+export const getAuthHeaders = () => {
+  const token = localStorage.getItem("access_token");
+  return token
+    ? { Authorization: `Bearer ${token}` }
+    : {};
+};
+
 const QuizComponent = () => {
   const [questions, setQuestions] = useState([]);
   const [answers, setAnswers] = useState({});
@@ -21,9 +28,12 @@ const QuizComponent = () => {
   }, []);
 
   useEffect(() => {
-    axios.get(`${BASE_URL}/api/questions/`)
-      .then((res) => setQuestions(res.data))
-      .catch((err) => console.error('Error loading questions:', err));
+    axios.get(`${BASE_URL}/api/questions/`, {
+      headers: {
+        'Content-Type': 'application/json',
+        ...getAuthHeaders(),
+      },
+    });
   }, []);
 
   useEffect(() => {
