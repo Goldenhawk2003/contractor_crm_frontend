@@ -102,7 +102,7 @@ const Login = () => {
               <Link to="/forgot-password" className="forgot-password-link">Forgot Password?</Link>
             </div>
           </div>
-
+<div className='divider'></div>
           {/* Right Column: Sign-Up Prompt */}
           <div className="signup-section">
             <h2 className="box-header">New to Elite Craft?</h2>

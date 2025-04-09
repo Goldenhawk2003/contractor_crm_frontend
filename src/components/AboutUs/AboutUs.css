@@ -453,4 +453,37 @@ body.specific-page-about-us {
       justify-content: center;
     }
 
+    .flashcard-container {
+      padding: 15px;
+      height: auto; /* Let it adapt based on content */
+    }
+  
+    .flashcard {
+      width: 90%; /* Increase flashcard width for mobile screens */
+      padding: 15px;
+      margin: 10px 0;
+    }
+  
+    .flashcard-title {
+      font-size: 2rem; /* Reduce title size */
+      margin-top: 10%;
+      margin-bottom: 10px;
+    }
+  
+    .flashcard-text {
+      font-size: 1.2rem; /* Slightly smaller text */
+      padding: 0 10px; /* Ensure there's some padding for legibility */
+    }
+  
+    .flashcard-buttons {
+      flex-direction: row; /* Stack buttons vertically */
+      gap: 8px;
+    }
+  
+    .flashcard-buttons button {
+      width: 100%; /* Make buttons fill available space */
+      padding: 10px;
+      font-size: 1rem;
+    }
+
   }

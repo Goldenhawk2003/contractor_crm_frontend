@@ -33,6 +33,7 @@ html, body {
   width: 100vw;
   height: 100vh;
   font-family: 'Open Sauce One', Arial, sans-serif;
+  
 
 
 
@@ -1317,4 +1318,40 @@ margin-bottom: -65px !important;
     text-align: center;
     margin-left: 0;
   }
+.About-us-button-home{
+  width: 60%;
+
+}
+.About-us-home-img{
+  width: 50%;
+  height: auto;
+  object-fit: cover;
+  background-color: transparent;
+  margin: 0 auto;
+}
+.icons-search p{
+
+
+  font-weight: 200;
+  padding-top: 10px;
+ 
+  text-align: center;
+ 
+}
+.icons-search:hover {
+  color:#091268
+}
+
+.icon-stack {
+  display: grid;
+  place-items: center; /* aligns to top-left, use center if needed */
+}
+
+.icon-stack img {
+  grid-column: 1;
+  grid-row: 1;
+  width: 50px;
+  height: 50px;
+  transition: opacity 0.3s ease;
+}
 }

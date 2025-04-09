@@ -137,7 +137,7 @@ body.specific-page-login {
   border-radius: 8px;
   text-decoration: none;
   transition: all 0.3s ease;
-  margin-top: 49%;
+  margin-top: 54%;
 }
 
 .sub-link:hover {
@@ -155,7 +155,13 @@ body.specific-page-login {
   margin-bottom: 15px;
   text-align: center;
 }
+.divider {
 
+  height: 50vh;
+  border: 1px solid #fff;
+  margin-left: 5%;
+
+}
 /* Responsive: stack columns on smaller screens */
 @media (max-width: 768px) {
   .box-content {

@@ -7,7 +7,7 @@
 }
 /* HEADER STYLES */
 .nav-container {
-  width: 100%;
+
   margin-left: 0;
   padding: 2% 5%;
   background-color: transparent;
@@ -109,3 +109,29 @@
   z-index: 1000;
 }
 
+@media screen and (max-width: 768px) {
+  /* Reduce header padding for mobile */
+  .nav-container {
+    padding: 10px 20px;
+  }
+
+  /* Smaller hamburger button for mobile screens */
+  .hamburger-button {
+    top: 15px;
+    right: 15px;
+    font-size: 40px;
+  }
+
+  /* Adjust sidebar dimensions for mobile */
+  .sidebar-layout {
+    width: 200px;
+    right: -200px; /* Offset matches the new width */
+    padding: 15px;
+  }
+
+  /* Sidebar items: slightly smaller for a mobile-friendly feel */
+  .sidebar-layout-item {
+    padding: 10px;
+    font-size: 16px;
+  }
+}
