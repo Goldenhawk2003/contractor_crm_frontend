@@ -57,7 +57,7 @@ body.specific-page {
 /* Beginning of hero */
 .hero-section {
   width: 100vw; /* Stretch the image to the full width of the screen */
-  height: 80vh; /* Set the height to cover the full viewport */
+  height: 79vh; /* Set the height to cover the full viewport */
   position: relative;
   background-image: url(../../public/images/wallpapers/3B1BAD8D-F29A-415A-9DD1-A810A3AB13C7.png);/* Replace with your image path */
   background-size: cover;
@@ -68,14 +68,16 @@ body.specific-page {
  /* spacing between header and image */
   justify-content: space-between;
    /* Ensure text color contrasts with the image */
+  box-sizing: border-box;
+  border-bottom: 1px solid #FFFF;
 }
 
 .hero-section::before {
-  content: '';
+
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
+  width: 90%;
   height: 100%;
   z-index: 0;
 }
@@ -89,15 +91,22 @@ body.specific-page {
   z-index: 1; /* Ensure content is above the overlay */
   margin: 0;
 }
+.hero-content{
+  width: 100vw;
+  border: 1px solid #091268;
+  position: absolute;
 
+}
 .Hero-header{
   font-size: 3.2rem;
   color: #F8F8F8;
   margin-bottom: 20px;
   text-align: left;
-margin-left: 5% !important;
+margin-left: 1.8% !important;
   font-weight: 200;
-  width: 30%;
+  width: 100%;
+  position: absolute;
+
 }
 .Hero-img{
   width: 50%;
@@ -106,6 +115,13 @@ margin-left: 5% !important;
   z-index: 100;
   display: none;
 /* Darken the image */
+}
+.hero-img-desktop {
+  width: 70%;  /* or any appropriate size */
+  height: auto; /* Let the height adjust based on width and aspect ratio */
+  object-fit: contain;
+  align-items: flex-end;
+  margin-top: 4%;
 }
 /* End of Hero */
 
@@ -1006,18 +1022,44 @@ align-content: center;
 
 @media (max-width: 850px) {
 
+  .hero-img-desktop{
+    align-self: flex-end;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    margin-top: 0;
+    width: 100%;
 
+  }
+    
+  
   .services-container {
-    flex-direction: row;
- 
-    max-width: 90%;
-}
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    max-width: 100%;
+    padding: 1rem;
+ /* adjust to your theme */
+  }
+  
+  .service {
 
-.service {
-    width: 98%; /* Adjust for larger screens */
-    max-width: none;
+    border-radius: 12px;
+    padding: 1rem;
+    text-align: center;
+    color: white;
+    transition: transform 0.2s ease;
+  }
+  
 
-}
+
+
+  .service {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+  }
 
 
 
@@ -1041,7 +1083,9 @@ align-content: center;
   .About-us-header {
     font-size: 2.2rem;
     color: #001A72;
-    
+    align-items: left;
+    text-align: left;
+
     font-weight: 200;
     width: 100%;
   }
@@ -1059,16 +1103,19 @@ align-content: center;
     width: 90%;
     font-size: 2rem;
   }
+
+  
   .testimonials-section {
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-    padding: 2% 1%;
-    gap: 1rem;
+    width: 100%;
+    border: 1px solid #091268;
+ 
+
   }
 
   .testimonials-header {
-    width: 80%;
+    width: 100%;
     text-align: center;
     font-size: 2rem;
     padding: 0;
@@ -1077,38 +1124,44 @@ align-content: center;
 
   .testimonials-container {
     display: grid;
-    grid-template-columns: repeat(2, 1fr); /* Two columns */
-    gap: 3rem;
-    width: 100%; /* Full width to prevent overflow */
+    grid-template-columns: repeat(2, 0.5fr); /* Two columns */
+
     justify-items: center;
-    padding: 1 1rem;
+    width: 80%;
+    align-items: center;
+ 
+    
+
+
+
   }
 
   .testimonial-card {
-    flex: 1 1 calc(45% - 10px); /* Two columns with appropriate spacing */
-    max-width: 100%; /* Ensure it doesn't exceed container width */
-    min-width: 96%; /* Prevent overflow */
-    max-height: 80% !important;
 
-
-    margin: 0;
+    box-sizing: border-box;
     border-radius: 10px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s ease-in-out;
+    word-wrap: break-word;
+    height: 200px!important;
+    margin-right: 66%;
+    min-width: 180px !important;
+    max-width: 30% !important;
+    border: 1px solid #091268;
+    
 }
 
-  .testimonial-text {
-    font-size: 1rem;
+ .testimonial-rating {
+    display: flex;
+    flex-direction: column;
     text-align: center;
-    color: #091268;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0px;
+  }
+  .stars {
+    font-size: 1.3rem;
+    color: #FFD700;
+    margin-bottom: 0px;
   }
 
-  .testimonial-rating {
-    display: flex;
-    justify-content: center;
-    text-align: center;
-  }
+
 
 
 
@@ -1256,7 +1309,7 @@ align-content: center;
     text-align: left !important;
 
     margin-top: 12% !important;
-margin-bottom: -65px !important;
+margin-bottom: -5px !important;
   }
 
   .Hero-img {
@@ -1354,4 +1407,5 @@ margin-bottom: -65px !important;
   height: 50px;
   transition: opacity 0.3s ease;
 }
+
 }

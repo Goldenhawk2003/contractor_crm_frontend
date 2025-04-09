@@ -161,10 +161,10 @@ const doubledImages = images.concat(images);
   return (
     <div className="home-container">
       <div className="hero-section">
-     
+    
     <h1 className='Hero-header'>Your Exclusive Trade Network</h1>
 
-    <img src="/images/A6AE51BF-1840-4D5B-BA26-E8C4DF7DA0EB.png" alt="Hero Image" className='Hero-img' />
+    <img src="/images/home-page/2F13DA8C-6DD9-4E41-8D20-5658B7DB69B2.png" alt="Hero Image" className='hero-img-desktop' />
    
   </div>
 
@@ -528,7 +528,7 @@ Explore our service categories, discover top trades and connect with Exclusive T
       </div>
     </div>
     <div class="testimonial-card">
-      <p class="testimonial-text">"Found my parents a contractor to help with their sink!"</p>
+      <p class="testimonial-text">"Found a contractor to help with my sink!"</p>
       <div class="testimonial-rating">
         <div class="stars">★★★★★</div>
         <p class="client-name">Emma Watson</p>

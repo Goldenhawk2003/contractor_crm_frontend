@@ -205,6 +205,7 @@ body.specific-page-quiz {
 
 @media (max-width: 768px) {
 
+  
 
   .quiz-page-header {
     font-size: 1.8rem;
@@ -218,6 +219,9 @@ body.specific-page-quiz {
 
   .quiz-wrapper {
     padding: 1.5rem 1rem;
+    
+    background-size: cover;
+
   }
 
   .quiz-container {

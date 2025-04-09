@@ -40,6 +40,7 @@ import ResetPassword from './components/Auth/ResetPassword.js';
 import axios from 'axios';
 import EditProfilePage from './components/EditProfile.js';
 import GoogleLoginButton from './components/Auth/GoogleLogin.js';
+import { ImageUpload } from './components/Tutorials/preview.js';
 function useCsrfToken() {
   useEffect(() => {
     const fetchCsrfToken = async () => {
@@ -77,6 +78,8 @@ function App() {
           <Route path="/" element={<Layout />}>
 
             <Route index element={<Home />} />
+
+            <Route path="/image-upload" element={<ImageUpload />} />
 
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />

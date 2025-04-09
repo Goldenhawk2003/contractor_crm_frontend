@@ -8,6 +8,8 @@
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   align-self: center;
+  margin-bottom: 100%;
+
 
 }
 
@@ -85,7 +87,11 @@
   color: red;
   font-weight: bold;
 }
-
+.conversation-container{
+  width: 90%;
+  margin-bottom: 100%;
+  padding: 1rem;
+}
 /* Action Container */
 .action-container {
   display: flex;

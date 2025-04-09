@@ -5,6 +5,7 @@
   display: flex;
   height: 100vh;
   font-family: 'Open Sauce One', Arial, sans-serif;
+ 
 }
 
 /* Sidebar Styling */
@@ -274,3 +275,4 @@
 .search-button-3:disabled:hover {
   background-color: #6c757d;
 }
+

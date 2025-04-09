@@ -411,10 +411,18 @@ body.specific-page-tutorials {
 .tutorial-intro{
   font-size: 1.5rem;
   width: 80%;
+  
+}
+.tags{
+  width: 100%;
+  margin-left: 0;
+  margin-top: 0;
+  
 }
 .tag{
-  font-size: 0.7rem;
+
   width: 30%;
+
 }
 .tutorial-card {
 background-color: transparent;
@@ -423,7 +431,7 @@ background-color: transparent;
 }
 @media (max-width: 768px) {
   .tutorial-grid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 

@@ -1,0 +1,105 @@
+@media (max-width: 768px) {
+    /* STACK the layout vertically */
+    .chat-container-3 {
+      flex-direction: column;
+      height: auto;
+      align-items: center;
+    }
+  
+    /* SIDEBAR becomes a top section */
+    .chat-sidebar-3 {
+      width: 90% !important;
+      padding: 15px;
+      padding-left: 5%;
+      box-shadow: none;
+      border-bottom: 1px solid #ccc;
+      height: auto;
+
+  
+ 
+    }
+  
+    .sidebar-header-3 {
+      font-size: 1.4rem;
+      margin-bottom: 10px;
+      text-align: left;
+    }
+  
+    .search-bar-3 {
+      width: 100%;
+      font-size: 1rem;
+    }
+  
+    .search-button-3 {
+      width: 50% !important;
+      margin-top: 10px;
+  
+    }
+  
+    .conversation-list-3 {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 10px;
+    }
+  
+    .conversation-item-3 {
+      padding: 10px;
+      font-size: 1rem;
+    }
+  
+    /* MAIN CHAT expands fully */
+    .chat-main-3 {
+      width: 90%;
+      padding: 1rem;
+    
+    }
+  
+    .messages-container-3 {
+      max-height: 50vh;
+      padding-right: 0;
+    }
+  
+    .message .content-3 {
+      max-width: 90%;
+      font-size: 1rem;
+    
+    }
+  
+    /* REPLY SECTION */
+    .reply-section {
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 20px;
+      margin-bottom: 50%;
+    }
+  
+    .reply-section textarea {
+      width: 90%;
+      font-size: 1rem;
+    padding: 10% !important;
+    }
+  
+    .reply-section button {
+      width: 100% !important;
+      font-size: 1rem;
+      padding: 12px;
+    }
+  
+    /* MODAL MOBILE TWEAK */
+    .modal-content {
+      width: 90%;
+      padding: 1rem;
+    }
+  
+    .modal-buttons {
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+  
+    .confirm-button,
+    .cancel-button {
+      width: 100%;
+      font-size: 1rem;
+    }
+  }

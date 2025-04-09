@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useSearchParams } from "react-router-dom";
 import "./Inbox3.css";
+import "./CreateConversation.css";
 
 // Helper for token-based authentication headers
 const getAuthHeaders = () => {

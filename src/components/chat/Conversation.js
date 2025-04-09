@@ -117,7 +117,7 @@ const Conversation = () => {
   }
 
   return (
-    <div className="container">
+    <div className="conversation-container">
       <h1 className="title">Conversation</h1>
       <div className="messagesContainer">
         
