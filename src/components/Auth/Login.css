@@ -177,4 +177,7 @@ body.specific-page-login {
   .sub-link {
     margin-top: 10px;
   }
+  .divider {
+    display: none;
+  }
 }
