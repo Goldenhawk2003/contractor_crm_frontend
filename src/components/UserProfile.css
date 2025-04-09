@@ -12,6 +12,8 @@ body.specific-page-user-profile {
 
 
 
+
+
 /* Sidebar */
 .sidebar {
 
@@ -132,6 +134,48 @@ body.specific-page-user-profile {
   text-decoration: underline;
 }
 
+/* Modal overlay style */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Modal content container */
+
+
+.modal-content {
+  background: #fff;
+  padding: 20px; /* Increase or tweak this value */
+  width: 90%;
+  max-width: 600px; /* keep the pop-up from getting too wide */
+  border-radius: 8px;
+  position: relative;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+/* Close button for the modal */
+.modal-close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  border: none;
+  background: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+/* Optional: style the parsed contract content within the modal */
+.modal-contract-content {
+  margin-top: 20px;
+}
 
 
 /* General Button Styling */
@@ -729,7 +773,6 @@ flex-direction: column;
 
 .contract-client-test{
   display: flex;
-  justify-content: center;
   align-items: center;
   gap: 1rem;
   margin-top: 1rem;
@@ -738,7 +781,7 @@ flex-direction: column;
   background-color: #ecf0fc;
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  width: 100%;
+  width: 90%;
 
   margin-left: auto;
   margin-right: auto;
@@ -842,4 +885,17 @@ flex-direction: column;
     margin: 0.5rem 0;
     font-size: 1.5rem;
   }
+}
+
+
+.section-title{
+  text-align: center;
+  display: flex;
+  justify-content: center;
+}
+
+.contract-parsed-section{
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
 }

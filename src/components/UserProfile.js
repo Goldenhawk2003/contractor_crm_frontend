@@ -490,17 +490,20 @@ const ProfessionalContracts = () => {
 };
 
 // ------------------- ClientContracts Component -------------------
+
+
 const ClientContracts = () => {
-  
   const [receivedContracts, setReceivedContracts] = useState([]);
   const [signError, setSignError] = useState("");
   const [signSuccess, setSignSuccess] = useState("");
-  const [expandedContracts, setExpandedContracts] = useState([]);
-  const maxLength = 120;
   const [rating, setRating] = useState(0);
   const [hoveredRating, setHoveredRating] = useState(0);
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const [openContract, setOpenContract] = useState(null); // For modal pop-up
+
+  // Maximum length before showing the pop-up instead of inline expand
+  const maxLength = 120;
 
   useEffect(() => {
     axios
@@ -514,19 +517,12 @@ const ClientContracts = () => {
       .catch(() => {});
   }, []);
 
-  const toggleExpand = (contractId) => {
-    setExpandedContracts((prev) =>
-      prev.includes(contractId)
-        ? prev.filter((id) => id !== contractId)
-        : [...prev, contractId]
-    );
-  };
   const handleRateContractor = async (contractorId) => {
     if (rating <= 0 || rating > 5) {
       alert("Please provide a rating between 1 and 5.");
       return;
     }
-  
+
     try {
       const response = await axios.post(
         `${process.env.REACT_APP_BACKEND_URL}/api/contractors/${contractorId}/rate/`,
@@ -564,23 +560,42 @@ const ClientContracts = () => {
     return stars;
   };
 
+  // Function to parse and display contract content
   const parseContractContent = (content) => {
-    const sections = content.split(/\n(?=📅|💰|📄)/g);
+    // Break content into raw lines
+    let lines = content.split("\n").map((l) => l.trim());
+  
+    // Quick pass to merge "Project" + "Dates:" lines, if they occur
+    for (let i = 0; i < lines.length - 1; i++) {
+      if (lines[i] === "Project" && lines[i + 1] === "Dates:") {
+        lines[i] = "Project Dates:";
+        lines.splice(i + 1, 1);
+      }
+      // You could do similar merges if you have “Payment” & “Cycle:” lines, etc.
+    }
+  
+    // Now proceed with your existing “split by emojis” approach
+    // Or if you rely on newlines for sections, do that here.
+    const sections = lines.join("\n").split(/\n(?=📅|💰|📄)/g);
+  
     return sections.map((section, i) => {
-      const lines = section.trim().split("\n");
-      const title = lines[0];
-      const body = lines.slice(1);
+      const sublines = section.trim().split("\n");
+      const title = sublines[0];
+      const body = sublines.slice(1);
+  
       return (
         <div key={i} className="contract-parsed-section">
-          <h4>{title}</h4>
-          {body.map((line, idx) => (
-            <p key={idx}>{line}</p>
-          ))}
+          <div className="section-title">{title}</div>
+          <div className="section-content">
+            {body.map((line, idx) => (
+              <p key={idx}>{line}</p>
+            ))}
+          </div>
         </div>
       );
     });
   };
-
+  
   const signContract = useCallback(async (contractId) => {
     setSignError("");
     setSignSuccess("");
@@ -598,16 +613,24 @@ const ClientContracts = () => {
       setSignSuccess("Contract signed successfully!");
       setReceivedContracts((prev) =>
         prev.map((contract) =>
-          contract.id === contractId
-            ? { ...contract, is_signed: true }
-            : contract
+          contract.id === contractId ? { ...contract, is_signed: true } : contract
         )
       );
     } catch {
       setSignError("Failed to sign contract. Please try again.");
     }
   }, []);
-  console.log("Contract:", receivedContracts);
+
+  // Open the modal by setting the selected contract
+  const openContractModal = (contract) => {
+    setOpenContract(contract);
+  };
+
+  // Close the modal
+  const closeModal = () => {
+    setOpenContract(null);
+  };
+
   return (
     <div className="received-contracts">
       <h2>Received Contracts</h2>
@@ -615,8 +638,8 @@ const ClientContracts = () => {
       {signSuccess && <p className="success-message">{signSuccess}</p>}
       <ul>
         {receivedContracts.map((contract) => {
-          const isExpanded = expandedContracts.includes(contract.id);
-          const shouldTruncate = contract.content.length > maxLength && !isExpanded;
+          // Check if the contract content should be truncated
+          const shouldTruncate = contract.content.length > maxLength;
           const displayedContent = shouldTruncate
             ? contract.content.slice(0, maxLength) + "..."
             : contract.content;
@@ -624,62 +647,71 @@ const ClientContracts = () => {
           return (
             <li key={contract.id}>
               <div className="contract-client-test">
-              <p><strong>Title:</strong> {contract.title}</p>
-
-              <div>
-                <strong>Content:</strong>
-                <div className="parsed-contract">
-                  {parseContractContent(displayedContent)}
+                <p><strong>Title:</strong> {contract.title}</p>
+                <div>
+                 
+                  {shouldTruncate && (
+                    <button
+                      onClick={() => openContractModal(contract)}
+                      className="show-more-button"
+                    >
+                      View Full Contract
+                    </button>
+                  )}
                 </div>
-                {contract.content.length > maxLength && (
-                  <button onClick={() => toggleExpand(contract.id)} className="show-more-button">
-                    {isExpanded ? "Show Less" : "Show More"}
-                  </button>
-                )}
+                <p><strong>Status:</strong> {contract.is_signed ? "Signed" : "Pending"}</p>
+                <div className="button-container">
+                  {!contract.is_signed ? (
+                    <button
+                      onClick={() => signContract(contract.id)}
+                      className="user-button"
+                    >
+                      Sign Contract
+                    </button>
+                  ) : (
+                    <>
+                      <p className="signed">✅ Contract signed!</p>
+                      <div className="cont-rating-input">
+                        <h3 className="rating-heading">Rate This Contractor</h3>
+                        <div className="cont-stars">{renderStars(rating)}</div>
+                        <button
+                          onClick={() => handleRateContractor(contract.contractor_id)}
+                          className="cont-submit-rating-btn"
+                        >
+                          Submit Rating
+                        </button>
+                        {successMessage && <p className="success-message">{successMessage}</p>}
+                        {errorMessage && <p className="error-message">{errorMessage}</p>}
+                      </div>
+                      <Link to="/payment" className="user-button payment-btn">
+                        💳 Pay Now
+                      </Link>
+                    </>
+                  )}
+                </div>
               </div>
-
-              <p><strong>Status:</strong> {contract.is_signed ? "Signed" : "Pending"}</p>
-              
-
-              <div className="button-container">
-  {!contract.is_signed ? (
-    <button
-      onClick={() => signContract(contract.id)}
-      className="user-button"
-    >
-      Sign Contract
-    </button>
-  ) : (
-    <>
-      <p className="signed">✅ Contract signed!</p>
-
-      <div className="cont-rating-input">
-        <h3 className="rating-heading">Rate This Contractor</h3>
-        <div className="cont-stars">{renderStars(rating)}</div>
-        <button
-  onClick={() => handleRateContractor(contract.contractor_id)}
-  className="cont-submit-rating-btn"
->
-          Submit Rating
-        </button>
-        {successMessage && <p className="success-message">{successMessage}</p>}
-        {errorMessage && <p className="error-message">{errorMessage}</p>}
-      </div>
-
-      <Link to="/payment" className="user-button payment-btn">
-        💳 Pay Now
-      </Link>
-    </>
-  )}
-</div>
-</div>
             </li>
           );
         })}
       </ul>
+
+      {/* Modal for displaying full contract content */}
+      {openContract && (
+        <div className="modal-overlay" onClick={closeModal}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <button className="modal-close-btn" onClick={closeModal}>X</button>
+            <h3>{openContract.title}</h3>
+            <div className="modal-contract-content">
+              {parseContractContent(openContract.content)}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
+
+
 
 // ------------------- ContractsTab Component -------------------
 const ContractsTab = ({ userInfo }) => {
