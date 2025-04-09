@@ -151,6 +151,15 @@ const QuizComponent = () => {
     });
   }, [questions, currentIndex]);
 
+  useEffect(() => {
+      // Add a class to the body for this specific page
+      document.body.classList.add("specific-page-quiz");
+  
+      // Clean up by removing the class when the component is unmounted
+      return () => {
+        document.body.classList.remove("specific-page-quiz");
+      };
+    }, []);
   return (
     <div className="quiz-wrapper">
       <div className="quiz-hero">

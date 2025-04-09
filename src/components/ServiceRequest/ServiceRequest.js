@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './ServiceRequest.css';
 import axios from 'axios';
 
@@ -59,8 +59,18 @@ const ServiceRequest = () => {
             console.error('Error submitting request:', error);
         }
     };
+    useEffect(() => {
+        // Add a class to the body for this specific page
+        document.body.classList.add("specific-page-request");
+    
+        // Clean up by removing the class when the component is unmounted
+        return () => {
+          document.body.classList.remove("specific-page-request");
+        };
+      }, []);
 
     return (
+        <div className="request-container">
         <div className="main">
             <h1>Request a Service</h1>
             <p>If you require a service not listed in our directory, please use the form below to submit your request:</p>
@@ -89,6 +99,7 @@ const ServiceRequest = () => {
 
             {/* Error Message */}
             {errorMessage && <p className="error-message">{errorMessage}</p>}
+        </div>
         </div>
     );
 };

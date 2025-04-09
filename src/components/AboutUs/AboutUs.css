@@ -1,4 +1,14 @@
+body.specific-page-about-us {
 
+  /* Replace with your image path */
+    position: relative;
+    background-size: cover; /* Ensure the image covers the entire section */
+  background-color: #6b90ff;
+  
+  
+  
+  
+  }
 
 .about-us-container {
     display: flex;
@@ -56,6 +66,7 @@
   .impact-container {
     width: 80%;
     margin-left: 8%;
+    margin-bottom: 5%;
 
     
   }
@@ -137,13 +148,14 @@
     align-items: center;
     justify-content: center;
     padding: 20px;
-    background-color: #ECF0FC;
+    background-color: #6b90ff;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
     height: 70vh;
+    padding-bottom: 10%;
   }
   
   .flashcard {
-    background-color: #6b90ff;
+    background-color: #ECF0FC;
     border-radius: 10px;
     padding: 20px;
     margin: 10px;
@@ -154,17 +166,22 @@
     height: 100%;
     display: flex;
     flex-direction: column;
+    align-items: center;
+    justify-content: center;
   }
   .flashcard-title{
     font-size: 2.5rem;
     font-weight: 200;
-    color: #6b90ff;
+    color: #091268;
     margin-bottom: 10px;
+    margin-top: 5%;
   }
   
   .flashcard-text {
     font-size: 1.5rem;
-    color: #FFFF;
+    color: #091268;
+    align-items: center;
+    text-align: center;
 
   }
   
@@ -204,6 +221,7 @@
   .mission-image{
     width:100%;
     height: 100%;
+ 
   }
   .overlay-button {
     position: absolute;
@@ -294,7 +312,7 @@
 .mission-image-container{
   height: 100%;
   padding-right: 6%;
-  padding-left: 2%;
+  padding-left: 5%;
   display: flex;
   flex-direction: column;
 

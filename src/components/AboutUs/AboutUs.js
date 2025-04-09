@@ -5,8 +5,7 @@ import GooglePlacesInput from "../APIStuff/AutoComplete";
 const storyParagraphs = [
   "“In the early 1950’s, my family immigrated from Italy to Canada hoping to create a better future for the generations that followed. My grandparents started working in farming, mining, and factories prior to entering the construction and real estate industry in Durham Region in the late 60’s. My grandfather always said “Canada is the best country in the world,” emphasizing the opportunities it provided for work and starting a family. Following in his footsteps, my father continued in construction and real estate, carrying on the values of hard work, motivation, and a deep appreciation for Canada.",
   "Although we are grateful for what Canada has to offer, one ongoing challenge that my family has faced for decades is finding reliable and gifted contractors. Time and time again we’ve encountered contractors who misrepresent their skills and capabilities, leading to consistent uncertainty and frustration.",
-  "I started this company to support and inspire home and business owners. My goal is to connect customers with trusted professionals who maintain loyalty to Durham Region’s community. It is my turn to continue sharing my family's passion for construction and helping the people in my community. I am proud to continue the values that have been the foundation of our family's success for generations.",
-  "- Vincent Bavaro Owner and Founder of Exclusive Trade Network"
+  "I started this company to support and inspire home and business owners. My goal is to connect customers with trusted professionals who maintain loyalty to Durham Region’s community. It is my turn to continue sharing my family's passion for construction and helping the people in my community. I am proud to continue the values that have been the foundation of our family's success for generations. - Vincent Bavaro Owner and Founder of Exclusive Trade Network"
 
 ];
 
@@ -34,6 +33,16 @@ const AboutUs = () => {
   const handlePrev = () => {
     setCurrentCard((prev) => (prev - 1 + storyParagraphs.length) % storyParagraphs.length);
   };
+
+  useEffect(() => {
+      // Add a class to the body for this specific page
+      document.body.classList.add("specific-page-about-us");
+  
+      // Clean up by removing the class when the component is unmounted
+      return () => {
+        document.body.classList.remove("specific-page-about-us");
+      };
+    }, []);
   return (
     <div className="about-us-page">
       {/* About Us Section */}

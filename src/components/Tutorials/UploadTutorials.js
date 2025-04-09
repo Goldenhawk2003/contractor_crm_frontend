@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./UploadTutorials.css"; // Import the CSS file
 import axios from "axios";
 
@@ -110,6 +110,15 @@ const UploadTutorial = () => {
     setUploading(false);
   };
   
+  useEffect(() => {
+      // Add a class to the body for this specific page
+      document.body.classList.add("specific-page-upload");
+  
+      // Clean up by removing the class when the component is unmounted
+      return () => {
+        document.body.classList.remove("specific-page-upload");
+      };
+    }, []);
 
   return (
     <div className="upload-tutorial">

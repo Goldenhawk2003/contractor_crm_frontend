@@ -1,9 +1,32 @@
+body.specific-page-signup {
+
+  /* Replace with your image path */
+ /* Ensure the image covers the entire section */
+   /* Center the image */
+    background-image: url(../../../public/images/wallpapers/513263E5-0004-4894-94EB-ED2B77EAAF15.png);
+    background-color: #ecf0fc;
+
+    height: 100%;
+  
+  
+  
+  }
+.signup-page{
+  background-image: url(../../../public/images/wallpapers/513263E5-0004-4894-94EB-ED2B77EAAF15.png);
+  background-color: #ecf0fc;
+
+  height: 100%;
+}
+
+
+
 /* General Container */
 .cont {
   max-width: 600px;
+
   margin: 50px auto;
   padding: 40px;
-  background-color: #ecf0fc; /* Greyish background */
+  background-color: #6b90ff; /* Greyish background */
   border-radius: 12px;
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
   display: flex;
@@ -12,6 +35,18 @@
   font-family: 'Arial', sans-serif;
 }
 
+.inp-file{
+  width: 100%;
+  padding: 12px 15px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  outline: none;
+  background-color: #fff;
+  transition: all 0.3s ease;
+  
+}
 /* Input Fields */
 .inp {
   width: 100%;
@@ -44,8 +79,8 @@ label {
 /* Submit Button */
 .sbmit {
   width: 100%;
-  background-color: #091268; /* Light blue */
-  color: #f8f8f8;
+  background-color: #ecf0fc; /* Light blue */
+  color: #091268; 
   padding: 12px 20px;
   font-size: 1.2rem;
   font-weight: bold;
@@ -57,7 +92,8 @@ label {
 }
 
 .sbmit:hover {
-  background-color: #1b3656; /* Dark blue */
+  background-color: #FFFF; /* Dark blue */
+ /* Light blue */
   transform: translateY(-3px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
@@ -90,7 +126,7 @@ label {
 .jobtype {
   appearance: none; /* Remove default styles */
   -webkit-appearance: none;
-  width: 100%;
+  width: 53vw;
   padding: 10px;
   margin: 8px 0;
   border: 1px solid #ccc;
@@ -116,7 +152,7 @@ label {
 .jobtype:focus {
   appearance: none; /* Remove default styles */
   -webkit-appearance: none;
-  border-color: #5c7b78; /* Use your green color */
+  border-color: #091268; /* Use your green color */
   outline: none;
 }
 
@@ -130,6 +166,21 @@ label {
 .sign-up-header{
   font-size: 3rem;
   font-weight: 200;
-  color: #FFFF; /* Light blue */
+  color: #091268; /* Light blue */
   text-align: center;
+  padding-top: 4%;
+}
+
+.sign-up-h3{
+  font-size: 1rem;
+  font-weight: 400;
+ /* Light blue */
+  text-align: center !important;
+  display: flex;
+  align-items: left;
+}
+
+.sign-up-h3 h3{
+  width: 100%;
+  text-align: center !important;
 }

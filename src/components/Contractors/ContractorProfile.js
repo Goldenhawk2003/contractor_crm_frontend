@@ -30,6 +30,15 @@ const ContractorProfile = () => {
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [tutorials, setTutorials] = useState([]);
+  useEffect(() => {
+      // Add a class to the body for this specific page
+      document.body.classList.add("specific-page-cont-profile");
+  
+      // Clean up by removing the class when the component is unmounted
+      return () => {
+        document.body.classList.remove("specific-page-cont-profile");
+      };
+    }, []);
 
   useEffect(() => {
     const fetchContractor = async () => {
@@ -135,6 +144,8 @@ const ContractorProfile = () => {
       },
     });
   };
+  
+  
 
   return (
     <div className="cont-profile-container">

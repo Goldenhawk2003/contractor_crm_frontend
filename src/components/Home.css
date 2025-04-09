@@ -33,7 +33,8 @@ html, body {
   width: 100vw;
   height: 100vh;
   font-family: 'Open Sauce One', Arial, sans-serif;
-  background-color: #ECF0FC;
+
+
 
 
 }
@@ -41,9 +42,10 @@ html, body {
 body.specific-page {
 
 /* Replace with your image path */
+  position: relative;
   background-size: cover; /* Ensure the image covers the entire section */
-  background-position:center; /* Center the image */
-  background-repeat: no-repeat;
+ /* Center the image */
+  background-image: url(../../public/images/wallpapers/3B1BAD8D-F29A-415A-9DD1-A810A3AB13C7.png);
 
 
 
@@ -123,7 +125,8 @@ margin-left: 5% !important;
   height: 100%;
   background-image:url(../../public/images/wallpapers/3B1BAD8D-F29A-415A-9DD1-A810A3AB13C7.png);
   padding-bottom: 4%;
-  padding-top: 4%;
+  padding-top: 8%;
+  border-top: 2px solid #FFFF;
  
 }
 
@@ -197,9 +200,85 @@ margin-left: 5% !important;
 }
 /* End of Trust */
 
+.icons-search-container {
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+  gap: 20px;
+  width: 50%;
+  margin-left: 23%;
+  grid-template-columns: 0.5fr 0.5fr 0.5fr; /* Four equal columns */
+  grid-template-rows: 1fr 1fr; /* Two equal rows */
+}
+.icons-search img{
+  width: 50px; /* Adjust size as needed */
+  height: 50px; /* Adjust size as needed */ 
+  cursor: pointer; /* Change cursor to pointer on hover */
+  transition: transform 0.3s; /* Smooth transition for hover effect */
+  margin-top: 4%;
+  margin-left: 2%;
+  background-color: #ECF0FC;
+}
+.icons-search{
+  width: 20vw;
+  height: 15vh;
+  background-color: #ECF0FC;
+  border-radius: 20px;
+  border: 1px solid #091268;
+  flex-direction: column;
+  justify-content: space-between; 
+  padding: 10px; 
+  text-align: left;
+  text-decoration: none;
+  color: #6b90ff;
+  margin-left: 10%;
+
+}
+.icons-search p{
 
 
+  font-weight: 200;
+  padding-top: 10px;
+  padding-left: 4%;
+ 
+}
+.icons-search:hover {
+  color:#091268
+}
 
+.icon-stack {
+  display: grid;
+  place-items: start; /* aligns to top-left, use center if needed */
+}
+
+.icon-stack img {
+  grid-column: 1;
+  grid-row: 1;
+  width: 50px;
+  height: 50px;
+  transition: opacity 0.3s ease;
+}
+
+/* Hide dark icon by default */
+.icon.dark {
+  opacity: 0;
+}
+
+/* Show dark icon on hover */
+.icons-search:hover .icon.dark {
+  opacity: 1;
+}
+
+.icons-search:hover .icon.light {
+  opacity: 0;
+}
+
+.icon-img {
+  width: 50px;
+  height: 50px;
+  transition: opacity 0.3s ease;
+}
 
 
 
@@ -212,7 +291,7 @@ margin-left: 5% !important;
   align-items: stretch; /* Ensure children span the full width */
   justify-content: flex-start;
   height: 100%;
-  background: linear-gradient(to bottom, #f8f8f8 70%, #6b90ff 30%);
+  background: linear-gradient(to bottom, #f8f8f8 85%, #6b90ff 15%);
   padding-bottom: 4%;
 
 
@@ -324,7 +403,7 @@ margin-left: 5% !important;
 .service-h3{
   color:#091268;
   font-weight: 200;
-  padding-left: 23%;
+  padding-left: 17%;
   font-size: 1.3rem;
   width: 100%;
 }
@@ -405,6 +484,7 @@ margin-left: 5% !important;
   padding-bottom: 8%;
   padding-top: 8%;
   border-top: 1px solid #ffffff; /* White border */
+  background-image: url(../../public/images/wallpapers/7E50895C-580B-454A-AC9C-11F322021F3F.png);
 }
 
 /* Header Style */
@@ -418,7 +498,7 @@ margin-left: 5% !important;
   padding-right: 1.8%;
   padding-left: 1.8%;
    /* Space below the header */
-  background-color: #6b90ff;
+  background-color: transparent;
 }
 
 /* Services Grid Container */
@@ -763,7 +843,7 @@ align-content: center;
   font-size: 3.2rem;
   color: #091268;
   font-weight: 200;
-  padding-left: 5%;
+  
   text-align: center;
 }
 
@@ -880,7 +960,7 @@ align-content: center;
 }
 
 .About-us-home-img {
-  width: 40%;
+  width: 50%;
   height: auto;
   object-fit: cover;
   background-color: transparent;
@@ -1037,6 +1117,8 @@ align-content: center;
     padding-bottom: 8%;
     background-size: cover;
     background-position: center;
+ /* White border */
+  
   }
 
   .trust-content {

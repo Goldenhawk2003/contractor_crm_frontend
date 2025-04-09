@@ -1,3 +1,8 @@
+body.specific-page-user-profile {
+    background-color: #091268; /* Light grey */
+  
+  
+  }
 /* General layout */
 .user-profile {
   display: flex;

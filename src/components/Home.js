@@ -225,27 +225,75 @@ const doubledImages = images.concat(images);
 
     <div className='services-box'>
       <h3 className='service-h3'>Discover With ETN</h3>
-      <p className='service-p'><button type="submit" className="service-p" onClick={BrowseButton}> View All </button></p>
       </div>
      
-    <div className="Contractor-choices">
+    <div className="icons-search-container">
    
-      <Link to="/find-contractor?type=Plumbing" className="contractor-choice-button">
-        <img src="/images/home-page/Services-section-card1.png" alt="Plumbing Services" />
+      <Link to="/quiz" className="icons-search" state={{ prefillAnswer: "Electrical Services", questionType: "text_image", questionIndex: 1 }}>
+      <div class="icon-stack">
+        <img src="/images/home-page/search-icons/light-bulb.png" alt="Electrical Services" class="icon light"/>
+        <img src="/images/home-page/search-icons/dark-bulb.png" alt="Electrical Services" className="icon dark" />
+        </div>
+        <p>Electrical</p>
       </Link>
-      <Link to="/find-contractor?type=Renovations" className="contractor-choice-button">
-        <img src="/images/home-page/Services-section-card2.png" alt="Renovation Services" />
-      </Link>
-      <Link to="/find-contractor?type=Electrical" className="contractor-choice-button">
-        <img src="/images/home-page/Services-section-card3.png" alt="Electrical Services" />
-      </Link>
+
+
       <Link 
   to="/quiz" 
-  className="contractor-choice-button"
-  state={{ prefillAnswer: "Electrical Services", questionType: "text_image", questionIndex: 1 }}  // Second question (index 1)
+  className="icons-search"
+  state={{ prefillAnswer: "FirePlace", questionType: "text_image", questionIndex: 1 }}  // Second question (index 1)
 >
-  <img src="/images/home-page/Services-section-card4.png" alt="Electrical Services" />
+<div class="icon-stack">
+  <img src="/images/home-page/search-icons/light-fire.png" alt="Fireplace Services" class="icon light" />
+  <img src="/images/home-page/search-icons/dark-fire.png" alt="Fireplace Services" class="icon dark" />
+  </div>
+  <p>Fireplace</p>
 </Link>
+
+
+      <Link to="/quiz" className="icons-search" state={{ prefillAnswer: "Backyard Issues", questionType: "text_image", questionIndex: 1 }} >
+
+      <div class="icon-stack">
+        <img src="/images/home-page/search-icons/light-fence.png" alt="Fence Services" class="icon light"/>
+        <img src="/images/home-page/search-icons/dark-fence.png" alt="Fence Services"class="icon dark" />
+        </div>
+        <p>Backyard</p>
+      </Link>
+
+
+
+      <Link to="/quiz" className="icons-search" state={{ prefillAnswer: "Bathroom", questionType: "text_image", questionIndex: 1 }}>
+      <div class="icon-stack">
+        <img src="/images/home-page/search-icons/light-shower.png" alt="shower"  className='icon light'/>
+        <img src="/images/home-page/search-icons/dark-shower.png" alt="shower" className='icon dark' />
+        </div>
+        <p>Bathroom</p>
+      </Link>
+     
+<Link 
+  to="/quiz" 
+  className="icons-search"
+  state={{ prefillAnswer: "Appliances", questionType: "text_image", questionIndex: 1 }}  // Second question (index 1)
+>
+<div class="icon-stack">
+  <img src="/images/home-page/search-icons/light-stove.png" alt="Appliance Services" className='icon light' />
+  <img src="/images/home-page/search-icons/dark-stove.png" alt="Appliance Services" className="icon dark" />
+  </div>
+  <p>Appliances</p>
+</Link>
+<Link 
+  to="/quiz" 
+  className="icons-search"
+  state={{ prefillAnswer: "Plumbing Services", questionType: "text_image", questionIndex: 1 }}  // Second question (index 1)
+>
+<div class="icon-stack">
+  <img src="/images/home-page/search-icons/light-sink.png" alt="Plumbing Services" className='icon light' />
+  <img src="/images/home-page/search-icons/dark-sink.png" alt="Plumbing Services" className="icon dark" />
+  </div>
+  <p>Plumbing</p>
+</Link>
+
+
       
     </div>
 
@@ -508,7 +556,7 @@ Explore our service categories, discover top trades and connect with Exclusive T
 
   <div className='About-us-home'>
   <div className="About-us-content">
-    <img src="/images/home-page/About-Us-Page-06.png" className='About-us-home-img' />
+    <img src="/images/home-page/Affordable homes in thriving communities (8).png" className='About-us-home-img' />
     
     <div className="About-us-text-container">
       <h1 className='About-us-header'>Meet Your Advocates</h1>

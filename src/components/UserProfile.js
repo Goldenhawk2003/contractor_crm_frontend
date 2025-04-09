@@ -23,6 +23,15 @@ const Sidebar = ({ activeTab, unreadMessages, setActiveTab, userInfo }) => {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+  useEffect(() => {
+      // Add a class to the body for this specific page
+      document.body.classList.add("specific-page-user-profile");
+  
+      // Clean up by removing the class when the component is unmounted
+      return () => {
+        document.body.classList.remove("specific-page-user-profile");
+      };
+    }, []);
   return (
     <div className="sidebar">
       <div className="logo">

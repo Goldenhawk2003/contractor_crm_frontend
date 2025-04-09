@@ -1,3 +1,15 @@
+body.specific-page-login {
+
+  /* Replace with your image path */
+    position: relative;
+    background-size: cover; /* Ensure the image covers the entire section */
+   /* Center the image */
+    background-image: url(../../../public/images/wallpapers/7E50895C-580B-454A-AC9C-11F322021F3F.png);
+    background-color: #ECF0FC;
+  
+  
+  
+  }
 /* General Container */
 .log-container {
     display: flex;
@@ -98,7 +110,7 @@
     font-weight: 600;
     color: #FFFF;
     margin-bottom: 100px;
-    padding-top: 10%;
+    padding-top: 11%;
 }
 
 .sign-up .sub {

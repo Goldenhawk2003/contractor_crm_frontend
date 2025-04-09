@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import './Login.css';
@@ -44,6 +44,15 @@ const Login = () => {
             setError('Login failed. Please try again.');
         }
     };
+    useEffect(() => {
+        // Add a class to the body for this specific page
+        document.body.classList.add("specific-page-login");
+    
+        // Clean up by removing the class when the component is unmounted
+        return () => {
+          document.body.classList.remove("specific-page-login");
+        };
+      }, []);
     
 
     return (
@@ -71,15 +80,20 @@ const Login = () => {
                   {/* 🔑 Forgot Password Link */}
     <div style={{ marginTop: '10px', textAlign: 'center' }}>
         <Link to="/forgot-password" className="forgot-password-link">Forgot Password?</Link>
+        
     </div>
-    
+  
+ 
             </form>
-            <div className="divider"></div>
+
             <div className="sign-up">
                 <h2 className="log-header">New to Elite Craft?</h2>
                 <Link to="/signup" className="sub-link">Sign Up</Link>
            
             </div>
+   
+            
+           
           
         </div>
     );

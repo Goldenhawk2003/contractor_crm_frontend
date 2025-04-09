@@ -1,4 +1,15 @@
+body.specific-page-tutorials {
 
+  /* Replace with your image path */
+    position: relative;
+    background-size: cover; /* Ensure the image covers the entire section */
+   /* Center the image */
+   background-color: #ECF0FC;
+
+  
+  
+  
+  }
 
 .tutorial-container {
   width: 100vw;

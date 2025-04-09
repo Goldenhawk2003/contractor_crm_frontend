@@ -50,6 +50,15 @@ const Contact = () => {
           document.body.classList.remove("page");
         };
       }, []);
+      useEffect(() => {
+          // Add a class to the body for this specific page
+          document.body.classList.add("specific-page-contact");
+      
+          // Clean up by removing the class when the component is unmounted
+          return () => {
+            document.body.classList.remove("specific-page-contact");
+          };
+        }, []);
     
 
     return (

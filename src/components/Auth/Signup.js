@@ -124,8 +124,18 @@ function Signup() {
     } catch (error) {
       setError("Failed to connect to the server");
     }
+    
   };
 
+  useEffect(() => {
+      // Add a class to the body for this specific page
+      document.body.classList.add("specific-page-signup");
+  
+      // Clean up by removing the class when the component is unmounted
+      return () => {
+        document.body.classList.remove("specific-page-signup");
+      };
+    }, []);
   return (
     <div className='signup-page'>
     <h1 className='sign-up-header'>Welcome to ETN</h1>
@@ -225,6 +235,7 @@ function Signup() {
       
       {formData.role === 'professional' && (
         <>
+        <h3 className="sign-up-h3">Sign up to join our exclusive trade network! We will review your page, and send you an email once approved.</h3>
           <select
       name="job_type"
       value={formData.job_type}
@@ -254,14 +265,18 @@ function Signup() {
             required
             className='inp'
           />
+          <div className='sign-up-h3'>
+          <h3 className='sign-up-h3'>Upload your logo/Profile Picture:</h3>
           <input
             type="file"
             name="logo"
             onChange={handleChange}
             accept="image/*"
             required
-            className='inp'
-          />
+            className='inp-file'
+         / >
+          </div>
+        
         </>
       )}
       

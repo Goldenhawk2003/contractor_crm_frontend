@@ -1,5 +1,14 @@
 
+body.specific-page-quiz {
 
+  /* Replace with your image path */
+    position: relative;
+    background-size: cover; /* Ensure the image covers the entire section */
+   /* Center the image */
+   background-image: url(../../../public/images/wallpapers/513263E5-0004-4894-94EB-ED2B77EAAF15.png);
+   background-color: white;
+  
+  }
 
 
 

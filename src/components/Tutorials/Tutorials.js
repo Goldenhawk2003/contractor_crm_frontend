@@ -171,7 +171,15 @@ const TutorialList = () => {
           : normalizeTags(tutorial.tags);
         return tags.includes(selectedTag);
       });
+useEffect(() => {
+    // Add a class to the body for this specific page
+    document.body.classList.add("specific-page-tutorials");
 
+    // Clean up by removing the class when the component is unmounted
+    return () => {
+      document.body.classList.remove("specific-page-tutorials");
+    };
+  }, []);
   return (
    
     <div className="tutorial-container">
