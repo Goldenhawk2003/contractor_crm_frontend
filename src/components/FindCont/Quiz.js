@@ -160,6 +160,10 @@ const QuizComponent = () => {
         document.body.classList.remove("specific-page-quiz");
       };
     }, []);
+    useEffect(() => {
+      console.log('User logged in:', isLoggedIn);
+      console.log('Questions:', questions);
+    }, [isLoggedIn, questions]);
   return (
     <div className="quiz-wrapper">
       <div className="quiz-hero">
