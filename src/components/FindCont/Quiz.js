@@ -8,9 +8,14 @@ const MAX_FILE_SIZE_MB = 10;
 
 export const getAuthHeaders = () => {
   const token = localStorage.getItem("access_token");
-  return token
-    ? { Authorization: `Bearer ${token}` }
-    : {};
+
+  if (token) {
+    console.log("✅ Using token for auth header:", token);
+    return { Authorization: `Bearer ${token}` };
+  }
+
+  console.log("🚫 No token found. Sending request without auth.");
+  return {};
 };
 
 const QuizComponent = () => {
@@ -23,17 +28,36 @@ const QuizComponent = () => {
   const [prefillData, setPrefillData] = useState({});
 
   useEffect(() => {
-    const token = localStorage.getItem('access_token');
-    setIsLoggedIn(!!token);
-  }, []);
-
-  useEffect(() => {
-    axios.get(`${BASE_URL}/api/questions/`, {
-      headers: {
-        'Content-Type': 'application/json',
-        ...getAuthHeaders(),
-      },
-    });
+    const token = localStorage.getItem("access_token");
+    const headers = token
+      ? {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        }
+      : {
+          'Content-Type': 'application/json',
+        };
+  
+    axios
+      .get(`${BASE_URL}/api/questions/`, { headers })
+      .then((res) => {
+        console.log("✅ Questions loaded:", res.data);
+        setQuestions(res.data);
+      })
+      .catch((err) => {
+        console.error("❌ Failed to fetch questions:", err.response || err);
+      });
+      axios.interceptors.response.use(
+        res => res,
+        err => {
+          if (err.response?.status === 401) {
+            console.warn("❌ Invalid token. Clearing localStorage.");
+            localStorage.removeItem('access_token');
+            localStorage.removeItem('refresh_token');
+          }
+          return Promise.reject(err);
+        }
+      );
   }, []);
 
   useEffect(() => {
