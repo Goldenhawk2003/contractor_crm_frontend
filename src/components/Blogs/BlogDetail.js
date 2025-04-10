@@ -76,11 +76,23 @@ const BlogDetail = () => {
       setError("Failed to post reply.");
     }
   };
+    useEffect(() => {
+        // Add a class to the body for this specific page
+        document.body.classList.add("specific-page-detail");
+    
+        // Clean up by removing the class when the component is unmounted
+        return () => {
+          document.body.classList.remove("specific-page-detail");
+        };
+      }, []);
 
   if (loading) return <p className="blog-message">Loading blog...</p>;
   if (error) return <p className="blog-message error">{error}</p>;
   
+
+
   return (
+    <div className="blog-detail-page">
     <div className="blog-detail-container">
       <h2 className="blog-title">{blog.title}</h2>
       <p className="blog-author">By {blog.author}</p>
@@ -102,32 +114,8 @@ const BlogDetail = () => {
       <p className="blog-content">{blog.content}</p>
 
       {/* 🔹 Replies Section */}
-      <div className="comments-section">
-        <h3>Replies</h3>
-        {replies.length === 0 ? (
-          <p>No replies yet.</p>
-        ) : (
-          <ul className="comment-list">
-            {replies.map((reply, index) => (
-              <li key={index} className="comment-item">
-                {reply.content}
-              </li>
-            ))}
-          </ul>
-        )}
-
-        {/* 🔹 Comment Form */}
-        <form onSubmit={handleCommentSubmit} className="comment-form">
-          <textarea
-            value={comment}
-            onChange={(e) => setComment(e.target.value)}
-            placeholder="Write a reply..."
-            rows="3"
-            required
-          />
-          <button type="submit">Post Reply</button>
-        </form>
-      </div>
+     
+    </div>
     </div>
   );
 };

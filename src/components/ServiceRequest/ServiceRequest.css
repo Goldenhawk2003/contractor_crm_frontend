@@ -1,5 +1,17 @@
 
+body.specific-page-request {
 
+  /* Replace with your image path */
+    position: relative;
+    background-size: cover; /* Ensure the image covers the entire section */
+   /* Center the image */
+    background-image:url('../../../public/images/wallpapers/7E50895C-580B-454A-AC9C-11F322021F3F.png');
+    background-color: #ECF0FC;
+  
+  
+  
+  }
+  
 
 /* Main Container */
 .request-container {
@@ -11,6 +23,7 @@
   background-size: cover;
   background-position: center;
   padding: 40px 20px;
+  background-color: #ECF0FC;
 }
 
 /* Inner Box */
@@ -27,7 +40,7 @@
 /* Title */
 .main h1 {
   font-size: 2.2rem;
-  color: #1b3656;
+  color: #091268;
   margin-bottom: 10px;
 }
 

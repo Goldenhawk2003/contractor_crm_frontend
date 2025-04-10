@@ -391,6 +391,7 @@ body.specific-page-tutorials {
 
 }
 
+
 .image-modal, .tutorial-display-card{
   background-color: #FFFF;
 }
@@ -418,10 +419,18 @@ body.specific-page-tutorials {
   margin-left: 0;
   margin-top: 0;
   
+  
+}
+
+.tags button{
+  margin-top: 0;
 }
 .tag{
 
   width: 30%;
+  margin-top: 0px;
+  
+
 
 }
 .tutorial-card {

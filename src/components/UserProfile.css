@@ -143,8 +143,8 @@ body.specific-page-user-profile {
   bottom: 0;
   background: rgba(0, 0, 0, 0.6);
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content:left;
+  align-items: left;
   z-index: 1000;
 }
 
@@ -160,6 +160,7 @@ body.specific-page-user-profile {
   position: relative;
   max-height: 90vh;
   overflow-y: auto;
+  text-align: left;
 }
 /* Close button for the modal */
 .modal-close-btn {
@@ -175,6 +176,7 @@ body.specific-page-user-profile {
 /* Optional: style the parsed contract content within the modal */
 .modal-contract-content {
   margin-top: 20px;
+  text-align: left;
 }
 
 
@@ -908,13 +910,18 @@ flex-direction: column;
 
 
 .section-title{
-  text-align: center;
+  text-align: left;
   display: flex;
-  justify-content: center;
+  justify-content: left;
 }
 
 .contract-parsed-section{
   margin-bottom: 1rem;
   display: flex;
   flex-direction: column;
+}
+
+.modal-content h3{
+
+  font-size: 1.8rem;
 }

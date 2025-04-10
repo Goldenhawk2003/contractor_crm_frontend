@@ -1,3 +1,23 @@
+
+body.specific-page-detail {
+
+  /* Replace with your image path */
+    position: relative;
+    background-size: cover; /* Ensure the image covers the entire section */
+    background: url(../../../public/images/wallpapers/7E50895C-580B-454A-AC9C-11F322021F3F.png);
+    background-color: #ECF0FC;
+  
+  
+  
+  
+  }
+
+.blog-detail-page{
+  background: url(../../../public/images/wallpapers/7E50895C-580B-454A-AC9C-11F322021F3F.png);
+  background-color: #ECF0FC;
+}
+
+
 /* Blog Detail Container */
 .blog-detail-container {
     max-width: 800px;

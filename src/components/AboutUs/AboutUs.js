@@ -86,12 +86,14 @@ const AboutUs = () => {
 
 <div className="our-mission">
   <div className="mission-container-icons">
-   <img src="/images/EDD820D9-7A2F-478B-9592-00482217ACA8.png" alt="Our Mission" className="mission-image" />
+   <img src="/images/EDD820D9-7A2F-478B-9592-00482217ACA8.png" alt="Our Mission" className="mission-image-our" />
+   <img src="images/44F51CFB-9019-4AE5-97A1-16DB17B1C090.png" alt="Our Mission" className="mission-image-mobile" />
     </div>
 </div>
 <div className="our-mission">
   <div className="mission-container">
-    <img src="/images/About-Us-Page-01.png" alt="Our Mission" className="mission-image" /> 
+    <img src="/images/About-Us-Page-01.png" alt="Our Mission" className="mission-image-our" /> 
+    <img src="/images/C49F00DC-A426-4B78-A71A-0EA957D009BA.jpeg" alt="Our Mission" className="mission-image-mobile" />
  
     </div>
     </div>

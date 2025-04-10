@@ -31,11 +31,12 @@ const Layout = () => {
     '/upload':  'darketn-07.png',
     '/video-player': 'darketn-07.png',
     '/blogs':'darketn-07.png',
+   
     '/user-profile': 'ETNdark2-08.png',
   };
 
   // Grab the right logo or fallback
-  const logoFile = logoMap[location.pathname] || 'ETNdark2-08.png';
+  const logoFile = logoMap[location.pathname] || 'darketn-07.png';
 
   const logoSrc = `${process.env.PUBLIC_URL}/images/logos/logos-header/${logoFile}`;
 

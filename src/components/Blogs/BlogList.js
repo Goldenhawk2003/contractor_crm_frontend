@@ -64,6 +64,16 @@ const BlogList = () => {
     }
   };
 
+   useEffect(() => {
+        // Add a class to the body for this specific page
+        document.body.classList.add("specific-page-blogs");
+    
+        // Clean up by removing the class when the component is unmounted
+        return () => {
+          document.body.classList.remove("specific-page-blogs");
+        };
+      }, []);
+
   return (
     <div className="blog-container">
       <h2 className="blog-heading">Latest Blog Posts</h2>
@@ -112,10 +122,8 @@ const BlogList = () => {
         )}
       </div>
 
-      {/* Add New Blog Button */}
-      <button className="btn btn-primary" onClick={() => navigate("/upload-blog")}>
-        Add New Blog
-      </button>
+  
+    
 
       {/* Loading and Error Handling */}
       {loading && <p className="blog-message">Loading blogs...</p>}
