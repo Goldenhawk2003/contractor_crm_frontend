@@ -556,7 +556,7 @@ Explore our service categories, discover top trades and connect with Exclusive T
 
   <div className='About-us-home'>
   <div className="About-us-content">
-    <img src="/images/home-page/Affordable homes in thriving communities (8).png" className='About-us-home-img' />
+    <img src="/images/F2E56999-2D4E-4BDF-A9E2-9493EA1BD1C1_1_105_c.jpeg" className='About-us-home-img' />
     
     <div className="About-us-text-container">
       <h1 className='About-us-header'>Meet Your Advocates</h1>

@@ -981,7 +981,7 @@ align-content: center;
 }
 
 .About-us-home-img {
-  width: 50%;
+  width: 40%;
   height: auto;
   object-fit: cover;
   background-color: transparent;
@@ -1015,11 +1015,12 @@ align-content: center;
   border-radius: 25px;
   cursor: pointer;
   transition: background-color 0.3s;
-  width: fit-content;
+
   font-weight: normal;
   margin-top: 40%;
-  width: 35%;
+  width: 80% !important;
   height: 20%;
+
   
 }
 
@@ -1101,7 +1102,7 @@ align-content: center;
     width: 35%;
   }
   .About-us-home-img {
-    width: 50%;
+
     height: auto;
     object-fit: cover;
     background-color: transparent;
