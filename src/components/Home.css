@@ -583,6 +583,7 @@ margin-left: 1.8% !important;
   font-weight: 100;
   width: 80%;
 
+
 }
 /* End of our services */
 
@@ -1072,6 +1073,8 @@ align-content: center;
  /* Better spacing between lines */
     margin: 0.5rem 0;
     width: 100%; /* Restrict line length for better readability */
+   
+    min-height: 75%!important;
 
   }
 
@@ -1469,6 +1472,7 @@ margin-bottom: -5px !important;
     margin: 0.5rem 0;
     width: 100%; /* Restrict line length for better readability */
 
+    min-height: 75%!important;
   }
 
   .service-title {
