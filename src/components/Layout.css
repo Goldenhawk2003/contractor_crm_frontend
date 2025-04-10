@@ -27,7 +27,6 @@
 .nav-logo {
   height: 50px;
   width: auto;
-  
 }
 
 /* HAMBURGER BUTTON */
@@ -118,7 +117,7 @@
   /* Smaller hamburger button for mobile screens */
   .hamburger-button {
     top: 15px;
-    right: 15px;
+    right: 5px;
     font-size: 40px;
   }
 

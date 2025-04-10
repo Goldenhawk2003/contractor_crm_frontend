@@ -161,8 +161,8 @@ const ContractorProfile = () => {
           <h2 className="cont-contractor-name">{contractor.username || contractor.name}</h2>
           <span className="cont-contractor-badge">Contractor</span>
           <div className="cont-location-tags">
-            <span>Location: {contractor.location || "N/A"}</span>
-            <span>{contractor.job_type}</span>
+            <span className="cont-contractor-badge">Location: {contractor.location || "N/A"}</span>
+            <span className="cont-contractor-badge" >{contractor.job_type}</span>
           </div>
           <div className="cont-rating-section">
             <span className="cont-stars">{renderStars(contractor.rating)}</span>

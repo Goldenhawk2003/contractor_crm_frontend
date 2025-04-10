@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link, Outlet } from 'react-router-dom';
+import { Link, Outlet, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import Footer from './Footer';
 import './Layout.css';
@@ -7,6 +7,7 @@ import './Layout.css';
 const Layout = () => {
   const { isAuthenticated, authLoaded, user, logout } = useAuth();
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
     console.log("Current user:", user);
@@ -20,6 +21,25 @@ const Layout = () => {
   if (!authLoaded) {
     return <div>Loading...</div>;
   }
+  const logoMap = {
+    '/': 'ETNdark2-08.png',
+    '/dashboard': 'darketn-07.png',
+    '/quiz': 'darketn-07.png',
+    '/login': 'darketn-07.png',
+    '/signup':  'darketn-07.png', 
+    '/Tutorials': 'darketn-07.png',
+    '/upload':  'darketn-07.png',
+    '/video-player': 'darketn-07.png',
+    '/blogs':'darketn-07.png',
+    '/user-profile': 'ETNdark2-08.png',
+  };
+
+  // Grab the right logo or fallback
+  const logoFile = logoMap[location.pathname] || 'ETNdark2-08.png';
+
+  const logoSrc = `${process.env.PUBLIC_URL}/images/logos/logos-header/${logoFile}`;
+
+
 
   return (
     <div className="layout-container">
@@ -28,7 +48,7 @@ const Layout = () => {
           <div className="left-nav">
             <Link to="/" className="logo-link">
               <img
-                src={`${process.env.PUBLIC_URL}/images/logos/26EFE61E-E17F-4F73-8586-A5346B7E5A51.png`}
+                src={logoSrc}
                 alt="Logo"
                 className="nav-logo"
                 height="50px"

@@ -63,8 +63,8 @@ body.specific-page-cont-profile {
 }
 
 .cont-contractor-badge {
-  background-color: #091268;
-  color: white;
+  background-color: #091268 !important;
+  color: white !important;
   padding: 5px 10px;
   border-radius: 20px;
   font-weight: 100;

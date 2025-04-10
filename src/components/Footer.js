@@ -20,7 +20,7 @@ const Footer = () => {
           <i className="fab fa-linkedin-in"></i>
         </Link>
       </div>
-      <img src={`${process.env.PUBLIC_URL}/images/logos/7CC11B70-FC2A-4309-944C-557B428CE805.png`} alt="Logo" height="50px"/>
+      <img src={`${process.env.PUBLIC_URL}/images/logos/B9E77BF2-4615-4CFA-B96C-BE8D00092A91.png`} alt="Logo" height="80px" className='footer-logo'/>
       <p className='sunni'>A Sunni Studios Product</p>
     </footer>
   );

@@ -164,7 +164,7 @@ const doubledImages = images.concat(images);
     
     <h1 className='Hero-header'>Your Exclusive Trade Network</h1>
 
-    <img src="/images/home-page/2F13DA8C-6DD9-4E41-8D20-5658B7DB69B2.png" alt="Hero Image" className='hero-img-desktop' />
+    <img src="/images/home-page/1609E48F-4510-49C9-8F38-FBBE67B01950.png" alt="Hero Image" className='hero-img-desktop' />
    
   </div>
 
