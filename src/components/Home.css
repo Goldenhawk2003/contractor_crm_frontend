@@ -575,7 +575,7 @@ margin-left: 1.8% !important;
 
 /* Service Description */
 .service-description {
-  font-size: 1rem;
+  font-size: 1.2rem;
   line-height: 1.6; /* Increase line spacing for readability */
   text-align: left;
   font-weight: 100;
@@ -1065,7 +1065,7 @@ align-content: center;
 
 
   .service-description {
-    font-size: 0.5rem;
+    font-size: 0.8rem;
     color: #f0f0f0;
  /* Better spacing between lines */
     margin: 0.5rem 0;
@@ -1074,7 +1074,7 @@ align-content: center;
   }
 
   .service-title {
-    margin-bottom: 0.5rem;
+
     font-size: 1rem;
     color: #fff;
     text-align: left;
@@ -1454,7 +1454,7 @@ margin-bottom: -5px !important;
 
 
   .service-description {
-    font-size: 0.5rem;
+    font-size: 0.8rem;
     color: #f0f0f0;
  /* Better spacing between lines */
     margin: 0.5rem 0;
@@ -1463,7 +1463,7 @@ margin-bottom: -5px !important;
   }
 
   .service-title {
-    margin-bottom: 0.5rem;
+
     font-size: 1rem;
     color: #fff;
     text-align: left;
