@@ -58,7 +58,7 @@ body.specific-page {
 /* Beginning of hero */
 .hero-section {
   width: 100vw; /* Stretch the image to the full width of the screen */
-  height: 79vh; /* Set the height to cover the full viewport */
+  height: 100%; /* Set the height to cover the full viewport */
   position: relative;
   background-image: url(../../public/images/wallpapers/3B1BAD8D-F29A-415A-9DD1-A810A3AB13C7.png);/* Replace with your image path */
   background-size: cover;
@@ -70,7 +70,8 @@ body.specific-page {
   justify-content: space-between;
    /* Ensure text color contrasts with the image */
   box-sizing: border-box;
-  border-bottom: 1px solid #FFFF;
+
+
 }
 
 .hero-section::before {
@@ -94,7 +95,6 @@ body.specific-page {
 }
 .hero-content{
   width: 100vw;
-  border: 1px solid #091268;
   position: absolute;
 
 }
@@ -106,7 +106,10 @@ body.specific-page {
 margin-left: 1.8% !important;
   font-weight: 200;
   width: 100%;
-  position: absolute;
+  position: fixed;
+  left: 50px;
+
+
 
 }
 .Hero-img{
@@ -120,10 +123,12 @@ margin-left: 1.8% !important;
 }
 .hero-img-desktop {
   width: 70%;  /* or any appropriate size */
-  height: auto; /* Let the height adjust based on width and aspect ratio */
+ /* Let the height adjust based on width and aspect ratio */
   object-fit: contain;
   align-items: flex-end;
-  margin-bottom: 6%;
+
+  padding: 0px;
+  margin: 0px;
   
 }
 /* End of Hero */
@@ -1074,7 +1079,7 @@ align-content: center;
  /* Better spacing between lines */
     margin: 0.5rem 0;
     width: 100%; /* Restrict line length for better readability */
-   
+
     min-height: 75%!important;
 
   }
@@ -1084,7 +1089,7 @@ align-content: center;
     font-size: 1rem;
     color: #fff;
     text-align: left;
-    margin-bottom: -15px;
+ 
   }
 
 
@@ -1262,6 +1267,7 @@ align-content: center;
   font-size: 2rem;
   text-align: left;
   margin-left: 60px;
+  padding-top:4%;
 }
 .service-p{
   font-size: 1rem;
@@ -1386,8 +1392,14 @@ margin-bottom: -5px !important;
   }
 .About-us-button-home{
   width: 60%;
+  margin-bottom: 40%;
 
 }
+.About-us-text{
+margin-bottom: 0;
+padding-bottom: 0;
+}
+
 .About-us-home-img{
   width: 50%;
   height: auto;
@@ -1481,7 +1493,7 @@ margin-bottom: -5px !important;
     font-size: 1rem;
     color: #fff;
     text-align: left;
-    margin-bottom: -15px;
+   
   }
 
 
@@ -1657,6 +1669,7 @@ margin-bottom: -5px !important;
   font-size: 2rem;
   text-align: left;
   margin-left: 60px;
+  padding-top:4%;
 }
 .service-p{
   font-size: 1rem;
@@ -1715,9 +1728,12 @@ margin-bottom: -5px !important;
     width: 90%;
     font-size: 1.8rem;
     text-align: left !important;
-
+    position: relative !important;
     margin-top: 12% !important;
 margin-bottom: -5px !important;
+margin-left: 0 !important;
+padding-left: 0px !important;
+left: 0px !important
   }
 
   .Hero-img {
@@ -1782,6 +1798,12 @@ margin-bottom: -5px !important;
 .About-us-button-home{
   width: 60%;
 
+  margin-bottom: 40%;
+
+}
+.About-us-text{
+margin-bottom: 0;
+padding-bottom: 0;
 }
 .About-us-home-img{
   width: 50%;

@@ -76,7 +76,7 @@ const Layout = () => {
           {isSuperUser && <Link to="/dashboard" className="sidebar-layout-item">Dashboard</Link>}
           <Link to="/" className="sidebar-layout-item">Home</Link>
           <Link to="/AboutUs" className="sidebar-layout-item">About Us</Link>
-          <Link to="/Browse-contractors" className="sidebar-layout-item">Services</Link>
+          <Link to="/Tutorials" className="sidebar-layout-item">Inspiration</Link>
           <Link to="/contact" className="sidebar-layout-item">Contact Us</Link>
           <Link to="/user-profile" className="sidebar-layout-item">User Profile</Link>
           {!isAuthenticated ? (
