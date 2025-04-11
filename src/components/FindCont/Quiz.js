@@ -29,11 +29,18 @@ const QuizComponent = () => {
 
   useEffect(() => {
     const token = localStorage.getItem("access_token");
+    if (token) {
+      setIsLoggedIn(true);
+    }
+  }, []);
+  useEffect(() => {
+    const token = localStorage.getItem("access_token");
     const headers = token
       ? {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`,
         }
+        
       : {
           'Content-Type': 'application/json',
         };
@@ -45,7 +52,7 @@ const QuizComponent = () => {
         setQuestions(res.data);
       })
       .catch((err) => {
-        console.error("❌ Failed to fetch questions:", err.response || err);
+        console.error("❌ Please Try Logging in:", err.response || err);
       });
       axios.interceptors.response.use(
         res => res,
