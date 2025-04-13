@@ -33,6 +33,7 @@ const QuizComponent = () => {
       setIsLoggedIn(true);
     }
   }, []);
+  
   useEffect(() => {
     const token = localStorage.getItem("access_token");
     const headers = token
