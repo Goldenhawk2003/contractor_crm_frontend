@@ -636,7 +636,7 @@ const ClientContracts = () => {
       <h2>Received Contracts</h2>
       {signError && <p className="error-message">{signError}</p>}
       {signSuccess && <p className="success-message">{signSuccess}</p>}
-      <ul>
+   
         {receivedContracts.map((contract) => {
           // Check if the contract content should be truncated
           const shouldTruncate = contract.content.length > maxLength;
@@ -693,7 +693,7 @@ const ClientContracts = () => {
          
           );
         })}
-      </ul>
+     
 
       {/* Modal for displaying full contract content */}
       {openContract && (
