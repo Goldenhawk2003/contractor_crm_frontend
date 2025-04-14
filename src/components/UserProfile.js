@@ -645,7 +645,7 @@ const ClientContracts = () => {
             : contract.content;
 
           return (
-            <li key={contract.id}>
+         
               <div className="contract-client-test">
                 <p><strong>Title:</strong> {contract.title}</p>
                 <div>
@@ -690,7 +690,7 @@ const ClientContracts = () => {
                   )}
                 </div>
               </div>
-            </li>
+         
           );
         })}
       </ul>

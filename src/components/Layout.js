@@ -9,6 +9,11 @@ const Layout = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const location = useLocation();
 
+
+  useEffect(() => {
+    console.log("Auth state changed: ", isAuthenticated);
+  }, [isAuthenticated]);
+
   useEffect(() => {
     console.log("Current user:", user);
     if (user) {

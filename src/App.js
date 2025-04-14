@@ -41,6 +41,9 @@ import axios from 'axios';
 import EditProfilePage from './components/EditProfile.js';
 import GoogleLoginButton from './components/Auth/GoogleLogin.js';
 import { ImageUpload } from './components/Tutorials/preview.js';
+import ScrollToTop from './components/ScrollToTop.js';
+
+
 function useCsrfToken() {
   useEffect(() => {
     const fetchCsrfToken = async () => {
@@ -74,6 +77,7 @@ function App() {
   return (
     <AuthProvider>
       <Router>
+      <ScrollToTop /> 
         <Routes>
           <Route path="/" element={<Layout />}>
 
