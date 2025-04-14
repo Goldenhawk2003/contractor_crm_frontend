@@ -79,7 +79,7 @@ function App() {
       <Router>
       <ScrollToTop /> 
         <Routes>
-          <Route path="/" element={<Layout />}>
+        <Route path="/" element={<Layout key={location.pathname} />}>
 
             <Route index element={<Home />} />
 

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import './Login.css';
+import { useAuth } from '../../context/AuthContext';
 
 const Login = () => {
   const [username, setUsername] = useState('');
@@ -20,34 +21,36 @@ const Login = () => {
     axios.defaults.headers.common['X-CSRFToken'] = getCSRFToken();
   }, []);
 
+  const { loginUser } = useAuth(); // ← get login function from context
+
   const handleLogin = async (event) => {
     event.preventDefault();
     setLoading(true);
-    setError('');
-
     try {
-      const response = await axios.post(
-        `${process.env.REACT_APP_BACKEND_URL}/api/token/`,
-        { username, password },
-        {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          withCredentials: false,
-        }
-      );
-
+      const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/token/`, {
+        username,
+        password,
+      }, {
+        headers: {
+          'Content-Type': 'application/json'
+        },
+      });
+  
       const { access, refresh } = response.data;
+    
+  
       localStorage.setItem('access_token', access);
       localStorage.setItem('refresh_token', refresh);
-
+  
       axios.defaults.headers.common['Authorization'] = `Bearer ${access}`;
-
-      // Navigate to a protected page, e.g., the user profile
+  
+      await loginUser();  // ← this triggers update in context (fetch user + update isAuthenticated)
+  
       navigate('/user-profile');
+      window.location.reload(); 
     } catch (err) {
-      console.error('Login failed:', err.response ? err.response.data : err.message);
-      setError(err.response?.data?.detail || 'Login failed. Please try again.');
+      console.error('Login failed:', err.response?.data || err.message);
+      setError('Login failed. Please try again.');
     } finally {
       setLoading(false);
     }

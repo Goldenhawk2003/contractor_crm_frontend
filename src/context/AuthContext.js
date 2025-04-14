@@ -39,6 +39,20 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const loginUser = async () => {
+    try {
+      const token = localStorage.getItem('access_token');
+      if (token) {
+        axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+        const res = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/user/`);
+        setUser(res.data);
+        setIsAuthenticated(true);
+      }
+    } catch (err) {
+      console.error("Auth error during login:", err);
+    }
+  };
+
   const logout = async () => {
     try {
       localStorage.removeItem("access_token");
@@ -58,7 +72,7 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, authLoaded, user, setIsAuthenticated, logout }}>
+    <AuthContext.Provider value={{ isAuthenticated, authLoaded, user, setIsAuthenticated, logout, loginUser }}>
       {children}
     </AuthContext.Provider>
   );
