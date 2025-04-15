@@ -31,9 +31,7 @@
 
 /* HAMBURGER BUTTON */
 .hamburger-button {
-  position: fixed;
-  top: 20px;
-  right: 30px;
+
   z-index: 1001;
   background: transparent;
   color: #fff;
