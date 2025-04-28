@@ -76,12 +76,11 @@ const AboutUs = () => {
       <div className="flashcard-container">
         <h1 className="flashcard-title">Our Founder's Story</h1>
       <div className="flashcard">
+      <button onClick={handlePrev} className="flashcard-buttons">&#8592;</button>
         <p className="flashcard-text">{storyParagraphs[currentCard]}</p>
+        <button onClick={handleNext} className="flashcard-buttons">&#8594;</button>
       </div>
-      <div className="flashcard-buttons">
-        <button onClick={handlePrev}>&#8592;</button>
-        <button onClick={handleNext}>&#8594;</button>
-      </div>
+
     </div>
 
 <div className="our-mission">
