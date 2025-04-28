@@ -151,7 +151,7 @@ body.specific-page-about-us {
     background-color: #6b90ff;
     background-image: url(../../../public/images/wallpapers/7E50895C-580B-454A-AC9C-11F322021F3F.png);
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-    height: 100vh;
+    height: 100%;
     width: 100vw;
   }
   
@@ -168,6 +168,7 @@ body.specific-page-about-us {
     flex-direction: row;
     align-items: center;
     justify-content: center;
+    padding-bottom: 5%;
   }
   .flashcard-title{
     font-size: 2.5rem;
@@ -178,7 +179,7 @@ body.specific-page-about-us {
   }
   
   .flashcard-text {
-    font-size: 1.5rem;
+    font-size: 2rem;
     color: #091268;
     align-items: center;
     text-align: center;
@@ -203,6 +204,9 @@ body.specific-page-about-us {
     margin: 2%;
  
 
+  }
+  .flashcard-buttons-mobile{
+    display: none;
   }
   
   
@@ -462,13 +466,22 @@ body.specific-page-about-us {
 
     .flashcard-container {
       padding: 15px;
-      height: auto; /* Let it adapt based on content */
+      height: 80vh;/* Let it adapt based on content */
+     /* Full width */
+     padding-bottom: 0;
+ 
+
+
     }
   
     .flashcard {
-      width: 90%; /* Increase flashcard width for mobile screens */
+ /* Increase flashcard width for mobile screens */
       padding: 15px;
       margin: 10px 0;
+      height: 40vh;
+      width: 100vw;
+      padding-bottom: 0;
+    
     }
   
     .flashcard-title {
@@ -478,19 +491,41 @@ body.specific-page-about-us {
     }
   
     .flashcard-text {
-      font-size: 1.2rem; /* Slightly smaller text */
+      font-size: 1rem; /* Slightly smaller text */
       padding: 0 10px; /* Ensure there's some padding for legibility */
+   
     }
-  
+    .flashcard-mobile{
+      display: flex;
+      gap: 80px;
+    }
+  .flashcard-buttons-mobile{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 16px;
+    background-color: transparent;
+    font-size: 4rem;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+    width: 20vw;
+    margin: 2%;
+  }
     .flashcard-buttons {
       flex-direction: row; /* Stack buttons vertically */
       gap: 8px;
+      display: none;
     }
   
-    .flashcard-buttons button {
+    .flashcard-buttons {
       width: 100%; /* Make buttons fill available space */
       padding: 10px;
-      font-size: 1rem;
+      font-size: 1.5rem;
     }
     .mission-container-first h2 {
       padding-top: 0;

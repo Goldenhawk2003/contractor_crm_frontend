@@ -3,12 +3,11 @@ import "./AboutUs.css";
 import GooglePlacesInput from "../APIStuff/AutoComplete";
 
 const storyParagraphs = [
-  "“In the early 1950’s, my family immigrated from Italy to Canada hoping to create a better future for the generations that followed. My grandparents started working in farming, mining, and factories prior to entering the construction and real estate industry in Durham Region in the late 60’s. My grandfather always said “Canada is the best country in the world,” emphasizing the opportunities it provided for work and starting a family. Following in his footsteps, my father continued in construction and real estate, carrying on the values of hard work, motivation, and a deep appreciation for Canada.",
+  `“In the early 1950’s, my family immigrated from Italy to Canada hoping to create a better future for the generations that followed. My grandparents started working in farming, mining, and factories prior to entering the construction and real estate industry in Durham Region in the late 60’s. My grandfather always said “Canada is the best country in the world,” emphasizing the opportunities it provided for work and starting a family. Following in his footsteps, my father continued in construction and real estate, carrying on the values of hard work, motivation, and a deep appreciation for Canada.`,
   "Although we are grateful for what Canada has to offer, one ongoing challenge that my family has faced for decades is finding reliable and gifted contractors. Time and time again we’ve encountered contractors who misrepresent their skills and capabilities, leading to consistent uncertainty and frustration.",
-  "I started this company to support and inspire home and business owners. My goal is to connect customers with trusted professionals who maintain loyalty to Durham Region’s community. It is my turn to continue sharing my family's passion for construction and helping the people in my community. I am proud to continue the values that have been the foundation of our family's success for generations. - Vincent Bavaro Owner and Founder of Exclusive Trade Network"
+  "I started this company to support and inspire home and business owners. My goal is to connect customers with trusted professionals who maintain loyalty to Durham Region’s community. It is my turn to continue sharing my family's passion for construction and helping the people in my community. I am proud to continue the values that have been the foundation of our family's success for generations.”",
 
 ];
-
 const AboutUs = () => {
   const [selectedPlace, setSelectedPlace] = useState(null);
 
@@ -77,10 +76,23 @@ const AboutUs = () => {
         <h1 className="flashcard-title">Our Founder's Story</h1>
       <div className="flashcard">
       <button onClick={handlePrev} className="flashcard-buttons">&#8592;</button>
-        <p className="flashcard-text">{storyParagraphs[currentCard]}</p>
+    
+        <p className="flashcard-text">
+  {storyParagraphs[currentCard]}
+  {currentCard === 2 && (
+    <>
+      <br />
+      <br />
+      Vincent Bavaro, Owner and Founder of Exclusive Trade Network
+    </>
+  )}
+</p>
         <button onClick={handleNext} className="flashcard-buttons">&#8594;</button>
       </div>
-
+      <div className="flashcard-mobile">
+      <button onClick={handlePrev} className="flashcard-buttons-mobile">&#8592;</button>
+      <button onClick={handleNext} className="flashcard-buttons-mobile">&#8594;</button>
+</div>
     </div>
 
 <div className="our-mission">

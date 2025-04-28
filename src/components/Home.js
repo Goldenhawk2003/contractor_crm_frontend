@@ -162,7 +162,7 @@ const doubledImages = images.concat(images);
     <div className="home-container">
       <div className="hero-section">
     
-    <h1 className='Hero-header'>Connecting Trusted Contractors with Quality Projects</h1>
+    <h1 className='Hero-header'>Connecting <span className='highlight'>Trusted</span> Contractors with  <span className='highlight'>Quality</span> Projects</h1>
 
     <img src="/images/home-page/1609E48F-4510-49C9-8F38-FBBE67B01950.png" alt="Hero Image" className='hero-img-desktop' />
    
