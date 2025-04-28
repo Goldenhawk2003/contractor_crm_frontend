@@ -162,7 +162,7 @@ const doubledImages = images.concat(images);
     <div className="home-container">
       <div className="hero-section">
     
-    <h1 className='Hero-header'>Your Exclusive Trade Network</h1>
+    <h1 className='Hero-header'>Connecting Trusted Contractors with Quality Projects</h1>
 
     <img src="/images/home-page/1609E48F-4510-49C9-8F38-FBBE67B01950.png" alt="Hero Image" className='hero-img-desktop' />
    
@@ -171,7 +171,7 @@ const doubledImages = images.concat(images);
   <div className="trust">
   <div className="trust-content">
   <h1 className="trust-header">
-  Take our <span className="highlight">1 minute</span> questionnaire to find your Perfect Contractor
+  Take Our 1 Minute Questionnaire To Find Your <span className='highlight'>Exclusive Contractor</span> Today
 </h1>
     
     <button type="submit" className="trust-button-quiz" onClick={quizButton}>
@@ -182,9 +182,25 @@ const doubledImages = images.concat(images);
  
 </div>
 
+<div className='our-process'> 
+        <h2 className='our-header'>Why Choose Us?</h2>
+        <div className='our-process-box'>
+        <img className='process-img' src="/images/home-page/diversity-collaboration-laughing-and-architect-te-2023-11-27-04-49-54-utc.jpeg" />
+        <div className='our-process-text'>
+        <p className='our-process-p'>Exclusive Trade Network (ETN) was built on the commitment to delivering honest, high-quality work to clients who value integrity and trust. As home and business owners in the Durham Region, we acknowledge how challenging it can be to find respectable and qualified contractors.
+        </p>
+        <p className='our-process-p'>ETN was created to comfort and inspire home and business owners while connecting with professionals who maintain loyalty to Durham Region’s community as well as the GTA. 
+        </p>
+        <button type='submit' className='trust-button-services' onClick={aboutUsButton}>Learn More</button>
+        </div>
+        </div>
+
+
+      </div>
+
   <div className='services-section'>
     <div className='services-header-box'>
-    <h1 className='service-header'>What Services are You Looking For?</h1>
+    <h1 className='service-header'>What Services Are You Looking For?</h1>
     </div>
  
   <div className="search-bar-container">
@@ -224,7 +240,7 @@ const doubledImages = images.concat(images);
     )}
 
     <div className='services-box'>
-      <h3 className='service-h3'>Discover With ETN</h3>
+      <h3 className='service-h3'>Discover With Us</h3>
       </div>
      
     <div className="icons-search-container">
@@ -251,35 +267,35 @@ const doubledImages = images.concat(images);
 </Link>
 
 
-      <Link to="/quiz" className="icons-search" state={{ prefillAnswer: "Backyard Issues", questionType: "text_image", questionIndex: 1 }} >
+      <Link to="/quiz" className="icons-search" state={{ prefillAnswer: "Decks & Fences", questionType: "text_image", questionIndex: 1 }} >
 
       <div class="icon-stack">
         <img src="/images/home-page/search-icons/light-fence.png" alt="Fence Services" class="icon light"/>
         <img src="/images/home-page/search-icons/dark-fence.png" alt="Fence Services"class="icon dark" />
         </div>
-        <p>Backyard</p>
+        <p>Decks & Fences</p>
       </Link>
 
 
 
-      <Link to="/quiz" className="icons-search" state={{ prefillAnswer: "Bathroom", questionType: "text_image", questionIndex: 1 }}>
+      <Link to="/quiz" className="icons-search" state={{ prefillAnswer: "Renovations", questionType: "text_image", questionIndex: 1 }}>
       <div class="icon-stack">
         <img src="/images/home-page/search-icons/light-shower.png" alt="shower"  className='icon light'/>
         <img src="/images/home-page/search-icons/dark-shower.png" alt="shower" className='icon dark' />
         </div>
-        <p>Bathroom</p>
+        <p>Renovations</p>
       </Link>
      
 <Link 
   to="/quiz" 
   className="icons-search"
-  state={{ prefillAnswer: "Appliances", questionType: "text_image", questionIndex: 1 }}  // Second question (index 1)
+  state={{ prefillAnswer: "General Contracting", questionType: "text_image", questionIndex: 1 }}  // Second question (index 1)
 >
 <div class="icon-stack">
   <img src="/images/home-page/search-icons/light-stove.png" alt="Appliance Services" className='icon light' />
   <img src="/images/home-page/search-icons/dark-stove.png" alt="Appliance Services" className="icon dark" />
   </div>
-  <p>Appliances</p>
+  <p>General Contracting</p>
 </Link>
 <Link 
   to="/quiz" 
@@ -301,7 +317,7 @@ const doubledImages = images.concat(images);
   </div>
 
   <div className="we-offer">
-  <h2 className="we-offer-header">Our Services</h2>
+  <h2 className="we-offer-header">From Start To Finish</h2>
   <div className="services-container">
 
 
@@ -345,21 +361,7 @@ Explore our service categories, discover top trades and connect with Exclusive T
 </div>
    
       
-      <div className='our-process'> 
-        <h2 className='our-header'>Why Choose Us?</h2>
-        <div className='our-process-box'>
-        <img className='process-img' src="/images/home-page/diversity-collaboration-laughing-and-architect-te-2023-11-27-04-49-54-utc.jpeg" />
-        <div className='our-process-text'>
-        <p className='our-process-p'>Exclusive Trade Network (ETN) was built on the commitment to delivering honest, high-quality work to clients who value integrity and trust. As a homeowner in the Durham Region, it is an ongoing problem to find respectable and qualified contractors.
-        </p>
-        <p className='our-process-p'>ETN was created to comfort and inspire home and business owners while connecting with professionals who maintain loyalty to Durham Region’s community as well as the GTA. 
-        </p>
-        <button type='submit' className='trust-button-services' onClick={requestButton}>Request a Service</button>
-        </div>
-        </div>
-
-
-      </div>
+   
 
 
 
@@ -487,7 +489,7 @@ Explore our service categories, discover top trades and connect with Exclusive T
      <div class="testimonials-section">
 
   <div class="testimonials-header">
-    <h2>Hear it from our clients.</h2>
+    <h2>Hear It From Our Clients.</h2>
   </div>
 
 
