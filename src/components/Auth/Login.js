@@ -108,7 +108,7 @@ const Login = () => {
 <div className='divider'></div>
           {/* Right Column: Sign-Up Prompt */}
           <div className="signup-section">
-            <h2 className="box-header">New to Elite Craft?</h2>
+            <h2 className="box-header">New to ETN?</h2>
             <Link to="/signup" className="sub-link">Sign Up</Link>
           </div>
         </div>

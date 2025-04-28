@@ -104,6 +104,7 @@ label {
   border: 1px solid #ccc;
   border-radius: 8px;
   background-color: #fff;
+
 }
 .sign-up-dropdown{
   appearance: none; /* Remove default styles */
@@ -126,7 +127,7 @@ label {
 .jobtype {
   appearance: none; /* Remove default styles */
   -webkit-appearance: none;
-  width: 53vw;
+  width: 105%;
   padding: 10px;
   margin: 8px 0;
   border: 1px solid #ccc;
