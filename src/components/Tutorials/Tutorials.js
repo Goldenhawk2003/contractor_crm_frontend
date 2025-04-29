@@ -187,7 +187,7 @@ useEffect(() => {
         <h1 className="tutorial-heading">Get Inspired</h1>
         <div className="tutorial-intro-container">
           <p className="tutorial-intro">
-            Check our Elite Contractor's work from the community.</p>
+          Explore the skill and precision behind every project by our <span className="highlight">Exclusive Contractors</span> proudly crafted in your community</p>
         </div>
         <div className="search-bar-container">
           <input

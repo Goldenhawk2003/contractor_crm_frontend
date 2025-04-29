@@ -115,9 +115,24 @@ const HomeTab = ({ userInfo }) => {
     const [formData, setFormData] = useState({
       first_name: '',
       last_name: '',
-      phone_number: ''
+      phone_number: '',
+      profile_description: '',
+      type: '',
     });
     const [message, setMessage] = useState('');
+
+    useEffect(() => {
+      if (userInfo) {
+        setFormData({
+          first_name: userInfo.first_name || '',
+          last_name: userInfo.last_name || '',
+          phone_number: userInfo.phone_number || '',
+          profile_description: userInfo.profile_description || '',
+          type: userInfo.type || '',
+        });
+      }
+    }, [userInfo]);
+    console.log("Submitting form data:", formData);
     
     const handleChange = (e) => {
       setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -146,6 +161,10 @@ const HomeTab = ({ userInfo }) => {
               const data = await response.json();
               setMessage(`User updated successfully! Name: ${data.first_name} ${data.last_name}`);
               console.log('Success:', data);
+              setFormData(prev => ({
+                ...prev,
+                phone_number: data.phone_number || ''
+              }));
           } else if (response.status === 401) {
               setMessage('Unauthorized: Please log in again.');
               localStorage.removeItem('access_token'); // Clear the token if unauthorized
@@ -182,7 +201,7 @@ const HomeTab = ({ userInfo }) => {
             {userInfo.type === "professional" && (
               <>
               <div className="profile-blue-box">
-                <p className="profile-blue">{userInfo.type}</p>
+                <p className="profile-blue">{userInfo.profession}</p>
                 <p className="profile-blue">{userInfo.location}</p>
                 </div>
                 <StarRating ratingValue={userInfo.rating} className="star-rating" />
@@ -216,15 +235,25 @@ const HomeTab = ({ userInfo }) => {
           onChange={handleChange}
           className="edit-profile-input"
         />
+        {userInfo.type === "professional" && (
+      <textarea
+        name="profile_description"
+        placeholder="Describe your services, experience, etc."
+        value={formData.profile_description}
+        onChange={handleChange}
+        className="edit-profile-textarea"
+        rows="4"
+      />
+      
+    )}
+ 
         <button type="submit" className="edit-profile-button">
           Update
         </button>
         {message && <p className="mt-4 text-red-500">{message}</p>}
       </form>
     </div>
-          <div className="profile-description">
-            <p>{userInfo.description}</p>
-          </div>
+        
         </div>
       ) : (
         <p>Loading information...</p>

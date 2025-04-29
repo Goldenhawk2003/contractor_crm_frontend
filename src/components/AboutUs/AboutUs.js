@@ -67,7 +67,7 @@ const AboutUs = () => {
       <ImpactCard number={800} text="Active & Trusted Contractors" delay={0} />
       <ImpactCard number={1400} text="Successfully Finished Jobs" delay={500} />
       <ImpactCard number={500} text="Happy Community Members" delay={1000} />
-      <ImpactCard number={1} text="Community-based Elite Contracting Platform." delay={1500} />
+      <ImpactCard number={1} text="Community Based Exclusive Trade Contracting Platform" delay={1500} />
     </div>
         </div>
       </section>

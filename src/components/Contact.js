@@ -63,11 +63,11 @@ const Contact = () => {
 
     return (
         <div className='contact-us-page'>
-          
+          <h1 className='contact-header'>Contact Us</h1>
             <div className="contact-p-container">
                 <div className='contact-p-box'>
-            <p className='contact-p'>Need assistance? </p>
-            <p className='contact-p'>Our team is here to help.</p>
+            <p className='contact-p'>Need Assistance? </p>
+            <p className='contact-p'>Our Team Is Here To Help.</p>
             </div>
             </div>
             <div className="contact">

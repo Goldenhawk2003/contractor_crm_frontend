@@ -84,7 +84,7 @@ body.specific-page-login {
 .sub {
   width: 100%;
   max-width: 200px;
-  background-color: rgb(194, 168, 106);
+  background-color: #1b3656;
   color: #f8f8f8;
   font-size: 1rem;
   font-weight: bold;
@@ -132,7 +132,7 @@ body.specific-page-login {
   padding: 12px 30px;
   font-size: 1rem;
   font-weight: bold;
-  background-color: rgb(194, 168, 106);
+  background-color: #1b3656;
   color: #f8f8f8;
   border-radius: 8px;
   text-decoration: none;

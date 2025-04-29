@@ -210,7 +210,7 @@ const QuizComponent = () => {
     <div className="quiz-wrapper">
       <div className="quiz-hero">
         <h1 className='quiz-page-header'>Help Us, Help You!</h1>
-        <p className='quiz-page-subheader'>Our custom quiz is designed to help match you with the best results for your needs.</p>
+        <p className='quiz-page-subheader'>Our custom questionnaire is designed to match you with the best contractor for each of your projects.</p>
        
       </div>
       {currentQuestion && (

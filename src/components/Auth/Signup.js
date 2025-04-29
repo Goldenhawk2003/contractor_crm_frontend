@@ -1,4 +1,4 @@
-import React, { useState, useEffect  } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Signup.css';
 
 function Signup() {
@@ -13,11 +13,11 @@ function Signup() {
     role: 'client',
     job_type: '',
     hourly_rate: '',
-    logo: null, // New field for logo
+    logo: null,
   });
 
   const [error, setError] = useState('');
-  const [locationInput, setLocationInput] = useState(''); // Temporary state for typing
+  const [locationInput, setLocationInput] = useState('');
 
   useEffect(() => {
     if (!window.google) return;
@@ -32,50 +32,38 @@ function Signup() {
 
     autocomplete.addListener('place_changed', () => {
       const place = autocomplete.getPlace();
-      const formattedAddress = place.formatted_address;
-      setFormData((prev) => ({ ...prev, location: formattedAddress }));
-      setLocationInput(formattedAddress); // Update the input value after selection
+      const formattedAddress = place?.formatted_address || '';
+      setFormData(prev => ({ ...prev, location: formattedAddress }));
+      setLocationInput(formattedAddress);
     });
   }, []);
 
   const handleChange = (e) => {
     setError('');
-    if (e.target.name === 'logo') {
-      setFormData({ ...formData, logo: e.target.files[0] });
-    } else if (e.target.name === 'location') {
-      setLocationInput(e.target.value); // Set the temporary state for display
+    const { name, value, files } = e.target;
+
+    if (name === 'logo') {
+      setFormData(prev => ({ ...prev, logo: files[0] }));
+    } else if (name === 'location') {
+      setLocationInput(value);
     } else {
-      setFormData({ ...formData, [e.target.name]: e.target.value });
+      setFormData(prev => ({ ...prev, [name]: value }));
     }
   };
 
-
   const validateForm = () => {
-    const { username, email, password, confirmPassword, hourly_rate, role, logo } = formData;
+    const { username, email, password, confirmPassword, role, job_type, hourly_rate, logo } = formData;
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-    if (!username) {
-      return "Username is required";
-    }
-    if (!email || !emailPattern.test(email)) {
-      return "Please enter a valid email address";
-    }
-    if (password.length < 6) {
-      return "Password should be at least 6 characters";
-    }
-    if (password !== confirmPassword) {
-      return "Passwords do not match";
-    }
+    if (!username) return "Username is required";
+    if (!email || !emailPattern.test(email)) return "Please enter a valid email address";
+    if (password.length < 6) return "Password should be at least 6 characters";
+    if (password !== confirmPassword) return "Passwords do not match";
+
     if (role === 'professional') {
-      if (!formData.job_type) {
-        return "Job type is required for professionals";
-      }
-      if (!hourly_rate || isNaN(hourly_rate) || hourly_rate <= 0) {
-        return "Hourly rate must be a positive number";
-      }
-      if (!logo) {
-        return "Logo is required for professionals";
-      }
+      if (!job_type) return "Job type is required for professionals";
+      if (!hourly_rate || isNaN(hourly_rate) || hourly_rate <= 0) return "Hourly rate must be a positive number";
+      if (!logo) return "Logo is required for professionals";
     }
     return null;
   };
@@ -118,170 +106,133 @@ function Signup() {
           hourly_rate: '',
           logo: null,
         });
+        setLocationInput('');
       } else {
         setError(data.error || "An error occurred during registration");
       }
     } catch (error) {
       setError("Failed to connect to the server");
     }
-    
   };
 
   useEffect(() => {
-      // Add a class to the body for this specific page
-      document.body.classList.add("specific-page-signup");
-  
-      // Clean up by removing the class when the component is unmounted
-      return () => {
-        document.body.classList.remove("specific-page-signup");
-      };
-    }, []);
+    document.body.classList.add("specific-page-signup");
+    return () => {
+      document.body.classList.remove("specific-page-signup");
+    };
+  }, []);
+
   return (
-    <div className='signup-page'>
-    <h1 className='sign-up-header'>Welcome to ETN</h1>
-    <form onSubmit={handleSubmit} className="cont">
+    <div className="signup-page">
+      <h1 className="sign-up-header">Welcome to ETN</h1>
+      <form onSubmit={handleSubmit} className="cont">
+        {error && <p style={{ color: 'red' }}>{error}</p>}
 
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-      
-      <input
-        type="text"
-        name="username"
-        value={formData.username}
-        onChange={handleChange}
-        placeholder="Username"
-        required
-        className='inp'
-      />
-      <input
-        type="text"
-        name="firstname"
-        value={formData.firstname}
-        onChange={handleChange}
-        placeholder="First Name"
-        required
-        className='inp'
-      />
-      <input
-        type="text"
-        name="lastname"
-        value={formData.lastname}
-        onChange={handleChange}
-        placeholder="Last Name"
-        required
-        className='inp'
-      />
-      <input
-        type="email"
-        name="email"
-        value={formData.email}
-        onChange={handleChange}
-        placeholder="Email"
-        required
-        className='inp'
-      />
-      <input
-        type="password"
-        name="password"
-        value={formData.password}
-        onChange={handleChange}
-        placeholder="Password"
-        required
-        className='inp'
-      />
-      <input
-        type="password"
-        name="confirmPassword"
-        value={formData.confirmPassword}
-        onChange={handleChange}
-        placeholder="Confirm Password"
-        required
-        className='inp'
-      />
+        <input type="text" name="username" value={formData.username} onChange={handleChange} placeholder="Username" required className="inp" />
+        <input type="text" name="firstname" value={formData.firstname} onChange={handleChange} placeholder="First Name" required className="inp" />
+        <input type="text" name="lastname" value={formData.lastname} onChange={handleChange} placeholder="Last Name" required className="inp" />
+        <input type="email" name="email" value={formData.email} onChange={handleChange} placeholder="Email" required className="inp" />
+        <input type="password" name="password" value={formData.password} onChange={handleChange} placeholder="Password" required className="inp" />
+        <input type="password" name="confirmPassword" value={formData.confirmPassword} onChange={handleChange} placeholder="Confirm Password" required className="inp" />
 
-<input
+        <input
           id="location-autocomplete"
           type="text"
           name="location"
           placeholder="Enter location"
           className="inp"
-          value={locationInput} // Use the temporary state here
+          value={locationInput}
           onChange={handleChange}
         />
 
-      <div className='role'>
-      <label>
-        <input
-          type="radio"
-          name="role"
-          value="client"
-          checked={formData.role === 'client'}
-          onChange={handleChange}
-          className='radio'
-        />
-    I am a Homeowner
-      </label>
-      <label>
-        <input
-          type="radio"
-          name="role"
-          value="professional"
-          checked={formData.role === 'professional'}
-          onChange={handleChange}
-          className='radio'
-        />
-      I am a Contractor
-      </label>
-      </div>
-      
-      {formData.role === 'professional' && (
-        <>
-        <h3 className="sign-up-h3">Sign up to join our exclusive trade network! We will review your page, and send you an email once approved.</h3>
-          <select
-      name="job_type"
-      value={formData.job_type}
-      onChange={handleChange}
-      required
-      className="jobtype"
-    >
-      <option value="" disabled>Select Profession</option>
-      <option value="Plumbing">Plumber</option>
-      <option value="Electrical">Electrician</option>
-      <option value="Carpentery">Carpenter</option>
-      <option value="Renovation">Renovator</option>
-      <option value="Painting">Painter</option>
-      <option value="Landscaper">Landscaper</option>
-      <option value="Mechanic">Mechanic</option>
-      <option value="Welder">Welder</option>
-      <option value="Mason">Mason</option>
-      <option value="HVAC Technician">HVAC Technician</option>
-      <option value="Snow Removal">Snow Removal</option>
-    </select>
-          <input
-            type="text"
-            name="hourly_rate"
-            value={formData.hourly_rate}
-            onChange={handleChange}
-            placeholder="Hourly Rate (e.g., 50)"
-            required
-            className='inp'
-          />
-          <div className='sign-up-h3'>
-          <h3 className='sign-up-h3'>Upload your logo/Profile Picture:</h3>
-          <input
-            type="file"
-            name="logo"
-            onChange={handleChange}
-            accept="image/*"
-            required
-            className='inp-file'
-         / >
-          </div>
-        
-        </>
-      )}
-      
-      <button className='sbmit' type="submit">Sign Up</button>
-    </form>
+        <div className="role">
+          <label>
+            <input
+              type="radio"
+              name="role"
+              value="client"
+              checked={formData.role === 'client'}
+              onChange={handleChange}
+              className="radio"
+            />
+            I am a Home/Business owner
+          </label>
+          <label>
+            <input
+              type="radio"
+              name="role"
+              value="professional"
+              checked={formData.role === 'professional'}
+              onChange={handleChange}
+              className="radio"
+            />
+            I am a Contractor
+          </label>
+        </div>
+
+        {formData.role === 'professional' && (
+          <>
+            <h3 className="sign-up-h3">
+              Sign up to join our exclusive trade network! We will review your page, and send you an email once approved.
+            </h3>
+
+            <select name="job_type" value={formData.job_type} onChange={handleChange} required className="jobtype">
+              <option value="" disabled>Select Profession</option>
+              <option value="Plumbing">Plumber</option>
+              <option value="Electrical">Electrician</option>
+              <option value="Roofing">Roofer</option>
+              <option value="Concrete">Concrete</option>
+              <option value="Equipment Operator">Heavy Equipment Operator</option>
+              <option value="Carpentery">Carpenter</option>
+              <option value="General Contractor">General Contractor</option>
+              <option value="Painting">Painter</option>
+              <option value="Landscaper">Landscaper</option>
+              <option value="Mechanic">Mechanic</option>
+              <option value="Welder">Welder</option>
+              <option value="Mason">Mason</option>
+              <option value="HVAC Technician">HVAC Technician</option>
+              <option value="Snow Removal">Snow Removal</option>
+              <option value="Other">Other</option>
+            </select>
+            {/* Show extra textbox if 'Other' selected */}
+    {formData.job_type === 'Other' && (
+      <input
+        type="text"
+        name="custom_job_type"
+        value={formData.custom_job_type || ''}
+        onChange={(e) => setFormData(prev => ({ ...prev, custom_job_type: e.target.value }))}
+        placeholder="Please specify your profession"
+        required
+        className="inp"
+      />
+    )}
+
+            <input
+              type="text"
+              name="hourly_rate"
+              value={formData.hourly_rate}
+              onChange={handleChange}
+              placeholder="Hourly Rate (e.g., 50)"
+              required
+              className="inp"
+            />
+
+            <div>
+              <h3 className="sign-up-h3">Upload your logo/Profile Picture:</h3>
+              <input
+                type="file"
+                name="logo"
+                onChange={handleChange}
+                accept="image/*"
+                required
+                className="inp-file"
+              />
+            </div>
+          </>
+        )}
+
+        <button className="sbmit" type="submit">Sign Up</button>
+      </form>
     </div>
   );
 }
