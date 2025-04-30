@@ -129,6 +129,8 @@ body.specific-page-user-profile {
 .show-more-button{
   background-color: transparent;
   border: none;
+  align-self: center;
+  justify-self: center;
 }
 .show-more-button:hover{
   text-decoration: underline;
@@ -347,7 +349,7 @@ textarea.user-input {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
   font-size: 1rem;
   color: #1B3656; /* Dark Blue */
-  height: 100vh;
+  height: 100%;
 
 }
 /* Profile Section */
@@ -792,27 +794,87 @@ flex-direction: column;
 }
 
 
-.contract-client-test{
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-  padding: 1rem;
-  background-color: #ecf0fc;
-  border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  width: 90%;
+.received-contracts {
+  padding: 2rem;
+  background-color: #f9fafb;
+  border-radius: 12px;
+}
 
-  margin-left: auto;
-  margin-right: auto;
-  text-align: center; 
-  font-size: 1.2rem;
-  font-weight: bold;
-  color: #091268;
-  border: 1px solid #091268;
-  transition: all 0.3s ease;  
-  
+.received-contracts h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  color: #1f2937;
+}
+
+.contract-client-test {
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 1.25rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  align-items: center;
+  justify-content: center;
+}
+
+.contract-client-test p {
+  margin: 0.25rem 0;
+  color: #374151;
+  text-align: center;
+}
+
+.signed {
+  font-weight: 500;
+  color: #10b981;
+  margin-bottom: 0.5rem;
+}
+
+.contract-content{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.show-more-button,
+.user-button,
+.payment-btn {
+  background-color: #6366f1;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  font-size: 0.95rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  margin-top: 0.5rem;
+  margin-right: 0.5rem;
+  align-self: center;
+}
+
+.user-button:hover,
+.payment-btn:hover,
+.show-more-button:hover {
+  background-color: #4f46e5;
+}
+
+.error-message {
+  color: #dc2626;
+  font-size: 0.95rem;
+  margin-bottom: 1rem;
+}
+
+.success-message {
+  color: #10b981;
+  font-size: 0.95rem;
+  margin-bottom: 1rem;
+}
+
+.button-container {
+  margin-top: 1rem;
+}
+
+.cont-rating-input {
+  margin-top: 1rem;
 }
 .verified-icon {
    /* Tailwind green-500, for example */

@@ -4,6 +4,8 @@ import { Link, useNavigate } from "react-router-dom";
 import "./UserProfile.css";
 import { useAuth } from "../context/AuthContext";
 import { FaCheckCircle } from 'react-icons/fa';
+import ReviewForm from "./Reviews/ReviewForm";
+import ReviewList from "./Reviews/ReviewList";
 
 const getAuthHeaders = () => {
   const token = localStorage.getItem("access_token");
@@ -105,6 +107,7 @@ const StarRating = ({ ratingValue, onRate }) => {
 // ------------------- HomeTab Component -------------------
 const HomeTab = ({ userInfo }) => {
   const navigate = useNavigate();
+  const [refreshKey, setRefreshKey] = useState(0);
 
   const editProfile = useCallback(() => {
     if (userInfo?.type === "client") {
@@ -268,8 +271,16 @@ const HomeTab = ({ userInfo }) => {
         {message && <p className="mt-4 text-red-500">{message}</p>}
       </form>
     </div>
+    {userInfo.type === "professional" && (
+    <section className="reviews-section mt-8">
+            <h3 className="text-xl font-semibold">Reviews</h3>
+            <ReviewList contractorId={userInfo.contractor_id} key={refreshKey} />
+           
+          </section>
+)}
         
         </div>
+
       ) : (
         <p>Loading information...</p>
       )}
@@ -545,6 +556,7 @@ const ClientContracts = () => {
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [openContract, setOpenContract] = useState(null); // For modal pop-up
+  const [refreshKey, setRefreshKey] = useState(0);
 
   // Maximum length before showing the pop-up instead of inline expand
   const maxLength = 120;
@@ -561,48 +573,7 @@ const ClientContracts = () => {
       .catch(() => {});
   }, []);
 
-  const handleRateContractor = async (contractorId) => {
-    if (rating <= 0 || rating > 5) {
-      alert("Please provide a rating between 1 and 5.");
-      return;
-    }
 
-    try {
-      const response = await axios.post(
-        `${process.env.REACT_APP_BACKEND_URL}/api/contractors/${contractorId}/rate/`,
-        { rating },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            ...getAuthHeaders(),
-          },
-        }
-      );
-      setSuccessMessage(response.data.message || "Rating submitted successfully.");
-      setErrorMessage("");
-    } catch (error) {
-      console.error('Error rating contractor:', error);
-      setErrorMessage("Failed to submit rating. Please try again.");
-    }
-  };
-
-  const renderStars = (ratingValue) => {
-    const stars = [];
-    for (let i = 1; i <= 5; i++) {
-      stars.push(
-        <span
-          key={i}
-          className={`star ${i <= (hoveredRating || ratingValue) ? "filled" : ""}`}
-          onClick={() => setRating(i)}
-          onMouseEnter={() => setHoveredRating(i)}
-          onMouseLeave={() => setHoveredRating(0)}
-        >
-          ★
-        </span>
-      );
-    }
-    return stars;
-  };
 
   // Function to parse and display contract content
   const parseContractContent = (content) => {
@@ -668,6 +639,7 @@ const ClientContracts = () => {
   // Open the modal by setting the selected contract
   const openContractModal = (contract) => {
     setOpenContract(contract);
+    console.log("Contract:", contract);
   };
 
   // Close the modal
@@ -692,7 +664,8 @@ const ClientContracts = () => {
          
               <div className="contract-client-test">
                 <p><strong>Title:</strong> {contract.title}</p>
-                <div>
+                
+                <div className="contract-content">
                  
                   {shouldTruncate && (
                     <button
@@ -701,6 +674,7 @@ const ClientContracts = () => {
                     >
                       View Full Contract
                     </button>
+
                   )}
                 </div>
                 <p><strong>Status:</strong> {contract.is_signed ? "Signed" : "Pending"}</p>
@@ -716,20 +690,15 @@ const ClientContracts = () => {
                     <>
                       <p className="signed">✅ Contract signed!</p>
                       <div className="cont-rating-input">
-                        <h3 className="rating-heading">Rate This Contractor</h3>
-                        <div className="cont-stars">{renderStars(rating)}</div>
-                        <button
-                          onClick={() => handleRateContractor(contract.contractor_id)}
-                          className="cont-submit-rating-btn"
-                        >
-                          Submit Rating
-                        </button>
-                        {successMessage && <p className="success-message">{successMessage}</p>}
-                        {errorMessage && <p className="error-message">{errorMessage}</p>}
-                      </div>
                       <Link to="/payment" className="user-button payment-btn">
                         💳 Pay Now
                       </Link>
+                      <ReviewForm
+                      contractorId={contract.contractor_id}
+                      onSuccess={() => setRefreshKey(k => k + 1)}
+                      />
+                      </div>
+                    
                     </>
                   )}
                 </div>
