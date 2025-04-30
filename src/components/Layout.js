@@ -9,7 +9,17 @@ const Layout = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const location = useLocation();
 
-
+  const Header = () => {
+    const location = useLocation();
+    const isHome = location.pathname === "/";
+  
+    return (
+      <header className={`main-header ${isHome ? "transparent-header" : ""}`}>
+        <div className="logo">...</div>
+        <div className="menu-icon">...</div>
+      </header>
+    );
+  };
   useEffect(() => {
     console.log("Auth state changed: ", isAuthenticated);
   }, [isAuthenticated]);
@@ -48,8 +58,10 @@ const Layout = () => {
 
 
   return (
+
     <div className="layout-container">
       <header className="layout-header">
+      <header className={`layout-header ${location.pathname === '/' ? 'transparent-header' : ''}`}>
         <nav className="nav-container">
           <div className="left-nav">
             <Link to="/" className="logo-link">
@@ -70,6 +82,7 @@ const Layout = () => {
             </button>
           </div>
         </nav>
+        </header>
       </header>
 
       {/* Sidebar */}

@@ -105,6 +105,18 @@
   background: rgba(0, 0, 0, 0.5);
   z-index: 1000;
 }
+.transparent-header {
+  background-color: transparent;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 2;
+}
+
+.transparent-header .nav-logo,
+.transparent-header .hamburger-button {
+  filter: drop-shadow(0 0 3px rgba(0, 0, 0, 0.6));
+}
 
 @media screen and (max-width: 768px) {
   /* Reduce header padding for mobile */

@@ -160,15 +160,18 @@ const doubledImages = images.concat(images);
         
   return (
     <div className="home-container">
-         <h1 className="Hero-header"><span className='highlight-header'>Exclusive</span> Trade Network</h1>
-         <p className='Hero-p'>Connecting Trusted Contractors with Quality Projects</p>
-      <div className="hero-section">
     <div className="hero-background">
- 
- 
+    <video autoPlay muted loop className="background-video">
+
+    <source src="/images/8395EF79-AFDD-45AB-ADB5-F131337CCDF6.MP4" type="video/mp4" />
+    Your browser does not support the video tag.
+  </video>
+  <div className="hero-content">
+      <h1 className="Hero-header">
+        <span className="highlight-header">Exclusive</span> Trade Network
+      </h1>
+      <p className="Hero-p">Connecting Trusted Contractors with Quality Projects</p>
     </div>
-   
-   
   </div>
 
   <div className="trust">
