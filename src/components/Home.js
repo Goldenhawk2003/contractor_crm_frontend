@@ -257,11 +257,11 @@ const doubledImages = images.concat(images);
       <Link 
   to="/quiz" 
   className="icons-search"
-  state={{ prefillAnswer: "FirePlace", questionType: "text_image", questionIndex: 1 }}  // Second question (index 1)
+  state={{ prefillAnswer: "Landscaping", questionType: "text_image", questionIndex: 1 }}  // Second question (index 1)
 >
 <div class="icon-stack">
-  <img src="/images/home-page/search-icons/light-fire.png" alt="Fireplace Services" class="icon light" />
-  <img src="/images/home-page/search-icons/dark-fire.png" alt="Fireplace Services" class="icon dark" />
+  <img src="/images/home-page/search-icons/light-door.png" alt="Fireplace Services" class="icon light" />
+  <img src="/images/home-page/search-icons/dark-door.png" alt="Fireplace Services" class="icon dark" />
   </div>
   <p>Fireplace</p>
 </Link>
