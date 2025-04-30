@@ -42,6 +42,7 @@ import EditProfilePage from './components/EditProfile.js';
 import GoogleLoginButton from './components/Auth/GoogleLogin.js';
 import { ImageUpload } from './components/Tutorials/preview.js';
 import ScrollToTop from './components/ScrollToTop.js';
+import LicenseForm from './components/VerifyLicense.js';
 
 
 function useCsrfToken() {
@@ -141,6 +142,8 @@ function App() {
 
             <Route path="/AutoComplete" element={<LocationAutocomplete />} />  
             <Route path="/googlelogin" element={<GoogleLoginButton />} />
+
+            <Route path="/license" element={<LicenseForm />} />
 
           </Route>
         </Routes>

@@ -3,6 +3,7 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import "./UserProfile.css";
 import { useAuth } from "../context/AuthContext";
+import { FaCheckCircle } from 'react-icons/fa';
 
 const getAuthHeaders = () => {
   const token = localStorage.getItem("access_token");
@@ -127,7 +128,7 @@ const HomeTab = ({ userInfo }) => {
           first_name: userInfo.first_name || '',
           last_name: userInfo.last_name || '',
           phone_number: userInfo.phone_number || '',
-          profile_description: userInfo.profile_description || '',
+          profile_description: userInfo.description || '',
           type: userInfo.type || '',
         });
       }
@@ -137,6 +138,7 @@ const HomeTab = ({ userInfo }) => {
     const handleChange = (e) => {
       setFormData({ ...formData, [e.target.name]: e.target.value });
     };
+   
   
     const handleSubmit = async (e) => {
       e.preventDefault();
@@ -180,11 +182,19 @@ const HomeTab = ({ userInfo }) => {
           console.error('Network error:', error);
       }
   };
+  
 
   return (
     <div className="tab-content">
       {userInfo ? (
         <div className="profile">
+           {!userInfo.is_verified && userInfo.type === "professional"&& (
+        <div className="verify-banner">
+          <Link to="/license" className="verify-link">
+            ⚠️ Get Verified By Submitting Your License/Business Number
+          </Link>
+        </div>
+      )}
           {userInfo.logo && (
             <img
               src={
@@ -197,11 +207,15 @@ const HomeTab = ({ userInfo }) => {
             />
           )}
           <div className="profile-container">
-            <p className="profile-username">{userInfo.username}</p>
+            <p className="profile-username">{userInfo.username} {userInfo.is_verified &&  <FaCheckCircle
+    className="verified-icon"
+    title="Verified contractor"
+  />}</p>
+           
             {userInfo.type === "professional" && (
               <>
               <div className="profile-blue-box">
-                <p className="profile-blue">{userInfo.profession}</p>
+                <p className="profile-blue">{userInfo.job_type}</p>
                 <p className="profile-blue">{userInfo.location}</p>
                 </div>
                 <StarRating ratingValue={userInfo.rating} className="star-rating" />
@@ -237,12 +251,13 @@ const HomeTab = ({ userInfo }) => {
         />
         {userInfo.type === "professional" && (
       <textarea
+        rows="4"
         name="profile_description"
         placeholder="Describe your services, experience, etc."
         value={formData.profile_description}
         onChange={handleChange}
-        className="edit-profile-textarea"
-        rows="4"
+        className="edit-profile-input"
+    
       />
       
     )}

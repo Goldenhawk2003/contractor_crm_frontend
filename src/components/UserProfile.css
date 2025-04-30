@@ -814,6 +814,13 @@ flex-direction: column;
   transition: all 0.3s ease;  
   
 }
+.verified-icon {
+   /* Tailwind green-500, for example */
+  margin-left: 0.2rem;
+  margin-bottom: 0.2rem;
+  /* adjust as needed */
+  vertical-align: middle;
+}
 
 @media (max-width: 768px) {
   .received-contracts {
