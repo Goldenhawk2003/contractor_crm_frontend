@@ -263,7 +263,7 @@ const doubledImages = images.concat(images);
   <img src="/images/home-page/search-icons/light-door.png" alt="Fireplace Services" class="icon light" />
   <img src="/images/home-page/search-icons/dark-door.png" alt="Fireplace Services" class="icon dark" />
   </div>
-  <p>Fireplace</p>
+  <p>Landscaping</p>
 </Link>
 
 
