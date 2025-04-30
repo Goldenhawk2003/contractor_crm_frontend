@@ -161,7 +161,10 @@ const doubledImages = images.concat(images);
   return (
     <div className="home-container">
     <div className="hero-background">
-    <video autoPlay muted loop className="background-video">
+    <video autoPlay
+  muted
+  loop
+  playsInline className="background-video">
 
     <source src="/images/8395EF79-AFDD-45AB-ADB5-F131337CCDF6.MP4" type="video/mp4" />
     Your browser does not support the video tag.
