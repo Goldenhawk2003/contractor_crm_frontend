@@ -145,7 +145,7 @@ body.specific-page {
   left: 0;
   min-width: 100%;
   min-height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   z-index: -1;
 }
 .hero-background{  position: relative;
