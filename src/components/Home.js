@@ -169,6 +169,15 @@ const doubledImages = images.concat(images);
     <source src="/images/8395EF79-AFDD-45AB-ADB5-F131337CCDF6.MP4" type="video/mp4" />
     Your browser does not support the video tag.
   </video>
+  <video
+    autoPlay
+    muted
+    loop
+    playsInline
+    className="background-video mobile-only"
+  >
+    <source src="/images/8395EF79-AFDD-45AB-ADB5-F131337CCDF6.MP4" type="video/mp4" />
+  </video>
   <div className="hero-content">
       <h1 className="Hero-header">
         <span className="highlight-header">Exclusive</span> Trade Network

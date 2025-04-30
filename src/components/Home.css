@@ -86,7 +86,6 @@ body.specific-page {
 }
 
 .hero-section h1,
-.hero-section p,
 .hero-section .search-bar-container,
 .hero-section .services-buttons,
 .hero-section .Contractor-choices, .search-results {
@@ -94,14 +93,19 @@ body.specific-page {
   z-index: 1; /* Ensure content is above the overlay */
   margin: 0;
 }
-.hero-content{
-  width: 100vw;
+.hero-content {
   position: absolute;
-
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  z-index: 1;
+  width: 100%;
+  padding: 0 1rem;
 }
 .Hero-header{
   font-size: 4rem;
-  color: #091268;
+  color: #6b90ff;
   margin-bottom: 20px;
   text-align: center;
 
@@ -109,13 +113,11 @@ body.specific-page {
   width: 100%;
   z-index: 100;
   margin-top: 5%;
-
-
-
 }
+.mobile-only { display: none; }
 .Hero-p{
 
-  color: #091268;
+  color: #6b90ff;
   margin-bottom: 20px;
   text-align: center;
 
@@ -145,7 +147,7 @@ body.specific-page {
   left: 0;
   min-width: 100%;
   min-height: 100%;
-  object-fit: contain;
+  object-fit: cover;
   z-index: -1;
 }
 .hero-background{  position: relative;
@@ -1774,7 +1776,10 @@ padding-bottom: 0;
     margin-top: 0;
   }
   
-
+  .background-video {
+    object-position: center top; /* move the frame to a better spot */
+    transform: scale(1); /* optional: slightly zoom out */
+  }
   
  
   .Contractor-choices img {
@@ -1931,6 +1936,8 @@ padding-bottom: 0;
 body{
   overflow-x: hidden;
 }
+
+  
   .hero-img-desktop{
     align-self: flex-end;
     height: 100%;
@@ -2217,13 +2224,13 @@ body{
   }
 
   .Hero-header {
-    width: 90%;
+    width: 100%;
     font-size: 1.8rem;
-    text-align: left !important;
+
     position: relative !important;
     margin-top: 12% !important;
 margin-bottom: -5px !important;
-margin-left: 0 !important;
+
 padding-left: 0px !important;
 left: 0px !important
   }
@@ -2332,4 +2339,16 @@ padding-bottom: 0;
   height: 50px;
   transition: opacity 0.3s ease;
 }
+}
+
+@media (max-width: 768px) {
+  .background-video {
+    width: 100vw;
+    height: 100vh;
+    min-width: unset;
+    min-height: unset;
+    object-fit: contain;
+    object-position: center;
+    background-color: black;
+  }
 }
