@@ -99,17 +99,32 @@ body.specific-page {
 
 }
 .Hero-header{
-  font-size: 3rem;
-  color: #F8F8F8;
+  font-size: 4rem;
+  color: #091268;
   margin-bottom: 20px;
-  text-align: left;
-  margin-left: 1.8% !important;
+  text-align: center;
+
   font-weight: 200;
   width: 100%;
-  position: fixed;
-  left: 50px;
+  z-index: 100;
+  margin-top: 5%;
 
 
+
+}
+.Hero-p{
+
+  color: #091268;
+  margin-bottom: 20px;
+  text-align: center;
+
+  font-weight: 200;
+  width: 100%;
+  z-index: 100;
+
+}
+.highlight-header{
+  color: #F8F8F8;
 
 }
 .Hero-img{
