@@ -4,6 +4,65 @@ import { useNavigate } from 'react-router-dom';
 import './Home.css';
 import Fuse from 'fuse.js';
 
+const services = [
+  {
+    title: "Discover",
+    description:
+      "Explore our service categories, discover top trades and connect with Exclusive Trade Contractors today!"
+  },
+  {
+    title: "Quiz",
+    description:
+      "Let’s find your match–Our questionnaire helps you get results with confidence."
+  },
+  {
+    title: "Chat",
+    description:
+      "Chat directly with Exclusive Trade Contractors. Ask questions, share your vision, and get the support you need."
+  },
+  {
+    title: "Contracts",
+    description:
+      "Lock in your contracts directly on our site with full privacy and built-in protection."
+  }
+];
+
+const ServicesAccordion = () => {
+  const [activeIndex, setActiveIndex] = useState(null);
+
+  const toggle = (index) => {
+    setActiveIndex(index === activeIndex ? null : index);
+  };
+
+  return (
+    <div className="we-offer">
+
+      <div className="services-container-accordion">
+        {services.map((item, index) => (
+          <div key={index} className="accordion-item">
+            <button className="accordion-header" onClick={() => toggle(index)}>
+              {item.title}
+              <span className={`arrow ${activeIndex === index ? 'open' : ''}`}>
+                {activeIndex === index ? '▲' : '▼'}
+              </span>
+            </button>
+            <div
+              className={`accordion-content-wrapper ${
+                activeIndex === index ? 'open' : ''
+              }`}
+            >
+              <div className={`accordion-content ${activeIndex === index ? 'visible' : ''}`}>
+                <p>{item.description}</p>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+
 
 const Home = () => {
   const [searchText, setSearchText] = useState('');
@@ -334,49 +393,15 @@ const doubledImages = images.concat(images);
     
   </div>
 
-  <div className="we-offer">
-  <h2 className="we-offer-header">From Start To Finish</h2>
-  <div className="services-container">
 
-
-    <div className="service">
-      <div className="service-header-box">
-      
-      <h3 className="service-title">Discover</h3>
-      </div>
-      <p className="service-description">
-Explore our service categories, discover top trades and connect with Exclusive Trade Contractors today!
-      </p>
+<div className='services-box-accordion'>
+  <h1 className='we-offer-header'>From Start To Finish</h1>
+  <div className='we-offer-image-box'>
+      <ServicesAccordion />
+    <img className='we-offer-img' src="/images/logos/11E6C2F8-FB80-4AC7-86C9-4423AA553344.png" />
     </div>
-    
-    <div className="service">
-    <div className="service-header-box">
-      <h3 className="service-title">Quiz</h3>
-      </div>
-      <p className="service-description">
-      Let’s find your match–Our questionnaire helps you get results with confidence.
-      </p>
-    </div>
-    <div className="service">
-    <div className="service-header-box">
- 
-      <h3 className="service-title">Chat</h3>
-      </div>
-      <p className="service-description">
-      Chat directly with Exclusive Trade Contractors. Ask questions, share your vision, and get the support you need.
-      </p>
-    </div>
-    <div className="service">
-    <div className="service-header-box">
-
-      <h3 className="service-title">Contracts</h3>
-      </div>
-      <p className="service-description">
-      Lock in your contracts directly on our site with full privacy and built-in protection.
-      </p>
-    </div>
-  </div>
 </div>
+
    
       
    

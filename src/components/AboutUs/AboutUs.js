@@ -8,6 +8,69 @@ const storyParagraphs = [
   "I started this company to support and inspire home and business owners. My goal is to connect customers with trusted professionals who maintain loyalty to Durham Region’s community. It is my turn to continue sharing my family's passion for construction and helping the people in my community. I am proud to continue the values that have been the foundation of our family's success for generations.”",
 
 ];
+const items = [
+  {
+    title: "Transparent and Secure Transactions",
+    text: "With ETN, clients can expect clear, upfront pricing and secure payment methods creating trust and satisfaction.​",
+    image: "/images/icons/Our-Story-icons-02.png",
+  },
+  {
+    title: "Tailored Matchmaking for Projects",
+    text: " ETN's platform matches clients with contractors whose expertise aligns perfectly with the project's requirements.",
+    image: "/images/icons/Our-Story-icons-03.png",
+
+  },
+  {
+    title: "Exclusive Network of Trusted Professionals",
+    text: "ETN carefully hand-picks each contractor through a strict hiring process, guaranteeing clients access to only the most dependable and highly skilled professionals.",
+    image: "/images/icons/Our-Story-icons-04.png",
+
+  },
+  {
+    title: "Ongoing Support and Accountability",
+    text: "ETN provides continuous oversight throughout the project lifecycle addressing any concerns promptly and ensuring high standards are ",
+    image: "/images/icons/Our-Story-icons-05.png",
+
+  }
+];
+
+const Accordion = () => {
+  const [activeIndex, setActiveIndex] = useState(null);
+
+  const toggle = (index) => {
+    setActiveIndex(index === activeIndex ? null : index);
+  };
+
+  return (
+    <div className="elegant-section">
+      <div className="elegant-left">
+        <h2 className="elegant-title">Our Mission</h2>
+        {items.map((item, index) => (
+          <div key={index} className="elegant-item">
+            <button className="elegant-header" onClick={() => toggle(index)}>
+              {item.title}
+              <span className="arrow">{activeIndex === index ? "▲" : "▼"}</span>
+            </button>
+            <hr />
+            <div className={`elegant-content-wrapper ${activeIndex === index ? 'open' : ''}`}>
+            <div className={`elegant-content ${activeIndex === index ? 'visible' : ''}`}>
+  <p>{item.text}</p>
+</div>
+</div>
+          </div>
+        ))}
+      </div>
+
+      <div className="elegant-right">
+      <img
+  src={activeIndex !== null ? items[activeIndex].image : "/images/logos/B9E77BF2-4615-4CFA-B96C-BE8D00092A91.png"}
+  alt={activeIndex !== null ? items[activeIndex].title : "Default"}
+  className="elegant-image" loading="lazy"
+/>
+      </div>
+    </div>
+  );
+};
 const AboutUs = () => {
   const [selectedPlace, setSelectedPlace] = useState(null);
 
@@ -95,12 +158,7 @@ const AboutUs = () => {
 </div>
     </div>
 
-<div className="our-mission">
-  <div className="mission-container-icons">
-   <img src="/images/EDD820D9-7A2F-478B-9592-00482217ACA8.png" alt="Our Mission" className="mission-image-our" />
-   <img src="images/44F51CFB-9019-4AE5-97A1-16DB17B1C090.png" alt="Our Mission" className="mission-image-mobile" />
-    </div>
-</div>
+    <Accordion />
 <div className="our-mission">
   <div className="mission-container">
     <img src="/images/About-Us-Page-01.png" alt="Our Mission" className="mission-image-our" /> 

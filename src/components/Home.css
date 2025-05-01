@@ -525,46 +525,18 @@ body.specific-page {
 
 
 /* Beginning of our services */
-.we-offer {
-  display: flex;
-  flex-direction: column;
-  align-items: stretch; /* Ensure children span the full width */
-  justify-content: flex-start;
-  background-color: #6b90ff; /* Deep blue background */
-  color: #ffffff; /* White text for the container */
-  font-family: 'Open Sauce One', Arial, sans-serif; /* Custom font */
-/* White border at the top */
-  padding-bottom: 8%;
-  padding-top: 8%;
-  border-top: 1px solid #ffffff; /* White border */
-  background-image: url(../../public/images/wallpapers/7E50895C-580B-454A-AC9C-11F322021F3F.png);
-}
+
 
 /* Header Style */
-.we-offer-header {
-  position:absolute;
-  margin-top:-30px;
-  margin-left:85px;
-  text-align: left; /* Align text to the left */
-  font-size: 2.8rem; /* Large heading font size */
-  margin-bottom: 30px;
-  padding-right: 1.8%;
-  padding-left: 1.8%;
-   /* Space below the header */
-  background-color: transparent;
-}
+
 
 /* Services Grid Container */
-.services-container {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr); /* Four equal columns */
-  gap: 40px; /* Spacing between items */
+.services-container-accordion {
+  display: flex;
+  flex-direction: column;
+  align-items: left;
 
-  border-radius: 40px;
-  padding-top: 5%;
-  padding-left: 2%;
-  margin-left: 2%;
-  margin-right: 2%;
+
 }
 
 
@@ -1063,7 +1035,93 @@ iframe {
 
   
 }
+.we-offer {
+  max-width: 900px;
+  margin: 4rem auto;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  justify-content: left;
+  margin-left: 10%;
+}
+.we-offer-img{
+  width: 20%;
+  height: auto;
+  object-fit: cover;
 
+  margin-bottom: 2rem;
+  margin-right: 10%;
+}
+.we-offer-image-box{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+.we-offer-header {
+  font-size: 2.5rem;
+  text-align: center;
+  color: #ffffff;
+  margin-bottom: 2rem;
+  font-weight: 300;
+}
+
+.accordion-item {
+  padding: 1rem 0;
+  padding-right: 0;
+  padding-left: 0;
+  width: 80%;
+}
+
+.accordion-header {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  font-weight: 500;
+  width: 100%;
+  color: #091268;
+  text-align: left;
+  display: flex;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.accordion-content-wrapper {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease;
+}
+
+.accordion-content-wrapper.open {
+  max-height: 200px; /* adjust as needed */
+}
+
+.accordion-content {
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  padding: 0.5rem 0;
+  color: #ffffff;
+  pointer-events: none;
+}
+
+.accordion-content.visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.arrow {
+  margin-left: 0.5rem;
+  font-size: 1rem;
+  transition: transform 0.3s ease;
+}
+
+.arrow.open {
+  transform: rotate(180deg);
+}
 
 @media screen and (min-width: 391px) and (max-width: 399px) {
   html, body {
@@ -1093,8 +1151,8 @@ iframe {
   }
   
   .services-container {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
+
+    align-items: center;
     gap: 16px;
   width: 100%;
     padding: 1rem;
@@ -1314,9 +1372,17 @@ iframe {
     background-color: transparent !important;
     height: 14vh !important;
     aspect-ratio: 1 / 1;
-    overflow: hidden;
-    
-    
+    overflow: hidden; 
+  }
+  .we-offer-image-box{
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+  }
+  .we-offer-img{
+    display: none;
   }
 
   .contractor-choice-button img:hover {
@@ -1526,8 +1592,7 @@ padding-bottom: 0;
     
   
   .services-container {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    align-items: center;
     gap: 16px;
   width: 100%;
     padding: 1rem;
@@ -1541,6 +1606,17 @@ padding-bottom: 0;
     text-align: center;
     color: white;
     transition: transform 0.2s ease;
+  }
+  .we-offer-image-box{
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+
+  }
+  .we-offer-img{
+    display: none;
   }
   
 
@@ -1737,8 +1813,8 @@ padding-bottom: 0;
 }
 .we-offer-header{
   font-size: 2rem;
-  text-align: left;
-  margin-left: 60px;
+  text-align: center;
+
   padding-top:4%;
 }
 .service-p{
@@ -2172,9 +2248,17 @@ body{
 }
 .we-offer-header{
   font-size: 2rem;
-  text-align: left;
-  margin-left: 60px;
+  text-align: center;
   padding-top:4%;
+}
+.we-offer-image-box{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+.we-offer-img{
+  display: none;
 }
 .service-p{
   font-size: 1rem;
