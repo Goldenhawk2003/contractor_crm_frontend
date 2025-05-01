@@ -1079,9 +1079,9 @@ iframe {
   background: none;
   border: none;
   font-size: 2rem;
-  font-weight: 500;
+  font-weight: 700;
   width: 100%;
-  color: #091268;
+  color: #FFFF;
   text-align: left;
   display: flex;
   justify-content: space-between;
@@ -1106,6 +1106,7 @@ iframe {
   padding: 0.5rem 0;
   color: #ffffff;
   pointer-events: none;
+  font-weight: 600;
 }
 
 .accordion-content.visible {
@@ -2438,7 +2439,6 @@ padding-bottom: 0;
 }
 .accordion-header{
   width: 80vw;
-
 
   padding-left: 0;
   margin-left: 0;

@@ -573,8 +573,9 @@ body.specific-page-about-us {
     width: 100%;
     cursor: pointer;
     padding: 0.5rem 0;
-    color: #091268;
+    color: #FFFF;
     text-align: left;
+    font-weight: 800;
   
     
 
@@ -594,6 +595,7 @@ body.specific-page-about-us {
     transform: translateY(-10px);
     transition: opacity 0.4s ease, transform 0.4s ease;
     padding: 0.5rem 0;
+
   }
   
   .elegant-content-wrapper.open .elegant-content {
@@ -616,6 +618,7 @@ body.specific-page-about-us {
     line-height: 1.6;
     margin-top: 0.5rem;
     color: #ffffff;
+    font-weight: 100;
   }
 
   
