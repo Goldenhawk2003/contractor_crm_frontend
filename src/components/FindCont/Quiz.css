@@ -250,14 +250,15 @@ body.specific-page-quiz {
     justify-content: center; /* Optional: vertical center if parent has height */
     gap: 1rem;
     width: 100%;
-    padding: 1rem;
+
   }
   
   .quiz-input,
   .quiz-file {
-    width: 80%;
+    width: 100%;
     max-width: 400px;
     text-align: center;
+
   }
 
   .quiz-nav-buttons {
