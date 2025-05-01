@@ -1078,7 +1078,7 @@ iframe {
 .accordion-header {
   background: none;
   border: none;
-  font-size: 1.2rem;
+  font-size: 2rem;
   font-weight: 500;
   width: 100%;
   color: #091268;
@@ -1086,6 +1086,7 @@ iframe {
   display: flex;
   justify-content: space-between;
   cursor: pointer;
+  border-bottom: 1px solid #FFFF;
 }
 
 .accordion-content-wrapper {
@@ -2250,6 +2251,7 @@ body{
   font-size: 2rem;
   text-align: center;
   padding-top:4%;
+  
 }
 .we-offer-image-box{
   display: flex;
@@ -2434,6 +2436,24 @@ padding-bottom: 0;
   height: 50px;
   transition: opacity 0.3s ease;
 }
+.accordion-header{
+  width: 80vw;
+
+
+  padding-left: 0;
+  margin-left: 0;
+}
+.services-container-accordion{
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  justify-content: left;
+  padding-left: 0 !important;
+  margin-left: 0 !important;
+  width: 100%;
+
+}
+
 }
 
 @media (max-width: 768px) {

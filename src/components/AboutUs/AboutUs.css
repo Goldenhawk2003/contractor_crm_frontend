@@ -622,12 +622,12 @@ body.specific-page-about-us {
   .elegant-right {
     flex: 1;
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     justify-content: center;
   }
   
   .elegant-image {
-    max-width: 100%;
+    max-width: 50%;
     border-radius: 6px;
     object-fit: cover;
   }
