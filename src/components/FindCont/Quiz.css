@@ -243,10 +243,21 @@ body.specific-page-quiz {
     font-size: 1.4rem;
   }
 
+  .quiz-input-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; /* Optional: vertical center if parent has height */
+    gap: 1rem;
+    width: 100%;
+    padding: 1rem;
+  }
+  
   .quiz-input,
   .quiz-file {
-    width: 85%;
-    font-size: 0.95rem;
+    width: 80%;
+    max-width: 400px;
+    text-align: center;
   }
 
   .quiz-nav-buttons {
@@ -267,5 +278,16 @@ body.specific-page-quiz {
   .progress-circle {
     width: 12px;
     height: 12px;
+  }
+  .quiz-input-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .guest-info{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+ 
   }
 }

@@ -253,6 +253,7 @@ const QuizComponent = () => {
               )}
 
 {currentQuestion.question_type === 'text_image' && (
+    <div className="quiz-input-wrapper">
   <>
     <input
       type="text"
@@ -277,6 +278,7 @@ const QuizComponent = () => {
       />
     )}
   </>
+  </div>
 )}
 
 
@@ -321,6 +323,7 @@ const QuizComponent = () => {
               )}
 
               {currentQuestion.question_type === 'location' && (
+                  <div className="quiz-input-wrapper">
                 <input
                   id="location-autocomplete"
                   type="text"
@@ -329,6 +332,7 @@ const QuizComponent = () => {
                   value={answers[currentQuestion.id]?.text_answer || ''}
                   onChange={(e) => handleChange(currentQuestion.id, 'text_answer', e.target.value)}
                 />
+                </div>
               )}
             </div>
           )}
