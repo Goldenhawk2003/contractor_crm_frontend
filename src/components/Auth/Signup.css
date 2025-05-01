@@ -185,3 +185,31 @@ label {
   width: 100%;
   text-align: center !important;
 }
+
+@media (max-width: 768px) {
+  .cont {
+    padding: 20px;
+    margin: 20px auto;
+    width: 90%;
+  }
+
+  .inp,
+  .inp-file,
+  .sbmit,
+  .jobtype {
+    font-size: 0.9rem;
+    padding: 10px;
+  }
+
+  .sign-up-header{
+    font-size: 2rem;
+    font-weight: 200;
+    color: #091268; /* Light blue */
+    text-align: center;
+    padding-top: 4%;
+}
+.role{
+  display: flex;
+  flex-direction: column;
+}
+}

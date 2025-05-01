@@ -250,6 +250,8 @@ body.transparent-navbar-page .button-group { /* Makes the navbar transparent */
   .contact-form select {
     font-size: 1rem;
     padding: 12px;
+    width: 80% !important;
+    align-self: center;
   }
 
   .contact-form button {

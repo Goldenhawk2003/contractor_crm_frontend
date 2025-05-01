@@ -75,7 +75,7 @@ const Contact = () => {
                 {errorMessage && <p className="error-message">{errorMessage}</p>}
 
                 <form onSubmit={handleSubmit} className="contact-form">
-                    <div style={{ display: 'flex', gap: '15px' }}>
+                    <div>
                         <input
                             type="text"
                             name="first_name"
@@ -103,7 +103,7 @@ const Contact = () => {
                     />
                     <select name="role" className="dropdown" onChange={handleChange} required>
                         <option value="">I am a...</option>
-                        <option value="Elite Contractor">Elite Contractor</option>
+                        <option value="Exclusive Contractor">Exclusive Contractor</option>
                         <option value="Homeowner">Homeowner</option>
                         
                     </select>

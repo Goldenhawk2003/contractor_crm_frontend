@@ -128,7 +128,7 @@ function Signup() {
       <form onSubmit={handleSubmit} className="cont">
         {error && <p style={{ color: 'red' }}>{error}</p>}
 
-        <input type="text" name="username" value={formData.username} onChange={handleChange} placeholder="Username" required className="inp" />
+        <input type="text" name="username" value={formData.username} onChange={handleChange} placeholder="Username / Business Name" required className="inp" />
         <input type="text" name="firstname" value={formData.firstname} onChange={handleChange} placeholder="First Name" required className="inp" />
         <input type="text" name="lastname" value={formData.lastname} onChange={handleChange} placeholder="Last Name" required className="inp" />
         <input type="email" name="email" value={formData.email} onChange={handleChange} placeholder="Email" required className="inp" />

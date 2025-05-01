@@ -194,3 +194,30 @@ width: 100%;
     text-align: center;
   }
 }
+
+@media (max-width: 399px) {
+.log{
+    width: 100%;
+  }
+  .input-label{
+    text-align: center;
+  }
+  .sub-link {
+    padding: 12px 20px;
+    font-size: 0.9rem;
+  }
+  .box-header {
+    font-size: 1.2rem;
+  }
+  .sub {
+    padding: 10px;
+    font-size: 0.9rem;
+    max-width: 150px;
+  }
+  .signup-section {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 100%;
+    text-align: center;     
+}
+}

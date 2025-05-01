@@ -629,7 +629,7 @@ body.specific-page {
 
 /* Beginning of Process */
 .our-process {
-  background-color: #f8f8f8;
+  background-color: #ECF0FC;
   width: 100%;
   padding-top: 4%;
   padding-bottom: 4%;
@@ -1086,10 +1086,9 @@ iframe {
   }
   .Hero-header{
     width: 50%;
-    text-align: left !important;
+
     padding-left: 0px !important;
-    margin-left: 0px !important;
-    position: relative !important;
+
     left: 0px !important;
   }
   
@@ -1362,7 +1361,7 @@ iframe {
   .Hero-header {
     width: 90%;
     font-size: 1.8rem;
-    text-align: left !important;
+
 
     margin-top: 12% !important;
 margin-bottom: -5px !important;
@@ -1385,6 +1384,7 @@ margin-bottom: -5px !important;
   .our-process {
     padding-top: 8%;
     padding-bottom: 8%;
+
   }
 
   .our-process-box {
@@ -1509,16 +1509,7 @@ padding-bottom: 0;
     box-sizing: border-box;
   }
 
-  .Hero-header{
 
-    width: 50%;
-    text-align: left !important;
-    padding-left: 0px !important;
-    margin-left: 0px !important;
-    position: relative !important;
-    left: 0px !important;
-
-  }
   .hero-img-desktop{
     align-self: flex-end;
     height: 100%;
@@ -1805,7 +1796,7 @@ padding-bottom: 0;
   .Hero-header {
     width: 90%;
     font-size: 1.8rem;
-    text-align: left !important;
+  
 
     margin-top: 12% !important;
 margin-bottom: -5px !important;
@@ -1929,6 +1920,20 @@ padding-bottom: 0;
   height: 50px;
   transition: opacity 0.3s ease;
 }
+.icons-search-container{
+  gap: 0px;
+}
+.icons-search{
+  width:94%;
+  height: 90%;
+}
+.icons-search p{
+ margin-left: 0px !important;
+  padding-left: 0px !important;
+  font-size: 1rem !important;
+  text-align: center !important;
+}
+
 
 }
 
@@ -2350,5 +2355,8 @@ padding-bottom: 0;
     object-fit: contain;
     object-position: center;
     background-color: black;
+
   }
+
+
 }
