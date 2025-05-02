@@ -16,7 +16,7 @@ body.specific-page-blogs {
     width: 100%;
     margin: 0 auto;
 
-    background: linear-gradient(to top,  #6b90ff 89%, #ECF0FC 11%);
+    background-color: #ECF0FC;
     padding-bottom: 10%;
    
   }

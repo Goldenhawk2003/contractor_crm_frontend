@@ -44,7 +44,7 @@ const Accordion = () => {
   return (
     <div className="elegant-section">
       <div className="elegant-left">
-        <h2 className="elegant-title">Our Mission</h2>
+
         {items.map((item, index) => (
           <div key={index} className="elegant-item">
             <button className="elegant-header" onClick={() => toggle(index)}>
@@ -111,7 +111,7 @@ const AboutUs = () => {
       <div className="our-mission-first">
       <div className="mission-container-first">
         <div className="mission-image-container">
-        <h1>About Us</h1>
+
         <h2>Leading the Way in Trust and Community.</h2>
         <p>We believe that great service starts with a strong, connected and inspired community.</p>
         </div> 
@@ -157,12 +157,12 @@ const AboutUs = () => {
       <button onClick={handleNext} className="flashcard-buttons-mobile">&#8594;</button>
 </div>
     </div>
-
+    <h2 className="elegant-title">Our Mission</h2>
     <Accordion />
 <div className="our-mission">
   <div className="mission-container">
     <img src="/images/About-Us-Page-01.png" alt="Our Mission" className="mission-image-our" /> 
-    <img src="/images/C49F00DC-A426-4B78-A71A-0EA957D009BA.jpeg" alt="Our Mission" className="mission-image-mobile" />
+    <img src="/images/D38C1EB3-8FBE-43C1-B763-46F526D03044_1_201_a.jpeg" alt="Our Mission" className="mission-image-mobile" />
  
     </div>
     </div>

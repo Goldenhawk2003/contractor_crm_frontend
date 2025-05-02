@@ -233,9 +233,9 @@ const doubledImages = images.concat(images);
     muted
     loop
     playsInline
-    className="background-video mobile-only"
+    className="background-video-mobile-only"
   >
-    <source src="/images/8395EF79-AFDD-45AB-ADB5-F131337CCDF6.MP4" type="video/mp4" />
+    <source src="/images/4ACF8FF5-EDEE-437B-BA24-1B703CE8BB75.mov" type="video/mp4" />
   </video>
   <div className="hero-content">
       <h1 className="Hero-header">
@@ -251,7 +251,7 @@ const doubledImages = images.concat(images);
   Take Our 1 Minute Questionnaire To Find Your <span className='highlight'>Exclusive Contractor</span> Today!
 </h1>
     
-    <button type="submit" className="trust-button-quiz" onClick={quizButton}>
+    <button type="submit" className="trust-button-services" onClick={quizButton}>
      Find My Match Now!
     </button>
     
@@ -539,7 +539,7 @@ const doubledImages = images.concat(images);
   <div class="testimonials-container">
     <div class="testimonial-card">
       <p class="testimonial-text">"Dream Home Come True"</p>
-      <div class="testimonial-rating">
+      <div class="testimonial-rating-test">
         <div class="stars">★★★★★</div>
         <p class="client-name">Jane Doe</p>
       </div>
@@ -608,6 +608,7 @@ const doubledImages = images.concat(images);
       <p className='About-us-text'>
         At Exclusive Trade Network, we put your needs first, and we’re driven by our community. Read more, and say hello!
       </p>
+      <img src="/images/F2E56999-2D4E-4BDF-A9E2-9493EA1BD1C1_1_105_c.jpeg" className='About-us-home-img-phone' />
       <button type="submit" className="About-us-button-home" onClick={aboutUsButton}>
         About Us
       </button>

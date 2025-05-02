@@ -386,7 +386,7 @@ flex-direction: column;
 .profile-username{
   font-size: 35px;
   font-weight: bold;
-  color: #1b3656;
+  color: #091268;
   margin-top: 10px;
 }
 /* Profile Image */
@@ -630,7 +630,7 @@ flex-direction: column;
     object-fit: cover;
     border: 5px solid white;
     z-index: 1;
-    position: absolute;
+  
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   }
 
@@ -754,7 +754,18 @@ flex-direction: column;
   width: 100%;
   max-width: 400px;
 }
-
+.profile-image{
+  position: relative;
+  padding-bottom: 0;
+  margin-bottom: 0;
+}
+.profile-container{
+  display: flex;
+  flex-direction: column;
+  margin-top: 0;
+  text-align: left;
+  align-items: left;
+}
 .edit-profile-header {
   font-size: 1.5rem;
   margin-bottom: 1rem;
@@ -974,6 +985,10 @@ flex-direction: column;
   .cont-stars {
     margin: 0.5rem 0;
     font-size: 1.5rem;
+  }
+  .user-button{
+    width: 90%;
+    text-align: center;
   }
 }
 

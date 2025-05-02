@@ -3,7 +3,7 @@ body.specific-page-about-us {
   /* Replace with your image path */
     position: relative;
     background-size: cover; /* Ensure the image covers the entire section */
-  background-color: #6b90ff;
+  background-color: #ECF0FC;
   
   
   
@@ -149,7 +149,7 @@ body.specific-page-about-us {
     justify-content: center;
   
     background-color: #6b90ff;
-    background-image: url(../../../public/images/wallpapers/7E50895C-580B-454A-AC9C-11F322021F3F.png);
+
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
     height: 100%;
     width: 100vw;
@@ -173,14 +173,14 @@ body.specific-page-about-us {
   .flashcard-title{
     font-size: 2.5rem;
     font-weight: 200;
-    color: #091268;
+    color: #FFFF;
     margin-bottom: 10px;
     margin-top: 5%;
   }
   
   .flashcard-text {
     font-size: 2rem;
-    color: #091268;
+    color: #FFFF;
     align-items: center;
     text-align: center;
     font-weight:600;
@@ -380,6 +380,14 @@ body.specific-page-about-us {
 
 
   @media (max-width: 768px) {
+    .impact-title{
+      font-size: 2.5rem;
+      text-align: center;
+      justify-content: center;
+    }
+    .impact-section{
+      background-color: #ECF0FC;
+    }
     .impact-card {
       width: 50%;
     }
@@ -388,6 +396,7 @@ body.specific-page-about-us {
       flex-direction: column;
       align-items: center;
       justify-content: center;
+      border: none;
     }
   
     .story-container {
@@ -488,7 +497,7 @@ body.specific-page-about-us {
     .flashcard-title {
       font-size: 2rem; /* Reduce title size */
       margin-top: 10%;
-      margin-bottom: 10px;
+      margin-bottom: 30px;
     }
   
     .flashcard-text {
@@ -580,6 +589,8 @@ body.specific-page-about-us {
     margin: 4rem auto;
     padding: 2rem;
     gap: 3rem;
+    background-color: #ECF0FC;
+ 
   }
   
   .elegant-left {
@@ -590,8 +601,11 @@ body.specific-page-about-us {
 
     font-size: 3rem;
     margin-bottom: 2rem;
-    color: #ffffff;
+    color: #091268;
     font-weight: 200;
+    background-color: #ECF0FC;
+    text-align: center;
+
   }
   
   .elegant-item {
@@ -607,7 +621,7 @@ body.specific-page-about-us {
     width: 100%;
     cursor: pointer;
     padding: 0.5rem 0;
-    color: #FFFF;
+    color: #091268;
     text-align: left;
     font-weight: 800;
   
@@ -629,6 +643,7 @@ body.specific-page-about-us {
     transform: translateY(-10px);
     transition: opacity 0.4s ease, transform 0.4s ease;
     padding: 0.5rem 0;
+    color: #091268;
 
   }
   
@@ -644,14 +659,14 @@ body.specific-page-about-us {
   hr {
     margin: 0.5rem 0;
     border: none;
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid #091268;
   }
   
   .elegant-content {
     font-size: 1rem;
     line-height: 1.6;
     margin-top: 0.5rem;
-    color: #ffffff;
+
     font-weight: 100;
   }
 
@@ -673,6 +688,7 @@ body.specific-page-about-us {
   @media (max-width: 768px) {
     .elegant-section {
       flex-direction: column;
+      margin-bottom: 0;
     }
   
     .elegant-right {
@@ -682,7 +698,9 @@ body.specific-page-about-us {
   
     .elegant-title {
       text-align: center;
+      font-size: 2.5rem;
     }
+
   }
   .elegant-image {
     transition: opacity 0.3s ease;

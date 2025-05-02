@@ -21,7 +21,7 @@
 
 .inbox-header {
   font-size: 2rem;
-  color: #1b3656;
+  color: #091268;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
   margin: 0;
 }
@@ -88,9 +88,10 @@
   font-weight: bold;
 }
 .conversation-container{
-  width: 90%;
-  margin-bottom: 100%;
+  width: 100%;
+
   padding: 1rem;
+
 }
 /* Action Container */
 .action-container {
@@ -103,7 +104,7 @@
   font-size: 1rem;
   font-weight: bold;
   color: #ffffff;
-  background-color: #1b3656;
+  background-color: #091268;
   border: none;
   border-radius: 8px;
   cursor: pointer;

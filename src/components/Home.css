@@ -105,22 +105,20 @@ body.specific-page {
 }
 .Hero-header{
   font-size: 4rem;
-  color: #6b90ff;
+  color: #FFFF;
   margin-bottom: 20px;
   text-align: center;
-
   font-weight: 200;
   width: 100%;
   z-index: 100;
   margin-top: 5%;
 }
-.mobile-only { display: none; }
+
 .Hero-p{
 
-  color: #6b90ff;
+  color: #FFFF;
   margin-bottom: 20px;
   text-align: center;
-
   font-weight: 200;
   width: 100%;
   z-index: 100;
@@ -149,6 +147,9 @@ body.specific-page {
   min-height: 100%;
   object-fit: cover;
   z-index: -1;
+}
+.background-video-mobile-only{
+  display: none;
 }
 .hero-background{  position: relative;
   width: 100%;
@@ -535,6 +536,7 @@ body.specific-page {
   display: flex;
   flex-direction: column;
   align-items: left;
+  
 
 
 }
@@ -1011,6 +1013,9 @@ iframe {
   font-weight: 200;
   width: 60%;
 }
+.About-us-home-img-phone{
+  display: none;
+}
 .About-us-text{
   font-size: 1.4rem;
   color: #091268;
@@ -1037,13 +1042,15 @@ iframe {
 }
 .we-offer {
   max-width: 900px;
-  margin: 4rem auto;
+
   padding: 1rem;
   display: flex;
   flex-direction: column;
   align-items: left;
   justify-content: left;
   margin-left: 10%;
+  
+  
 }
 .we-offer-img{
   width: 20%;
@@ -1064,8 +1071,10 @@ iframe {
   font-size: 3rem;
   text-align: center;
   color: #ffffff;
-  margin-bottom: 2rem;
+
   font-weight: 300;
+  
+
 }
 
 .accordion-item {
@@ -1073,13 +1082,18 @@ iframe {
   padding-right: 0;
   padding-left: 0;
   width: 80%;
-}
 
+}
+.services-box-accordion{
+  background-color: #6b90ff;
+  height: 75vh;
+  border: 1px solid #6b90ff;
+}
 .accordion-header {
   background: none;
   border: none;
   font-size: 2rem;
-  font-weight: 700;
+  font-weight: 400;
   width: 100%;
   color: #FFFF;
   text-align: left;
@@ -1087,6 +1101,7 @@ iframe {
   justify-content: space-between;
   cursor: pointer;
   border-bottom: 1px solid #FFFF;
+  padding-top: 0;
 }
 
 .accordion-content-wrapper {
@@ -1106,7 +1121,7 @@ iframe {
   padding: 0.5rem 0;
   color: #ffffff;
   pointer-events: none;
-  font-weight: 600;
+  font-weight: 100;
 }
 
 .accordion-content.visible {
@@ -1149,6 +1164,7 @@ iframe {
 
     left: 0px !important;
   }
+  
   
   .services-container {
 
@@ -1203,8 +1219,8 @@ iframe {
   .About-us-header {
     font-size: 2.2rem;
     color: #001A72;
-    align-items: left;
-    text-align: left;
+    align-items: center;
+    text-align: center;
 
     font-weight: 200;
     width: 100%;
@@ -1235,7 +1251,7 @@ iframe {
   .testimonials-header {
     width: 100%;
     text-align: center;
-    font-size: 2rem;
+    font-size: 1.4rem;
     margin-top: 4%;
   
   }
@@ -1361,7 +1377,7 @@ iframe {
   font-size: 2rem;
   text-align: left;
   margin-left: 60px;
-  padding-top:4%;
+  padding-top:2%;
 }
 .service-p{
   font-size: 1rem;
@@ -1425,12 +1441,12 @@ iframe {
   }
 
   .Hero-header {
-    width: 90%;
+    width: 100%;
     font-size: 1.8rem;
 
 
-    margin-top: 12% !important;
-margin-bottom: -5px !important;
+
+
   }
 
   .Hero-img {
@@ -1504,12 +1520,30 @@ margin-bottom: 0;
 padding-bottom: 0;
 }
 
+
+.About-us-text-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+.About-us-text{
+margin-bottom: 0;
+padding-bottom: 0;
+}
 .About-us-home-img{
-  width: 50%;
+  display: none;
+}
+.About-us-home-img-phone{
+  display: block;
+  width: 80%;
   height: auto;
   object-fit: cover;
   background-color: transparent;
   margin: 0 auto;
+  padding-top: 10%;
+  padding-left: 35px;
 }
 .icons-search p{
 
@@ -1623,8 +1657,14 @@ padding-bottom: 0;
     margin-left: 0;
   }
   .services-container-accordion{
-  
+    display: flex;
+    flex-direction: column;
     width: 100vw;
+    justify-content: center;
+    align-items: center;
+
+    align-content: center;
+    margin-left: 6%;
   }
   .accordion-item{
 
@@ -1633,9 +1673,11 @@ padding-bottom: 0;
   }
   .accordion-header{
 
-    width: 100vw;
+    width: 90vw;
    
-    font-size: 1.8rem;
+    font-size: 1.5rem;
+    
+
   }
   .accordion-content{
     text-align: center;
@@ -1675,13 +1717,12 @@ padding-bottom: 0;
 
 
   .About-us-header {
-    font-size: 2.2rem;
+    font-size: 2rem;
     color: #001A72;
-    align-items: left;
-    text-align: left;
-
+    text-align: center !important;
     font-weight: 200;
     width: 100%;
+
   }
 
   .inspo-button-home{
@@ -1708,7 +1749,7 @@ padding-bottom: 0;
   .testimonials-header {
     width: 100%;
     text-align: center;
-    font-size: 2rem;
+    font-size: 1.4rem;
     margin-top: 4%;
   
   }
@@ -1716,7 +1757,8 @@ padding-bottom: 0;
   .testimonials-container {
     display: grid;
     grid-template-columns: repeat(2, 1fr); /* 2 equal-width columns */
-    gap: 8px;
+    column-gap: 0px;
+    row-gap: 8px;
     justify-items: center; /* center items in grid cells */
     width: 100vw !important;
     margin-right: 0 !important;
@@ -1736,8 +1778,8 @@ padding-bottom: 0;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
     text-align: center;
     min-width: unset !important; /* let grid control sizing */
-    width: 170px; /* each card fills its grid cell */
-    height: 210px;
+    width: 180px; /* each card fills its grid cell */
+    height: 190px;
  /* keeps consistent sizing */
     transition: transform 0.3s ease;
     border: 1px solid #091268;
@@ -1749,7 +1791,17 @@ padding-bottom: 0;
     margin-bottom: 0px;
     
   }
- 
+  .testimonial-rating-test{
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    padding-top: 28%;
+  }
+  .testimonial-rating{
+  
+    height: 80;
+    margin-top: 2%;
+    }
 
   .trust {
     padding-top: 8%;
@@ -1811,7 +1863,7 @@ padding-bottom: 0;
 
   .service-header{
     padding-top: 7%;
-    font-size: 2rem;
+    font-size: 1.8rem;
     color: #091268;
     text-align: center;
     font-weight: 200;
@@ -1821,7 +1873,11 @@ padding-bottom: 0;
   .services-box{
     display: flex;
     padding-top: 4%;
-    width: 100%;
+    padding-right: 44%;
+    margin-left:0%;
+    width: 90%;
+    
+
   }
 
 .service-h3{
@@ -1836,7 +1892,8 @@ padding-bottom: 0;
   font-size: 2rem;
   text-align: center;
 
-  padding-top:4%;
+  padding-top:2%;
+  
 }
 .service-p{
   font-size: 1rem;
@@ -1895,14 +1952,28 @@ padding-bottom: 0;
   }
 
   .Hero-header {
-    width: 90%;
+    width: 100%;
     font-size: 1.8rem;
+
+  }
+  .Hero-p{
+    width: 80%;
+    text-align: center;
+    justify-content: center;
+
+  }
+  .hero-content{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
   
 
-    margin-top: 12% !important;
-margin-bottom: -5px !important;
   }
-
+  .trust-button-quiz{
+    width: 50%;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Light shadow */
+  }
   .Hero-img {
     width: 100%;
     height: 90vh;
@@ -1913,9 +1984,7 @@ margin-bottom: -5px !important;
   .Explore-header{
     font-size: 2rem;
   }
-  .About-us-header{
-    font-size: 2rem;
-  }
+
 
   .our-process {
     padding-top: 8%;
@@ -1961,7 +2030,8 @@ margin-bottom: -5px !important;
   .our-process-p {
     font-weight: 100;
     text-align: center;
-   
+    font-size: 0.9rem;
+    width: 90%;
   }
 
   .our-header {
@@ -1973,28 +2043,43 @@ margin-bottom: -5px !important;
   .trust-button-services {
     padding: 12px 16px;
     font-size: 0.9rem;
-    width: 60%;
+    width: 70%;
     margin: 2% auto;
     text-align: center;
 
     align-self: center;
   }
 .About-us-button-home{
-  width: 60%;
-  margin-bottom: 40%;
+  width: 50%;
+  margin-top: 10%;
+  margin-bottom: 20%;
 
+}
+
+
+.About-us-text-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
 }
 .About-us-text{
 margin-bottom: 0;
 padding-bottom: 0;
 }
-
 .About-us-home-img{
-  width: 50%;
+  display: none;
+}
+.About-us-home-img-phone{
+  display: block;
+  width: 80%;
   height: auto;
   object-fit: cover;
   background-color: transparent;
   margin: 0 auto;
+  padding-top: 10%;
+  padding-left: 35px;
 }
 .icons-search p{
 
@@ -2017,9 +2102,10 @@ padding-bottom: 0;
 .icon-stack img {
   grid-column: 1;
   grid-row: 1;
-  width: 50px;
-  height: 50px;
+  width: 45px;
+  height: 45px;
   transition: opacity 0.3s ease;
+  
 }
 .icons-search-container{
   gap: 10px;
@@ -2028,8 +2114,9 @@ padding-bottom: 0;
 .icons-search p{
  margin-left: 0px !important;
   padding-left: 0px !important;
-  font-size: 1rem !important;
+  font-size: 0.8rem !important;
   text-align: center !important;
+  margin-top: 0px !important;
 }
 
 
@@ -2109,8 +2196,9 @@ body{
   .About-us-header {
     font-size: 2.2rem;
     color: #001A72;
-    align-items: left;
-    text-align: left;
+    align-items:center;
+    text-align: center;
+
 
     font-weight: 200;
     width: 100%;
@@ -2119,12 +2207,7 @@ body{
   .inspo-button-home{
     width: 35%;
   }
-  .About-us-home-img {
-    width: 50%;
-    height: auto;
-    object-fit: cover;
-    background-color: transparent;
-  }
+
   .match-header{
     width: 90%;
     font-size: 2rem;
@@ -2135,11 +2218,16 @@ body{
     align-items: center; /* center the entire section */
     width: 100%;
   }
-  
+  .testimonial-rating-test{
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    padding-top: 28%;
+  }
   .testimonials-header {
-    width: 100%;
+    width: 80%;
     text-align: center;
-    font-size: 2rem;
+    font-size: 1.4rem;
     margin-top: 4%;
 
   
@@ -2148,7 +2236,8 @@ body{
   .testimonials-container {
     display: grid;
     grid-template-columns: repeat(2, 1fr); /* 2 equal-width columns */
-    gap: 8px;
+    column-gap: 0;
+    row-gap: 15px;
     justify-items: center; /* center items in grid cells */
     width: 100vw !important;
     margin-right: 0 !important;
@@ -2168,11 +2257,12 @@ body{
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
     text-align: center;
     min-width: unset !important; /* let grid control sizing */
-    width: 150px; /* each card fills its grid cell */
-    height: 210px;
+    width: 140px; /* each card fills its grid cell */
+    height: 160px;
  /* keeps consistent sizing */
     transition: transform 0.3s ease;
     border: 1px solid #091268;
+   
 
   }
   .stars {
@@ -2287,23 +2377,39 @@ body{
 }
 .accordion-header{
 
-  width: 100vw;
-  padding-left: 4%;
+  width: 90vw;
+  margin-left: 8%;
+  font-size: 1.8rem;
+  font-weight: 400;
+  padding-bottom: 5%;
 
 
 }
+.services-container-accordion{
+  display: flex;
+  flex-direction: column;
+  width: 90vw;
+  justify-content: center;
+  align-items: center;
+
+  align-content: center;
+  margin-left: 8% !important;
+}
 .accordion-content{
-  text-align: center;
+  text-align: left;
 
   justify-content: center;
   align-self: center;
 
-  padding-left: 4%;
+  padding-left: 9%;
+  font-weight: 100 !important;
+  
+
 }
 .we-offer-header{
-  font-size: 3rem;
+  font-size: 2rem;
   text-align: center;
-  padding-top:4%;
+  padding-top:2%;
   padding-bottom: 0;
   margin-bottom: 0;
   
@@ -2433,30 +2539,46 @@ left: 0px !important
     padding-left: 0;
   }
 
+
   .trust-button-services {
     padding: 12px 16px;
     font-size: 0.9rem;
-    width: 60%;
+    width: 70%;
     margin: 2% auto;
     text-align: center;
-    margin-left: 0;
+
+    align-self: center;
   }
 .About-us-button-home{
-  width: 60%;
+  width: 50%;
+  margin-top: 10%;
+  margin-bottom: 20%;
 
-  margin-bottom: 40%;
 
+}
+.About-us-text-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
 }
 .About-us-text{
 margin-bottom: 0;
 padding-bottom: 0;
 }
 .About-us-home-img{
-  width: 50%;
+  display: none;
+}
+.About-us-home-img-phone{
+  display: block;
+  width: 80%;
   height: auto;
   object-fit: cover;
   background-color: transparent;
   margin: 0 auto;
+  padding-top: 10%;
+  padding-left: 35px;
 }
 .icons-search-container{
   gap: 20px;
@@ -2467,7 +2589,7 @@ padding-bottom: 0;
 
   font-weight: 200;
   padding-top: 10px;
- 
+
   text-align: center;
  
 }
@@ -2507,14 +2629,17 @@ padding-bottom: 0;
 
 @media (max-width: 768px) {
   .background-video {
-    width: 100vw;
-    height: 100vh;
-    min-width: unset;
-    min-height: unset;
-    object-fit: contain;
-    object-position: center;
-    background-color: black;
 
+    display: none;
+
+  }
+  .background-video-mobile-only{
+    display: block;
+    width: 100%;
+    height: 100vh;
+    object-fit: cover;
+    object-position: center top; /* move the frame to a better spot */
+    transform: scale(1); /* optional: slightly zoom out */
   }
 
 

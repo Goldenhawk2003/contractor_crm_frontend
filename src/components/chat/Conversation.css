@@ -1,6 +1,6 @@
 /* General Container Styles */
 .container {
-  max-width: 800px;
+  max-width: 900px;
   margin: 0 auto;
   padding: 20px;
   background-color: #f8f8f8;
@@ -11,7 +11,7 @@
 .title {
   text-align: center;
   font-size: 1.5rem;
-  color: #1b3656;
+  color: #091268;
   margin-bottom: 20px;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
 }
@@ -42,14 +42,14 @@
 
 .messageBubbleLeft {
   background-color: #ecf0fc;
-  color: #1b3656;
+  color: #091268;
   align-self: flex-start;
   margin-left: 10px;
   border-top-left-radius: 5px;
 }
 
 .messageBubbleRight {
-  background-color: #1b3656;
+  background-color: #091268;
   color: #ffffff;
   align-self: flex-end;
   margin-left: auto;
@@ -112,7 +112,7 @@
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s, transform 0.3s;
-  background-color: #1b3656;
+  background-color: #091268;
 }
 
 .button:hover {
