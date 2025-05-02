@@ -6,22 +6,22 @@ import Fuse from 'fuse.js';
 
 const services = [
   {
-    title: "Discover",
+    title: "Discover Our Exclusive Contractors",
     description:
       "Explore our service categories, discover top trades and connect with Exclusive Trade Contractors today!"
   },
   {
-    title: "Quiz",
+    title: "Complete Our Quick Questionnaire",
     description:
       "Let’s find your match–Our questionnaire helps you get results with confidence."
   },
   {
-    title: "Chat",
+    title: "Chat With Us",
     description:
       "Chat directly with Exclusive Trade Contractors. Ask questions, share your vision, and get the support you need."
   },
   {
-    title: "Contracts",
+    title: "Finalize & Secure Your Projects",
     description:
       "Lock in your contracts directly on our site with full privacy and built-in protection."
   }

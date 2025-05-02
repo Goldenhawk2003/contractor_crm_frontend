@@ -395,6 +395,7 @@ body.specific-page-about-us {
       flex-direction: column;
       align-items: center;
       justify-content: center;
+
     }
     .our-mission-first {
       padding: 8% 0;
@@ -538,8 +539,41 @@ body.specific-page-about-us {
     display:inline;
     width: 100%;
     }
-
   }
+
+@media (min-width: 399px) and (max-width: 768px) {
+ .flashcard{
+  padding-left: 0;
+  padding-right: 6%;
+ }
+ .flashcard-mobile{
+
+  padding: 0;
+  margin: 0;
+  align-self: center;
+  justify-content: center;
+  padding-right: 4%;
+ }
+ .flashcard-buttons-mobile{
+  gap: 0px;
+  padding: 0px;
+ }
+ .flashcard-title{
+  font-size: 2.5rem;
+  margin-top: 5;
+  margin-bottom: 0;
+  margin-right: 4%;
+ }
+ .flashcard-container{
+  margin-top: 0;
+  padding-top: 0;
+ }
+  }
+
+
+
+
+
   .elegant-section {
     display: flex;
     max-width: 1200px;

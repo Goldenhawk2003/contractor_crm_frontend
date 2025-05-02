@@ -1121,9 +1121,7 @@ iframe {
   transition: transform 0.3s ease;
 }
 
-.arrow.open {
-  transform: rotate(180deg);
-}
+
 
 @media screen and (min-width: 391px) and (max-width: 399px) {
   html, body {
@@ -1614,13 +1612,34 @@ padding-bottom: 0;
 
     align-items: center;
     justify-content: center;
-
-
   }
   .we-offer-img{
     display: none;
   }
+  .we-offer{
+
+    width: 100vw;
+    padding-left: 0;
+    margin-left: 0;
+  }
+  .services-container-accordion{
   
+    width: 100vw;
+  }
+  .accordion-item{
+
+    width: 100vw;
+    
+  }
+  .accordion-header{
+
+    width: 100vw;
+   
+    font-size: 1.8rem;
+  }
+  .accordion-content{
+    text-align: center;
+  }
 
 
 
@@ -2248,10 +2267,45 @@ body{
   width: 100%;
   
 }
+.we-offer{
+
+  width: 100vw;
+  padding-left: 0;
+  margin-left: 0;
+
+}
+.services-container-accordion{
+
+  width: 100vw;
+
+}
+.accordion-item{
+
+  width: 100vw;
+
+  
+}
+.accordion-header{
+
+  width: 100vw;
+  padding-left: 4%;
+
+
+}
+.accordion-content{
+  text-align: center;
+
+  justify-content: center;
+  align-self: center;
+
+  padding-left: 4%;
+}
 .we-offer-header{
-  font-size: 2rem;
+  font-size: 3rem;
   text-align: center;
   padding-top:4%;
+  padding-bottom: 0;
+  margin-bottom: 0;
   
 }
 .we-offer-image-box{
@@ -2437,12 +2491,7 @@ padding-bottom: 0;
   height: 50px;
   transition: opacity 0.3s ease;
 }
-.accordion-header{
-  width: 80vw;
 
-  padding-left: 0;
-  margin-left: 0;
-}
 .services-container-accordion{
   display: flex;
   flex-direction: column;
