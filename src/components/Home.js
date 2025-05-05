@@ -237,12 +237,18 @@ const doubledImages = images.concat(images);
   >
     <source src="/images/4ACF8FF5-EDEE-437B-BA24-1B703CE8BB75.mov" type="video/mp4" />
   </video>
+
   <div className="hero-content">
       <h1 className="Hero-header">
         <span className="highlight-header">Exclusive</span> Trade Network
       </h1>
       <p className="Hero-p">Connecting Trusted Contractors with Quality Projects</p>
+
     </div>
+    <div className="scroll-down-arrow" onClick={() => document.getElementById('why-choose-us').scrollIntoView({ behavior: 'smooth' })}>
+      ↓
+      </div>
+    
   </div>
 
   <div className="trust">
@@ -259,7 +265,7 @@ const doubledImages = images.concat(images);
  
 </div>
 
-<div className='our-process'> 
+<div className='our-process' id="why-choose-us"> 
         <h2 className='our-header'>Why Choose Us?</h2>
         <div className='our-process-box'>
         <img className='process-img' src="/images/home-page/diversity-collaboration-laughing-and-architect-te-2023-11-27-04-49-54-utc.jpeg" />

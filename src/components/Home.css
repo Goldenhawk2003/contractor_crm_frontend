@@ -128,6 +128,25 @@ body.specific-page {
 
 
 }
+.scroll-down-arrow {
+  font-size: 3.5rem;
+  color: white;
+  cursor: pointer;
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateX(-50%) translateY(0);
+  }
+  50% {
+    transform: translateX(-50%) translateY(10px);
+  }
+}
 .highlight-header{
   color: #F8F8F8;
 
