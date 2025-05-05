@@ -100,8 +100,9 @@ body.specific-page {
   transform: translate(-50%, -50%);
   text-align: center;
   z-index: 1;
-  width: 100%;
+  width: 90%;
   padding: 0 1rem;
+
 }
 .Hero-header{
   font-size: 4rem;
@@ -110,8 +111,10 @@ body.specific-page {
   text-align: center;
   font-weight: 200;
   width: 100%;
+
   z-index: 100;
   margin-top: 5%;
+
 }
 
 .Hero-p{
@@ -122,6 +125,7 @@ body.specific-page {
   font-weight: 200;
   width: 100%;
   z-index: 100;
+
 
 }
 .highlight-header{
