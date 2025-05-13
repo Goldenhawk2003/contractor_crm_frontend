@@ -104,7 +104,7 @@ const Contact = () => {
                     <select name="role" className="dropdown" onChange={handleChange} required>
                         <option value="">I am a...</option>
                         <option value="Exclusive Contractor">Exclusive Contractor</option>
-                        <option value="Homeowner">Homeowner</option>
+                        <option value="Home/Business owner">Homeowner</option>
                         
                     </select>
                     

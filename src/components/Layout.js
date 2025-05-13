@@ -97,7 +97,9 @@ const Layout = () => {
           <Link to="/AboutUs" className="sidebar-layout-item">About Us</Link>
           <Link to="/Tutorials" className="sidebar-layout-item">Inspiration</Link>
           <Link to="/contact" className="sidebar-layout-item">Contact Us</Link>
+          {isAuthenticated && 
           <Link to="/user-profile" className="sidebar-layout-item">User Profile</Link>
+}
           {!isAuthenticated ? (
             <Link to="/login" className="sidebar-layout-item">Login</Link>
           ) : (
