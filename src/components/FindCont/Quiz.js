@@ -85,6 +85,32 @@ const QuizComponent = () => {
     }
   }, [questions, location.state]);
 
+  const isCurrentQuestionAnswered = () => {
+  if (!currentQuestion) return false;
+
+  const answer = answers[currentQuestion.id];
+
+  switch (currentQuestion.question_type) {
+    case 'text':
+    case 'text_image':
+    case 'datetime':
+    case 'location':
+      return !!(answer && answer.text_answer?.trim());
+    
+    case 'mcq':
+      return !!(answer && answer.text_answer);
+
+    case 'guest':
+      return isLoggedIn || (
+        answer?.name?.trim() &&
+        answer?.email?.trim() &&
+        answer?.phone?.trim()
+      );
+
+    default:
+      return false;
+  }
+};
 
 
   const handleChange = (questionId, field, value) => {
@@ -249,6 +275,7 @@ const QuizComponent = () => {
                   className="quiz-input"
                   value={answers[currentQuestion.id]?.text_answer || ''}
                   onChange={(e) => handleChange(currentQuestion.id, 'text_answer', e.target.value)}
+                  required
                 />
               )}
 
@@ -261,6 +288,7 @@ const QuizComponent = () => {
       className="quiz-input"
       value={answers[currentQuestion.id]?.text_answer || ''}
       onChange={(e) => handleChange(currentQuestion.id, 'text_answer', e.target.value)}
+      required
     />
     <input
       type="file"
@@ -299,8 +327,8 @@ const QuizComponent = () => {
     >
       <option value="">Select</option>
       <option value="ASAP">ASAP</option>
-      <option value="Next Week">Next Week</option>
-      <option value="Whenever">Whenever</option>
+      <option value="Next Week">This Month</option>
+      <option value="Whenever">No Specific Date</option>
     </select>
   </div>
 )}
@@ -374,11 +402,16 @@ const QuizComponent = () => {
                 Previous
               </button>
             )}
-            {currentIndex < questions.length - 1 && (
-              <button type="button" className="quiz-button" onClick={() => setCurrentIndex((prev) => prev + 1)}>
-                Next
-              </button>
-            )}
+         {currentIndex < questions.length - 1 && (
+  <button
+    type="button"
+    className="quiz-button"
+    onClick={() => setCurrentIndex((prev) => prev + 1)}
+    disabled={!isCurrentQuestionAnswered()}
+  >
+    Next
+  </button>
+)}
             {currentIndex === questions.length - 1 && (
               <button type="submit" className="quiz-button submit">
                 Submit

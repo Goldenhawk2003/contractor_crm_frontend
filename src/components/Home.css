@@ -1109,7 +1109,7 @@ iframe {
 }
 .services-box-accordion{
   background-color: #6b90ff;
-  height: 75vh;
+  height: 100%;
   border: 1px solid #6b90ff;
 }
 .accordion-header {

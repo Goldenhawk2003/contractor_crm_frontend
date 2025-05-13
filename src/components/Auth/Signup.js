@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './Signup.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { FaEye, FaEyeSlash } from 'react-icons/fa'; // Make sure this is at the top
 
 function Signup() {
   const [formData, setFormData] = useState({
@@ -16,6 +18,9 @@ function Signup() {
     logo: null,
   });
 
+
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [error, setError] = useState('');
   const [locationInput, setLocationInput] = useState('');
 
@@ -132,9 +137,36 @@ function Signup() {
         <input type="text" name="firstname" value={formData.firstname} onChange={handleChange} placeholder="First Name" required className="inp" />
         <input type="text" name="lastname" value={formData.lastname} onChange={handleChange} placeholder="Last Name" required className="inp" />
         <input type="email" name="email" value={formData.email} onChange={handleChange} placeholder="Email" required className="inp" />
-        <input type="password" name="password" value={formData.password} onChange={handleChange} placeholder="Password" required className="inp" />
-        <input type="password" name="confirmPassword" value={formData.confirmPassword} onChange={handleChange} placeholder="Confirm Password" required className="inp" />
 
+<div className="password-wrapper">
+  <input
+    type={showPassword ? 'text' : 'password'}
+    name="password"
+    value={formData.password}
+    onChange={handleChange}
+    placeholder="Password"
+    required
+    className="inp"
+  />
+  <span onClick={() => setShowPassword(prev => !prev)} className="eye-icon">
+    {showPassword ? <FaEyeSlash /> : <FaEye />}
+  </span>
+</div>
+
+<div className="password-wrapper">
+  <input
+    type={showConfirmPassword ? 'text' : 'password'}
+    name="confirmPassword"
+    value={formData.confirmPassword}
+    onChange={handleChange}
+    placeholder="Confirm Password"
+    required
+    className="inp"
+  />
+  <span onClick={() => setShowConfirmPassword(prev => !prev)} className="eye-icon">
+    {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
+  </span>
+</div>
         <input
           id="location-autocomplete"
           type="text"
@@ -173,7 +205,7 @@ function Signup() {
         {formData.role === 'professional' && (
           <>
             <h3 className="sign-up-h3">
-              Sign up to join our exclusive trade network! We will review your page, and send you an email once approved.
+              Sign up to join our Exclusive Trade Network! We will review your page, and send you an email once approved.
             </h3>
 
             <select name="job_type" value={formData.job_type} onChange={handleChange} required className="jobtype">

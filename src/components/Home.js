@@ -8,7 +8,7 @@ const services = [
   {
     title: "Discover Our Exclusive Contractors",
     description:
-      "Explore our service categories, discover top trades and connect with Exclusive Trade Contractors today!"
+      "Explore our service categories, discover top trades and connect with Exclusive Contractors today!"
   },
   {
     title: "Complete Our Quick Questionnaire",
@@ -18,7 +18,7 @@ const services = [
   {
     title: "Chat With Us",
     description:
-      "Chat directly with Exclusive Trade Contractors. Ask questions, share your vision, and get the support you need."
+      "Chat directly with Exclusive Contractors. Ask questions, share your vision, and get the support you need."
   },
   {
     title: "Finalize & Secure Your Projects",
@@ -242,7 +242,7 @@ const doubledImages = images.concat(images);
       <h1 className="Hero-header">
         <span className="highlight-header">Exclusive</span> Trade Network
       </h1>
-      <p className="Hero-p">Connecting Trusted Contractors with Quality Projects</p>
+      <p className="Hero-p">Connecting Trusted Contractors With Quality Projects</p>
 
     </div>
     <div className="scroll-down-arrow" onClick={() => document.getElementById('why-choose-us').scrollIntoView({ behavior: 'smooth' })}>
@@ -401,7 +401,7 @@ const doubledImages = images.concat(images);
 
 
 <div className='services-box-accordion'>
-  <h1 className='we-offer-header'>From Start To Finish</h1>
+  <h1 className='we-offer-header'>How It Works</h1>
   <div className='we-offer-image-box'>
       <ServicesAccordion />
     <img className='we-offer-img' src="/images/logos/11E6C2F8-FB80-4AC7-86C9-4423AA553344.png" />
@@ -416,7 +416,7 @@ const doubledImages = images.concat(images);
 
 
       <div className='match'>
-        <h2 className='match-header'>Match With Our Professionals Today.</h2>
+        <h2 className='match-header'>Match With Our Professionals Today</h2>
         <ul className="contractor-list">
         {specificContractor ? (
      <li key={specificContractor.id} className="contractor-card-prof">
@@ -538,7 +538,7 @@ const doubledImages = images.concat(images);
      <div class="testimonials-section">
 
   <div class="testimonials-header">
-    <h2>Hear It From Our Clients.</h2>
+    <h2>Hear It From Our Clients</h2>
   </div>
 
 
@@ -615,9 +615,7 @@ const doubledImages = images.concat(images);
         At Exclusive Trade Network, we put your needs first, and we’re driven by our community. Read more, and say hello!
       </p>
       <img src="/images/F2E56999-2D4E-4BDF-A9E2-9493EA1BD1C1_1_105_c.jpeg" className='About-us-home-img-phone' />
-      <button type="submit" className="About-us-button-home" onClick={aboutUsButton}>
-        About Us
-      </button>
+  
     </div>
   </div>
 </div>

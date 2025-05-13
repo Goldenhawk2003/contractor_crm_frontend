@@ -34,6 +34,22 @@ body.specific-page-signup {
   align-items: center;
   font-family: 'Arial', sans-serif;
 }
+.password-wrapper {
+  position: relative;
+  width: 100%;
+  margin-right: 3%;
+
+}
+
+.eye-icon {
+  position: absolute;
+  right: 10px;
+  top: 40%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #888;
+}
+
 
 .inp-file{
   width: 100%;
@@ -211,5 +227,19 @@ label {
 .role{
   display: flex;
   flex-direction: column;
+}
+.password-wrapper {
+  position: relative;
+  width: 100%;
+  margin-right: 0;
+
+}
+}
+@media (min-width: 400px) {
+.password-wrapper {
+  position: relative;
+  width: 100%;
+  margin-right: 5%;
+
 }
 }

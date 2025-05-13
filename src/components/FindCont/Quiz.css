@@ -242,7 +242,10 @@ body.specific-page-quiz {
   .question-label {
     font-size: 1.4rem;
   }
-
+.quiz-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
   .quiz-input-wrapper {
     display: flex;
     flex-direction: column;

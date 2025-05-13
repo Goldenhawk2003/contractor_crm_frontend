@@ -9,29 +9,33 @@ const storyParagraphs = [
 
 ];
 const items = [
-  {
-    title: "Transparent and Secure Transactions",
-    text: "With ETN, clients can expect clear, upfront pricing and secure payment methods creating trust and satisfaction.​",
-    image: "/images/icons/Our-Story-icons-02.png",
-  },
-  {
-    title: "Tailored Matchmaking for Projects",
-    text: " ETN's platform matches clients with contractors whose expertise aligns perfectly with the project's requirements.",
-    image: "/images/icons/Our-Story-icons-03.png",
-
-  },
-  {
-    title: "Exclusive Network of Trusted Professionals",
+  
+   {
+    title: "Exclusive Network Of Trusted Professionals",
     text: "ETN carefully hand-picks each contractor through a strict hiring process, guaranteeing clients access to only the most dependable and highly skilled professionals.",
     image: "/images/icons/Our-Story-icons-04.png",
 
   },
   {
-    title: "Ongoing Support and Accountability",
-    text: "ETN provides continuous oversight throughout the project lifecycle addressing any concerns promptly and ensuring high standards are ",
+    title: "Tailored Matchmaking For Projects",
+    text: " ETN's platform matches clients with contractors whose expertise aligns perfectly with the project's requirements.",
+    image: "/images/icons/Our-Story-icons-03.png",
+
+  },
+    {
+    title: "Ongoing Support And Accountability",
+    text: "ETN provides continuous oversight throughout the project lifecycle addressing any concerns promptly and ensuring high standards are maintained. ",
     image: "/images/icons/Our-Story-icons-05.png",
 
+  },
+  {
+    title: "Transparent And Secure Transactions",
+    text: "With ETN, clients can expect clear, upfront pricing and secure payment methods creating trust and satisfaction.​",
+    image: "/images/icons/Our-Story-icons-02.png",
   }
+
+ 
+
 ];
 
 const Accordion = () => {
@@ -83,7 +87,7 @@ const AboutUs = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentCard((prev) => (prev + 1) % storyParagraphs.length);
-    }, 30000); // Change every 3 seconds
+    }, 600000); // Change every 3 seconds
 
     return () => clearInterval(interval);
   }, []);
@@ -112,7 +116,7 @@ const AboutUs = () => {
       <div className="mission-container-first">
         <div className="mission-image-container">
 
-        <h2>Leading the Way in Trust and Community.</h2>
+        <h2>Leading The Way In <span className="highlight">Trust</span> And <span className="highlight">Community</span></h2>
         <p>We believe that great service starts with a strong, connected and inspired community.</p>
         </div> 
         <img src="/images/image.png" className="mission-image-first" alt="About Us" />
@@ -135,7 +139,10 @@ const AboutUs = () => {
         </div>
       </section>
 
-      <div className="flashcard-container">
+  
+    <h2 className="elegant-title">Our Mission</h2>
+    <Accordion />
+        <div className="flashcard-container">
         <h1 className="flashcard-title">Our Founder's Story</h1>
       <div className="flashcard">
       <button onClick={handlePrev} className="flashcard-buttons">&#8592;</button>
@@ -157,8 +164,6 @@ const AboutUs = () => {
       <button onClick={handleNext} className="flashcard-buttons-mobile">&#8594;</button>
 </div>
     </div>
-    <h2 className="elegant-title">Our Mission</h2>
-    <Accordion />
 <div className="our-mission">
   <div className="mission-container">
     <img src="/images/About-Us-Page-01.png" alt="Our Mission" className="mission-image-our" /> 
@@ -166,6 +171,7 @@ const AboutUs = () => {
  
     </div>
     </div>
+    
  
 
 
