@@ -154,7 +154,7 @@ const UploadTutorial = () => {
   return (
     <div className="upload-tutorial">
       <div className="upload-container">
-        <h2 className="upload-heading">Upload a Tutorial</h2>
+        <h2 className="upload-heading">Upload A Photo/Video</h2>
         {message && (
           <p
             className={`upload-message ${
@@ -167,6 +167,7 @@ const UploadTutorial = () => {
 
         <form onSubmit={handleSubmit} className="upload-form">
           <div>
+            <h1 className="upload-head">To ETN Photo Gallery</h1>
             <label className="upload-label">Title</label>
             <input
               type="text"

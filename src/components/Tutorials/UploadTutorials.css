@@ -2,7 +2,7 @@ body.specific-page-upload {
 
   background-color: #ECF0FC;
   height: 100vh;
-  padding-top: 5%;
+
   background-image: url(../../../public/images/wallpapers/513263E5-0004-4894-94EB-ED2B77EAAF15.png);
   
   
@@ -12,7 +12,7 @@ body.specific-page-upload {
 .upload-tutorial{
   background-color: #ECF0FC;
   height: 100%;
-  padding-top: 5%;
+
   background-image: url(../../../public/images/wallpapers/513263E5-0004-4894-94EB-ED2B77EAAF15.png);
   padding-bottom: 40%;
 }
@@ -28,6 +28,14 @@ body.specific-page-upload {
   
 
   }
+  .upload-head{
+    font-size: 1.5rem;
+    font-weight: 200;
+ /* Dark Blue */
+    text-align: center;
+
+    align-items: center;
+  }
   
   /* Heading */
   .upload-heading {
@@ -35,7 +43,7 @@ body.specific-page-upload {
     font-weight: 200;
     color: #FFFF; /* Dark Blue */
     text-align: center;
-    margin-bottom: 20%;
+
     align-items: center;
   }
  
