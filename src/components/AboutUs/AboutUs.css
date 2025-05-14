@@ -386,7 +386,7 @@ body.specific-page-about-us {
       justify-content: center;
     }
     .impact-section{
-      background-color: #ECF0FC;
+      background-color: #FFFF;
     }
     .impact-card {
       width: 50%;
@@ -397,6 +397,8 @@ body.specific-page-about-us {
       align-items: center;
       justify-content: center;
       border: none;
+      border: 1px solid #091268;
+      margin-left: 4%;
     }
   
     .story-container {
