@@ -179,8 +179,8 @@ const UploadTutorial = () => {
           </div>
           <div>
             <label className="upload-label">Caption</label>
-            <textarea
-              className={`upload-textarea ${
+            <input
+              className={`upload-input-caption ${
                 description.includes("@") || /gmail|yahoo|hotmail/.test(description)
                   ? "error-border"
                   : ""

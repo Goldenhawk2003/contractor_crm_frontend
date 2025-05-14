@@ -72,6 +72,16 @@ body.specific-page-upload {
     border-radius: 5px;
     font-size: 1rem;
     transition: all 0.3s ease-in-out;
+    margin-left: 5%;
+  }
+  .upload-input-caption{
+    width: 80%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: all 0.3s ease-in-out;
+    
   }
   
   .upload-input:focus,
@@ -254,6 +264,24 @@ body.specific-page-upload {
     background: linear-gradient(to top, #ffffff 90%, #6b90ff 10%);
   }
 
+  .upload-input-caption{
+    width: 90%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: all 0.3s ease-in-out;
+  }
+  .upload-input{
+    width: 90%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: all 0.3s ease-in-out;
+    margin-left: 0;
+  }
+
   .upload-heading {
     font-size: 1.5rem;
     margin-bottom: 5rem;
@@ -326,5 +354,23 @@ body.specific-page-upload {
 
   .upload-message {
     font-size: 0.95rem;
+  }
+  .upload-tags{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: center;
+  }
+  .upload-tag{
+    padding: 6px 10px;
+    font-size: 0.9rem;
+    border-radius: 15px;
+    border: 1px solid #1b3656;
+    background: white;
+    color: #1b3656;
+    align-items: center;
+    text-align: center;
+    margin-left: 4%;
+    min-width: 40%;
   }
 }

@@ -116,7 +116,7 @@ const AboutUs = () => {
       <div className="mission-container-first">
         <div className="mission-image-container">
 
-        <h2>Leading The Way In <span className="highlight">Trust</span> And <span className="highlight">Community</span></h2>
+        <h2>Leading The Way In <span className="highlight">Trust And Community</span></h2>
         <p>We believe that great service starts with a strong, connected and inspired community.</p>
         </div> 
         <img src="/images/image.png" className="mission-image-first" alt="About Us" />

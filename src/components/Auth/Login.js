@@ -3,6 +3,8 @@ import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import './Login.css';
 import { useAuth } from '../../context/AuthContext';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { FaEye, FaEyeSlash } from 'react-icons/fa'; // Make sure this is at the top
 
 const Login = () => {
   const [username, setUsername] = useState('');
@@ -10,6 +12,8 @@ const Login = () => {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   // If you're using Django or any CSRF-based backend:
   const getCSRFToken = () => {
@@ -81,21 +85,27 @@ const Login = () => {
                   type="text"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
-                  placeholder="Enter your username"
+                  placeholder="Enter your Email/Username"
                   required
                 />
               </div>
               <div className="input-group">
                 <label htmlFor="password" className="input-label">Password:</label>
-                <input
-                  id="password"
-                  className="log"
-                  type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  placeholder="Enter your password"
-                  required
-                />
+                <div className="password-wrapper">
+                  <input
+                    type={showPassword ? 'text' : 'password'}
+                    name="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    placeholder="Password"
+                    required
+                    className="inp"
+                  />
+                  <span onClick={() => setShowPassword(prev => !prev)} className="eye-icon">
+                    {showPassword ? <FaEyeSlash /> : <FaEye />}
+                  </span>
+                </div>
+             
               </div>
               <button type="submit" className="sub" disabled={loading}>
                 {loading ? 'Logging in...' : 'Login'}

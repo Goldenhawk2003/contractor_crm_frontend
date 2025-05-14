@@ -173,7 +173,7 @@ body.specific-page-about-us {
   .flashcard-title{
     font-size: 2.5rem;
     font-weight: 200;
-    color: #FFFF;
+    color: #091268;
     margin-bottom: 10px;
     margin-top: 5%;
   }
@@ -492,6 +492,9 @@ body.specific-page-about-us {
       width: 100vw;
       padding-bottom: 0;
     
+    }
+    .impact-section{
+      border-bottom: 1px solid #091268;
     }
   
     .flashcard-title {

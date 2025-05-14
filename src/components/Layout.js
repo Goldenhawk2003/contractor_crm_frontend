@@ -93,9 +93,9 @@ const Layout = () => {
         <nav className="sidebar-layout-menu">
           {isSuperUser && <Link to="/dashboard" className="sidebar-layout-item">Dashboard</Link>}
           <Link to="/" className="sidebar-layout-item">Home</Link>
-          <Link to="blogs" className='sidebar-layout-item'>Blog</Link>
           <Link to="/AboutUs" className="sidebar-layout-item">About Us</Link>
           <Link to="/Tutorials" className="sidebar-layout-item">Inspiration</Link>
+          <Link to="blogs" className='sidebar-layout-item'>Blog</Link>
           <Link to="/contact" className="sidebar-layout-item">Contact Us</Link>
           {isAuthenticated && 
           <Link to="/user-profile" className="sidebar-layout-item">User Profile</Link>

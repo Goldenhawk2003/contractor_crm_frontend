@@ -334,6 +334,8 @@ const ProfessionalContracts = () => {
     const endDate = document.getElementById("end-date")?.value || "Not specified";
     const price = document.getElementById("price")?.value || "Not specified";
     const cycle = document.getElementById("cycle")?.value || "Not specified";
+    const fileInput = document.getElementById("contract-file");
+    const file = fileInput?.files?.[0] || null;
   
     const fullContent = `
   📅 Project Dates:
@@ -348,27 +350,31 @@ const ProfessionalContracts = () => {
   ${newContractContent}
     `;
   
-    const payload = {
-      user_id: selectedUser.id,
-      title: newContractTitle,
-      contractContent: fullContent.trim(),
-    };
-  
-    try {
-      await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/send-contract/`, payload, {
-        headers: {
-          "Content-Type": "application/json",
-          ...getAuthHeaders(),
-        },
-      });
-      setSendSuccess("Contract sent successfully!");
-      setSelectedUser(null);
-      setNewContractTitle("");
-      setNewContractContent("");
-    } catch {
-      setSendError("Failed to send contract. Please try again.");
-    }
-  }, [newContractTitle, newContractContent, selectedUser]);
+const formData = new FormData();
+  formData.append("user_id", selectedUser.id);
+  formData.append("title", newContractTitle);
+  formData.append("contractContent", fullContent);
+
+  if (fileInput?.files?.[0]) {
+    formData.append("file", fileInput.files[0]);
+  }
+
+  try {
+    await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/send-contract/`, formData, {
+      headers: {
+        ...getAuthHeaders(), // Do NOT set Content-Type manually; axios will handle it
+      },
+    });
+    setSendSuccess("Contract sent successfully!");
+    setSelectedUser(null);
+    setNewContractTitle("");
+    setNewContractContent("");
+    fileInput.value = ""; // Reset file input
+  } catch (err) {
+    console.error(err);
+    setSendError("Failed to send contract. Please try again.");
+  }
+}, [newContractTitle, newContractContent, selectedUser]);
 
   // Fetch sent contracts when switching to "sent" or "signed" tab
   useEffect(() => {
@@ -476,6 +482,18 @@ const ProfessionalContracts = () => {
               onChange={(e) => setNewContractContent(e.target.value)}
               placeholder="Enter project details"
             ></textarea>
+          </div>
+          <div className="contract-file">
+            <label htmlFor="contract-file" className="file-label">
+              Attach File:
+            </label>
+            <input
+              id="contract-file"    
+              type="file"
+              accept=".pdf, .doc, .docx"
+              className="file-input"
+            />
+
           </div>
           <div className="button-container-send">
             <button onClick={sendContract} className="user-button-send">
@@ -666,17 +684,27 @@ const ClientContracts = () => {
                 <p><strong>Title:</strong> {contract.title}</p>
                 
                 <div className="contract-content">
-                 
-                  {shouldTruncate && (
-                    <button
-                      onClick={() => openContractModal(contract)}
-                      className="show-more-button"
-                    >
-                      View Full Contract
-                    </button>
-
-                  )}
-                </div>
+  {contract.file ? (
+<a
+  href={contract.file}
+  download
+  className="user-button"
+>
+  ⬇️ Download PDF
+</a>
+  ) : shouldTruncate ? (
+    <button
+      onClick={() => openContractModal(contract)}
+      className="show-more-button"
+    >
+      View Full Contract
+    </button>
+  ) : (
+    <div className="contract-preview">
+      {parseContractContent(contract.content)}
+    </div>
+  )}
+</div>
                 <p><strong>Status:</strong> {contract.is_signed ? "Signed" : "Pending"}</p>
                 <div className="button-container">
                   {!contract.is_signed ? (
