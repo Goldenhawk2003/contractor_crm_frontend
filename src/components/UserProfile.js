@@ -6,6 +6,10 @@ import { useAuth } from "../context/AuthContext";
 import { FaCheckCircle } from 'react-icons/fa';
 import ReviewForm from "./Reviews/ReviewForm";
 import ReviewList from "./Reviews/ReviewList";
+import * as pdfjsLib from 'pdfjs-dist/legacy/build/pdf';
+
+pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.14.305/pdf.worker.min.js';
+
 
 const getAuthHeaders = () => {
   const token = localStorage.getItem("access_token");
@@ -301,6 +305,33 @@ const ProfessionalContracts = () => {
   const [sentContracts, setSentContracts] = useState([]);
   const [error, setError] = useState(null);
 
+   const extractTextFromPdf = async (file) => {
+    try {
+      const arrayBuffer = await file.arrayBuffer();
+      const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+
+      let fullText = '';
+
+      for (let i = 1; i <= pdf.numPages; i++) {
+        const page = await pdf.getPage(i);
+        const content = await page.getTextContent();
+        const strings = content.items.map(item => item.str);
+        fullText += strings.join(' ') + '\n';
+      }
+
+      setNewContractContent(fullText);
+      setError(null);
+    } catch (err) {
+      console.error('Failed to extract text from PDF', err);
+      setError('Failed to extract text from PDF');
+    }
+  };
+   const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    if (file && file.type === 'application/pdf') {
+      extractTextFromPdf(file);
+    }
+  };
   const handleSearch = useCallback(async () => {
     if (!searchTerm.trim()) {
       setSendError("Please enter a username to search.");
@@ -475,26 +506,28 @@ const formData = new FormData();
             placeholder="Enter contract title"
             className="user-input"
           />
-          <div className="form-group-full-width">
-            <label>Terms:</label>
-            <textarea
-              value={newContractContent}
-              onChange={(e) => setNewContractContent(e.target.value)}
-              placeholder="Enter project details"
-            ></textarea>
-          </div>
           <div className="contract-file">
-            <label htmlFor="contract-file" className="file-label">
-              Attach File:
-            </label>
-            <input
-              id="contract-file"    
-              type="file"
-              accept=".pdf, .doc, .docx"
-              className="file-input"
-            />
+        <label htmlFor="contract-file" className="file-label">
+          Attach File:
+        </label>
+        <input
+          id="contract-file"
+          type="file"
+          accept=".pdf, .doc, .docx"
+          className="file-input"
+          onChange={handleFileChange}
+        />
+      </div>
+         <div className="form-group-full-width">
+        <label>Terms:</label>
+        <textarea
+          value={newContractContent}
+          onChange={(e) => setNewContractContent(e.target.value)}
+          placeholder="Enter project details"
+        ></textarea>
+      </div>
 
-          </div>
+      
           <div className="button-container-send">
             <button onClick={sendContract} className="user-button-send">
               Send Contract

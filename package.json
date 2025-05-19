@@ -11,6 +11,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
+
   "author": "Ammar",
   "license": "ISC",
   "dependencies": {
@@ -24,6 +25,7 @@
     "axios": "^1.8.1",
     "fuse.js": "^7.1.0",
     "jwt-decode": "^4.0.0",
+    "pdfjs-dist": "^2.14.305",
     "react": "^18.3.1",
     "react-datepicker": "^4.22.1",
     "react-dom": "^18.3.1",
@@ -46,8 +48,10 @@
   },
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "@craco/craco": "^7.1.0",
     "gh-pages": "^6.2.0",
-    "typescript": "4.9.5"
+    "typescript": "4.9.5",
+    "worker-loader": "^3.0.8"
   },
   "engines": {
     "node": "18.x",

@@ -43,7 +43,7 @@ import GoogleLoginButton from './components/Auth/GoogleLogin.js';
 import { ImageUpload } from './components/Tutorials/preview.js';
 import ScrollToTop from './components/ScrollToTop.js';
 import LicenseForm from './components/VerifyLicense.js';
-
+import PdfTextExtractor from './components/PDFToText'; 
 
 function useCsrfToken() {
   useEffect(() => {
@@ -85,6 +85,9 @@ function App() {
             <Route index element={<Home />} />
 
             <Route path="/image-upload" element={<ImageUpload />} />
+
+           <Route path="/pdf-to-text" element={<PdfTextExtractor />} />
+
 
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
@@ -144,6 +147,7 @@ function App() {
             <Route path="/googlelogin" element={<GoogleLoginButton />} />
 
             <Route path="/license" element={<LicenseForm />} />
+
 
           </Route>
         </Routes>
