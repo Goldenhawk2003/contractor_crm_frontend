@@ -38,10 +38,11 @@ const LicenseForm = () => {
 
       setStatus({
         success: true,
-        message: data.verified
+        message: data.is_verified
           ? '✅ License verified!'
           : '⚠️ License submitted but not verified.',
       });
+      setLicense('');
     } catch (err) {
       console.error('License submission error:', err.response || err);
       setStatus({

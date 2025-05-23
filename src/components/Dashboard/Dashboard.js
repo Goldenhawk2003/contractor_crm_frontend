@@ -40,7 +40,7 @@ const Dashboard = () => {
       const responseData = await response.json();
       setData(responseData);
     } catch (error) {
-      setError('Failed to load dashboard data. Please try again later.');
+      setError('Must be logged in as staff to view this page.');
     } finally {
       setIsLoading(false);
     }
