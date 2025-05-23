@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import './Login.css';
 import { useAuth } from '../../context/AuthContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -14,7 +14,7 @@ const Login = () => {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-
+  const location = useLocation();
   // If you're using Django or any CSRF-based backend:
   const getCSRFToken = () => {
     const cookie = document.cookie.split('; ').find((row) => row.startsWith('csrftoken='));
@@ -49,8 +49,10 @@ const Login = () => {
       axios.defaults.headers.common['Authorization'] = `Bearer ${access}`;
   
       await loginUser();  // ← this triggers update in context (fetch user + update isAuthenticated)
-  
-      navigate('/user-profile');
+      const params = new URLSearchParams(location.search);
+      const next = params.get("next") || "/user-profile";
+
+      navigate(next);
       window.location.reload(); 
     } catch (err) {
       console.error('Login failed:', err.response?.data || err.message);
