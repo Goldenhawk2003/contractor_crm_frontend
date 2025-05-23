@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './Dashboard.css';
+import { Link } from 'react-router-dom';
 
 const getAuthHeaders = () => {
   const token = localStorage.getItem("access_token");
@@ -241,6 +242,7 @@ const Dashboard = () => {
               ))}
             </div>
           </section>
+          <Link to="/upload-blog" className="admin-requests-link">Upload Blogs </Link>
 
           {/* Pending Registrations */}
           <section className="pending-applications">

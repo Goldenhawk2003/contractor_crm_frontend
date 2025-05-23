@@ -202,6 +202,7 @@ body.specific-page-user-profile {
   display: flex;
   justify-content: center;
   align-items: center;
+
   width: 100%; /* Ensures full width for centering */
   margin-top: 20px;
 }
@@ -530,7 +531,7 @@ flex-direction: column;
 .section-title {
   font-weight: 700;
   font-size: 1rem;
-  background-color: #0055cc;
+  background-color: #6b90ff;
   color: #fff;
   padding: 6px 12px;
   margin-bottom: 1rem;
@@ -548,7 +549,7 @@ flex-direction: column;
 /* Summary like the invoice's GRAND TOTAL */
 .summary-bar {
   display: flex;
-  justify-content: flex-end;
+  justify-content: flex-start;
   font-weight: bold;
   font-size: 1.1rem;
   margin-top: 2rem;
@@ -560,6 +561,7 @@ flex-direction: column;
   padding: 6px 14px;
   border-radius: 4px;
   margin-right: 1rem;
+  align-self: left;
 }
 
 .contract-form-container {
@@ -603,7 +605,26 @@ flex-direction: column;
   display: flex;
   flex-direction: column;
 }
+.post-sign-box{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2%;
+}
 
+.sign{
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #1b3656;
+  padding-bottom: 5%;
+}
+.signed{
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #1b3656;
+  padding-bottom: 5%;
+}
 .form-group label,
 .form-group-full-width label {
   font-weight: 600;
@@ -646,7 +667,7 @@ input[type="date"],
 
 .button-container-send {
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   margin-top: 2rem;
 }
 
@@ -862,6 +883,7 @@ input[type="date"],
 }
 
 
+
 .reviews-section {
   text-align: left;
   width: 100%;
@@ -949,6 +971,122 @@ input[type="date"],
   border-radius: 12px;
 }
 
+/* Client Contract Card */
+.contract-card-container {
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  font-family: 'Inter', sans-serif;
+}
+
+/* Repeat the same section-title style */
+.contract-card-container .section-title {
+  font-weight: 700;
+  font-size: 1rem;
+  background-color: #0055cc;
+  color: #fff;
+  padding: 6px 12px;
+  margin: 1.5rem 0 1rem;
+  border-radius: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* A two-column grid for details */
+.contract-card-container .form-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+/* Each field block */
+.contract-card-container .form-group {
+  flex: 1 1 45%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Terms / content preview spans full width */
+.contract-card-container .form-group-full-width {
+  flex: 1 1 100%;
+}
+
+/* Reuse summary-bar for any “amount” (if you have one) */
+.contract-card-container .summary-bar {
+  display: flex;
+  justify-content: flex-end;
+  font-weight: bold;
+  font-size: 1.1rem;
+  margin-top: 1.5rem;
+}
+
+.contract-card-container .summary-label {
+  background-color: #6b90ff;
+  color: white;
+  padding: 6px 14px;
+  border-radius: 4px;
+  margin-right: 1rem;
+}
+/* Client Contract Card */
+.contract-card-container {
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  font-family: 'Inter', sans-serif;
+}
+
+/* Repeat the same section-title style */
+.contract-card-container .section-title {
+  font-weight: 700;
+  font-size: 1rem;
+  background-color: #6b90ff;
+  color: #fff;
+  padding: 6px 12px;
+  margin: 1.5rem 0 1rem;
+  border-radius: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* A two-column grid for details */
+.contract-card-container .form-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+/* Each field block */
+.contract-card-container .form-group {
+  flex: 1 1 45%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Terms / content preview spans full width */
+.contract-card-container .form-group-full-width {
+  flex: 1 1 100%;
+}
+
+/* Reuse summary-bar for any “amount” (if you have one) */
+.contract-card-container .summary-bar {
+  display: flex;
+  justify-content: flex-end;
+  font-weight: bold;
+  font-size: 1.1rem;
+  margin-top: 1.5rem;
+}
+
+.contract-card-container .summary-label {
+  background-color: #6b90ff;
+  color: white;
+  padding: 6px 14px;
+  border-radius: 4px;
+  margin-right: 1rem;
+}
 .received-contracts h2 {
   font-size: 1.5rem;
   margin-bottom: 1.5rem;
@@ -984,10 +1122,11 @@ input[type="date"],
   align-items: center;
   justify-content: center;
 }
+
 .show-more-button,
 .user-button,
 .payment-btn {
-  background-color: #6366f1;
+  background-color: #6b90ff;
   color: white;
   border: none;
   padding: 0.5rem 1rem;
@@ -999,11 +1138,66 @@ input[type="date"],
   margin-right: 0.5rem;
   align-self: center;
 }
+.accordion-summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f7f9fc;
+  padding: 1rem 1.25rem;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 1rem;
+  border: 1px solid #e0e6ed;
+  border-radius: 8px;
+  margin-bottom: 0.5rem;
+  transition: background-color 0.2s ease;
+}
 
+.accordion-summary:hover {
+  background-color: #eef3f8;
+}
+
+.accordion-summary .arrow {
+  transition: transform 0.3s ease;
+}
+
+.accordion-summary .arrow.open {
+  transform: rotate(180deg);
+}
+
+.accordion-content {
+  padding: 1rem 1.25rem;
+  background-color: #ffffff;
+  border: 1px solid #e0e6ed;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scaleY(0.98); }
+  to { opacity: 1; transform: scaleY(1); }
+}
+ .form-group-full-width, .accordion-content {
+  all: unset !important;
+  display: block !important;
+  color: black !important;
+  background: white !important;
+}
+.form-group {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
+  max-width: 100%;
+  margin-left: 1%;
+
+}
 .user-button:hover,
 .payment-btn:hover,
 .show-more-button:hover {
-  background-color: #4f46e5;
+  background-color: #6b90ff;
 }
 
 .error-message {

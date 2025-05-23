@@ -389,7 +389,8 @@ const total = useMemo(() => {
 
 💰 Pricing:
   Amount: ${price || "Not specified"}
-  Cycle:  ${cycle || "Not specified"}
+  Cycles:  ${cycle || "Not specified"}
+  Total: ${price && cycle ? price * cycle : "N/A"}
 
 📄 Terms:
 ${newContractContent}
@@ -674,6 +675,7 @@ const ClientContracts = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [openContract, setOpenContract] = useState(null); // For modal pop-up
   const [refreshKey, setRefreshKey] = useState(0);
+  const [openId, setOpenId] = useState(null); 
 
   // Maximum length before showing the pop-up instead of inline expand
   const maxLength = 120;
@@ -764,93 +766,103 @@ const ClientContracts = () => {
     setOpenContract(null);
   };
 
-  return (
+    return (
     <div className="received-contracts">
+    
       <h2>Received Contracts</h2>
       {signError && <p className="error-message">{signError}</p>}
       {signSuccess && <p className="success-message">{signSuccess}</p>}
-   
-        {receivedContracts.map((contract) => {
-          // Check if the contract content should be truncated
-          const shouldTruncate = contract.content.length > maxLength;
-          const displayedContent = shouldTruncate
-            ? contract.content.slice(0, maxLength) + "..."
-            : contract.content;
 
-          return (
-         
-              <div className="contract-client-test">
-                <p><strong>Title:</strong> {contract.title}</p>
-                
-                <div className="contract-content">
-  {contract.file ? (
-<a
-  href={contract.file}
-  download
-  className="user-button"
->
-  ⬇️ Download PDF
-</a>
-  ) : shouldTruncate ? (
-    <button
-      onClick={() => openContractModal(contract)}
-      className="show-more-button"
-    >
-      View Full Contract
-    </button>
+     {receivedContracts.map((contract) => {
+        const isOpen = openId === contract.id;
+        const shouldTruncate = contract.content?.length > maxLength;
+        const preview = shouldTruncate
+          ? contract.content.slice(0, maxLength) + "…"
+          : contract.content;
+
+        return (
+        <div key={contract.id} className="contract-card-accordion">
+            {/* Header Click */}
+            <div
+              className="accordion-summary"
+             onClick={() => {
+  console.log("Toggling accordion for ID:", contract.id);
+  setOpenId(isOpen ? null : contract.id);
+}}
+            >
+             
+              <span> {contract.title}</span> 
+              <span className={`arrow ${isOpen ? "open" : ""}`}>▾</span>
+            </div>
+
+            {isOpen && (
+              <div className="accordion-content">
+                {/* Info */}
+                  <span className="section-title"></span>
+                <div className="form-grid">
+                   
+                  <div className="form-group">
+                   
+                   <label> <strong>Title:</strong> <span>{contract.title}</span></label> 
+                  </div>
+                  <div className="form-group">
+                  <label> <strong>Status:</strong>{" "}
+                    <span>{contract.is_signed ? "Signed" : "Pending"}</span> </label> 
+                  </div>
+                </div>
+
+                {/* Details */}
+               
+                <div className="form-group-full-width">
+  {contract.content ? (
+    parseContractContent(contract.content).length > 0 ? (
+      parseContractContent(contract.content)
+    ) : (
+      <p>{contract.content}</p>
+    )
   ) : (
-    <div className="contract-preview">
-      {parseContractContent(contract.content)}
-    </div>
+    <p>No content available</p>
   )}
 </div>
-                <p><strong>Status:</strong> {contract.is_signed ? "Signed" : "Pending"}</p>
-                <div className="button-container">
+
+                {/* Actions */}
+                <p className="section-title">Actions</p>
+                <div className="sign">
                   {!contract.is_signed ? (
-                    <button
-                      onClick={() => signContract(contract.id)}
-                      className="user-button"
-                    >
-                      Sign Contract
-                    </button>
+                    <div className="form-group">
+                      <button
+                        onClick={() => signContract(contract.id)}
+                        className="user-button"
+                      >
+                        Sign Contract
+                      </button>
+                    </div>
                   ) : (
                     <>
-                      <p className="signed">✅ Contract signed!</p>
-                      <div className="cont-rating-input">
-                      <Link to="/payment" className="user-button payment-btn">
-                        💳 Pay Now
-                      </Link>
-                      <ReviewForm
-                      contractorId={contract.contractor_id}
-                      onSuccess={() => setRefreshKey(k => k + 1)}
-                      />
+                      <div className="post-sign-box">
+
+<div>
+                        <p className="signed">✅ Contract Signed</p>
+                        <Link to="/payment" className="user-button payment-btn">
+                          💳 Pay Now
+                        </Link>
+                        </div>
+                        <ReviewForm
+                          contractorId={contract.contractor_id}
+                          onSuccess={() => setRefreshKey((k) => k + 1)}
+                        />
                       </div>
-                    
                     </>
                   )}
                 </div>
               </div>
-         
-          );
-        })}
-     
-
-      {/* Modal for displaying full contract content */}
-      {openContract && (
-        <div className="modal-overlay" onClick={closeModal}>
-          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <button className="modal-close-btn" onClick={closeModal}>X</button>
-            <h3>{openContract.title}</h3>
-            <div className="modal-contract-content">
-              {parseContractContent(openContract.content)}
-            </div>
+            )}
           </div>
-        </div>
-      )}
+        );
+      })}
     </div>
   );
 };
-
 
 
 // ------------------- ContractsTab Component -------------------

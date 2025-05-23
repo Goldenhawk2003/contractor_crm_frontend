@@ -5,13 +5,17 @@
 
     max-width: 500px;
     margin-top: 1.5rem;
+    display: flex;
+    flex-direction: column;
  
   }
   
   .review-form h4 {
-    font-size: 1.25rem;
+    font-size: 1.4rem;
     margin-bottom: 1rem;
     color: #1f2937;
+    align-self: center;
+    text-align: center;
   }
   
   .review-comment-input {
@@ -20,7 +24,7 @@
     border-radius: 8px;
     padding: 0.75rem;
     font-size: 1rem;
-    resize: vertical;
+ 
     margin-top: 1rem;
     margin-bottom: 1rem;
     background-color: #f9fafb;
@@ -29,23 +33,29 @@
   
   .review-comment-input:focus {
     outline: none;
-    border-color: #6366f1;
+    border-color:#6b90ff ;
     background-color: #ffffff;
   }
   
   .submit-review-button {
-    background-color: #6366f1;
+    background-color: #6b90ff;
     color: white;
     padding: 0.6rem 1.25rem;
     border: none;
     border-radius: 8px;
     font-size: 1rem;
     cursor: pointer;
+    align-self: center;
+    text-align: center;
+   
+  
     transition: background-color 0.2s ease-in-out;
   }
   
   .submit-review-button:hover {
-    background-color: #4f46e5;
+    background-color: #6b90ff;
+
+
   }
   
   .error-text {
@@ -58,6 +68,8 @@
   font-size: 2.4rem; /* Increased from 1.6rem */
   margin-bottom: 0.75rem;
   user-select: none;
+  display: flex;
+  justify-content: center;
 }
 
 .star {
