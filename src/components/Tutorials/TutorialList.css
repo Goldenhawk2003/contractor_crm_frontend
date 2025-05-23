@@ -396,7 +396,10 @@ body.specific-page-tutorials {
   background-color: #FFFF;
 }
 
-
+.highlight-tutorials{
+  color: #091268;
+  font-weight: 200;
+}
 
 @media (max-width: 768px) {
 
@@ -414,10 +417,7 @@ body.specific-page-tutorials {
   width: 80%;
   
 }
-.highlight-tutorials{
-  color: #091268;
-  font-weight: 200;
-}
+
 .tags{
   width: 100%;
   margin-left: 0;

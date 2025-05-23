@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./TutorialList.css"; // Import CSS file
 import { useLocation, useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
 import Fuse from 'fuse.js';
 
 // Use the backend URL from an environment variable
@@ -21,6 +22,7 @@ const TutorialList = () => {
   const [likes, setLikes] = useState({}); // Track likes for each tutorial
   const [selectedTag, setSelectedTag] = useState("All");
   const location = useLocation();
+  const { isAuthenticated, authLoaded, user, logout } = useAuth();
 
   const mediaUrl = location.state?.videoUrl; // This should hold the correct media URL
   const isImage = location.state?.isImage || false;
@@ -243,9 +245,11 @@ useEffect(() => {
             {service}
           </button>
         ))}
-        <button className="upload-button-gate" onClick={handleUpload}>
-          Upload
-        </button>
+     {isAuthenticated && (
+  <button className="upload-button-gate" onClick={handleUpload}>
+    Upload
+  </button>
+)}
       </div>
 
       {loading && <p className="tutorial-message">Loading tutorials...</p>}

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-
+import './VerifyLicense.css'; // Assuming you have some CSS for styling
 
 // Backend base URL
 const BASE_URL = 'https://ecc-backend-31b43c38f51f.herokuapp.com';
