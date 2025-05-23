@@ -7,6 +7,7 @@ import { FaCheckCircle } from 'react-icons/fa';
 import ReviewForm from "./Reviews/ReviewForm";
 import ReviewList from "./Reviews/ReviewList";
 import * as pdfjsLib from 'pdfjs-dist/legacy/build/pdf';
+import { useMemo } from 'react';
 
 pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.14.305/pdf.worker.min.js';
 
@@ -305,6 +306,19 @@ const ProfessionalContracts = () => {
   const [sentContracts, setSentContracts] = useState([]);
   const [error, setError] = useState(null);
 
+  const [price, setPrice] = useState('');
+  const [cycle, setCycle] = useState('');
+
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate]   = useState("");
+
+
+const total = useMemo(() => {
+  const p = parseFloat(price.replace(/[^0-9.]/g, '')) || 0;
+  const cycles = cycle || 1;
+  return p * cycles;
+}, [price, startDate, endDate, cycle]);
+
    const extractTextFromPdf = async (file) => {
     try {
       const arrayBuffer = await file.arrayBuffer();
@@ -368,18 +382,18 @@ const ProfessionalContracts = () => {
     const fileInput = document.getElementById("contract-file");
     const file = fileInput?.files?.[0] || null;
   
-    const fullContent = `
-  📅 Project Dates:
-  Start: ${startDate}
-  End: ${endDate}
-  
-  💰 Pricing:
-  Amount: ${price}
-  Payment Cycle: ${cycle}
-  
-  📄 Terms:
-  ${newContractContent}
-    `;
+  const fullContent = `
+📅 Project Dates:
+  Start: ${startDate || "Not specified"}
+  End:   ${endDate   || "Not specified"}
+
+💰 Pricing:
+  Amount: ${price || "Not specified"}
+  Cycle:  ${cycle || "Not specified"}
+
+📄 Terms:
+${newContractContent}
+  `;
   
 const formData = new FormData();
   formData.append("user_id", selectedUser.id);
@@ -419,115 +433,167 @@ const formData = new FormData();
         .catch(() => setError("Failed to fetch sent contracts."));
     }
   }, [contractTab]);
+
+
   
 
   return (
-    <div>
+   <div>
+      {/* --- Tabs --- */}
       <div className="contract-tabs">
-        <button
-          className={`contract-tab ${contractTab === "create" ? "active" : ""}`}
-          onClick={() => setContractTab("create")}
-        >
-          Create New Contract
-        </button>
-        <button
-          className={`contract-tab ${contractTab === "sent" ? "active" : ""}`}
-          onClick={() => setContractTab("sent")}
-        >
-          Sent Contracts
-        </button>
-        <button
-          className={`contract-tab ${contractTab === "signed" ? "active" : ""}`}
-          onClick={() => setContractTab("signed")}
-        >
-          Signed Contracts
-        </button>
+        {['create','sent','signed'].map((tab) => (
+          <button
+            key={tab}
+            className={`contract-tab ${contractTab===tab ? 'active' : ''}`}
+            onClick={() => setContractTab(tab)}
+          >
+            {tab === 'create' ? 'Create New Contract'
+             : tab === 'sent'   ? 'Sent Contracts'
+             : 'Signed Contracts'}
+          </button>
+        ))}
       </div>
 
-      {contractTab === "create" && (
+      {/* --- Create Tab --- */}
+      {contractTab === 'create' && (
         <div className="contract-form-container">
           {sendSuccess && <p className="success-message">{sendSuccess}</p>}
-          {sendError && <p className="error-message">{sendError}</p>}
+          {sendError   && <p className="error-message">{sendError}</p>}
+
           <h3 className="form-title">New Contract</h3>
           <p className="contract-date">
             <strong>Date:</strong> {new Date().toLocaleDateString()}
           </p>
+
+          {/* Recipient */}
+          <p className="section-title">Recipient</p>
           <div className="form-grid">
             <div className="form-group">
-              <label htmlFor="user-search" className="user-label">
-                To:
-              </label>
+              <label htmlFor="user-search">To:</label>
               <input
                 id="user-search"
                 type="text"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                placeholder="Enter a username..."
+                placeholder="Enter a username…"
                 className="user-input"
               />
-              <button onClick={handleSearch} className="user-button">
-                Search
-              </button>
-              <div className="search-results">
-                {searchResults.map((user) => (
+                    <div className="search-results">
+                {searchResults.map((u) => (
                   <div
-                    key={user.id}
+                    key={u.id}
                     className={`search-result-item-contracts ${
-                      selectedUser?.id === user.id ? "selected" : ""
+                      selectedUser?.id === u.id ? 'selected' : ''
                     }`}
-                    onClick={() => setSelectedUser(user)}
+                    onClick={() => setSelectedUser(u)}
                   >
-                    {user.username}
+                    {u.username}
                   </div>
                 ))}
                 {selectedUser && (
                   <p className="selected-user">
-                    Selected User: <strong>{selectedUser.username}</strong>
+                    Selected: <strong>{selectedUser.username}</strong>
                   </p>
                 )}
               </div>
-            </div>
-            <div className="form-group">
-              <label>Project Start & End Date:</label>
-              <input id="start-date" type="date" />
-              <input id="end-date" type="date" />
-            </div>
-            <div className="form-group">
-              <label>Pricing:</label>
-              <input id="price" type="text" placeholder="$" />
-<input id="cycle" type="text" placeholder="Payment Cycle" />
+              <button onClick={handleSearch} className="user-button">
+                Search
+              </button>
+
+        
             </div>
           </div>
-          <label>Contract Title</label>
-          <input
-            type="text"
-            value={newContractTitle}
-            onChange={(e) => setNewContractTitle(e.target.value)}
-            placeholder="Enter contract title"
-            className="user-input"
-          />
-          <div className="contract-file">
-        <label htmlFor="contract-file" className="file-label">
-          Attach File:
-        </label>
-        <input
-          id="contract-file"
-          type="file"
-          accept=".pdf, .doc, .docx"
-          className="file-input"
-          onChange={handleFileChange}
-        />
-      </div>
-         <div className="form-group-full-width">
-        <label>Terms:</label>
-        <textarea
-          value={newContractContent}
-          onChange={(e) => setNewContractContent(e.target.value)}
-          placeholder="Enter project details"
-        ></textarea>
-      </div>
 
-      
+          {/* Project Dates */}
+          <p className="section-title">Project Info</p>
+          <div className="form-grid">
+            <div className="form-group">
+              <label>Start Date:</label>
+      <input
+  id="start-date"
+  type="date"
+  className="user-input"
+  value={startDate}
+  onChange={e => setStartDate(e.target.value)}
+/>
+            </div>
+            <div className="form-group">
+              <label>End Date:</label>
+              <input id="end-date" type="date" className="user-input" value={endDate} onChange={e => setEndDate(e.target.value)} />
+            </div>
+          </div>
+
+          {/* Pricing */}
+          <p className="section-title">Payment Details</p>
+          <div className="form-grid">
+            <div className="form-group">
+              <label>Price:</label>
+              <input
+                id="price"
+                type="text"
+                placeholder="$"
+                className="user-input"
+                value={price}
+                onChange={(e) => setPrice(e.target.value)}
+              />
+            </div>
+            <div className="form-group">
+              <label>Cycles:</label>
+         <input
+  id="cycle"
+  type="number"
+  min="1"
+  step="1"
+  placeholder="Payment Cycle"
+  className="user-input"
+  value={cycle}
+  onChange={e => setCycle(e.target.value)}
+/>
+            </div>
+          </div>
+
+          {/* Contract Details */}
+          <p className="section-title">Contract Details</p>
+          <div className="form-group-full-width">
+            <label>Title:</label>
+            <input
+              type="text"
+              value={newContractTitle}
+              onChange={(e) => setNewContractTitle(e.target.value)}
+              placeholder="Enter contract title…"
+              className="user-input"
+            />
+          </div>
+
+          <div className="form-group-full-width contract-file">
+            <label htmlFor="contract-file">Attach File:</label>
+            <input
+              id="contract-file"
+              type="file"
+              accept=".pdf,.doc,.docx"
+              className="file-input"
+              onChange={handleFileChange}
+            />
+          </div>
+
+          <div className="form-group-full-width">
+            <label>Terms:</label>
+            <textarea
+              rows={4}
+              value={newContractContent}
+              onChange={(e) => setNewContractContent(e.target.value)}
+              placeholder="Enter project details…"
+              className="user-input"
+            />
+          </div>
+
+          {/* Invoice-style Summary */}
+    <div className="summary-bar">
+            <span className="summary-label">TOTAL</span>
+            <span>${total.toFixed(2)}</span>
+          </div>
+
+          {/* Submit */}
           <div className="button-container-send">
             <button onClick={sendContract} className="user-button-send">
               Send Contract

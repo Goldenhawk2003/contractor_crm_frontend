@@ -54,18 +54,18 @@
     font-size: 0.95rem;
   }
   
-  /* StarRating Styles */
-  .star-rating {
-    font-size: 1.6rem;
-    margin-bottom: 0.75rem;
-    user-select: none;
-  }
-  
-  .star {
-    cursor: pointer;
-    color: #d1d5db;
-    transition: color 0.2s ease;
-  }
+.star-rating {
+  font-size: 2.4rem; /* Increased from 1.6rem */
+  margin-bottom: 0.75rem;
+  user-select: none;
+}
+
+.star {
+  cursor: pointer;
+  color: #d1d5db;
+  transition: color 0.2s ease;
+  font-size: inherit; /* Ensure it follows .star-rating size */
+}
   
   .star.filled {
     color: #facc15;
