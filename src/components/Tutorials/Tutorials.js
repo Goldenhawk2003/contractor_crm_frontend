@@ -49,18 +49,27 @@ const TutorialList = () => {
     fetchTutorials();
   }, []);
 
-  
+  const normalizeTags = (tags) => {
+  if (!tags) return [];
+  if (Array.isArray(tags)) return tags;
+  try {
+    return JSON.parse(tags);
+  } catch (error) {
+    return [tags];
+  }
+};
 
 
-  const services = [
-    "All",
-    "Interior",
-    "Renovation",
-    "Washroom",
-    "Roofing",
-    "Tiles",
-    "Woodwork",
-  ];
+const allTags = [
+  "All",
+  ...Array.from(
+    new Set(
+      tutorials
+        .flatMap(tut => Array.isArray(tut.tags) ? tut.tags : normalizeTags(tut.tags))
+        .filter(Boolean)
+    )
+  )
+];
 
   // Initialize Fuse.js with the tutorials data
   const fuse = new Fuse(tutorials, {
@@ -132,15 +141,7 @@ const TutorialList = () => {
     setSearchResults([]);
   };
 
-  const normalizeTags = (tags) => {
-    if (!tags) return [];
-    if (Array.isArray(tags)) return tags;
-    try {
-      return JSON.parse(tags);
-    } catch (error) {
-      return [tags];
-    }
-  };
+
 
   const handleKeyDown = (event) => {
     if (event.key === 'Enter' && searchText.trim()) {
@@ -160,10 +161,10 @@ const TutorialList = () => {
     }
   };
 
-  const handleServiceClick = (service) => {
-    setSelectedTag(service);
-    navigate("/tutorials", { replace: true, state: { selectedTag: service } });
-  };
+const handleServiceClick = (tag) => {
+  setSelectedTag(tag);
+  navigate("/tutorials", { replace: true, state: { selectedTag: tag } });
+};
 
   const filteredTutorials = selectedTag === "All"
     ? tutorials
@@ -236,13 +237,13 @@ useEffect(() => {
       </div>
 
       <div className="tags">
-        {services.map((service) => (
+        {allTags.map((tag) => (
           <button
-            key={service}
-            onClick={() => handleServiceClick(service)}
-            className={`tag ${selectedTag === service ? "active" : ""}`}
+            key={tag}
+            onClick={() => handleServiceClick(tag)}
+            className={`tag ${selectedTag === tag ? "active" : ""}`}
           >
-            {service}
+            {tag}
           </button>
         ))}
      {isAuthenticated && (

@@ -404,7 +404,7 @@ const doubledImages = images.concat(images);
   <h1 className='we-offer-header'>How It Works</h1>
   <div className='we-offer-image-box'>
       <ServicesAccordion />
-    <img className='we-offer-img' src="/images/logos/11E6C2F8-FB80-4AC7-86C9-4423AA553344.png" />
+    <img className='we-offer-img' src="/images/home-page/AdobeStock_420698353.jpeg" />
     </div>
 </div>
 

@@ -247,21 +247,49 @@ const UploadTutorial = () => {
           </div>
 
           {/* Tags Selection */}
-          <div className="upload-tags">
-            <label className="upload-label">Tags</label>
-            <div className="upload-tag">
-              {services.map((service) => (
-                <button
-                  key={service}
-                  type="button"
-                  onClick={() => handleTagClick(service)}
-                  className={`upload-tag ${selectedTags.includes(service) ? "active" : ""}`}
-                >
-                  {service}
-                </button>
-              ))}
-            </div>
-          </div>
+      <div className="upload-tag">
+  {services.map((service) => (
+    <button
+      key={service}
+      type="button"
+      onClick={() => handleTagClick(service)}
+      className={`upload-tag ${selectedTags.includes(service) ? "active" : ""}`}
+    >
+      {service}
+    </button>
+  ))}
+
+  {/* Show custom tags too */}
+  {selectedTags
+    .filter((tag) => !services.includes(tag))
+    .map((tag) => (
+      <button
+        key={tag}
+        type="button"
+        onClick={() => handleTagClick(tag)}
+        className="upload-tag active"
+      >
+        {tag}
+      </button>
+    ))}
+</div>
+          <div className="custom-tag-input">
+  <input
+    type="text"
+    className="upload-input"
+    placeholder="Add custom tag and press Enter"
+    onKeyDown={(e) => {
+      const newTag = e.target.value.trim();
+      if (e.key === 'Enter' && newTag) {
+        e.preventDefault();
+        if (!selectedTags.includes(newTag)) {
+          setSelectedTags((prev) => [...prev, newTag]);
+        }
+        e.target.value = "";
+      }
+    }}
+  />
+</div>
 
           {/* Submit Button */}
           <button type="submit" className="upload-button" disabled={uploading}>

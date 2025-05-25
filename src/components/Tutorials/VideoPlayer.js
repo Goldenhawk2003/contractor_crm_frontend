@@ -45,7 +45,16 @@ const VideoPlayer = () => {
       return [tags];
     }
   };
-  
+  const allTags = [
+  "All",
+  ...Array.from(
+    new Set(
+      tutorials
+        .flatMap(t => normalizeTags(t.tags))
+        .filter(Boolean)
+    )
+  )
+];
   // Fetch tutorials for search and suggestions
   useEffect(() => {
     axios
@@ -160,15 +169,14 @@ const VideoPlayer = () => {
     return () => document.body.classList.remove("video-player-page");
   }, []);
 
-  const services = ["All", "Interior", "Renovation", "Washroom", "Roofing", "Tiles", "Woodwork"];
-
+ 
   const handleBack = () => {
     navigate(-1);
   };
 
-  const handleServiceClick = (service) => {
-    setSelectedTag(service);
-    navigate("/tutorials", { state: { selectedTag: service } });
+  const handleServiceClick = (tag) => {
+    setSelectedTag(tag);
+    navigate("/tutorials", { state: { selectedTag: tag } });
   };
 
   // Render the media (video or image) based on isImage flag.
@@ -236,13 +244,13 @@ const VideoPlayer = () => {
 
       {/* Tags Section */}
       <div className="player-tags">
-        {services.map((service) => (
+        {allTags.map((tag) => (
           <button
-            key={service}
-            onClick={() => handleServiceClick(service)}
-            className={`player-tag ${selectedTag === service ? "active" : ""}`}
+            key={tag}
+            onClick={() => handleServiceClick(tag)}
+            className={`player-tag ${selectedTag === tag ? "active" : ""}`}
           >
-            {service}
+            {tag}
           </button>
         ))}
       </div>

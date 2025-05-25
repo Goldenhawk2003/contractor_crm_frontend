@@ -311,13 +311,29 @@ const ProfessionalContracts = () => {
 
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate]   = useState("");
+    const [rows, setRows] = useState([
+    { description: '', qty: 1, price: 0 }
+  ]);
+
+  const handleChange = (index, field, value) => {
+    const updatedRows = [...rows];
+    if (field === 'qty' || field === 'price') {
+      updatedRows[index][field] = Number(value);
+    } else {
+      updatedRows[index][field] = value;
+    }
+    setRows(updatedRows);
+  };
+
+  const addRow = () => {
+    setRows([...rows, { description: '', qty: 1, price: 0 }]);
+  };
+
 
 
 const total = useMemo(() => {
-  const p = parseFloat(price.replace(/[^0-9.]/g, '')) || 0;
-  const cycles = cycle || 1;
-  return p * cycles;
-}, [price, startDate, endDate, cycle]);
+  return rows.reduce((sum, row) => sum + row.qty * row.price, 0);
+}, [rows]);
 
    const extractTextFromPdf = async (file) => {
     try {
@@ -388,9 +404,8 @@ const total = useMemo(() => {
   End:   ${endDate   || "Not specified"}
 
 💰 Pricing:
-  Amount: ${price || "Not specified"}
-  Cycles:  ${cycle || "Not specified"}
-  Total: ${price && cycle ? price * cycle : "N/A"}
+${rows.map((r, i) => `  ${i + 1}. ${r.description} — ${r.qty} × $${r.price} = $${r.qty * r.price}`).join('\n')}
+  Total: $${total.toFixed(2)}
 
 📄 Terms:
 ${newContractContent}
@@ -460,18 +475,29 @@ const formData = new FormData();
         <div className="contract-form-container">
           {sendSuccess && <p className="success-message">{sendSuccess}</p>}
           {sendError   && <p className="error-message">{sendError}</p>}
-
-          <h3 className="form-title">New Contract</h3>
+          <div className="contract-header">
+          <img src="/images/logos/logos-header/darketn-07.png" alt="Contract" className="contract-image" />
+          <h3 className="form-title">INVOICE</h3>
+          </div>
           <p className="contract-date">
             <strong>Date:</strong> {new Date().toLocaleDateString()}
           </p>
 
+              <div className="form-group-full-width">
+            <label>Title:</label>
+            <input
+              type="text"
+              value={newContractTitle}
+              onChange={(e) => setNewContractTitle(e.target.value)}
+              placeholder="Enter contract title…"
+              className="user-input"
+            />
+          </div>
+
           {/* Recipient */}
-          <p className="section-title">Recipient</p>
-          <div className="form-grid">
-            <div className="form-group">
-              <label htmlFor="user-search">To:</label>
-              <input
+                <div className="recipient-container">
+                    <p className="section-title">Recipient</p>
+                     <input
                 id="user-search"
                 type="text"
                 value={searchTerm}
@@ -479,36 +505,50 @@ const formData = new FormData();
                 placeholder="Enter a username…"
                 className="user-input"
               />
-                    <div className="search-results">
-                {searchResults.map((u) => (
-                  <div
-                    key={u.id}
-                    className={`search-result-item-contracts ${
-                      selectedUser?.id === u.id ? 'selected' : ''
-                    }`}
-                    onClick={() => setSelectedUser(u)}
-                  >
-                    {u.username}
-                  </div>
-                ))}
-                {selectedUser && (
-                  <p className="selected-user">
-                    Selected: <strong>{selectedUser.username}</strong>
-                  </p>
-                )}
-              </div>
-              <button onClick={handleSearch} className="user-button">
+                      </div>
+        
+          <div className="form-grid">
+           
+           <div className="search-results">
+  {selectedUser ? (
+    <>
+    <div className="result-item">
+      <div className="search-result-item-contracts selected">
+        {selectedUser.username}
+      </div>
+      <button
+        className="contract-search-button"
+        style={{ marginTop: "10px" }}
+        onClick={() => setSelectedUser(null)}
+      >
+        Change
+      </button>
+      </div>
+    </>
+  ) : (
+    searchResults.map((u) => (
+      <div
+        key={u.id}
+        className="search-result-item-contracts"
+        onClick={() => setSelectedUser(u)}
+      >
+        {u.username}
+      </div>
+    ))
+  )}
+</div>
+              <button onClick={handleSearch} className="contract-search-button">
                 Search
               </button>
 
         
             </div>
-          </div>
+      
 
           {/* Project Dates */}
           <p className="section-title">Project Info</p>
           <div className="form-grid">
-            <div className="form-group">
+                <div className="form-group">
               <label>Start Date:</label>
       <input
   id="start-date"
@@ -522,49 +562,76 @@ const formData = new FormData();
               <label>End Date:</label>
               <input id="end-date" type="date" className="user-input" value={endDate} onChange={e => setEndDate(e.target.value)} />
             </div>
+             <div className="invoice-table-container">
+      <table className="invoice-table">
+        <thead>
+          <tr>
+            <th>NO</th>
+            <th>DESCRIPTION</th>
+            <th>QTY</th>
+            <th>PRICE</th>
+            <th>TOTAL</th>
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((row, index) => {
+            const rowTotal = row.qty * row.price;
+            return (
+              <tr key={index}>
+                <td>{index + 1}</td>
+                <td>
+                  <input
+                    type="text"
+                    value={row.description}
+                    onChange={(e) => handleChange(index, 'description', e.target.value)}
+                  />
+                </td>
+                <td>
+                  <input
+                    type="number"
+                    min="1"
+                    value={row.qty}
+                    onChange={(e) => handleChange(index, 'qty', e.target.value)}
+                  />
+                </td>
+                <td>
+                  <input
+                    type="number"
+                    min="0"
+                    value={row.price}
+                    onChange={(e) => handleChange(index, 'price', e.target.value)}
+                  />
+                </td>
+                <td>${rowTotal.toFixed(2)}</td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+
+<div className="invoice-table-buttons">
+      <button className="add-row-button" onClick={addRow}>
+        + Add Row
+      </button>
+      <button className="add-row-button" onClick={() => setRows(rows.slice(0, -1))}>
+        - Remove Row
+      </button>
+      </div>
+         <div className="summary-bar">
+            <span className="summary-label">TOTAL:</span>
+            <span className="summary-value">${total.toFixed(2)}</span>
+          </div>
+    </div>
+        
           </div>
 
           {/* Pricing */}
-          <p className="section-title">Payment Details</p>
-          <div className="form-grid">
-            <div className="form-group">
-              <label>Price:</label>
-              <input
-                id="price"
-                type="text"
-                placeholder="$"
-                className="user-input"
-                value={price}
-                onChange={(e) => setPrice(e.target.value)}
-              />
-            </div>
-            <div className="form-group">
-              <label>Cycles:</label>
-         <input
-  id="cycle"
-  type="number"
-  min="1"
-  step="1"
-  placeholder="Payment Cycle"
-  className="user-input"
-  value={cycle}
-  onChange={e => setCycle(e.target.value)}
-/>
-            </div>
-          </div>
+         
+      
 
           {/* Contract Details */}
           <p className="section-title">Contract Details</p>
-          <div className="form-group-full-width">
-            <label>Title:</label>
-            <input
-              type="text"
-              value={newContractTitle}
-              onChange={(e) => setNewContractTitle(e.target.value)}
-              placeholder="Enter contract title…"
-              className="user-input"
-            />
-          </div>
+      
 
           <div className="form-group-full-width contract-file">
             <label htmlFor="contract-file">Attach File:</label>
@@ -588,11 +655,7 @@ const formData = new FormData();
             />
           </div>
 
-          {/* Invoice-style Summary */}
-    <div className="summary-bar">
-            <span className="summary-label">TOTAL</span>
-            <span>${total.toFixed(2)}</span>
-          </div>
+
 
           {/* Submit */}
           <div className="button-container-send">
@@ -695,41 +758,89 @@ const ClientContracts = () => {
 
 
   // Function to parse and display contract content
-  const parseContractContent = (content) => {
-    // Break content into raw lines
-    let lines = content.split("\n").map((l) => l.trim());
-  
-    // Quick pass to merge "Project" + "Dates:" lines, if they occur
-    for (let i = 0; i < lines.length - 1; i++) {
-      if (lines[i] === "Project" && lines[i + 1] === "Dates:") {
-        lines[i] = "Project Dates:";
-        lines.splice(i + 1, 1);
-      }
-      // You could do similar merges if you have “Payment” & “Cycle:” lines, etc.
+const parseContractContent = (content) => {
+  const lines = content.split("\n").map((l) => l.trim());
+
+  for (let i = 0; i < lines.length - 1; i++) {
+    if (lines[i] === "Project" && lines[i + 1] === "Dates:") {
+      lines[i] = "Project Dates:";
+      lines.splice(i + 1, 1);
     }
-  
-    // Now proceed with your existing “split by emojis” approach
-    // Or if you rely on newlines for sections, do that here.
-    const sections = lines.join("\n").split(/\n(?=📅|💰|📄)/g);
-  
-    return sections.map((section, i) => {
-      const sublines = section.trim().split("\n");
-      const title = sublines[0];
-      const body = sublines.slice(1);
-  
+  }
+
+  const sections = lines.join("\n").split(/\n(?=📅|💰|📄)/g);
+
+  return sections.map((section, i) => {
+    const sublines = section.trim().split("\n");
+    const title = sublines[0];
+    const body = sublines.slice(1);
+
+    // 🧠 Special case: pricing section → render as table
+    if (title.startsWith("💰 Pricing")) {
+      const rowLines = body.filter((line) => /^\d+\.\s+/.test(line));
+      const totalLine = body.find((line) => line.startsWith("Total:"));
+
+      const parsedRows = rowLines.map((line) => {
+        const match = line.match(/^(\d+)\.\s+(.*?)\s+—\s+(\d+)\s+×\s+\$(\d+(?:\.\d+)?)\s+=\s+\$(\d+(?:\.\d+)?)/);
+        if (!match) return null;
+        const [, , description, qty, price] = match;
+        return {
+          description,
+          qty: parseInt(qty),
+          price: parseFloat(price),
+        };
+      }).filter(Boolean);
+
+      const tableTotal = totalLine ? totalLine.replace("Total:", "").trim() : "";
+
       return (
         <div key={i} className="contract-parsed-section">
-          <div className="section-title">{title}</div>
-          <div className="section-content">
-            {body.map((line, idx) => (
-              <p key={idx}>{line}</p>
-            ))}
+          <div className="section-title">💰 Pricing</div>
+          <div className="invoice-table-container">
+          <table className="invoice-table">
+            <thead>
+              <tr>
+                <th>NO</th>
+                <th>DESCRIPTION</th>
+                <th>QTY</th>
+                <th>PRICE</th>
+                <th>TOTAL</th>
+              </tr>
+            </thead>
+            <tbody>
+              {parsedRows.map((row, idx) => (
+                <tr key={idx}>
+                  <td>{idx + 1}</td>
+                  <td>{row.description}</td>
+                  <td>{row.qty}</td>
+                  <td>${row.price.toFixed(2)}</td>
+                  <td>${(row.qty * row.price).toFixed(2)}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          </div>
+          <div className="summary-bar">
+            <span className="summary-label">TOTAL:</span>
+            <span className="summary-value">{tableTotal}</span>
           </div>
         </div>
       );
-    });
-  };
-  
+    }
+
+    // 🔁 Default rendering for other sections
+    return (
+      <div key={i} className="contract-parsed-section">
+        <div className="section-title">{title}</div>
+        <div className="section-content">
+          {body.map((line, idx) => (
+            <p key={idx}>{line}</p>
+          ))}
+        </div>
+      </div>
+    );
+  });
+};
   const signContract = useCallback(async (contractId) => {
     setSignError("");
     setSignSuccess("");
@@ -796,20 +907,24 @@ const ClientContracts = () => {
             </div>
 
             {isOpen && (
-              <div className="accordion-content">
+              <div className="contract-form-container">
                 {/* Info */}
                   <span className="section-title"></span>
-                <div className="form-grid">
-                   
-                  <div className="form-group">
-                   
-                   <label> <strong>Title:</strong> <span>{contract.title}</span></label> 
-                  </div>
-                  <div className="form-group">
-                  <label> <strong>Status:</strong>{" "}
-                    <span>{contract.is_signed ? "Signed" : "Pending"}</span> </label> 
-                  </div>
-                </div>
+                    <div className="contract-header">
+          <img src="/images/logos/logos-header/darketn-07.png" alt="Contract" className="contract-image" />
+          <h3 className="form-title">INVOICE</h3>
+          </div>
+          <div className="contract-info">
+            <p> <strong>Title:</strong> <span>{contract.title}</span></p> 
+            <p> <strong>Contractor:</strong> {contract.sender}</p>
+            <p> <strong>Status:</strong>{" "}
+                <span>{contract.is_signed ? "Signed" : "Pending"}</span> </p> 
+            <p className="contract-date">
+            <strong>Date:</strong> {new Date().toLocaleDateString()}
+          </p>
+          </div>
+             
+         
 
                 {/* Details */}
                
