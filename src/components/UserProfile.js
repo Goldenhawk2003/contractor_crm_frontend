@@ -1216,14 +1216,20 @@ const PaymentsTab = () => {
     setLoading(true);
     try {
       // Step 1: Create Stripe account
-      const res1 = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/create-stripe-account/`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          ...getAuthHeaders(),
-        },
-      });
-      const data1 = await res1.json();
+const res1 = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/create-stripe-account/`, {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+    ...getAuthHeaders(),
+  },
+});
+const data1 = await res1.json();
+console.log("⚙️ create-stripe-account response", data1);
+
+if (!data1.account_id) {
+  alert("Stripe account ID is missing from backend.");
+  return;
+}
       const acctId = data1.account_id;
       setAccountId(acctId);
 
