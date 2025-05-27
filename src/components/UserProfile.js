@@ -415,6 +415,7 @@ const formData = new FormData();
   formData.append("user_id", selectedUser.id);
   formData.append("title", newContractTitle);
   formData.append("contractContent", fullContent);
+  formData.append("total_price", total.toFixed(2));
 
   if (fileInput?.files?.[0]) {
     formData.append("file", fileInput.files[0]);
@@ -755,6 +756,26 @@ const ClientContracts = () => {
       .catch(() => {});
   }, []);
 
+  const handleCheckout = async (contractId) => {
+  const token = localStorage.getItem("access_token");
+
+  const res = await fetch(`${BACKEND_URL}/api/create-checkout-session/`, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ contract_id: contractId }),
+  });
+
+  const data = await res.json();
+  if (data.checkout_url) {
+    window.location.href = data.checkout_url;
+  } else {
+    alert("Failed to create checkout session.");
+  }
+};
+
 
 
   // Function to parse and display contract content
@@ -958,9 +979,12 @@ const parseContractContent = (content) => {
 
 <div>
                         <p className="signed">✅ Contract Signed</p>
-                        <Link to="/payment" className="user-button payment-btn">
-                          💳 Pay Now
-                        </Link>
+                      <button
+  className="user-button payment-btn"
+  onClick={() => handleCheckout(contract.id)}
+>
+  💳 Pay Now
+</button>
                         </div>
                         <ReviewForm
                           contractorId={contract.contractor_id}
