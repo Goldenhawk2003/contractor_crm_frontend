@@ -47,6 +47,8 @@ import PdfTextExtractor from './components/PDFToText';
 import StripeReturnPage from './components/Payment/StripeReturnPage.js';
 import PaymentSuccess from './components/Payment/PaymentSuccess.js';
 import PaymentCancelled from './components/Payment/PaymentCancelled.js';
+import PrivacyPolicy from './components/Legal/PrivacyPolicy.js';
+
 function useCsrfToken() {
   useEffect(() => {
     const fetchCsrfToken = async () => {
@@ -155,7 +157,7 @@ function App() {
             <Route path="/payment-success" element={<PaymentSuccess />} />
             <Route path="/payment-cancelled" element={<PaymentCancelled />} />
 
-            
+            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
 
 
           </Route>
