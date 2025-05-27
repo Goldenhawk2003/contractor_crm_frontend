@@ -1205,8 +1205,64 @@ const ChatsTab = ({ userInfo, username }) => {
 };
 
 // ------------------- PaymentsTab Component -------------------
+
+
 const PaymentsTab = () => {
-  return <div>Payments Content</div>;
+  const [accountId, setAccountId] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [onboardingUrl, setOnboardingUrl] = useState("");
+
+  const connectStripe = async () => {
+    setLoading(true);
+    try {
+      // Step 1: Create Stripe account
+      const res1 = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/create-stripe-account/`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          ...getAuthHeaders(),
+        },
+      });
+      const data1 = await res1.json();
+      const acctId = data1.account_id;
+      setAccountId(acctId);
+
+      // Step 2: Create onboarding link
+      const res2 = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/create-account-link/`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          ...getAuthHeaders(),
+        },
+        body: JSON.stringify({ account_id: acctId }),
+      });
+      const data2 = await res2.json();
+
+      setOnboardingUrl(data2.url);
+      window.location.href = data2.url; // Redirect user
+    } catch (error) {
+      console.error("Stripe connection failed:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div className="payments-tab">
+      <h2>Payments</h2>
+
+      <button
+        onClick={connectStripe}
+        disabled={loading}
+        className="user-button"
+      >
+        {loading ? "Connecting…" : "Connect with Stripe"}
+      </button>
+
+      {/* Display account ID for debug or display */}
+      {accountId && <p>Connected Account ID: {accountId}</p>}
+    </div>
+  );
 };
 
 // ------------------- Main UserProfile Component -------------------
