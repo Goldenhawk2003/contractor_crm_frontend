@@ -44,6 +44,7 @@ import { ImageUpload } from './components/Tutorials/preview.js';
 import ScrollToTop from './components/ScrollToTop.js';
 import LicenseForm from './components/VerifyLicense.js';
 import PdfTextExtractor from './components/PDFToText'; 
+import StripeReturnPage from './components/Payment/StripeReturnPage.js';
 
 function useCsrfToken() {
   useEffect(() => {
@@ -147,6 +148,11 @@ function App() {
             <Route path="/googlelogin" element={<GoogleLoginButton />} />
 
             <Route path="/license" element={<LicenseForm />} />
+
+
+            <Route path="/return" element={<StripeReturnPage />} />
+
+            
 
 
           </Route>
