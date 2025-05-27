@@ -1205,43 +1205,48 @@ const ChatsTab = ({ userInfo, username }) => {
 };
 
 // ------------------- PaymentsTab Component -------------------
-const PaymentsTab = () => {
+const PaymentsTab = ({ userInfo }) => {
   const handleStripeConnect = async () => {
-  const token = localStorage.getItem("access_token");
-  if (!token) {
-    alert("Please log in first.");
-    return;
-  }
-
-  try {
-    const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/create-stripe-link/`, {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
-    });
-
-    const data = await res.json();
-    if (data.url) {
-      window.location.href = data.url;
-    } else {
-      console.error("No URL returned from Stripe.");
+    const token = localStorage.getItem("access_token");
+    if (!token) {
+      alert("Please log in first.");
+      return;
     }
-  } catch (err) {
-    console.error("Failed to create Stripe onboarding link:", err);
-    alert("There was a problem connecting to Stripe.");
-  }
-};
-  return <div>
-    {userInfo.type === "professional" && !userInfo.stripe_account_id && (
+
+    try {
+      const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/create-stripe-link/`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
+
+      const data = await res.json();
+      if (data.url) {
+        window.location.href = data.url;
+      } else {
+        console.error("No URL returned from Stripe.");
+      }
+    } catch (err) {
+      console.error("Failed to create Stripe onboarding link:", err);
+      alert("There was a problem connecting to Stripe.");
+    }
+  };
+
+  return (
+    <div>
+     {userInfo?.type === "professional" && userInfo?.stripe_account_id ? (
+  <p>You are connected to Stripe. ✅</p>
+) : (
   <div className="stripe-connect-banner">
     <button className="stripe-connect-button" onClick={handleStripeConnect}>
       Connect with Stripe
     </button>
   </div>
 )}
-  </div>;
+    </div>
+  );
 };
 
 // ------------------- Main UserProfile Component -------------------
@@ -1300,7 +1305,7 @@ const UserProfile = () => {
         {activeTab === "chats" && (
           <ChatsTab userInfo={userInfo} username={username} />
         )}
-        {activeTab === "payments" && <PaymentsTab />}
+        {activeTab === "payments" && <PaymentsTab userInfo={userInfo} />}
       </div>
     </div>
   );
