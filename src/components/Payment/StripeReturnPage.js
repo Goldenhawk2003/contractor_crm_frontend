@@ -19,7 +19,7 @@ const StripeReturnPage = () => {
         const data = await res.json();
         localStorage.setItem("user_info", JSON.stringify(data)); // optional
         // Redirect back to dashboard or payments
-        navigate("/dashboard", { replace: true });
+        navigate("/user-profile", { replace: true });
       } else {
         console.error("Failed to refresh user info");
       }
