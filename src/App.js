@@ -45,7 +45,8 @@ import ScrollToTop from './components/ScrollToTop.js';
 import LicenseForm from './components/VerifyLicense.js';
 import PdfTextExtractor from './components/PDFToText'; 
 import StripeReturnPage from './components/Payment/StripeReturnPage.js';
-
+import PaymentSuccess from './components/Payment/PaymentSuccess.js';
+import PaymentCancelled from './components/Payment/PaymentCancelled.js';
 function useCsrfToken() {
   useEffect(() => {
     const fetchCsrfToken = async () => {
@@ -151,6 +152,8 @@ function App() {
 
 
             <Route path="/stripe/return" element={<StripeReturnPage />} />
+            <Route path="/payment-success" element={<PaymentSuccess />} />
+            <Route path="/payment-cancelled" element={<PaymentCancelled />} />
 
             
 
