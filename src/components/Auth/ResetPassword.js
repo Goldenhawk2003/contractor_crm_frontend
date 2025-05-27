@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-
+import './ForgotPassword.css'; 
 const ResetPassword = () => {
   const { uid, token } = useParams(); // Get URL params
   const navigate = useNavigate();

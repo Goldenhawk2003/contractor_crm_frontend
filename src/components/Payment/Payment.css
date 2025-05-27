@@ -1,0 +1,59 @@
+.payment-result {
+  max-width: 600px;
+  margin: 100px auto;
+  padding: 40px;
+  border-radius: 16px;
+  text-align: center;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  background: #fff;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.payment-result h1 {
+  font-size: 2rem;
+  margin-bottom: 16px;
+}
+
+.payment-result p {
+  font-size: 1.1rem;
+  margin-bottom: 24px;
+  color: #555;
+}
+
+.payment-result.success {
+  border-left: 6px solid #4CAF50;
+}
+
+.payment-result.cancelled {
+  border-left: 6px solid #f44336;
+}
+
+.user-button {
+  background-color: #091268;
+  color: white;
+  padding: 10px 24px;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: background-color 0.2s ease;
+}
+
+.user-button:hover {
+  background-color: #ECF0FC;
+  color: #091268;
+}
+
+.payment-result h1::before {
+  display: block;
+  font-size: 3rem;
+  margin-bottom: 10px;
+}
+
+.payment-result.success h1::before {
+  content: "🎉";
+}
+
+.payment-result.cancelled h1::before {
+  content: "😞";
+}
