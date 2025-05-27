@@ -394,8 +394,8 @@ const total = useMemo(() => {
   
     const startDate = document.getElementById("start-date")?.value || "Not specified";
     const endDate = document.getElementById("end-date")?.value || "Not specified";
-    const price = document.getElementById("price")?.value || "Not specified";
-    const cycle = document.getElementById("cycle")?.value || "Not specified";
+    const currentTotal = rows.reduce((sum, row) => sum + row.qty * row.price, 0);
+    console.log("📦 Submitting contract with total price:", currentTotal.toFixed(2));
     const fileInput = document.getElementById("contract-file");
     const file = fileInput?.files?.[0] || null;
   
@@ -417,7 +417,7 @@ const formData = new FormData();
   formData.append("title", newContractTitle);
   formData.append("contractContent", fullContent);
   console.log("📦 Submitting contract with total price:", total.toFixed(2));
-  formData.append("total_price", total.toFixed(2));
+  formData.append("total_price", currentTotal.toFixed(2));
 
   if (fileInput?.files?.[0]) {
     formData.append("file", fileInput.files[0]);
