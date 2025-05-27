@@ -1,16 +1,34 @@
 import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const StripeReturnPage = () => {
-  useEffect(() => {
-    // optionally refresh user info here to check stripe_account_id
-  }, []);
+  const navigate = useNavigate();
 
-  return (
-    <div className="stripe-return-page">
-      <h2>✅ You're back from Stripe!</h2>
-      <p>Your Stripe account setup may now be complete.</p>
-    </div>
-  );
+  useEffect(() => {
+    // Force a refresh of user info
+    const refreshUserInfo = async () => {
+      const token = localStorage.getItem("access_token");
+      const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/user-info/`, {
+        headers: {
+          "Authorization": `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (res.ok) {
+        const data = await res.json();
+        localStorage.setItem("user_info", JSON.stringify(data)); // optional
+        // Redirect back to dashboard or payments
+        navigate("/dashboard", { replace: true });
+      } else {
+        console.error("Failed to refresh user info");
+      }
+    };
+
+    refreshUserInfo();
+  }, [navigate]);
+
+  return <p>Returning from Stripe, verifying your account...</p>;
 };
 
 export default StripeReturnPage;
