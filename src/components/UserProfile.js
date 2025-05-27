@@ -385,6 +385,7 @@ const total = useMemo(() => {
     }
   }, [searchTerm]);
 
+  formData.append("total_price", total.toFixed(2));
   const sendContract = useCallback(async () => {
     if (!newContractTitle || !newContractContent || !selectedUser) {
       setSendError("Please fill in all fields and select a user.");
@@ -759,7 +760,7 @@ const ClientContracts = () => {
   const handleCheckout = async (contractId) => {
   const token = localStorage.getItem("access_token");
 
-  const res = await fetch(`${BACKEND_URL}/api/create-checkout-session/`, {
+const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/create-checkout-session/`, {
     method: "POST",
     headers: {
       Authorization: `Bearer ${token}`,
