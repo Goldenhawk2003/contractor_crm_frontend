@@ -150,7 +150,7 @@ function App() {
             <Route path="/license" element={<LicenseForm />} />
 
 
-            <Route path="/return" element={<StripeReturnPage />} />
+            <Route path="/stripe/return" element={<StripeReturnPage />} />
 
             
 
