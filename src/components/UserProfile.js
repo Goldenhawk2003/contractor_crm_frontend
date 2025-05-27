@@ -385,7 +385,7 @@ const total = useMemo(() => {
     }
   }, [searchTerm]);
 
-  formData.append("total_price", total.toFixed(2));
+
   const sendContract = useCallback(async () => {
     if (!newContractTitle || !newContractContent || !selectedUser) {
       setSendError("Please fill in all fields and select a user.");
@@ -416,6 +416,7 @@ const formData = new FormData();
   formData.append("user_id", selectedUser.id);
   formData.append("title", newContractTitle);
   formData.append("contractContent", fullContent);
+  console.log("📦 Submitting contract with total price:", total.toFixed(2));
   formData.append("total_price", total.toFixed(2));
 
   if (fileInput?.files?.[0]) {
