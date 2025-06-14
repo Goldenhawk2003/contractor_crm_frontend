@@ -167,9 +167,10 @@ body.specific-page {
   top: 0;
   left: 0;
   min-width: 100%;
-  min-height: 100%;
+  min-height: 95%;
   object-fit: cover;
   z-index: -1;
+
 }
 .background-video-mobile-only{
   display: none;
@@ -383,6 +384,8 @@ body.specific-page {
   width: 50%;
   margin: 0 auto;
 }
+
+
 .search-bar-container {
   display: flex;
   justify-content: center; /* Center the search bar and button horizontally */
@@ -406,6 +409,7 @@ body.specific-page {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
+
 .search-button-home {
   background-color: #6b90ff; /* Deep blue */
   border: none;
@@ -420,15 +424,19 @@ body.specific-page {
   align-items: left;
   justify-content: left;
   box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
-  margin-left: -10px; /* Slight overlap with the search bar */
+  margin-left: -8px; /* Slight overlap with the search bar */
+  margin-bottom: 6px;
+
 }
 
-.search-button:hover {
-  transform: translateY(-2px); /* Slight lift on hover */
-  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.3); /* Increased shadow on hover */
+
+.search-button-home:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
 }
+
 .search-icon {
-  font-size: 1.2rem;
+  font-size: 1rem;
 }
 
 .search-results {
@@ -1079,7 +1087,7 @@ iframe {
 }
 .we-offer-img{
   width: 40%;
-
+  border-radius: 50px;
   height: auto;
   object-fit: cover;
 
@@ -1148,6 +1156,12 @@ iframe {
   color: #ffffff;
   pointer-events: none;
   font-weight: 100;
+}
+
+
+.accordion-content:hover {
+
+  color:#091268
 }
 
 .accordion-content.visible {
@@ -1778,6 +1792,7 @@ padding-bottom: 0;
     flex-direction: column;
     align-items: center; /* center the entire section */
     width: 100%;
+    height: 100%;
   }
   
   .testimonials-header {
@@ -1785,9 +1800,15 @@ padding-bottom: 0;
     text-align: center;
     font-size: 1.4rem;
     margin-top: 4%;
+    height: 100%;
   
   }
-  
+.testimonial-text{
+      font-size: 0.8rem;
+}
+.client-name{
+  font-size: 0.8rem;
+}
   .testimonials-container {
     display: grid;
     grid-template-columns: repeat(2, 1fr); /* 2 equal-width columns */
@@ -1800,6 +1821,8 @@ padding-bottom: 0;
     padding-left: 0px !important;
     margin-left: 0px !important;
     box-sizing: border-box;
+    height: 900px;
+
     
 
 
@@ -1813,16 +1836,18 @@ padding-bottom: 0;
     text-align: center;
     min-width: unset !important; /* let grid control sizing */
     width: 180px; /* each card fills its grid cell */
-    height: 190px;
+    height: 244px;
  /* keeps consistent sizing */
     transition: transform 0.3s ease;
     border: 1px solid #091268;
 
+
   }
   .stars {
-    font-size: 1.3rem;
+    font-size: 0.8rem;
     color: #FFD700;
     margin-bottom: 0px;
+  
     
   }
   .testimonial-rating-test{
@@ -2246,6 +2271,13 @@ body{
     width: 90%;
     font-size: 2rem;
   }
+
+  .testimonial-text{
+      font-size: 0.8rem;
+}
+.client-name{
+  font-size: 0.8rem;
+}
   .testimonials-section {
     display: flex;
     flex-direction: column;
@@ -2279,6 +2311,7 @@ body{
     padding-left: 0px !important;
     margin-left: 0px !important;
     box-sizing: border-box;
+
     
   }
 
@@ -2305,7 +2338,7 @@ body{
     text-align: center;
     min-width: unset !important; /* let grid control sizing */
     width: 140px; /* each card fills its grid cell */
-    height: 160px;
+    height: 220px;
  /* keeps consistent sizing */
     transition: transform 0.3s ease;
     border: 1px solid #091268;

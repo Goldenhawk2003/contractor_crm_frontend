@@ -113,8 +113,8 @@ const Login = () => {
                 {loading ? 'Logging in...' : 'Login'}
               </button>
             </form>
-            <div className="forgot-password-container">
-              <Link to="/forgot-password" className="forgot-password-link">Forgot Password?</Link>
+            <div className="forgot-password-login">
+              <Link to="/forgot-password" className="forgot-password-button">Forgot Password?</Link>
             </div>
           </div>
 <div className='divider'></div>

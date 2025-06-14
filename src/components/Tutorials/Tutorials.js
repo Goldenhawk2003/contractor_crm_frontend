@@ -254,7 +254,7 @@ useEffect(() => {
       </div>
 
       {loading && <p className="tutorial-message">Loading tutorials...</p>}
-      {error && <p className="tutorial-message">{error}</p>}
+      {error && <p className="tutorial-message">Account detected please sign in</p>}
       {!loading && !error && tutorials.length === 0 && (
         <p className="tutorial-message">No tutorials uploaded yet.</p>
       )}

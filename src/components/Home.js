@@ -13,7 +13,7 @@ const services = [
   {
     title: "Complete Our Quick Questionnaire",
     description:
-      "Let’s find your match–Our questionnaire helps you get results with confidence."
+      "Let’s find your match! Complete our simplified questionnaire to help our team connect you with an Exclusive Contractor who fits your project needs, timeline, and budge"
   },
   {
     title: "Chat With Us",
@@ -23,7 +23,7 @@ const services = [
   {
     title: "Finalize & Secure Your Projects",
     description:
-      "Lock in your contracts directly on our site with full privacy and built-in protection."
+      "Secure your contracts with full privacy and protection directly on our platform. Payments are safely handled through Stripe Connect, a trusted system that protects both clients and contractors"
   }
 ];
 
@@ -544,45 +544,47 @@ const doubledImages = images.concat(images);
 
   <div class="testimonials-container">
     <div class="testimonial-card">
-      <p class="testimonial-text">"Dream Home Come True"</p>
+      <p class="testimonial-text">"From start to finish, everything went smoothly! I’ll definitely use ETN again for future projects!"</p>
       <div class="testimonial-rating-test">
         <div class="stars">★★★★★</div>
-        <p class="client-name">Jane Doe</p>
+        <p class="client-name">-James P., Pickering, ON</p>
       </div>
     </div>
     <div class="testimonial-card">
-      <p class="testimonial-text">"Amazing people with helpful solutions for my home!"</p>
+      <p class="testimonial-text">"The contractor that was hired for my backyard home project was creative, professional, and affordable! Couldn’t be happier with the results!
+"</p>
       <div class="testimonial-rating">
         <div class="stars">★★★★★</div>
-        <p class="client-name">John Doe</p>
+        <p class="client-name">-Amy S., Oshawa, ON</p>
       </div>
     </div>
     <div class="testimonial-card">
-      <p class="testimonial-text">"Reliable and Efficient!"</p>
+      <p class="testimonial-text">"Everyone I spoke to was kind, responsive, and helped fix the roof of my business so fast that I reopened the next day!
+"</p>
       <div class="testimonial-rating">
         <div class="stars">★★★★★</div>
-        <p class="client-name">Alice Smith</p>
+        <p class="client-name">-Priya D., Ajax, ON</p>
       </div>
     </div>
     <div class="testimonial-card">
-      <p class="testimonial-text">"Beautiful Results"</p>
+      <p class="testimonial-text">"Finally, a local site that actually connects you with contractors you can trust!"</p>
       <div class="testimonial-rating">
         <div class="stars">★★★★★</div>
-        <p class="client-name">Michael Brown</p>
+        <p class="client-name">-Mark L., Whitby, ON</p>
       </div>
     </div>
     <div class="testimonial-card">
-      <p class="testimonial-text">"I found my go-to contractor who is located in my town!"</p>
+      <p class="testimonial-text">"My husband and I thank the ETN team! Everyone was very helpful and answered all our questions with patience and care."</p>
       <div class="testimonial-rating">
         <div class="stars">★★★★★</div>
-        <p class="client-name">Jane Doe</p>
+        <p class="client-name">-Sandra M., Courtice, ON</p>
       </div>
     </div>
     <div class="testimonial-card">
-      <p class="testimonial-text">"Found a contractor to help with my sink!"</p>
+      <p class="testimonial-text">"ETN made it easy to find a reliable contractor. Our reno was on time, under budget, and less stressful with the guidance from the contractor."</p>
       <div class="testimonial-rating">
         <div class="stars">★★★★★</div>
-        <p class="client-name">Emma Watson</p>
+        <p class="client-name">-Leo, B., Bowmanville, ON</p>
       </div>
     </div>
   </div>

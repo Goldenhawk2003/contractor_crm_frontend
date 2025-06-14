@@ -104,18 +104,18 @@ body.specific-page-login {
 }
 
 /* Forgot Password Container + Link */
-.forgot-password-container {
+.forgot-password-login {
   margin-top: 10px;
   text-align: center;
 }
 
-.forgot-password-link {
+.forgot-password-button {
   color: #1b3656;
   text-decoration: none;
   font-size: 0.9rem;
 }
 
-.forgot-password-link:hover {
+.forgot-password-button:hover {
   text-decoration: underline;
 }
 

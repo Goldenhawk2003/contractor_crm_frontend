@@ -295,8 +295,9 @@ body.specific-page-tutorials {
   align-items: left;
   justify-content: center;
   box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
-  margin-left: -12px; /* Slight overlap with the search bar */
-  width: 15%;
+  margin-left: -8px; /* Slight overlap with the search bar */
+  width: 8%;
+  margin-bottom: 6px;
 }
 /*  Search Results Dropdown */
 .search-dropdown {

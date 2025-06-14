@@ -294,7 +294,7 @@ const HomeTab = ({ userInfo }) => {
 };
 
 // ------------------- ProfessionalContracts Component -------------------
-const ProfessionalContracts = () => {
+const ProfessionalContracts = ({ userInfo }) => {
   const [contractTab, setContractTab] = useState("create");
   const [newContractTitle, setNewContractTitle] = useState("");
   const [newContractContent, setNewContractContent] = useState("");
@@ -430,6 +430,7 @@ const formData = new FormData();
       },
     });
     setSendSuccess("Contract sent successfully!");
+    window.alert("✅ Contract sent successfully!");  
     setSelectedUser(null);
     setNewContractTitle("");
     setNewContractContent("");
@@ -437,6 +438,7 @@ const formData = new FormData();
   } catch (err) {
     console.error(err);
     setSendError("Failed to send contract. Please try again.");
+    window.alert("❌ Failed to send contract. Please try again."); 
   }
 }, [newContractTitle, newContractContent, selectedUser]);
 
@@ -475,31 +477,23 @@ const formData = new FormData();
 
       {/* --- Create Tab --- */}
       {contractTab === 'create' && (
-        <div className="contract-form-container">
-          {sendSuccess && <p className="success-message">{sendSuccess}</p>}
-          {sendError   && <p className="error-message">{sendError}</p>}
-          <div className="contract-header">
-          <img src="/images/logos/logos-header/darketn-07.png" alt="Contract" className="contract-image" />
-          <h3 className="form-title">INVOICE</h3>
+       
+        <div className="invoice-container">
+      {/* --- Header --- */}
+      <div className="invoice-header">
+        {/* Left side: Type, From, To */}
+        <div className="header-left">
+          <div className="input-group">
+            <label>Type</label>
+            <select className="input-field">
+              <option>Invoice</option>
+              {/* …other types */}
+            </select>
           </div>
-          <p className="contract-date">
-            <strong>Date:</strong> {new Date().toLocaleDateString()}
-          </p>
-
-              <div className="form-group-full-width">
-            <label>Title:</label>
-            <input
-              type="text"
-              value={newContractTitle}
-              onChange={(e) => setNewContractTitle(e.target.value)}
-              placeholder="Enter contract title…"
-              className="user-input"
-            />
-          </div>
-
-          {/* Recipient */}
-                <div className="recipient-container">
-                    <p className="section-title">Recipient</p>
+        
+         
+        <p><strong>From</strong> {userInfo.username}</p>
+         <p>To </p>
                      <input
                 id="user-search"
                 type="text"
@@ -508,6 +502,8 @@ const formData = new FormData();
                 placeholder="Enter a username…"
                 className="user-input"
               />
+         <div className="recipient-container">
+                   
                       </div>
         
           <div className="form-grid">
@@ -519,13 +515,7 @@ const formData = new FormData();
       <div className="search-result-item-contracts selected">
         {selectedUser.username}
       </div>
-      <button
-        className="contract-search-button"
-        style={{ marginTop: "10px" }}
-        onClick={() => setSelectedUser(null)}
-      >
-        Change
-      </button>
+   
       </div>
     </>
   ) : (
@@ -546,87 +536,93 @@ const formData = new FormData();
 
         
             </div>
-      
+             </div>
 
-          {/* Project Dates */}
-          <p className="section-title">Project Info</p>
-          <div className="form-grid">
-                <div className="form-group">
-              <label>Start Date:</label>
-      <input
-  id="start-date"
-  type="date"
-  className="user-input"
-  value={startDate}
-  onChange={e => setStartDate(e.target.value)}
-/>
-            </div>
-            <div className="form-group">
-              <label>End Date:</label>
-              <input id="end-date" type="date" className="user-input" value={endDate} onChange={e => setEndDate(e.target.value)} />
-            </div>
-             <div className="invoice-table-container">
-      <table className="invoice-table">
-        <thead>
-          <tr>
-            <th>NO</th>
-            <th>DESCRIPTION</th>
-            <th>QTY</th>
-            <th>PRICE</th>
-            <th>TOTAL</th>
-          </tr>
-        </thead>
-        <tbody>
-          {rows.map((row, index) => {
-            const rowTotal = row.qty * row.price;
-            return (
-              <tr key={index}>
-                <td>{index + 1}</td>
+        {/* Right side: Logo + Invoice meta */}
+        <div className="header-right">
+          <div className="logo-dropzone">Add Logo</div>
+          <div className="input-group">
+            <label>Contract Title</label>
+            <input type="text" className="input-field"  value={newContractTitle}   onChange={(e) => setNewContractTitle(e.target.value)}/>
+          </div>
+          <div className="input-group">
+            <label>Terms</label>
+            <select className="input-field">
+              <option>5 Days</option>
+              {/* … */}
+            </select>
+          </div>
+          <div className="input-group">
+            <label>Date</label>
+            <input type="date" className="input-field"  id="start-date"
+value={startDate}
+  onChange={e => setStartDate(e.target.value)} />
+          </div>
+          <div className="input-group">
+            <label>Due Date</label>
+            <input type="date" className="input-field"  id="end-date"  value={endDate} onChange={e => setEndDate(e.target.value)}/>
+          </div>
+        </div>
+      </div>
+
+      {/* --- Invoice Items Table --- */}
+      <div className="invoice-table-container">
+        <table className="invoice-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Description</th>
+              <th>Qty</th>
+              <th>Price</th>
+              <th>Amount</th>
+            </tr>
+          </thead>
+          <tbody>
+            {rows.map((row, i) => (
+              <tr key={i}>
+                <td>{i + 1}</td>
                 <td>
                   <input
                     type="text"
+                    className="input-field"
                     value={row.description}
-                    onChange={(e) => handleChange(index, 'description', e.target.value)}
+                    onChange={e => handleChange(i, 'description', e.target.value)}
                   />
                 </td>
                 <td>
                   <input
                     type="number"
                     min="1"
+                    className="input-field"
                     value={row.qty}
-                    onChange={(e) => handleChange(index, 'qty', e.target.value)}
+                    onChange={e => handleChange(i, 'qty', e.target.value)}
                   />
                 </td>
                 <td>
                   <input
                     type="number"
                     min="0"
+                    className="input-field"
                     value={row.price}
-                    onChange={(e) => handleChange(index, 'price', e.target.value)}
+                    onChange={e => handleChange(i, 'price', e.target.value)}
                   />
                 </td>
-                <td>${rowTotal.toFixed(2)}</td>
+                <td>${(row.qty * row.price).toFixed(2)}</td>
               </tr>
-            );
-          })}
-        </tbody>
-      </table>
+            ))}
+          </tbody>
+        </table>
 
-<div className="invoice-table-buttons">
-      <button className="add-row-button" onClick={addRow}>
-        + Add Row
-      </button>
-      <button className="add-row-button" onClick={() => setRows(rows.slice(0, -1))}>
-        - Remove Row
-      </button>
+        <div style={{ marginBottom: '1rem' }}>
+          <button className="add-row-button" onClick={addRow}>+ Add Row</button>
+          <button className="add-row-button" onClick={() => setRows(rows.slice(0, -1))}>– Remove Row</button>
+        </div>
+
+        <div className="summary-bar">
+          <span className="summary-label">TOTAL:</span>
+          <span>${total.toFixed(2)}</span>
+        </div>
       </div>
-         <div className="summary-bar">
-            <span className="summary-label">TOTAL:</span>
-            <span className="summary-value">${total.toFixed(2)}</span>
-          </div>
-    </div>
-        
-          </div>
 
           {/* Pricing */}
          
@@ -1009,9 +1005,9 @@ const parseContractContent = (content) => {
 // ------------------- ContractsTab Component -------------------
 const ContractsTab = ({ userInfo }) => {
   if (userInfo?.type === "professional") {
-    return <ProfessionalContracts />;
+    return <ProfessionalContracts userInfo={userInfo} />;
   } else if (userInfo?.type === "client") {
-    return <ClientContracts />;
+    return <ClientContracts userInfo={userInfo} />;
   }
   return null;
 };
