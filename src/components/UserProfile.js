@@ -8,7 +8,7 @@ import ReviewForm from "./Reviews/ReviewForm";
 import ReviewList from "./Reviews/ReviewList";
 import * as pdfjsLib from 'pdfjs-dist/legacy/build/pdf';
 import { useMemo } from 'react';
-
+import LogoUploader from "./LogoUploader";
 pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.14.305/pdf.worker.min.js';
 
 
@@ -305,7 +305,7 @@ const ProfessionalContracts = ({ userInfo }) => {
   const [sendError, setSendError] = useState("");
   const [sentContracts, setSentContracts] = useState([]);
   const [error, setError] = useState(null);
-
+  const [logoFile, setLogoFile] = useState(null);
   const [price, setPrice] = useState('');
   const [cycle, setCycle] = useState('');
 
@@ -418,6 +418,8 @@ const formData = new FormData();
   formData.append("contractContent", fullContent);
   console.log("📦 Submitting contract with total price:", total.toFixed(2));
   formData.append("total_price", currentTotal.toFixed(2));
+  formData.append("logo", logoFile); 
+  console.log("FILES received:", logoFile);
 
   if (fileInput?.files?.[0]) {
     formData.append("file", fileInput.files[0]);
@@ -440,7 +442,7 @@ const formData = new FormData();
     setSendError("Failed to send contract. Please try again.");
     window.alert("❌ Failed to send contract. Please try again."); 
   }
-}, [newContractTitle, newContractContent, selectedUser]);
+}, [newContractTitle, newContractContent, selectedUser,logoFile ]);
 
   // Fetch sent contracts when switching to "sent" or "signed" tab
   useEffect(() => {
@@ -540,7 +542,10 @@ const formData = new FormData();
 
         {/* Right side: Logo + Invoice meta */}
         <div className="header-right">
-          <div className="logo-dropzone">Add Logo</div>
+        <LogoUploader onUpload={(file) => {
+  setLogoFile(file); // 👈 Store it for submission
+}} />
+
           <div className="input-group">
             <label>Contract Title</label>
             <input type="text" className="input-field"  value={newContractTitle}   onChange={(e) => setNewContractTitle(e.target.value)}/>
@@ -930,7 +935,8 @@ const parseContractContent = (content) => {
                 {/* Info */}
                   <span className="section-title"></span>
                     <div className="contract-header">
-          <img src="/images/logos/logos-header/darketn-07.png" alt="Contract" className="contract-image" />
+    
+          <img src={contract.logo || "/images/logos/logos-header/darketn-07.png"} alt="Contract Logo" className="contract-image"/>
           <h3 className="form-title">INVOICE</h3>
           </div>
           <div className="contract-info">
