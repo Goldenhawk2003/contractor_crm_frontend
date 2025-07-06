@@ -367,7 +367,34 @@ body.specific-page-user-profile {
 .invoice-table tbody tr:nth-child(even) {
   background-color: #ecf0fc;
 }
-
+.payments-button{
+  background-color: #6b90ff;
+  color: white;
+  padding: 10px 20px;
+  font-size: 1rem;
+  font-weight: 200;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  text-decoration: none;
+  text-align: center;
+  height: 10%;
+  width: 10%;
+}
+.stripe-connect-button{
+  background-color: #6b90ff;
+  color: white;
+  padding: 10px 20px;
+  font-size: 1rem;
+  font-weight: 200;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  text-decoration: none;
+  text-align: center;
+}
 .add-row-button {
   margin-top: 15px;
   padding: 10px 20px;

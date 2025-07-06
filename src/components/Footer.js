@@ -29,7 +29,7 @@ const Footer = () => {
 </div>
 <div className="footer-section-second">
   <div className="footer-section-third">
-      <img src={`${process.env.PUBLIC_URL}/images/logos/B9E77BF2-4615-4CFA-B96C-BE8D00092A91.png`} alt="Logo" height="80px" className='footer-logo'/>
+      <img src={`${process.env.PUBLIC_URL}/images/logos/B9E77BF2-4615-4CFA-B96C-BE8D00092A91.png`} alt="Logo" height="40px" className='footer-logo'/>
       <p className='sunni'>A Sunni Studios Product</p>
   </div>
       <img src={`${process.env.PUBLIC_URL}/images/logos/Stripe_(company)-Powered-by-Stripe-Outline-Logo.wine.svg`} alt="Powered by Stripe" className='stripe-logo' />

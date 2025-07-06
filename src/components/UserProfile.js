@@ -1269,7 +1269,7 @@ const PaymentsTab = ({ userInfo }) => {
 ) : (
   <div className="stripe-connect-banner">
     <button className="stripe-connect-button" onClick={handleStripeConnect}>
-      Connect with Stripe
+   <img src="/images/logos/Stripe_Logo,_revised_2016.svg.png" alt="Stripe Logo" classname="Payments-button"  style={{ width: "100px", height: "auto" }}/>
     </button>
   </div>
 )}
